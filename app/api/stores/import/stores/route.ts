@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth, verifyIdToken, adminDb } from '../../../../lib/firebase/admin';
-import {
+import { adminAuth, verifyIdToken, adminDb } from '@/lib/firebase/admin';
+import { 
+  updateCompanyCustomField,
   getStoreLocatorFieldId,
   getAllActiveCustomers,
-  searchCompaniesByNameInList,
-  updateCompanyCustomField,
+  searchCompaniesByNameInList 
 } from '@/lib/integrations/copper';
 
 interface CSVStore {
