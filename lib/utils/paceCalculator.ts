@@ -1,41 +1,96 @@
 // Pace Calculator Utilities for Goals Tracker
 
 export interface PaceResult {
-  currentPace: number;
-  targetPace: number;
-  percentOfTarget: number;
-  isOnTrack: boolean;
-  daysRemaining: number;
-  projectedTotal: number;
+  status: 'ahead' | 'on-pace' | 'behind';
+  statusMessage: string;
+  progressPercentage: number;
+  pacePercentage: number;
+  currentTarget: number;
+  unitsRemaining: number;
+  unitLabel: string;
+  originalUnitTarget: number;
+  adjustedUnitTarget: number;
+  expectedProgress: number;
 }
 
-export function calculateDailyPace(
-  currentValue: number,
-  targetValue: number,
-  startDate: Date,
-  endDate: Date
+export function calculatePace(
+  period: string,
+  target: number,
+  currentProgress: number
 ): PaceResult {
   const now = new Date();
-  const start = new Date(startDate);
-  const end = new Date(endDate);
   
-  const totalDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  const daysElapsed = Math.ceil((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  const daysRemaining = Math.max(0, totalDays - daysElapsed);
+  // Calculate period-specific values
+  let totalUnits: number;
+  let unitsElapsed: number;
+  let unitLabel: string;
   
-  const currentPace = daysElapsed > 0 ? currentValue / daysElapsed : 0;
-  const targetPace = totalDays > 0 ? targetValue / totalDays : 0;
-  const percentOfTarget = targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
-  const projectedTotal = currentPace * totalDays;
-  const isOnTrack = currentPace >= targetPace * 0.9; // Within 90% of target pace
+  switch (period) {
+    case 'daily':
+      totalUnits = 24; // hours in a day
+      unitsElapsed = now.getHours() + (now.getMinutes() / 60);
+      unitLabel = 'hour';
+      break;
+    case 'weekly':
+      totalUnits = 7; // days in a week
+      unitsElapsed = now.getDay() === 0 ? 7 : now.getDay(); // Sunday = end of week
+      unitLabel = 'day';
+      break;
+    case 'monthly':
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      totalUnits = daysInMonth;
+      unitsElapsed = now.getDate();
+      unitLabel = 'day';
+      break;
+    case 'quarterly':
+      totalUnits = 13; // ~13 weeks in a quarter
+      const quarterStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
+      const weeksSinceStart = Math.floor((now.getTime() - quarterStart.getTime()) / (7 * 24 * 60 * 60 * 1000));
+      unitsElapsed = weeksSinceStart + 1;
+      unitLabel = 'week';
+      break;
+    default:
+      totalUnits = 7;
+      unitsElapsed = 1;
+      unitLabel = 'day';
+  }
+  
+  const unitsRemaining = Math.max(0, totalUnits - unitsElapsed);
+  const pacePercentage = (unitsElapsed / totalUnits) * 100;
+  const expectedProgress = (unitsElapsed / totalUnits) * target;
+  const progressPercentage = target > 0 ? (currentProgress / target) * 100 : 0;
+  
+  const originalUnitTarget = target / totalUnits;
+  const remaining = Math.max(0, target - currentProgress);
+  const adjustedUnitTarget = unitsRemaining > 0 ? remaining / unitsRemaining : remaining;
+  const currentTarget = adjustedUnitTarget;
+  
+  // Determine status
+  let status: 'ahead' | 'on-pace' | 'behind';
+  let statusMessage: string;
+  
+  if (currentProgress >= expectedProgress * 1.1) {
+    status = 'ahead';
+    statusMessage = `You're ahead of schedule! Keep it up!`;
+  } else if (currentProgress >= expectedProgress * 0.9) {
+    status = 'on-pace';
+    statusMessage = `You're on track to hit your goal.`;
+  } else {
+    status = 'behind';
+    statusMessage = `You're behind pace. Time to pick it up!`;
+  }
   
   return {
-    currentPace,
-    targetPace,
-    percentOfTarget,
-    isOnTrack,
-    daysRemaining,
-    projectedTotal
+    status,
+    statusMessage,
+    progressPercentage,
+    pacePercentage,
+    currentTarget,
+    unitsRemaining,
+    unitLabel,
+    originalUnitTarget,
+    adjustedUnitTarget,
+    expectedProgress,
   };
 }
 
@@ -55,31 +110,47 @@ export function formatPaceValue(value: number, type: string | undefined): string
 // Alias for formatPaceValue
 export const formatMetricValue = formatPaceValue;
 
-// Calculate pace percentage
-export function calculatePace(current: number, target: number, daysElapsed: number, totalDays: number): number {
-  if (target === 0 || totalDays === 0) return 0;
-  const expectedProgress = (daysElapsed / totalDays) * target;
-  if (expectedProgress === 0) return 0;
-  return (current / expectedProgress) * 100;
+// Get pace color based on status
+export function getPaceColor(status: 'ahead' | 'on-pace' | 'behind' | number): string {
+  if (typeof status === 'number') {
+    if (status >= 100) return 'text-green-600';
+    if (status >= 80) return 'text-yellow-600';
+    return 'text-red-600';
+  }
+  switch (status) {
+    case 'ahead': return 'text-green-600';
+    case 'on-pace': return 'text-blue-600';
+    case 'behind': return 'text-orange-600';
+    default: return 'text-gray-600';
+  }
 }
 
-// Get pace color based on percentage
-export function getPaceColor(pacePercent: number): string {
-  if (pacePercent >= 100) return 'text-green-600';
-  if (pacePercent >= 80) return 'text-yellow-600';
-  return 'text-red-600';
+// Get pace background color based on status
+export function getPaceBgColor(status: 'ahead' | 'on-pace' | 'behind' | number): string {
+  if (typeof status === 'number') {
+    if (status >= 100) return 'bg-green-100';
+    if (status >= 80) return 'bg-yellow-100';
+    return 'bg-red-100';
+  }
+  switch (status) {
+    case 'ahead': return 'bg-green-50 border-green-200';
+    case 'on-pace': return 'bg-blue-50 border-blue-200';
+    case 'behind': return 'bg-orange-50 border-orange-200';
+    default: return 'bg-gray-50 border-gray-200';
+  }
 }
 
-// Get pace background color based on percentage
-export function getPaceBgColor(pacePercent: number): string {
-  if (pacePercent >= 100) return 'bg-green-100';
-  if (pacePercent >= 80) return 'bg-yellow-100';
-  return 'bg-red-100';
-}
-
-// Get pace icon based on percentage
-export function getPaceIcon(pacePercent: number): string {
-  if (pacePercent >= 100) return '🚀';
-  if (pacePercent >= 80) return '📈';
-  return '⚠️';
+// Get pace icon based on status
+export function getPaceIcon(status: 'ahead' | 'on-pace' | 'behind' | number): string {
+  if (typeof status === 'number') {
+    if (status >= 100) return '🚀';
+    if (status >= 80) return '📈';
+    return '⚠️';
+  }
+  switch (status) {
+    case 'ahead': return '🚀';
+    case 'on-pace': return '✅';
+    case 'behind': return '⚠️';
+    default: return '📊';
+  }
 }
