@@ -1,0 +1,410 @@
+/**
+ * 🌿 KANVA DIALER STYLES 🌿
+ * Additional styles for WebPhone SDK integration components
+ */
+
+/* Permission modal styles */
+.permission-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.permission-content {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: slideUp 0.3s ease-out;
+}
+
+.permission-content h3 {
+    color: var(--kanva-green-dark);
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.permission-content p {
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+.permission-content ol {
+    text-align: left;
+    color: #374151;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.permission-content ol li {
+    margin-bottom: 8px;
+}
+
+.permission-content button {
+    background: var(--kanva-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.permission-content button:hover {
+    background: var(--kanva-green-dark);
+}
+
+/* Screen pop modal styles */
+.kanva-screen-pop {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--kanva-green);
+    min-width: 320px;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.screen-pop-content {
+    padding: 20px;
+}
+
+.screen-pop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.screen-pop-header h3 {
+    color: var(--kanva-green-dark);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #374151;
+}
+
+.contact-info {
+    margin-bottom: 16px;
+}
+
+.contact-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--kanva-green-dark);
+    margin-bottom: 4px;
+}
+
+.contact-phone {
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.contact-company,
+.contact-email {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.call-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.answer-btn,
+.decline-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.answer-btn {
+    background: var(--kanva-green);
+    color: white;
+}
+
+.answer-btn:hover {
+    background: var(--kanva-green-dark);
+    transform: translateY(-1px);
+}
+
+.decline-btn {
+    background: #ef4444;
+    color: white;
+}
+
+.decline-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+.crm-actions button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.crm-actions button:hover {
+    background: #2563eb;
+}
+
+/* Connection Status */
+.connection-status {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 10px 0;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.connection-status:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+.status-connected {
+    background-color: #e6f7ee;
+    color: #10b981;
+    border: 1px solid #a7f3d0;
+}
+
+.status-connected:before {
+    background-color: #10b981;
+    animation: pulse 2s infinite;
+}
+
+.status-disconnected {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+}
+
+.status-disconnected:before {
+    background-color: #ef4444;
+}
+
+.status-reconnecting {
+    background-color: #fef3c7;
+    color: #f59e0b;
+    border: 1px solid #fde68a;
+}
+
+.status-reconnecting:before {
+    background-color: #f59e0b;
+    animation: pulse 1.5s infinite;
+}
+
+.status-connecting {
+    background-color: #e0f2fe;
+    color: #0ea5e9;
+    border: 1px solid #bae6fd;
+}
+
+.status-connecting:before {
+    background-color: #0ea5e9;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Connection status in dialer header */
+.dialer-header .connection-status {
+    margin: 0;
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+/* Tooltip styles for connection status */
+.connection-status[title] {
+    position: relative;
+    cursor: help;
+}
+
+.connection-status[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Call quality indicator */
+.call-quality-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.quality-bar {
+    width: 3px;
+    height: 12px;
+    background: #4ade80;
+    border-radius: 1px;
+}
+
+.quality-bar.poor { background: #ef4444; }
+.quality-bar.fair { background: #f59e0b; }
+.quality-bar.good { background: #4ade80; }
+.quality-bar.excellent { background: var(--kanva-green); }
+
+/* Copper context indicator */
+#copper-context {
+    background: var(--kanva-accent);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--kanva-green);
+}
+
+.current-record {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.record-type {
+    background: var(--kanva-green);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.record-name {
+    color: var(--kanva-green-dark);
+    font-weight: 500;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .kanva-screen-pop {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+    
+    .permission-modal {
+        padding: 10px;
+    }
+    
+    .permission-content {
+        padding: 20px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .status-indicator {
+        border: 2px solid currentColor;
+    }
+    
+    .kanva-btn {
+        border: 2px solid var(--kanva-green-dark);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .kanva-screen-pop,
+    .permission-content,
+    .toast {
+        animation: none;
+    }
+    
+    .number-pad button:hover,
+    .kanva-btn:hover {
+        transform: none;
+    }
+}
+

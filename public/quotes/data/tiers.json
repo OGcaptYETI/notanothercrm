@@ -1,0 +1,44 @@
+{
+  "1": {
+    "tierId": 1,
+    "threshold": 0,
+    "name": "Tier 1",
+    "description": "Standard pricing for 0-55 master cases",
+    "margin": "10%",
+    "prices": {
+      "1": 4.5,
+      "2": 4.5,
+      "3": 3.2,
+      "4": 4.25,
+      "5": 4.5
+    }
+  },
+  "2": {
+    "tierId": 2,
+    "threshold": 56,
+    "name": "Tier 2",
+    "description": "Volume discount for 56-111 master cases",
+    "margin": "13.00%",
+    "prices": {
+      "1": 4.35,
+      "2": 4.35,
+      "3": 3.1,
+      "4": 4.1,
+      "5": 4.35
+    }
+  },
+  "3": {
+    "tierId": 3,
+    "threshold": 112,
+    "name": "Tier 3",
+    "description": "Best pricing for 112+ master cases",
+    "margin": "15.00%",
+    "prices": {
+      "1": 4.25,
+      "2": 4.25,
+      "3": 3,
+      "4": 3.95,
+      "5": 4.25
+    }
+  }
+}

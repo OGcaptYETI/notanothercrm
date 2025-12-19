@@ -1,0 +1,45 @@
+{
+  "opportunity": {
+    "pipelineId": "1118677",
+    "stageMapByName": {
+      "Label Created": "Label Created",
+      "Shipped": "Shipped",
+      "Delivered": "Delivered",
+      "Exception": "Exception",
+      "Cancelled": "Cancelled"
+    },
+    "createIfMissing": true,
+    "identity": {
+      "fishbowlCustomerNumberFieldId": "698467",
+      "fallbacks": [
+        "companyName",
+        "email",
+        "phone"
+      ]
+    },
+    "fieldMap": {
+      "shipStationOrderNumber": "706512",
+      "carrier": "706513",
+      "service": "706514",
+      "trackingNumber": "706515",
+      "deliveryDate": "706517",
+      "shippingStatus": "706518",
+      "lastShippedDate": "706523"
+    }
+  },
+  "company": {
+    "fishbowlCustomerNumberFieldId": "698467"
+  },
+  "shipStation": {
+    "storePreference": [
+      "CWL Brands | Kanva Botanicals ",
+      "Kanva Wholesale"
+    ],
+    "customerIdSource": "advancedOptions.customField1",
+    "fallbacks": [
+      "customerEmail",
+      "billTo.name",
+      "shipTo.name"
+    ]
+  }
+}

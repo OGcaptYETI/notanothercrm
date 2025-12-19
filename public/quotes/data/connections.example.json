@@ -1,0 +1,50 @@
+{
+  "github": {
+    "token": "YOUR_GITHUB_TOKEN",
+    "repo": "benatkanva/kanva-quotes",
+    "branch": "master",
+    "username": "benatkanva",
+    "email": "ben@kanvabotanicals.com",
+    "timestamp": "2025-07-30T01:23:12.949Z"
+  },
+  "copper": {
+    "apiKey": "YOUR_COPPER_API_KEY",
+    "email": "ben@kanvabotanicals.com",
+    "environment": "production",
+    "lastUpdated": "2025-07-30T01:23:12.950Z"
+  },
+  "fishbowl": {
+    "connected": true,
+    "username": "ben@kanvabotanicals.com",
+    "password": "YOUR_FISHBOWL_PASSWORD",
+    "host": "outliersdistributionllc.myfishbowl.com",
+    "port": "2456",
+    "iaid": "42",
+    "ianame": "KanvaSync",
+    "iadescription": "Sync orders and inventory",
+    "lastUpdated": "2025-07-30T01:23:12.950Z"
+  },
+  "shipstation": {
+    "apiKey": "YOUR_SHIPSTATION_API_KEY",
+    "apiSecret": "YOUR_SHIPSTATION_API_SECRET",
+    "webhookUrl": "https://yourdomain.com/webhooks/shipstation",
+    "webhookSecret": "",
+    "environment": "sandbox",
+    "connected": false,
+    "lastUpdated": "2025-07-30T01:23:12.950Z"
+  },
+  "ringcentral": {
+    "extension": "YOUR_RINGCENTRAL_EXTENSION", 
+    "username": "YOUR_RINGCENTRAL_USERNAME",   
+    "password": "YOUR_RINGCENTRAL_PASSWORD",   
+    "sipInfo": {
+      "username": "YOUR_SIP_USERNAME",
+      "password": "YOUR_SIP_PASSWORD",
+      "authorizationId": "YOUR_SIP_AUTH_ID",
+      "domain": "YOUR_SIP_DOMAIN",
+      "outboundProxy": "YOUR_SIP_OUTBOUND_PROXY",
+      "wsServers": "YOUR_SIP_WS_SERVERS"
+    },
+    "lastUpdated": "2025-07-30T01:23:12.950Z"
+  }
+}

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanva Botanicals Sales Portal</title>
+    
+    <!-- Local Tailwind CSS for production -->
+    <link rel="stylesheet" href="css/tailwind-production.css">
+    
+    <!-- Modern UI Styles -->
+    <link rel="stylesheet" href="css/modern-styles.css">
+    
+    <!-- Enhanced Admin Styles -->
+    <link rel="stylesheet" href="css/admin-styles.css?v=20250718-1225">
+    
+    <!-- Copper CRM SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/copper-sdk@latest/dist/copper-sdk.min.js"></script>
+    
+    <!-- Field Dropdown Styles -->
+    <style>
+        .field-container {
+            position: relative;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+        }
+        
+        .field-dropdown {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.25rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: #f9fafb;
+            font-size: 0.875rem;
+        }
+        
+        .primary-field.has-dropdown {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: 1px dashed #d1d5db;
+        }
+        
+        .field-dropdown.active {
+            display: block !important;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-top: none;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-type-indicator {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading State -->
+    <div id="loading" class="loading-overlay">
+        <div class="loading-container">
+            <div class="kanva-logo-loader">
+                <div class="logo-circle">
+                    <div class="logo-inner">
+                        <span class="logo-text">K</span>
+                    </div>
+                </div>
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+            <p class="loading-text">Loading Kanva Quote Calculator...</p>
+        </div>
+    </div>
+
+    <!-- Main Calculator Container -->
+    <div id="app" class="calculator-container fade-in" style="display: none;">
+        
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="brand-section">
+                    <img src="assets/logo/kanva-logo.png" alt="Kanva Botanicals" class="brand-logo">
+                </div>
+                <button id="shipstationOrdersBtn" class="btn btn-primary btn-sm" style="margin-right: 8px;" title="View ShipStation Orders">
+                    🚢 Orders
+                </button>
+                <button id="adminToggle" class="btn btn-secondary btn-sm" style="display: none;">
+                    Admin Panel
+                </button>
+            </div>
+        </header>
+        
+        <!-- Customer Information Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>👤 Customer Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quoteName">Quote Name</label>
+                        <input type="text" id="quoteName" placeholder="Product Quote for Company Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" placeholder="ABC Distribution">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerSegment">Customer Segment</label>
+                        <select id="customerSegment">
+                            <option value="">Select segment...</option>
+                            <option value="distributor">Distributor</option>
+                            <option value="retailer">Retailer</option>
+                            <option value="direct">Direct Consumer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerState">State</label>
+                        <select id="customerState">
+                            <option value="">Select state...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email</label>
+                        <div class="field-container">
+                            <input type="email" id="customerEmail" placeholder="contact@company.com" class="primary-field">
+                            <select id="customerEmail_dropdown" class="field-dropdown" style="display: none;">
+                                <option value="">Select email...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number</label>
+                        <div class="field-container">
+                            <input type="tel" id="customerPhone" placeholder="(555) 123-4567" class="primary-field">
+                            <select id="customerPhone_dropdown" class="field-dropdown" style="display: none;">
+                                <option value="">Select phone...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Catalog Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>🛍️ Select Products</h3>
+                <div class="pricing-toggle-container">
+                    <label class="pricing-toggle-label">Retail Pricing:</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="pricingModeToggle" class="toggle-input">
+                        <label for="pricingModeToggle" class="toggle-slider">
+                            <span class="toggle-text toggle-text-left">OFF</span>
+                            <span class="toggle-text toggle-text-right">ON</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="productCatalog" class="product-catalog">
+                    <!-- Product tiles will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Product & Order Details Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>📦 Product & Order Details</h3>
+                <button id="addProductBtn" class="btn btn-primary">Add Product</button>
+            </div>
+            <div class="card-body">
+                <div id="productLinesContainer">
+                    <!-- Product lines will be populated here -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <p>No products added yet. Select products from the catalog above to get started.</p>
+                </div>
+                <div id="upsellAlert" class="alert alert-warning" style="display: none;">
+                    <div class="alert-content">
+                        <span id="upsellMessage"></span>
+                        <div class="alert-actions">
+                            <button id="acceptUpsellBtn" class="btn btn-sm btn-success" onclick="calculator.acceptUpsell()">Accept</button>
+                            <button id="dismissUpsellBtn" class="btn btn-sm btn-secondary" onclick="calculator.hideUpsellAlert()">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Details by Line Item Section -->
+        <div class="card full-width-section">
+            <div class="card-header">
+                <h3>📋 Order Details by Line Item</h3>
+            </div>
+            <div class="card-body">
+                <div id="lineItemDetails">
+                    <!-- Line item details will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Shipping Zone and Order Calculation -->
+        <div class="bottom-row">
+            <!-- Shipping Zone Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>🚚 Shipping Zone</h3>
+                </div>
+                <div class="card-body">
+                    <div id="shippingZoneInfo" class="shipping-zone-info">
+                        <p class="text-muted">Select a state to see shipping information</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualShipping">Manual Shipping Override</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" id="manualShipping" step="0.01" placeholder="0.00">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Calculation Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>💰 Order Calculation</h3>
+                </div>
+                <div class="card-body">
+                    <div class="calculation-display">
+                        <div class="calc-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotalAmount">$0.00</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Shipping:</span>
+                            <span id="shippingAmount">$0.00</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Credit Card Fee (3%):</span>
+                            <span id="creditCardFee">$0.00</span>
+                        </div>
+                        <div class="calc-row total-row">
+                            <span><strong>Total:</strong></span>
+                            <span id="totalAmount"><strong>$0.00</strong></span>
+                        </div>
+                        <div id="tierInfo" class="tier-info" style="display: none;">
+                            <!-- Tier information will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods Card -->
+            <div class="card payment-methods-card">
+                <div class="card-header">
+                    <h3>💳 Payment Method</h3>
+                </div>
+                <div class="card-body">
+                    <div id="payment-methods-container" class="payment-options">
+                        <!-- Payment methods will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generate Quote Section -->
+        <div class="card full-width-section">
+            <div class="card-header">
+                <h3>📄 Generate Quote</h3>
+            </div>
+            <div class="card-body">
+                <div class="quote-generator">
+                    <div class="form-group">
+                        <label for="emailTemplate">Email Template</label>
+                        <select id="emailTemplate">
+                            <option value="initial">Initial Proposal</option>
+                            <option value="followup">Follow-up</option>
+                            <option value="negotiation">Negotiation</option>
+                            <option value="closing">Closing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailPreview">Email Preview</label>
+                        <textarea id="emailPreview" rows="8" placeholder="Email content will appear here..."></textarea>
+                    </div>
+                    <div class="quote-actions">
+                        <button id="generateQuoteBtn" class="btn btn-primary">Generate Quote</button>
+                        <button id="copyQuoteBtn" class="btn btn-secondary">Copy to Clipboard</button>
+                        <button id="emailQuoteBtn" class="btn btn-success">Open in Email Client</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - CORRECTED ORDER WITHOUT DUPLICATES -->
+    
+    <!-- 1. Firebase SDK (CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="js/firebase/firebase-config.js"></script>
+    <script src="js/firebase/firebase-data-service.js"></script>
+    <script src="js/firebase/firebase-storage-service.js"></script>
+    
+    <!-- Dropdown Field Handler -->
+    <script src="js/dropdown-handler.js"></script>
+    
+    <!-- 3. Data Loader (Firebase Integration) -->
+    <script src="js/data-loader.js"></script>
+    
+    <!-- 4. Supporting Scripts -->
+    <script src="js/admin.js"></script>
+    <script src="js/admin-notifications.js"></script>
+    <script src="js/connections-updater.js"></script>
+    <script src="js/secure-integration-handler.js"></script>
+    <script src="js/order-details.js"></script>
+    <script src="js/copper-integration.js"></script>
+    <script src="js/fishbowl-integration.js"></script>
+    <script src="js/shipstation-integration.js"></script>
+    <!-- Shipping Panel (new) -->
+    <script src="js/shipping-panel.js"></script>
+    <script src="js/git-connector.js"></script>
+    
+    <!-- 5. Admin Components -->
+    <script src="js/admin-manager.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+    <!-- 5b. RingCentral UI consolidated into new dialer -->
+    
+    <!-- 6. Firebase Patches (CRITICAL: Load AFTER admin-dashboard.js) -->
+    <script src="js/firebase/admin-dashboard-firebase-patch.js"></script>
+    <script src="js/firebase/firebase-init-fix.js"></script>
+    
+    <!-- 7. Main Calculator (Load LAST) -->
+    <script src="js/calculator-consolidated.js"></script>
+
+</body>
+</html>

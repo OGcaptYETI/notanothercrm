@@ -1,0 +1,835 @@
+{
+  "fetchedAt": "2025-08-14T23:08:36.253Z",
+  "carriers": [
+    {
+      "name": "Stamps.com",
+      "code": "stamps_com",
+      "accountNumber": "rfarias-11193w",
+      "requiresFundedAccount": true,
+      "balance": 53.26,
+      "nickname": "credit- 6726",
+      "shippingProviderId": 317344,
+      "primary": true
+    },
+    {
+      "name": "UPS",
+      "code": "ups",
+      "accountNumber": "90V716",
+      "requiresFundedAccount": false,
+      "balance": 0,
+      "nickname": null,
+      "shippingProviderId": 1815064,
+      "primary": true
+    },
+    {
+      "name": "UPS",
+      "code": "ups",
+      "accountNumber": "K9K311",
+      "requiresFundedAccount": false,
+      "balance": 0,
+      "nickname": "UPS-Priority",
+      "shippingProviderId": 1852498,
+      "primary": false
+    },
+    {
+      "name": "DHL Express from ShipStation",
+      "code": "dhl_express_worldwide",
+      "accountNumber": null,
+      "requiresFundedAccount": true,
+      "balance": 53.26,
+      "nickname": "credit- 6726",
+      "shippingProviderId": 381358,
+      "primary": true
+    },
+    {
+      "name": "SEKO LTL by ShipStation",
+      "code": "seko_ltl_walleted",
+      "accountNumber": null,
+      "requiresFundedAccount": true,
+      "balance": 53.26,
+      "nickname": "credit- 6726",
+      "shippingProviderId": 381359,
+      "primary": true
+    },
+    {
+      "name": "FedEx One Balance",
+      "code": "fedex_walleted",
+      "accountNumber": "e0e8c7c6-274a-473e-8008-75eedd29a02a",
+      "requiresFundedAccount": true,
+      "balance": 53.26,
+      "nickname": "credit- 6726",
+      "shippingProviderId": 1839508,
+      "primary": true
+    },
+    {
+      "name": "DHL eCommerce by ShipStation",
+      "code": "dhl_ecommerce_wallet",
+      "accountNumber": "0cd7e580-b4c3-4f76-b3fd-20144de40c0f",
+      "requiresFundedAccount": true,
+      "balance": 53.26,
+      "nickname": "credit- 6726",
+      "shippingProviderId": 1806915,
+      "primary": true
+    }
+  ],
+  "servicesByCarrier": {
+    "stamps_com": [
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_priority_mail",
+        "name": "USPS Priority Mail",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_priority_mail_express",
+        "name": "USPS Priority Mail Express",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_parcel_select",
+        "name": "USPS Parcel Select Ground",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_first_class_mail",
+        "name": "USPS First Class Mail",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_media_mail",
+        "name": "USPS Media Mail",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_ground_advantage",
+        "name": "USPS Ground Advantage",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_priority_mail_international",
+        "name": "USPS Priority Mail Intl",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_priority_mail_express_international",
+        "name": "USPS Priority Mail Express Intl",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "usps_first_class_mail_international",
+        "name": "USPS First Class Mail Intl",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "globalpost_economy",
+        "name": "GlobalPost Economy Intl",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "globalpost_priority",
+        "name": "GlobalPost Standard Intl",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "gp_plus",
+        "name": "GlobalPost Plus",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "globalpost_parcel_select_smart_saver",
+        "name": "GlobalPost Parcel Select SmartSaver",
+        "domestic": true,
+        "international": false
+      }
+    ],
+    "ups": [
+      {
+        "carrierCode": "ups",
+        "code": "ups_standard_international",
+        "name": "UPS Standard®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_next_day_air_early_am",
+        "name": "UPS Next Day Air® Early",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_worldwide_express",
+        "name": "UPS Worldwide Express®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_next_day_air",
+        "name": "UPS Next Day Air®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_ground_international",
+        "name": "UPS Ground® (International)",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_worldwide_express_plus",
+        "name": "UPS Worldwide Express Plus®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_next_day_air_saver",
+        "name": "UPS Next Day Air Saver®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_worldwide_expedited",
+        "name": "UPS Worldwide Expedited®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_2nd_day_air_am",
+        "name": "UPS 2nd Day Air AM®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_2nd_day_air",
+        "name": "UPS 2nd Day Air®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_worldwide_saver",
+        "name": "UPS Worldwide Saver®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_2nd_day_air_international",
+        "name": "UPS 2nd Day Air® (International)",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_3_day_select",
+        "name": "UPS 3 Day Select®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_ground",
+        "name": "UPS® Ground",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_next_day_air_international",
+        "name": "UPS Next Day Air® (International)",
+        "domestic": false,
+        "international": true
+      }
+    ],
+    "dhl_express_worldwide": [
+      {
+        "carrierCode": "dhl_express_worldwide",
+        "code": "dhl_express_worldwide",
+        "name": "DHL Express Worldwide",
+        "domestic": false,
+        "international": true
+      }
+    ],
+    "seko_ltl_walleted": [
+      {
+        "carrierCode": "seko_ltl_walleted",
+        "code": "standard",
+        "name": "Standard",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "seko_ltl_walleted",
+        "code": "threshold",
+        "name": "Threshold",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "seko_ltl_walleted",
+        "code": "room_of_choice",
+        "name": "Room Of Choice",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "seko_ltl_walleted",
+        "code": "white_glove",
+        "name": "White Glove",
+        "domestic": true,
+        "international": false
+      }
+    ],
+    "fedex_walleted": [
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_ground",
+        "name": "FedEx Ground®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_economy",
+        "name": "FedEx Express Saver®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_2day",
+        "name": "FedEx 2Day®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_standard_overnight",
+        "name": "FedEx Standard Overnight®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_priority_overnight",
+        "name": "FedEx Priority Overnight®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_international_economy",
+        "name": "FedEx International Economy®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_international_priority",
+        "name": "FedEx International Priority®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_international_priority_express",
+        "name": "FedEx International Priority® Express",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_international_connect_plus",
+        "name": "FedEx International Connect Plus®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_home_delivery",
+        "name": "FedEx Home Delivery®",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_2day_one_rate",
+        "name": "FedEx 2Day® One Rate",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_economy_one_rate",
+        "name": "FedEx Express Saver® One Rate",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_standard_overnight_one_rate",
+        "name": "FedEx Standard Overnight® One Rate",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_priority_overnight_one_rate",
+        "name": "FedEx Priority Overnight® One Rate",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_ground_economy_parcel_select",
+        "name": "FedEx Ground® Economy Parcel Select",
+        "domestic": true,
+        "international": false
+      }
+    ],
+    "dhl_ecommerce_wallet": [
+      {
+        "carrierCode": "dhl_ecommerce_wallet",
+        "code": "dhl_ecommerece_wallet_parcel_standard",
+        "name": "DHL Parcel International Standard - DDU",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "dhl_ecommerce_wallet",
+        "code": "dhl_ecommerece_wallet_parcel_direct",
+        "name": "DHL Parcel International Direct - DDP",
+        "domestic": false,
+        "international": true
+      }
+    ]
+  },
+  "packagesByCarrier": {
+    "stamps_com": [
+      {
+        "carrierCode": "stamps_com",
+        "code": "package",
+        "name": "Package",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "flat_rate_envelope",
+        "name": "Flat Rate Envelope",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "flat_rate_legal_envelope",
+        "name": "Flat Rate Legal Envelope",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "flat_rate_padded_envelope",
+        "name": "Flat Rate Padded Envelope",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "large_envelope_or_flat",
+        "name": "Large Envelope or Flat",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "large_flat_rate_box",
+        "name": "Large Flat Rate Box",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "large_package",
+        "name": "Large Package (any side > 12\")",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "letter",
+        "name": "Letter",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "medium_flat_rate_box",
+        "name": "Medium Flat Rate Box",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "non_rectangular",
+        "name": "Non Rectangular Package",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "non_standard",
+        "name": "Non Standard Package",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "regional_rate_box_a",
+        "name": "Regional Rate Box A",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "regional_rate_box_b",
+        "name": "Regional Rate Box B",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "small_flat_rate_box",
+        "name": "Small Flat Rate Box",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "stamps_com",
+        "code": "thick_envelope",
+        "name": "Thick Envelope",
+        "domestic": true,
+        "international": true
+      }
+    ],
+    "ups": [
+      {
+        "carrierCode": "ups",
+        "code": "package",
+        "name": "Package",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups__express_box_large",
+        "name": "UPS  Express® Box - Large",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_10_kg_box",
+        "name": "UPS 10 KG Box®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_25_kg_box",
+        "name": "UPS 25 KG Box®",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_express_box",
+        "name": "UPS Express® Box",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_express_box_medium",
+        "name": "UPS Express® Box - Medium",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_express_box_small",
+        "name": "UPS Express® Box - Small",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_express_pak",
+        "name": "UPS Express® Pak",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_letter",
+        "name": "UPS Letter",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "ups",
+        "code": "ups_tube",
+        "name": "UPS Tube",
+        "domestic": true,
+        "international": true
+      }
+    ],
+    "dhl_express_worldwide": [
+      {
+        "carrierCode": "dhl_express_worldwide",
+        "code": "package",
+        "name": "Package",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "dhl_express_worldwide",
+        "code": "dhl_express_wallet_exp_env",
+        "name": "Express Envelope",
+        "domestic": false,
+        "international": true
+      }
+    ],
+    "seko_ltl_walleted": [
+      {
+        "carrierCode": "seko_ltl_walleted",
+        "code": "container",
+        "name": "Container",
+        "domestic": true,
+        "international": false
+      }
+    ],
+    "fedex_walleted": [
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "package",
+        "name": "Package",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_10kg_box",
+        "name": "FedEx® 10kg Box",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_25kg_box",
+        "name": "FedEx® 25kg Box",
+        "domestic": false,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_box",
+        "name": "FedEx® Box",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_envelope",
+        "name": "FedEx® Envelope",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_extra_large_box",
+        "name": "FedEx® Extra Large Box",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_large_box",
+        "name": "FedEx® Large Box",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_medium_box",
+        "name": "FedEx® Medium Box",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_pak",
+        "name": "FedEx® Pak",
+        "domestic": true,
+        "international": true
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_small_box",
+        "name": "FedEx® Small Box",
+        "domestic": true,
+        "international": false
+      },
+      {
+        "carrierCode": "fedex_walleted",
+        "code": "fedex_tube",
+        "name": "FedEx® Tube",
+        "domestic": true,
+        "international": true
+      }
+    ],
+    "dhl_ecommerce_wallet": [
+      {
+        "carrierCode": "dhl_ecommerce_wallet",
+        "code": "package",
+        "name": "Package",
+        "domestic": true,
+        "international": true
+      }
+    ]
+  },
+  "stores": [
+    {
+      "storeId": 772412,
+      "storeName": "CWL Brands | Kanva Botanicals ",
+      "marketplaceId": 0,
+      "marketplaceName": "ShipStation",
+      "accountName": null,
+      "email": null,
+      "integrationUrl": null,
+      "active": true,
+      "companyName": "Kanva Botanicals ",
+      "phone": "(208)563-5192",
+      "publicEmail": "shipping@Kanvabotanicals.com",
+      "website": "https://www.kanvabotanicals.com/",
+      "refreshDate": null,
+      "lastRefreshAttempt": "2025-06-02T16:22:58.65",
+      "createDate": "2023-03-30T10:05:09.74",
+      "modifyDate": "2025-07-31T12:50:09.98",
+      "autoRefresh": true,
+      "statusMappings": null
+    },
+    {
+      "storeId": 793042,
+      "storeName": "Kanva Wholesale",
+      "marketplaceId": 14,
+      "marketplaceName": "Shopify",
+      "accountName": "86c3d9.myshopify.com",
+      "email": null,
+      "integrationUrl": "86c3d9.myshopify.com",
+      "active": true,
+      "companyName": "",
+      "phone": "208-563-5192",
+      "publicEmail": "",
+      "website": "www.kanvawholesale.com",
+      "refreshDate": "2025-08-14T15:21:30.533",
+      "lastRefreshAttempt": "2025-08-14T15:21:31.617",
+      "createDate": "2023-12-06T12:51:18.773",
+      "modifyDate": "2024-01-31T08:11:03.177",
+      "autoRefresh": true,
+      "statusMappings": null
+    },
+    {
+      "storeId": 304257,
+      "storeName": "Manual Orders",
+      "marketplaceId": 0,
+      "marketplaceName": "ShipStation",
+      "accountName": null,
+      "email": null,
+      "integrationUrl": null,
+      "active": true,
+      "companyName": "CWL Brands ",
+      "phone": "1-833-84-BRAND",
+      "publicEmail": "info@cwlbrands.com",
+      "website": "WWW.CWLBRANDS.COM",
+      "refreshDate": null,
+      "lastRefreshAttempt": "2025-06-02T15:27:47.793",
+      "createDate": "2022-02-24T14:00:35.573",
+      "modifyDate": "2023-08-16T12:20:48.037",
+      "autoRefresh": true,
+      "statusMappings": null
+    },
+    {
+      "storeId": 324044,
+      "storeName": "Rate Browser",
+      "marketplaceId": 117,
+      "marketplaceName": "RateBrowser",
+      "accountName": null,
+      "email": null,
+      "integrationUrl": null,
+      "active": true,
+      "companyName": null,
+      "phone": null,
+      "publicEmail": null,
+      "website": null,
+      "refreshDate": null,
+      "lastRefreshAttempt": null,
+      "createDate": "2022-03-15T11:58:22.877",
+      "modifyDate": "2022-03-15T11:58:22.877",
+      "autoRefresh": false,
+      "statusMappings": null
+    },
+    {
+      "storeId": 774316,
+      "storeName": "Refined Beauty",
+      "marketplaceId": 14,
+      "marketplaceName": "Shopify",
+      "accountName": "refined-beauty-9650.myshopify.com",
+      "email": null,
+      "integrationUrl": "refined-beauty-9650.myshopify.com",
+      "active": true,
+      "companyName": "",
+      "phone": "",
+      "publicEmail": "",
+      "website": "",
+      "refreshDate": "2024-02-06T21:22:09.197",
+      "lastRefreshAttempt": "2025-07-31T10:04:03.14",
+      "createDate": "2023-04-18T12:32:15.337",
+      "modifyDate": "2023-04-18T12:47:46.577",
+      "autoRefresh": true,
+      "statusMappings": null
+    }
+  ]
+}

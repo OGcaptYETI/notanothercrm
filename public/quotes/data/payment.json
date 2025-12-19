@@ -1,0 +1,30 @@
+{
+  "creditCardThreshold": 10000,
+  "paymentMethods": {
+    "creditCard": {
+      "label": "Credit Card",
+      "availableBelow": 10000,
+      "fee": 0.03,
+      "feeDescription": "3% processing fee"
+    },
+    "ach": {
+      "label": "ACH Transfer",
+      "availableAlways": true,
+      "fee": 0,
+      "feeDescription": "No fee"
+    },
+    "wire": {
+      "label": "Wire Transfer",
+      "availableAlways": true,
+      "fee": 25,
+      "feeDescription": "$25 wire fee"
+    },
+    "companyCheck": {
+      "label": "Company Check",
+      "availableBelow": 10000,
+      "fee": 0,
+      "feeDescription": "No fee"
+    }
+  },
+  "description": "Payment thresholds and accepted methods"
+}

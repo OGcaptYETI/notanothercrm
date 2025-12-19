@@ -1,0 +1,31 @@
+{
+  "github": null,
+  "copper": {
+    "apiKey": "6187c1b571e219a060285bf66fcaf8ae",
+    "email": "ben@kanvabotanicals.com",
+    "environment": "production",
+    "timestamp": "2025-08-14T22:52:54.935Z",
+    "accountData": {
+      "name": "Kanva Botanicals",
+      "id": 562111
+    }
+  },
+  "fishbowl": null,
+  "shipstation": {
+    "apiKey": "3030832aab044579a5c3be2eff940516",
+    "apiSecret": "71bf030eb7ba489db52828a63ddafb3c",
+    "apiKeyV2": "GS1t/EW6pWiIqdN11WREKpnhXm7suOX4pSHxfx1Pm4o",
+    "environment": "production",
+    "timestamp": "2025-08-14T22:23:17.227Z",
+    "connectionTest": {
+      "environment": "production",
+      "storesCount": 5
+    }
+  },
+"ringcentral": {
+    "clientId": "2nFqvUT38Sjctdhqtrhnbn",
+    "clientSecret": "7tkgvamc8FFcXpQCWctmSY4ER16crpIqYeC4PK5CwdaY",
+    "serverUrl": "https://platform.ringcentral.com", 
+    "jwtToken": "eyJraWQiOiI4NzYyZjU5OGQwNTk0NGRiODZiZjVjYTk3ODA0NzYwOCIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJhdWQiOiJodHRwczovL3BsYXRmb3JtLnJpbmdjZW50cmFsLmNvbS9yZXN0YXBpL29hdXRoL3Rva2VuIiwic3ViIjoiNjMyMTI2MDIyIiwiaXNzIjoiaHR0cHM6Ly9wbGF0Zm9ybS5yaW5nY2VudHJhbC5jb20iLCJleHAiOjE3OTg3NjE1OTksImlhdCI6MTc1NTU1Njc3OCwianRpIjoibE5LWU9yN21RRUN5UXBWVFJ2M2tBZyJ9.MuotiSDExbA19oPUPsVFkZoRvnpd6LlqhULbAd8eBiUXfmlEGinvd_sK8vSUw6DRhmayIZHFbi2k4zObMxLENP61QVsv1J2QW8nEHv7M-u1Cwh8OV6FUtrXuVbP-MaLWronQYkHxMHwGftJXCPdvdcFVw4NW9n_5FYBPatFPrkO1MrvmuxDAorJF-ozB-PBSCGtUJ3vuM3K-grt_y2pXkn6gXft5Q8iw0oh0j4bLJ0adVZZrAMf52arui4gATaqlcMYWpRXQGqR2UHAgtoRKJC2z3GmmnFnt19LS1Nmfwp_AhQhpMkK9Pm2yU6K6PqtRMQMhI0FTlurNYslexwPY2g"
+}
+}
