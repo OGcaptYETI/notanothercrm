@@ -56,11 +56,12 @@ export function getGoalIcon(type: GoalType): string {
   return icons[type] || '📋';
 }
 
-export function formatGoalValue(value: number, type: GoalType): string {
-  if (type.includes('sales') || type.includes('revenue')) {
+export function formatGoalValue(value: number, type: GoalType | string | undefined): string {
+  const typeStr = String(type || '');
+  if (typeStr.includes('sales') || typeStr.includes('revenue')) {
     return `$${value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
   }
-  if (type.includes('time') || type.includes('minutes')) {
+  if (typeStr.includes('time') || typeStr.includes('minutes')) {
     const hours = Math.floor(value / 60);
     const mins = Math.round(value % 60);
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;

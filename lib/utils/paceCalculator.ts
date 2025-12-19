@@ -39,11 +39,12 @@ export function calculateDailyPace(
   };
 }
 
-export function formatPaceValue(value: number, type: string): string {
-  if (type.includes('revenue') || type.includes('sales')) {
+export function formatPaceValue(value: number, type: string | undefined): string {
+  const typeStr = String(type || '');
+  if (typeStr.includes('revenue') || typeStr.includes('sales')) {
     return `$${value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
   }
-  if (type.includes('time') || type.includes('minutes')) {
+  if (typeStr.includes('time') || typeStr.includes('minutes')) {
     const hours = Math.floor(value / 60);
     const mins = Math.round(value % 60);
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
