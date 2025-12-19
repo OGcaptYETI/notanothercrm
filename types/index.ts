@@ -18,7 +18,11 @@ export interface User {
 // ============================================
 // Goals Tracker Types
 // ============================================
-export type GoalType = 'calls' | 'meetings' | 'demos' | 'sales' | 'revenue' | 'talk_time';
+export type GoalType = 
+  | 'calls' | 'meetings' | 'demos' | 'sales' | 'revenue' | 'talk_time'
+  | 'phone_call_quantity' | 'email_quantity' | 'sms_quantity' 
+  | 'lead_progression_a' | 'lead_progression_b' | 'lead_progression_c'
+  | 'new_sales_wholesale' | 'new_sales_distribution' | 'talk_time_minutes';
 export type GoalPeriod = 'daily' | 'weekly' | 'monthly' | 'quarterly';
 
 export interface Goal {
