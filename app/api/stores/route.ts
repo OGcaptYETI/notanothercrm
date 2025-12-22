@@ -17,6 +17,7 @@ function createErrorResponse(message: string, status: number, details?: unknown)
   });
 }
 
+// This is the main stores endpoint - duplicate of stores/stores/route.ts
 export async function GET(request: NextRequest) {
   console.log('=== Fetch Stores Request Received ===');
   
@@ -112,7 +113,7 @@ export async function GET(request: NextRequest) {
           email: data.email || '',
           fishbowl_id: data['Account Order ID cf_698467'] || data['`Account Order ID cf_698467`'] || '',
           copper_id: data['Account ID cf_713477'] || data['`Account ID cf_713477`'] || '',
-          onStoreLocator: data['On Store Locator cf_715755'] === 'checked' || data['`On Store Locator cf_715755`'] === 'checked' || data['on_store_locator'] === true,
+          onStoreLocator: data['On Store Locator cf_715755'] === 'checked' || data['`On Store Locator cf_715755`'] === 'checked' || data.on_store_locator === true,
           activeCustomer: true,
           copper_company_id: data.id || data['Copper ID'] || null
         });

@@ -7,6 +7,7 @@ export default function CopperImportPage() {
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [companiesFile, setCompaniesFile] = useState<File | null>(null);
+  const [peopleFile, setPeopleFile] = useState<File | null>(null);
   const [progress, setProgress] = useState<string>('');
   const [startTime, setStartTime] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -16,6 +17,7 @@ export default function CopperImportPage() {
   const [percent, setPercent] = useState<string>('0');
   
   const companiesInputRef = useRef<HTMLInputElement>(null);
+  const peopleInputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleImport = async () => {
@@ -101,6 +103,97 @@ export default function CopperImportPage() {
       if (companiesInputRef.current) companiesInputRef.current.value = '';
     } catch (err: any) {
       setError(err.message || 'Import failed');
+      setProgress('');
+    } finally {
+      setLoading(false);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+  };
+
+  const handlePeopleImport = async () => {
+    if (!peopleFile) {
+      setError('Please select the Copper people file to import');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    setProgress('📤 Uploading people file...');
+    setProcessed(0);
+    setTotal(0);
+    setMatched(0);
+    setPercent('0');
+    const start = Date.now();
+    setStartTime(start);
+    setElapsedTime(0);
+
+    timerRef.current = setInterval(() => {
+      setElapsedTime(Math.floor((Date.now() - start) / 1000));
+    }, 1000);
+
+    try {
+      const formData = new FormData();
+      formData.append('peopleFile', peopleFile);
+
+      const response = await fetch('/api/copper-goals/import-people-stream', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to start people import');
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        throw new Error('No response stream');
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) break;
+        
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = JSON.parse(line.substring(6));
+            
+            if (data.type === 'status') {
+              setProgress(data.message);
+            } else if (data.type === 'total') {
+              setTotal(data.total);
+              setProgress(data.message);
+            } else if (data.type === 'progress') {
+              setProcessed(data.processed);
+              setTotal(data.total);
+              const created = data.created || 0;
+              const updated = data.updated || 0;
+              setMatched(created + updated);
+              setPercent(data.percent);
+              setProgress(`Processing: ${data.processed.toLocaleString()} / ${data.total.toLocaleString()} (${data.percent}%)`);
+            } else if (data.type === 'complete') {
+              setProgress('✅ Complete!');
+              setResult(data);
+            } else if (data.type === 'error') {
+              throw new Error(data.message);
+            }
+          }
+        }
+      }
+
+      setPeopleFile(null);
+      if (peopleInputRef.current) peopleInputRef.current.value = '';
+    } catch (err: any) {
+      setError(err.message || 'People import failed');
       setProgress('');
     } finally {
       setLoading(false);
@@ -209,6 +302,49 @@ export default function CopperImportPage() {
           <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-800">
               <strong>💡 What this does:</strong> Matches Copper companies to your Firestore customers using Account Number, Order ID, or company name similarity.
+            </p>
+          </div>
+        </div>
+
+        {/* Step 2: Import Copper People */}
+        <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-4">Step 2: Import Copper People (Contacts) to Firestore</h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Import contacts from Copper CRM to enable the Contacts page.
+          </p>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                👥 Copper People File (people_export.xlsx)
+              </label>
+              <input
+                ref={peopleInputRef}
+                type="file"
+                accept=".xlsx,.xls,.csv"
+                onChange={(e) => setPeopleFile(e.target.files?.[0] || null)}
+                disabled={loading}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50"
+              />
+              {peopleFile && (
+                <p className="mt-2 text-sm text-blue-600">
+                  ✅ Selected: {peopleFile.name} ({(peopleFile.size / 1024 / 1024).toFixed(1)} MB)
+                </p>
+              )}
+            </div>
+
+            <button
+              onClick={handlePeopleImport}
+              disabled={loading || !peopleFile}
+              className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium text-lg"
+            >
+              {loading ? '⏳ Importing People...' : '👥 Import Copper People'}
+            </button>
+          </div>
+
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>💡 What this does:</strong> Imports all Copper contacts with their company relationships, custom fields, and contact information to the copper_people collection.
             </p>
           </div>
         </div>

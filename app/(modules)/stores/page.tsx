@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { 
   Upload, 
   FileText, 
@@ -166,7 +167,14 @@ export default function StoresPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="w-12 h-12 text-kanva-green mx-auto mb-4 animate-spin" />
+          <Image 
+            src="/images/kanva_logo_rotate.gif" 
+            alt="Loading..." 
+            width={64}
+            height={64}
+            className="mx-auto mb-4"
+            unoptimized
+          />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>

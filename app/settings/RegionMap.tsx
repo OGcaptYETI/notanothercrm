@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { TrendingUp, TrendingDown, DollarSign, Users, ShoppingCart, Target, RefreshCw, AlertCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 interface CustomerSummary {
   customerId: string;
@@ -295,7 +296,13 @@ export default function RegionMap() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <Image 
+          src="/images/kanva_logo_rotate.gif" 
+          alt="Loading..." 
+          width={64}
+          height={64}
+          unoptimized
+        />
       </div>
     );
   }

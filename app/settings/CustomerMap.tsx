@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
+import Image from 'next/image';
 import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import { Search, Download, ChevronUp, ChevronDown } from 'lucide-react';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
@@ -512,7 +513,14 @@ export default function CustomerMap() {
     return (
       <div className="card">
         <div className="flex flex-col items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4"></div>
+          <Image 
+            src="/images/kanva_logo_rotate.gif" 
+            alt="Loading..." 
+            width={64}
+            height={64}
+            className="mb-4"
+            unoptimized
+          />
           <div className="text-gray-600">Loading customer locations...</div>
           {geocodingProgress.total > 0 && (
             <div className="mt-2 text-sm text-gray-500">

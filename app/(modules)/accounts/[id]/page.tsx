@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useAccount, useAccountContacts, useAccountOrders, useAccountSales } from '@/lib/crm/hooks';
@@ -21,6 +22,11 @@ import {
   ExternalLink,
   Users,
   Briefcase,
+  ChevronDown,
+  ChevronRight,
+  MessageSquare,
+  Activity,
+  Plus,
 } from 'lucide-react';
 
 export default function AccountDetailPage() {
@@ -33,6 +39,19 @@ export default function AccountDetailPage() {
   const contacts = useAccountContacts(accountId);
   const { data: orders = [], isLoading: loadingOrders } = useAccountOrders(accountId);
   const { data: salesSummary, isLoading: loadingSales } = useAccountSales(accountId);
+  
+  // Collapsible sections state
+  const [sectionsOpen, setSectionsOpen] = useState({
+    info: true,
+    contacts: true,
+    orders: true,
+    tasks: false,
+    files: false,
+  });
+  
+  const toggleSection = (section: keyof typeof sectionsOpen) => {
+    setSectionsOpen(prev => ({ ...prev, [section]: !prev[section] }));
+  };
 
   if (authLoading) {
     return (
@@ -80,318 +99,406 @@ export default function AccountDetailPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="h-screen flex flex-col bg-gray-50">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => router.back()}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-600" />
-          </button>
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-gray-900">{account.name}</h1>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[account.status] || 'bg-gray-100'}`}>
-                {account.status}
-              </span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${sourceColors[account.source] || 'bg-gray-100'}`}>
-                {account.source}
-              </span>
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => router.back()}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
+            </button>
+            <div>
+              <div className="flex items-center gap-3">
+                <Building2 className="w-6 h-6 text-gray-400" />
+                <h1 className="text-xl font-bold text-gray-900">{account.name}</h1>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[account.status] || 'bg-gray-100'}`}>
+                  {account.status}
+                </span>
+              </div>
+              {account.accountNumber && (
+                <p className="text-xs text-gray-500 ml-10 mt-1">Account #{account.accountNumber}</p>
+              )}
             </div>
-            {account.accountNumber && (
-              <p className="text-sm text-gray-500 mt-1">Account #{account.accountNumber}</p>
-            )}
           </div>
+          <button
+            onClick={() => router.push(`/accounts/${accountId}/edit`)}
+            className="px-4 py-2 bg-[#93D500] text-white rounded-lg hover:bg-[#84c000] flex items-center gap-2 text-sm"
+          >
+            <Edit className="w-4 h-4" />
+            Edit
+          </button>
         </div>
-        <button
-          onClick={() => router.push(`/accounts/${accountId}/edit`)}
-          className="px-4 py-2 bg-[#93D500] text-white rounded-lg hover:bg-[#84c000] flex items-center gap-2"
-        >
-          <Edit className="w-4 h-4" />
-          Edit Account
-        </button>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* Left Column - Account Info */}
-        <div className="col-span-2 space-y-6">
-          {/* Contact Information */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-[#93D500]" />
-              Contact Information
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {account.phone && (
-                <a href={`tel:${account.phone}`} className="flex items-center gap-2 text-gray-700 hover:text-[#93D500]">
-                  <Phone className="w-4 h-4 text-gray-400" />
-                  {account.phone}
-                </a>
-              )}
-              {account.email && (
-                <a href={`mailto:${account.email}`} className="flex items-center gap-2 text-gray-700 hover:text-[#93D500]">
-                  <Mail className="w-4 h-4 text-gray-400" />
-                  {account.email}
-                </a>
-              )}
-              {account.website && (
-                <a href={account.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-700 hover:text-[#93D500]">
-                  <Globe className="w-4 h-4 text-gray-400" />
-                  {account.website.replace(/^https?:\/\//, '')}
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              )}
-              {(account.shippingCity || account.shippingState) && (
-                <div className="flex items-center gap-2 text-gray-700">
-                  <MapPin className="w-4 h-4 text-gray-400" />
-                  {account.shippingStreet && <span>{account.shippingStreet}, </span>}
-                  {account.shippingCity && <span>{account.shippingCity}, </span>}
-                  {account.shippingState} {account.shippingZip}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Account Details */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#93D500]" />
-              Account Details
-            </h2>
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div>
-                <span className="text-gray-500">Region</span>
-                <p className="font-medium text-gray-900">{account.region || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Segment</span>
-                <p className="font-medium text-gray-900">{account.segment || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Priority</span>
-                <p className="font-medium text-gray-900">{account.customerPriority ? `P${account.customerPriority}` : '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Account Type</span>
-                <p className="font-medium text-gray-900">{account.accountType?.join(', ') || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Business Model</span>
-                <p className="font-medium text-gray-900">{account.businessModel || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Organization Level</span>
-                <p className="font-medium text-gray-900">{account.organizationLevel || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Payment Terms</span>
-                <p className="font-medium text-gray-900">{account.paymentTerms || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Shipping Terms</span>
-                <p className="font-medium text-gray-900">{account.shippingTerms || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Carrier</span>
-                <p className="font-medium text-gray-900">{account.carrierName || '-'}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">Sales Rep</span>
-                <p className="font-medium text-gray-900">{account.salesPerson || '-'}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Associated Contacts */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#93D500]" />
-                Associated Contacts ({contacts.length})
-              </h2>
-              <button className="text-sm text-[#93D500] hover:underline">
-                Add Contact
-              </button>
-            </div>
-            {contacts.length === 0 ? (
-              <p className="text-gray-500 text-sm">No contacts associated with this account.</p>
-            ) : (
-              <div className="divide-y divide-gray-100">
-                {contacts.map((contact) => (
-                  <div
-                    key={contact.id}
-                    onClick={() => router.push(`/contacts/${contact.id}`)}
-                    className="py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 -mx-2 px-2 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-500" />
-                      </div>
+      {/* 3-Column Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Left Sidebar - Collapsible Sections */}
+        <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+          {/* Account Info Section */}
+          <div className="border-b border-gray-200">
+            <button
+              onClick={() => toggleSection('info')}
+              className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 text-left"
+            >
+              <span className="text-sm font-semibold text-gray-700">Account Info</span>
+              {sectionsOpen.info ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </button>
+            {sectionsOpen.info && (
+              <div className="px-4 pb-4 space-y-3 text-sm">
+                {account.phone && (
+                  <div>
+                    <span className="text-gray-500 text-xs">Phone</span>
+                    <a href={`tel:${account.phone}`} className="block text-gray-900 hover:text-[#93D500]">
+                      {account.phone}
+                    </a>
+                  </div>
+                )}
+                {account.email && (
+                  <div>
+                    <span className="text-gray-500 text-xs">Email</span>
+                    <a href={`mailto:${account.email}`} className="block text-gray-900 hover:text-[#93D500] truncate">
+                      {account.email}
+                    </a>
+                  </div>
+                )}
+                {account.website && (
+                  <div>
+                    <span className="text-gray-500 text-xs">Website</span>
+                    <a href={account.website} target="_blank" rel="noopener noreferrer" className="block text-gray-900 hover:text-[#93D500] truncate">
+                      {account.website.replace(/^https?:\/\//, '')}
+                    </a>
+                  </div>
+                )}
+                {(account.shippingStreet || account.shippingCity) && (
+                  <div>
+                    <span className="text-gray-500 text-xs">Address</span>
+                    <div className="text-gray-900">
+                      {account.shippingStreet && <div>{account.shippingStreet}</div>}
                       <div>
-                        <p className="font-medium text-gray-900">
-                          {contact.firstName} {contact.lastName}
-                        </p>
-                        {contact.title && (
-                          <p className="text-sm text-gray-500">{contact.title}</p>
-                        )}
+                        {account.shippingCity && `${account.shippingCity}, `}
+                        {account.shippingState} {account.shippingZip}
                       </div>
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {contact.email || contact.phone}
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Order History */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <ShoppingCart className="w-5 h-5 text-[#93D500]" />
-              Order History
-            </h2>
-            {loadingOrders ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#93D500]"></div>
-              </div>
-            ) : orders.length === 0 ? (
-              <p className="text-gray-500 text-sm">No orders found for this account.</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-2 text-sm font-medium text-gray-500">Order #</th>
-                      <th className="text-left py-2 text-sm font-medium text-gray-500">Date</th>
-                      <th className="text-left py-2 text-sm font-medium text-gray-500">Status</th>
-                      <th className="text-right py-2 text-sm font-medium text-gray-500">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {orders.slice(0, 10).map((order) => (
-                      <tr key={order.orderId} className="hover:bg-gray-50">
-                        <td className="py-2 text-sm font-mono text-gray-700">{order.orderNumber}</td>
-                        <td className="py-2 text-sm text-gray-600">
-                          {new Date(order.orderDate).toLocaleDateString()}
-                        </td>
-                        <td className="py-2">
-                          <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="py-2 text-sm text-right font-medium text-gray-900">
-                          ${order.total.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                {orders.length > 10 && (
-                  <p className="text-center text-sm text-gray-500 mt-4">
-                    Showing 10 of {orders.length} orders
-                  </p>
+                )}
+                {account.salesPerson && (
+                  <div>
+                    <span className="text-gray-500 text-xs">Sales Rep</span>
+                    <div className="text-gray-900">{account.salesPerson}</div>
+                  </div>
                 )}
               </div>
             )}
           </div>
+
+
+          {/* Contacts Section */}
+          <div className="border-b border-gray-200">
+            <button
+              onClick={() => toggleSection('contacts')}
+              className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 text-left"
+            >
+              <span className="text-sm font-semibold text-gray-700">Contacts ({contacts.length})</span>
+              {sectionsOpen.contacts ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </button>
+            {sectionsOpen.contacts && (
+              <div className="pb-2">
+                {contacts.length === 0 ? (
+                  <p className="px-4 py-2 text-xs text-gray-500">No contacts</p>
+                ) : (
+                  <>
+                    {/* Primary Contact First */}
+                    {contacts.filter((c: any) => c.isPrimaryContact).map((contact: any) => (
+                      <div
+                        key={contact.id}
+                        onClick={() => router.push(`/contacts/${contact.id}`)}
+                        className="px-4 py-2 hover:bg-blue-50 cursor-pointer bg-blue-50/50 border-l-2 border-blue-500"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <User className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-semibold text-gray-900 truncate">
+                                {contact.firstName} {contact.lastName}
+                              </p>
+                              <span className="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded font-medium">
+                                Primary
+                              </span>
+                            </div>
+                            {contact.title && (
+                              <p className="text-xs text-gray-600 truncate">{contact.title}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {/* Other Contacts */}
+                    {contacts.filter((c: any) => !c.isPrimaryContact).map((contact: any) => (
+                      <div
+                        key={contact.id}
+                        onClick={() => router.push(`/contacts/${contact.id}`)}
+                        className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <User className="w-4 h-4 text-gray-600" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              {contact.firstName} {contact.lastName}
+                            </p>
+                            {contact.title && (
+                              <p className="text-xs text-gray-500 truncate">{contact.title}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+                <button className="w-full px-4 py-2 text-xs text-[#93D500] hover:bg-gray-50 text-left flex items-center gap-1">
+                  <Plus className="w-3 h-3" />
+                  Add Contact
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Sales Orders Section */}
+          <div className="border-b border-gray-200">
+            <button
+              onClick={() => toggleSection('orders')}
+              className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 text-left"
+            >
+              <span className="text-sm font-semibold text-gray-700">Sales Orders ({orders.length})</span>
+              {sectionsOpen.orders ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </button>
+            {sectionsOpen.orders && (
+              <div className="pb-2">
+                {loadingOrders ? (
+                  <div className="px-4 py-4 flex justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#93D500]"></div>
+                  </div>
+                ) : orders.length === 0 ? (
+                  <p className="px-4 py-2 text-xs text-gray-500">No orders</p>
+                ) : (
+                  orders.slice(0, 5).map((order) => (
+                    <div key={order.orderId} className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{order.orderNumber}</p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(order.orderDate).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <div className="text-sm font-medium text-gray-900">
+                          ${order.total.toLocaleString()}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+                {orders.length > 5 && (
+                  <p className="px-4 py-2 text-xs text-gray-500">+{orders.length - 5} more</p>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Tasks Section */}
+          <div className="border-b border-gray-200">
+            <button
+              onClick={() => toggleSection('tasks')}
+              className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 text-left"
+            >
+              <span className="text-sm font-semibold text-gray-700">Tasks (0)</span>
+              {sectionsOpen.tasks ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </button>
+            {sectionsOpen.tasks && (
+              <div className="px-4 pb-4">
+                <p className="text-xs text-gray-500 py-2">No tasks</p>
+                <button className="text-xs text-[#93D500] hover:underline flex items-center gap-1">
+                  <Plus className="w-3 h-3" />
+                  Add Task
+                </button>
+              </div>
+            )}
+          </div>
+          
+          {/* Files Section */}
+          <div className="border-b border-gray-200">
+            <button
+              onClick={() => toggleSection('files')}
+              className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 text-left"
+            >
+              <span className="text-sm font-semibold text-gray-700">Files (0)</span>
+              {sectionsOpen.files ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </button>
+            {sectionsOpen.files && (
+              <div className="px-4 pb-4">
+                <p className="text-xs text-gray-500 py-2">No files</p>
+                <button className="text-xs text-[#93D500] hover:underline flex items-center gap-1">
+                  <Plus className="w-3 h-3" />
+                  Add File
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Right Column - Stats & Quick Actions */}
-        <div className="space-y-6">
-          {/* Sales Summary */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-[#93D500]" />
-              Sales Summary
-            </h2>
+        {/* Center Column - Activity Feed */}
+        <div className="flex-1 bg-white overflow-y-auto">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-gray-900">Activity</h2>
+              <button className="px-3 py-1.5 text-sm text-[#93D500] border border-[#93D500] rounded-lg hover:bg-[#93D500]/10">
+                Create Note
+              </button>
+            </div>
+            
+            {/* Activity Timeline */}
             <div className="space-y-4">
-              <div>
-                <span className="text-sm text-gray-500">Total Revenue</span>
-                <p className="text-2xl font-bold text-gray-900 flex items-center">
-                  <DollarSign className="w-5 h-5 text-gray-400" />
-                  {(account.totalSpent || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                </p>
-              </div>
-              <div>
-                <span className="text-sm text-gray-500">Total Orders</span>
-                <p className="text-2xl font-bold text-gray-900">
-                  {account.totalOrders || 0}
-                </p>
-              </div>
-              <div>
-                <span className="text-sm text-gray-500">Avg Order Value</span>
-                <p className="text-2xl font-bold text-gray-900 flex items-center">
-                  <DollarSign className="w-5 h-5 text-gray-400" />
-                  {account.totalOrders && account.totalSpent
-                    ? (account.totalSpent / account.totalOrders).toLocaleString(undefined, { minimumFractionDigits: 2 })
-                    : '0.00'}
-                </p>
-              </div>
-              {account.firstOrderDate && (
-                <div>
-                  <span className="text-sm text-gray-500">First Order</span>
-                  <p className="text-lg font-medium text-gray-900 flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    {new Date(account.firstOrderDate).toLocaleDateString()}
-                  </p>
+              {orders.slice(0, 10).map((order, idx) => (
+                <div key={order.orderId} className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <ShoppingCart className="w-4 h-4 text-green-600" />
+                    </div>
+                    {idx < orders.slice(0, 10).length - 1 && (
+                      <div className="w-0.5 h-full bg-gray-200 mt-2"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 pb-6">
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">Order {order.orderNumber}</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {new Date(order.orderDate).toLocaleDateString('en-US', { 
+                              month: 'short', 
+                              day: 'numeric', 
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </p>
+                        </div>
+                        <span className="text-sm font-semibold text-gray-900">
+                          ${order.total.toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-600">Status: {order.status}</p>
+                    </div>
+                  </div>
                 </div>
-              )}
-              {account.lastOrderDate && (
-                <div>
-                  <span className="text-sm text-gray-500">Last Order</span>
-                  <p className="text-lg font-medium text-gray-900 flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    {new Date(account.lastOrderDate).toLocaleDateString()}
-                  </p>
+              ))}
+              
+              {orders.length === 0 && (
+                <div className="text-center py-12">
+                  <Activity className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-sm text-gray-500">No activity yet</p>
+                  <p className="text-xs text-gray-400 mt-1">Activity will appear here as you interact with this account</p>
                 </div>
               )}
             </div>
           </div>
+        </div>
 
-          {/* Quick Actions */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-            <div className="space-y-2">
-              {account.phone && (
-                <a
-                  href={`tel:${account.phone}`}
-                  className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 text-gray-700"
-                >
-                  <Phone className="w-4 h-4 text-[#93D500]" />
-                  Call Account
-                </a>
-              )}
-              {account.email && (
-                <a
-                  href={`mailto:${account.email}`}
-                  className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 text-gray-700"
-                >
-                  <Mail className="w-4 h-4 text-[#93D500]" />
-                  Send Email
-                </a>
-              )}
-              <button className="w-full flex items-center gap-2 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 text-gray-700">
-                <Briefcase className="w-4 h-4 text-[#93D500]" />
-                Create Deal
-              </button>
-              <button className="w-full flex items-center gap-2 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 text-gray-700">
-                <Package className="w-4 h-4 text-[#93D500]" />
-                Create Quote
-              </button>
+        {/* Right Column - Account Fields */}
+        <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto">
+          <div className="p-6 space-y-6">
+            {/* Sales Metrics */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Sales Metrics</h3>
+              <div className="space-y-3">
+                <div>
+                  <span className="text-xs text-gray-500">Total Revenue</span>
+                  <p className="text-lg font-bold text-gray-900">
+                    ${(account.totalSpent || 0).toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-xs text-gray-500">Total Orders</span>
+                  <p className="text-lg font-bold text-gray-900">
+                    {account.totalOrders || 0}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-xs text-gray-500">Avg Order Value</span>
+                  <p className="text-lg font-bold text-gray-900">
+                    ${account.totalOrders && account.totalSpent
+                      ? (account.totalSpent / account.totalOrders).toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : '0'}
+                  </p>
+                </div>
+                {account.lastOrderDate && (
+                  <div>
+                    <span className="text-xs text-gray-500">Last Order</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      {new Date(account.lastOrderDate).toLocaleDateString()}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
+            
+            {/* Account Fields */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Account Details</h3>
+              <div className="space-y-3 text-sm">
+                {account.region && (
+                  <div>
+                    <span className="text-xs text-gray-500">Region</span>
+                    <p className="text-gray-900">{account.region}</p>
+                  </div>
+                )}
+                {account.segment && (
+                  <div>
+                    <span className="text-xs text-gray-500">Segment</span>
+                    <p className="text-gray-900">{account.segment}</p>
+                  </div>
+                )}
+                {account.accountType && account.accountType.length > 0 && (
+                  <div>
+                    <span className="text-xs text-gray-500">Account Type</span>
+                    <p className="text-gray-900">{account.accountType.join(', ')}</p>
+                  </div>
+                )}
+                {account.paymentTerms && (
+                  <div>
+                    <span className="text-xs text-gray-500">Payment Terms</span>
+                    <p className="text-gray-900">{account.paymentTerms}</p>
+                  </div>
+                )}
+                {account.shippingTerms && (
+                  <div>
+                    <span className="text-xs text-gray-500">Shipping Terms</span>
+                    <p className="text-gray-900">{account.shippingTerms}</p>
+                  </div>
+                )}
+                {account.carrierName && (
+                  <div>
+                    <span className="text-xs text-gray-500">Carrier</span>
+                    <p className="text-gray-900">{account.carrierName}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            
+            {/* Notes */}
+            {account.notes && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Notes</h3>
+                <p className="text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">{account.notes}</p>
+              </div>
+            )}
           </div>
-
-          {/* Notes */}
-          {account.notes && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Notes</h2>
-              <p className="text-sm text-gray-600 whitespace-pre-wrap">{account.notes}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

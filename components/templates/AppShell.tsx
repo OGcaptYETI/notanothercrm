@@ -5,23 +5,17 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { 
   Settings, 
-  Database, 
-  FileText, 
   Home, 
   Users,
-  LogOut,
-  Package,
-  Target,
-  ShoppingCart,
-  MapPin,
   LayoutGrid,
-  DollarSign,
   Building2,
   UserPlus,
-  Kanban
+  Kanban,
+  MapPin
 } from 'lucide-react';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import toast from 'react-hot-toast';
+import Sidebar from '@/components/layout/Sidebar';
+import UserMenu from '@/components/layout/UserMenu';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -52,22 +46,8 @@ function SearchParamsProvider({ onQueryChange }: { onQueryChange: (query: string
 
 export default function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
-  const { user, userProfile, isAdmin, isManager } = useAuth();
+  const { user } = useAuth();
   const [query, setQuery] = useState('');
-
-  const handleSignOut = async () => {
-    try {
-      const { auth } = await import('@/lib/firebase/config');
-      const { signOut } = await import('firebase/auth');
-      if (auth) {
-        await signOut(auth);
-        toast.success('Signed out successfully');
-        window.location.href = '/';
-      }
-    } catch (error) {
-      toast.error('Failed to sign out');
-    }
-  };
 
   const isActive = (path: string) => pathname === path;
 
@@ -79,8 +59,8 @@ export default function AppShell({ children }: AppShellProps) {
       </Suspense>
       
       {/* Top Bar */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <div className="px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between">
             {/* Brand */}
             <Link href={`/${query}`} className="flex items-center gap-3 group">
@@ -93,211 +73,96 @@ export default function AppShell({ children }: AppShellProps) {
               </div>
             </Link>
 
-            {/* Navigation */}
+            {/* CRM Navigation */}
             {user && (
               <nav className="flex items-center gap-1">
                 <Link
                   href={`/dashboard${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive('/dashboard')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
+                      ? 'bg-primary-50 text-primary-700'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   <Home className="w-4 h-4" /> Feed
                 </Link>
 
-                {/* CRM Dropdown */}
-                <div className="relative group">
-                  <button
-                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                      pathname?.startsWith('/prospects') || pathname?.startsWith('/contacts') || pathname?.startsWith('/accounts') || pathname?.startsWith('/customers')
-                        ? 'bg-primary-50 text-primary-700 font-medium'
-                        : 'text-gray-700 hover:bg-gray-100'
-                    }`}
-                  >
-                    <Users className="w-4 h-4" /> CRM
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                    <Link
-                      href={`/prospects${query}`}
-                      className={`flex items-center gap-2 px-4 py-2.5 text-sm transition-colors first:rounded-t-lg ${
-                        pathname?.startsWith('/prospects')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      <UserPlus className="w-4 h-4" /> Prospects
-                    </Link>
-                    <Link
-                      href={`/contacts${query}`}
-                      className={`flex items-center gap-2 px-4 py-2.5 text-sm transition-colors ${
-                        pathname?.startsWith('/contacts')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      <Users className="w-4 h-4" /> Contacts
-                    </Link>
-                    <Link
-                      href={`/accounts${query}`}
-                      className={`flex items-center gap-2 px-4 py-2.5 text-sm transition-colors ${
-                        pathname?.startsWith('/accounts')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      <Building2 className="w-4 h-4" /> Accounts
-                    </Link>
-                    <Link
-                      href={`/customers${query}`}
-                      className={`flex items-center gap-2 px-4 py-2.5 text-sm transition-colors last:rounded-b-lg ${
-                        pathname?.startsWith('/customers')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      <Building2 className="w-4 h-4" /> Customers (Legacy)
-                    </Link>
-                  </div>
-                </div>
+                <Link
+                  href={`/accounts${query}`}
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    pathname?.startsWith('/accounts')
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <Building2 className="w-4 h-4" /> Accounts
+                </Link>
 
-                {/* Pipeline */}
+                <Link
+                  href={`/contacts${query}`}
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    pathname?.startsWith('/contacts')
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <Users className="w-4 h-4" /> Contacts
+                </Link>
+
+                <Link
+                  href={`/prospects${query}`}
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    pathname?.startsWith('/prospects')
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <UserPlus className="w-4 h-4" /> Prospects
+                </Link>
+
                 <Link
                   href={`/pipelines${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     pathname?.startsWith('/pipelines')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
+                      ? 'bg-primary-50 text-primary-700'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   <Kanban className="w-4 h-4" /> Pipeline
                 </Link>
 
-                {/* Goals Module */}
-                <Link
-                  href={`/goals/dashboard${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname?.startsWith('/goals')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <Target className="w-4 h-4" /> Goals
-                </Link>
-
-                {/* Commissions Module */}
-                <Link
-                  href={`/commissions${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname?.startsWith('/commissions')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <DollarSign className="w-4 h-4" /> Commissions
-                </Link>
-
-                {/* Quotes Module */}
-                <Link
-                  href={`/quotes${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname?.startsWith('/quotes')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <ShoppingCart className="w-4 h-4" /> Quotes
-                </Link>
-
-                {/* Stores Module */}
                 <Link
                   href={`/stores${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     pathname?.startsWith('/stores')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
+                      ? 'bg-primary-50 text-primary-700'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   <MapPin className="w-4 h-4" /> Stores
                 </Link>
-
-                <Link
-                  href={`/shipments${query}`}
-                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    isActive('/shipments')
-                      ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <Package className="w-4 h-4" /> Shipments
-                </Link>
-
-                {isAdmin && (
-                  <>
-                    <Link
-                      href={`/admin${query}`}
-                      className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                        pathname?.startsWith('/admin')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
-                      <Settings className="w-4 h-4" /> Admin
-                    </Link>
-
-                    <Link
-                      href={`/settings${query}`}
-                      className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                        isActive('/settings')
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
-                      <Database className="w-4 h-4" /> Settings
-                    </Link>
-                  </>
-                )}
-
-                {/* User Menu */}
-                <div className="ml-4 pl-4 border-l border-gray-200 flex items-center gap-3">
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">
-                      {userProfile?.name || user.email?.split('@')[0]}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {isAdmin ? 'Admin' : isManager ? 'Manager' : 'Sales Rep'}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleSignOut}
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100"
-                    aria-label="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                </div>
               </nav>
+            )}
+
+            {/* User Menu */}
+            {user && (
+              <div className="ml-auto">
+                <UserMenu query={query} />
+              </div>
             )}
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {children}
-      </main>
+      {/* Sidebar */}
+      {user && <Sidebar query={query} />}
 
-      {/* Footer */}
-      <footer className="mt-12 border-t border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-sm text-gray-500 flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Kanva Botanicals / CWL Brands</span>
-          <span className="text-gray-400">v1.0.0</span>
+      {/* Main Content */}
+      <main className={`${user ? 'ml-64 pl-8' : ''} py-8 transition-all duration-300`}>
+        <div className="px-4 sm:px-6 lg:px-8">
+          {children}
         </div>
-      </footer>
+      </main>
     </div>
   );
 }

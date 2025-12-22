@@ -51,6 +51,9 @@ export default function DashboardPage() {
   const { user, userProfile, loading: authLoading, isAdmin } = useAuth();
   const [loading, setLoading] = useState(true);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
+  const [gmailConnected, setGmailConnected] = useState(false);
+  const [gmailNeedsReauth, setGmailNeedsReauth] = useState(false);
+  const [gmailStatus, setGmailStatus] = useState<string>('');
   const [stats, setStats] = useState({
     totalCustomers: 0,
     activeProspects: 0,
@@ -68,78 +71,44 @@ export default function DashboardPage() {
 
     const loadDashboardData = async () => {
       try {
-        // Load recent activities (placeholder - will connect to real data)
-        const mockActivities: ActivityItem[] = [
-          {
-            id: '1',
-            type: 'call',
-            title: 'Phone call with Rob Nichols',
-            description: 'Outgoing Call (Unanswered)',
-            contact: 'Rob Nichols',
-            company: 'Smoke Spot',
-            timestamp: new Date(),
-            user: userProfile?.name || 'You',
+        // Load real activities from API
+        const idToken = await user.getIdToken(true);
+        
+        // Fetch activities
+        const activitiesResponse = await fetch('/api/dashboard/activities', {
+          headers: {
+            'Authorization': `Bearer ${idToken}`,
           },
-          {
-            id: '2',
-            type: 'email',
-            title: 'Email sent to Kevin',
-            description: 'RE: SO 9940 - Kanva Botanicals - Payment confirmation',
-            contact: 'Kevin',
-            company: 'NorthWest Wholesale',
-            timestamp: new Date(Date.now() - 3600000),
-            user: userProfile?.name || 'You',
-          },
-          {
-            id: '3',
-            type: 'order',
-            title: 'New order submitted',
-            description: 'SO 9946 - 3 cases Focus + Flow, 2 cases Release',
-            contact: 'Wilson Bean',
-            company: 'Pacific Distributors',
-            timestamp: new Date(Date.now() - 7200000),
-            user: userProfile?.name || 'You',
-          },
-          {
-            id: '4',
-            type: 'task',
-            title: 'Follow up with Luis Orozco',
-            description: 'Voicemail Received - callback requested',
-            contact: 'Luis Orozco',
-            company: 'Kanva Botanicals',
-            timestamp: new Date(Date.now() - 86400000),
-            user: userProfile?.name || 'You',
-          },
-          {
-            id: '5',
-            type: 'sms',
-            title: 'SMS to Rob Nichols',
-            description: 'Conversation with Rob - AE #2026099391',
-            contact: 'Rob Nichols',
-            company: 'Smoke Spot',
-            timestamp: new Date(Date.now() - 172800000),
-            user: userProfile?.name || 'You',
-          },
-        ];
-        setActivities(mockActivities);
-
-        // Load quick stats from Firestore
-        const customersSnap = await getDocs(collection(db, 'customers'));
-        const ordersQuery = query(
-          collection(db, 'fishbowl_sales_orders'),
-          orderBy('dateCreated', 'desc'),
-          limit(100)
-        );
-        const ordersSnap = await getDocs(ordersQuery);
-
-        setStats({
-          totalCustomers: customersSnap.size,
-          activeProspects: Math.floor(customersSnap.size * 0.15), // Placeholder
-          pendingTasks: 8, // Placeholder
-          monthlyOrders: ordersSnap.size,
         });
+        
+        if (activitiesResponse.ok) {
+          const activitiesData = await activitiesResponse.json();
+          setActivities(activitiesData.data || []);
+        } else {
+          console.error('Failed to fetch activities');
+          // Fallback to empty array
+          setActivities([]);
+        }
+
+        // Fetch stats
+        const statsResponse = await fetch('/api/dashboard/stats', {
+          headers: {
+            'Authorization': `Bearer ${idToken}`,
+          },
+        });
+        
+        if (statsResponse.ok) {
+          const statsData = await statsResponse.json();
+          setStats(prevStats => statsData.data || prevStats);
+        } else {
+          console.error('Failed to fetch stats');
+          // Keep default stats
+        }
+
       } catch (error) {
         console.error('Error loading dashboard:', error);
+        // Fallback to empty activities
+        setActivities([]);
       } finally {
         setLoading(false);
       }
@@ -184,17 +153,91 @@ export default function DashboardPage() {
     return `${days} days ago`;
   };
 
+  const handleGmailConnect = async () => {
+    if (!user) return;
+    
+    try {
+      const idToken = await user.getIdToken(true);
+      const response = await fetch('/api/gmail/connect', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        window.location.href = data.authUrl;
+      } else {
+        console.error('Failed to initiate Gmail connection');
+      }
+    } catch (error) {
+      console.error('Error connecting Gmail:', error);
+    }
+  };
+
+  // Check Gmail connection status
+  useEffect(() => {
+    const checkGmailStatus = async () => {
+      if (user) {
+        try {
+          const idToken = await user.getIdToken(true);
+          
+          // Check URL params for connection status
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('success') === 'gmail_connected') {
+            setGmailConnected(true);
+            setGmailNeedsReauth(false);
+            setGmailStatus('Successfully connected to Gmail');
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+          } else if (urlParams.get('error') === 'gmail_callback_failed') {
+            setGmailConnected(false);
+            setGmailNeedsReauth(true);
+            setGmailStatus('Gmail connection failed - please try again');
+            window.history.replaceState({}, document.title, window.location.pathname);
+          } else {
+            // Check current status from API
+            const response = await fetch('/api/gmail/status', {
+              headers: {
+                'Authorization': `Bearer ${idToken}`,
+              },
+            });
+            
+            if (response.ok) {
+              const statusData = await response.json();
+              setGmailConnected(statusData.connected);
+              setGmailNeedsReauth(statusData.needsReauth);
+              setGmailStatus(statusData.message);
+            }
+          }
+        } catch (error) {
+          console.error('Error checking Gmail status:', error);
+        }
+      }
+    };
+    checkGmailStatus();
+  }, [user]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 border-4 border-[#93D500] border-t-transparent rounded-full animate-spin"></div>
+        <Image 
+          src="/images/kanva_logo_rotate.gif" 
+          alt="Loading..." 
+          width={64}
+          height={64}
+          priority
+          unoptimized
+        />
       </div>
     );
   }
 
   const quickStats: QuickStat[] = [
     { 
-      label: 'Total Customers', 
+      label: 'My Customers', 
       value: stats.totalCustomers, 
       icon: <Building2 className="w-5 h-5" />,
       color: 'text-blue-600'
@@ -231,10 +274,27 @@ export default function DashboardPage() {
             Your relationships, your activities, the heartbeat of your business. All in one place.
           </p>
         </div>
-        <button className="bg-[#93D500] hover:bg-[#84c000] text-black font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-          <Bell className="w-4 h-4" />
-          Activity Report
-        </button>
+        <div className="flex items-center gap-3">
+          <button className="bg-[#93D500] hover:bg-[#84c000] text-black font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+            <Bell className="w-4 h-4" />
+            Activity Report
+          </button>
+          {(!gmailConnected || gmailNeedsReauth) && (
+            <button 
+              onClick={handleGmailConnect}
+              className="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              {gmailNeedsReauth ? 'Reconnect Gmail' : 'Connect Gmail'}
+            </button>
+          )}
+          {gmailConnected && !gmailNeedsReauth && (
+            <div className="flex items-center gap-2 text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg">
+              <Mail className="w-4 h-4" />
+              Gmail Connected
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Quick Stats */}

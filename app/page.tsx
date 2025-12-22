@@ -33,7 +33,15 @@ export default function Home() {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#93D500]/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#17351A]/30 rounded-full blur-3xl"></div>
         <div className="text-center relative z-10">
-          <div className="w-16 h-16 border-4 border-[#93D500] border-t-transparent rounded-full animate-spin mx-auto mb-4 shadow-[0_0_20px_rgba(147,213,0,0.3)]" />
+          <Image 
+            src="/images/kanva_logo_rotate.gif" 
+            alt="Loading..." 
+            width={64}
+            height={64}
+            className="mx-auto mb-4"
+            priority
+            unoptimized
+          />
           <p className="text-gray-400">Loading...</p>
         </div>
       </div>
@@ -76,7 +84,7 @@ export default function Home() {
 
           {/* Google Sign-In Button */}
           <button
-            onClick={() => router.push('/login?provider=google')}
+            onClick={() => router.push('/login')}
             className="w-full bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 mb-4 shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">

@@ -76,7 +76,7 @@ function SortableHeaderCell({ id, children }: { id: string; children: React.Reac
     <th
       ref={setNodeRef}
       style={style}
-      className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-gray-50 border-b border-gray-200 cursor-move"
+      className="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-gray-50 border-b border-gray-200 cursor-move whitespace-nowrap"
       {...attributes}
       {...listeners}
     >
@@ -319,7 +319,7 @@ export function DataTable<T extends { id: string }>({
                   }`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-3 text-sm text-gray-700">
+                    <td key={cell.id} className="px-3 py-2 text-xs text-gray-700 whitespace-nowrap">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}

@@ -81,6 +81,12 @@ export interface UnifiedAccount {
   lastOrderDate?: Date;
   firstOrderDate?: Date;
   
+  // Primary Contact (from Copper)
+  primaryContactId?: string;
+  primaryContactName?: string;
+  primaryContactEmail?: string;
+  primaryContactPhone?: string;
+  
   // Status
   status: 'prospect' | 'active' | 'inactive' | 'churned';
   isActiveCustomer?: boolean;
@@ -146,6 +152,7 @@ export interface UnifiedContact {
   accountId?: string;
   accountName?: string;
   copperId_company?: number;
+  isPrimaryContact?: boolean;
   
   // Address
   street?: string;
@@ -215,140 +222,233 @@ export interface SalesSummary {
 
 // ============== Data Loading Functions ==============
 
+export interface PaginationOptions {
+  pageSize?: number;
+  offset?: number;
+  searchTerm?: string;
+  filters?: {
+    status?: string;
+    source?: string;
+    salesPerson?: string;
+  };
+}
+
+export interface PaginatedResult<T> {
+  data: T[];
+  total: number;
+  hasMore: boolean;
+}
+
 /**
- * Load all accounts from fishbowl_customers merged with copper_companies
+ * Get total count of accounts across all collections
  */
-export async function loadUnifiedAccounts(): Promise<UnifiedAccount[]> {
-  const accounts: UnifiedAccount[] = [];
-  const copperMap = new Map<number, DocumentData>();
-  
-  // First load copper_companies to create a lookup map
-  try {
-    const copperSnapshot = await getDocs(collection(db, 'copper_companies'));
-    copperSnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.id) {
-        copperMap.set(data.id, { docId: doc.id, ...data });
-      }
-    });
-    console.log(`Loaded ${copperMap.size} copper companies`);
-  } catch (error) {
-    console.error('Error loading copper_companies:', error);
-  }
-  
-  // Load fishbowl_customers as the primary source
+export async function getTotalAccountsCount(): Promise<{
+  total: number;
+  active: number;
+  fishbowl: number;
+}> {
   try {
     const fishbowlSnapshot = await getDocs(collection(db, 'fishbowl_customers'));
+    const fishbowlCount = fishbowlSnapshot.size;
     
+    // Count active accounts
+    let activeCount = 0;
     fishbowlSnapshot.forEach((doc) => {
-      const fb = doc.data();
-      const copperId = fb.copperId ? Number(fb.copperId) : undefined;
-      const copperData = copperId ? copperMap.get(copperId) : undefined;
-      
-      // Merge Fishbowl + Copper data
-      const account: UnifiedAccount = {
-        id: doc.id,
-        source: 'fishbowl',
-        fishbowlId: fb.id || fb.customerNum || doc.id,
-        copperId: copperId,
-        
-        // Core - prefer Fishbowl
-        name: fb.name || fb.customerContact || copperData?.Name || 'Unknown',
-        accountNumber: fb.accountId || fb.accountNumber || fb.customerNum,
-        website: copperData?.Website || fb.website,
-        phone: fb.phone || copperData?.['Phone Numbers'],
-        email: fb.email || copperData?.['Email Domain'],
-        
-        // Address - from Fishbowl
-        shippingStreet: fb.shippingAddress,
-        shippingCity: fb.shippingCity,
-        shippingState: fb.shippingState,
-        shippingZip: fb.shippingZip,
-        
-        // Classification - merge both
-        accountType: parseAccountType(fb.accountType || copperData?.['Account Type cf_698259']),
-        region: fb.region || copperData?.['Region cf_698278'],
-        segment: fb.segment || copperData?.['Segment cf_698498'],
-        customerPriority: fb.customerPriority || copperData?.['Customer Priority cf_698264'],
-        organizationLevel: copperData?.['Organization Level cf_698277'],
-        businessModel: copperData?.['Business Model cf_698262'],
-        
-        // Terms
-        paymentTerms: fb.paymentTerms || copperData?.['Payment Terms cf_766847'],
-        shippingTerms: fb.shippingTerms || copperData?.['Shipping Terms cf_772920'],
-        carrierName: fb.carrierName || copperData?.['Carrier Name cf_772921'],
-        
-        // Sales
-        salesPerson: fb.salesPerson || fb.fishbowlUsername,
-        totalOrders: fb.totalOrders || 0,
-        totalSpent: fb.totalSpent || 0,
-        lastOrderDate: fb.lastOrderDate?.toDate?.() || undefined,
-        firstOrderDate: fb.firstOrderDate?.toDate?.() || undefined,
-        
-        // Status
-        status: determineAccountStatus(fb, copperData),
-        isActiveCustomer: copperData?.['Active Customer cf_712751'] === true || fb.isActiveCustomer,
-        
-        // Metadata
-        createdAt: fb.createdAt?.toDate?.() || copperData?.importedAt?.toDate?.(),
-        updatedAt: fb.updatedAt?.toDate?.(),
-        notes: fb.notes || copperData?.['Account Notes cf_698256'],
-      };
-      
-      accounts.push(account);
-      
-      // Remove from copperMap so we don't add it again
-      if (copperId) {
-        copperMap.delete(copperId);
+      const data = doc.data();
+      if (data.isActiveCustomer || data.status === 'active') {
+        activeCount++;
       }
     });
     
-    console.log(`Loaded ${accounts.length} fishbowl accounts`);
+    return {
+      total: fishbowlCount,
+      active: activeCount,
+      fishbowl: fishbowlCount,
+    };
   } catch (error) {
-    console.error('Error loading fishbowl_customers:', error);
+    console.error('Error getting account counts:', error);
+    return { total: 0, active: 0, fishbowl: 0 };
+  }
+}
+
+/**
+ * Load accounts with pagination and filtering
+ * Uses indexed queries for efficient search
+ */
+export async function loadUnifiedAccounts(
+  options: PaginationOptions = {}
+): Promise<PaginatedResult<UnifiedAccount>> {
+  const { pageSize = 50, offset = 0, searchTerm, filters } = options;
+  const accounts: UnifiedAccount[] = [];
+  const accountMap = new Map<string, UnifiedAccount>();
+  let totalCount = 0;
+  
+  // If searching, use indexed queries
+  if (searchTerm && searchTerm.trim()) {
+    const term = searchTerm.toLowerCase().trim();
+    console.log(`Searching accounts with indexed queries for: "${term}"`);
+    
+    const searchLimit = 100;
+    
+    // Search by name (prefix match)
+    const nameQuery = query(
+      collection(db, 'fishbowl_customers'),
+      where('name', '>=', term),
+      where('name', '<=', term + '\uf8ff'),
+      limit(searchLimit)
+    );
+    
+    const nameResults = await getDocs(nameQuery);
+    
+    nameResults.forEach((doc) => {
+      if (!accountMap.has(doc.id)) {
+        const fb = doc.data();
+        const account = buildAccountFromFirestore(doc.id, fb);
+        accountMap.set(doc.id, account);
+      }
+    });
+    
+    accounts.push(...Array.from(accountMap.values()));
+    totalCount = accounts.length;
+    
+    console.log(`Found ${accounts.length} accounts using indexed queries (reads: ~${nameResults.size})`);
+  } else {
+    // Build query with filters
+    let fishbowlQuery = query(
+      collection(db, 'fishbowl_customers'),
+      orderBy('name'),
+      limit(pageSize)
+    );
+    
+    // Apply filters if provided
+    if (filters?.salesPerson) {
+      fishbowlQuery = query(
+        collection(db, 'fishbowl_customers'),
+        where('salesPerson', '==', filters.salesPerson),
+        orderBy('name'),
+        limit(pageSize)
+      );
+    }
+  
+    // Load fishbowl_customers with pagination
+    try {
+      const fishbowlSnapshot = await getDocs(fishbowlQuery);
+      totalCount = fishbowlSnapshot.size;
+      
+      fishbowlSnapshot.forEach((doc) => {
+        const fb = doc.data();
+        
+        const account: UnifiedAccount = {
+          id: doc.id,
+          source: 'fishbowl',
+          fishbowlId: fb.id || fb.customerNum || doc.id,
+          copperId: fb.copperId ? Number(fb.copperId) : undefined,
+          
+          // Core fields from Fishbowl
+          name: fb.name || fb.customerContact || 'Unknown',
+          accountNumber: fb.accountId || fb.accountNumber || fb.customerNum,
+          website: fb.website,
+          phone: fb.phone,
+          email: fb.email,
+          
+          // Address
+          shippingStreet: fb.shippingAddress,
+          shippingCity: fb.shippingCity,
+          shippingState: fb.shippingState,
+          shippingZip: fb.shippingZip,
+          
+          // Classification
+          accountType: parseAccountType(fb.accountType),
+          region: fb.region,
+          segment: fb.segment,
+          customerPriority: fb.customerPriority,
+          
+          // Terms
+          paymentTerms: fb.paymentTerms,
+          shippingTerms: fb.shippingTerms,
+          carrierName: fb.carrierName,
+          
+          // Sales
+          salesPerson: fb.salesPerson || fb.fishbowlUsername,
+          totalOrders: fb.totalOrders || 0,
+          totalSpent: fb.totalSpent || 0,
+          lastOrderDate: fb.lastOrderDate?.toDate?.() || undefined,
+          firstOrderDate: fb.firstOrderDate?.toDate?.() || undefined,
+          
+          // Primary Contact (from Copper if available)
+          primaryContactId: fb['Primary Contact ID']?.toString() || fb.primaryContactId?.toString(),
+          primaryContactName: fb['Primary Contact'] || fb.primaryContactName,
+          
+          // Status
+          status: determineAccountStatus(fb, undefined),
+          isActiveCustomer: fb.isActiveCustomer,
+          
+          // Metadata
+          createdAt: fb.createdAt?.toDate?.(),
+          updatedAt: fb.updatedAt?.toDate?.(),
+          notes: fb.notes,
+        };
+        
+        accounts.push(account);
+      });
+      
+      console.log(`Loaded ${accounts.length} accounts (page size: ${pageSize})`);
+    } catch (error) {
+      console.error('Error loading fishbowl_customers:', error);
+    }
   }
   
-  // Add remaining copper_companies that weren't matched
-  copperMap.forEach((copperData, copperId) => {
-    const account: UnifiedAccount = {
-      id: copperData.docId,
-      source: 'copper',
-      copperId: copperId,
-      
-      name: copperData.Name || copperData.Company || 'Unknown',
-      accountNumber: copperData['Account Number cf_698260'],
-      website: copperData.Website,
-      phone: copperData['Phone Numbers'],
-      email: copperData['Email Domain'],
-      
-      shippingStreet: copperData['Street Address'],
-      shippingCity: copperData.City,
-      shippingState: copperData.State,
-      shippingZip: copperData['Postal Code'],
-      
-      accountType: parseAccountType(copperData['Account Type cf_698259']),
-      region: copperData['Region cf_698278'],
-      segment: copperData['Segment cf_698498'],
-      customerPriority: copperData['Customer Priority cf_698264'],
-      organizationLevel: copperData['Organization Level cf_698277'],
-      businessModel: copperData['Business Model cf_698262'],
-      
-      paymentTerms: copperData['Payment Terms cf_766847'],
-      shippingTerms: copperData['Shipping Terms cf_772920'],
-      carrierName: copperData['Carrier Name cf_772921'],
-      
-      status: copperData['Active Customer cf_712751'] ? 'active' : 'prospect',
-      isActiveCustomer: copperData['Active Customer cf_712751'] === true,
-      
-      createdAt: copperData.importedAt?.toDate?.(),
-      notes: copperData['Account Notes cf_698256'],
-    };
+  return {
+    data: accounts,
+    total: totalCount,
+    hasMore: !searchTerm && accounts.length >= pageSize
+  };
+}
+
+// Helper function to build account from Firestore data
+function buildAccountFromFirestore(docId: string, fb: DocumentData): UnifiedAccount {
+  return {
+    id: docId,
+    source: 'fishbowl',
+    fishbowlId: fb.id || fb.customerNum || docId,
+    copperId: fb.copperId ? Number(fb.copperId) : undefined,
     
-    accounts.push(account);
-  });
-  
-  console.log(`Total unified accounts: ${accounts.length}`);
-  return accounts.sort((a, b) => a.name.localeCompare(b.name));
+    name: fb.name || fb.customerContact || 'Unknown',
+    accountNumber: fb.accountId || fb.accountNumber || fb.customerNum,
+    website: fb.website,
+    phone: fb.phone,
+    email: fb.email,
+    
+    shippingStreet: fb.shippingAddress,
+    shippingCity: fb.shippingCity,
+    shippingState: fb.shippingState,
+    shippingZip: fb.shippingZip,
+    
+    accountType: parseAccountType(fb.accountType),
+    region: fb.region,
+    segment: fb.segment,
+    customerPriority: fb.customerPriority,
+    
+    paymentTerms: fb.paymentTerms,
+    shippingTerms: fb.shippingTerms,
+    carrierName: fb.carrierName,
+    
+    salesPerson: fb.salesPerson || fb.fishbowlUsername,
+    totalOrders: fb.totalOrders || 0,
+    totalSpent: fb.totalSpent || 0,
+    lastOrderDate: fb.lastOrderDate?.toDate?.() || undefined,
+    firstOrderDate: fb.firstOrderDate?.toDate?.() || undefined,
+    
+    primaryContactId: fb['Primary Contact ID']?.toString() || fb.primaryContactId?.toString(),
+    primaryContactName: fb['Primary Contact'] || fb.primaryContactName,
+    
+    status: determineAccountStatus(fb, undefined),
+    isActiveCustomer: fb.isActiveCustomer,
+    
+    createdAt: fb.createdAt?.toDate?.(),
+    updatedAt: fb.updatedAt?.toDate?.(),
+    notes: fb.notes,
+  };
 }
 
 /**
@@ -407,53 +507,185 @@ export async function loadUnifiedProspects(): Promise<UnifiedProspect[]> {
 }
 
 /**
- * Load contacts from copper_people (via copper_companies relationships)
+ * Get total count of contacts
  */
-export async function loadUnifiedContacts(): Promise<UnifiedContact[]> {
-  const contacts: UnifiedContact[] = [];
-  
+export async function getTotalContactsCount(): Promise<{
+  total: number;
+  withAccounts: number;
+}> {
   try {
     const snapshot = await getDocs(collection(db, 'copper_people'));
+    const total = snapshot.size;
     
+    let withAccounts = 0;
     snapshot.forEach((doc) => {
       const data = doc.data();
-      
-      const firstName = data['First Name'] || data.firstName || '';
-      const lastName = data['Last Name'] || data.lastName || '';
-      
-      const contact: UnifiedContact = {
-        id: doc.id,
-        source: 'copper_person',
-        copperId: data.id || Number(doc.id),
-        
-        firstName,
-        lastName,
-        fullName: data.Name || `${firstName} ${lastName}`.trim() || 'Unknown',
-        email: data.Email || data['Email Address'],
-        phone: data.Phone || data['Phone Number'],
-        title: data.Title,
-        
-        accountId: data['Company Id']?.toString(),
-        accountName: data['Company Name'] || data.Company,
-        copperId_company: data['Company Id'],
-        
-        street: data['Street Address'],
-        city: data.City,
-        state: data.State,
-        
-        createdAt: data.importedAt?.toDate?.() || data['Date Created'] ? new Date(data['Date Created']) : undefined,
-        updatedAt: data['Date Modified'] ? new Date(data['Date Modified']) : undefined,
-      };
-      
-      contacts.push(contact);
+      if (data.companyId || data['Company Id']) {
+        withAccounts++;
+      }
     });
     
-    console.log(`Loaded ${contacts.length} contacts from copper_people`);
+    return { total, withAccounts };
+  } catch (error) {
+    console.error('Error getting contact counts:', error);
+    return { total: 0, withAccounts: 0 };
+  }
+}
+
+/**
+ * Load contacts with pagination and filtering
+ * Uses indexed queries for efficient search (100 reads vs 75k)
+ */
+export async function loadUnifiedContacts(
+  options: PaginationOptions = {}
+): Promise<PaginatedResult<UnifiedContact>> {
+  const { pageSize = 50, offset = 0, searchTerm, filters } = options;
+  const contacts: UnifiedContact[] = [];
+  const contactMap = new Map<string, UnifiedContact>();
+  let totalCount = 0;
+  
+  try {
+    // If searching, use indexed queries for efficient search
+    if (searchTerm && searchTerm.trim()) {
+      const term = searchTerm.toLowerCase().trim();
+      console.log(`Searching contacts with indexed queries for: "${term}"`);
+      
+      // Firestore range query for prefix matching
+      // Uses composite indexes for efficient search
+      const searchLimit = 100; // Limit results per query
+      
+      // Query 1: Search by name (prefix match)
+      const nameQuery = query(
+        collection(db, 'copper_people'),
+        where('name', '>=', term),
+        where('name', '<=', term + '\uf8ff'),
+        limit(searchLimit)
+      );
+      
+      // Query 2: Search by email (prefix match)
+      const emailQuery = query(
+        collection(db, 'copper_people'),
+        where('email', '>=', term),
+        where('email', '<=', term + '\uf8ff'),
+        limit(searchLimit)
+      );
+      
+      // Query 3: Search by company name (prefix match)
+      const companyQuery = query(
+        collection(db, 'copper_people'),
+        where('companyName', '>=', term),
+        where('companyName', '<=', term + '\uf8ff'),
+        limit(searchLimit)
+      );
+      
+      // Execute queries in parallel for better performance
+      const [nameResults, emailResults, companyResults] = await Promise.all([
+        getDocs(nameQuery),
+        getDocs(emailQuery),
+        getDocs(companyQuery)
+      ]);
+      
+      // Process and deduplicate results
+      const processSnapshot = (snapshot: any) => {
+        snapshot.forEach((doc: any) => {
+          if (!contactMap.has(doc.id)) {
+            const data = doc.data();
+            const firstName = data.firstName || data['First Name'] || '';
+            const lastName = data.lastName || data['Last Name'] || '';
+            
+            const contact: UnifiedContact = {
+              id: doc.id,
+              source: 'copper_person',
+              copperId: data.id || Number(doc.id),
+              
+              firstName,
+              lastName,
+              fullName: data.name || data.Name || `${firstName} ${lastName}`.trim() || 'Unknown',
+              email: data.email || data.Email || data['Email Address'] || '',
+              phone: data.phone || data.Phone || data['Phone Number'] || '',
+              title: data.title || data.Title || '',
+              
+              accountId: data.companyId?.toString() || data['Company Id']?.toString(),
+              accountName: data.companyName || data['Company Name'] || data.Company || '',
+              copperId_company: data.companyId || data['Company Id'],
+              isPrimaryContact: false,
+              
+              street: data.street || data['Street Address'] || '',
+              city: data.city || data.City || '',
+              state: data.state || data.State || '',
+              
+              createdAt: data.dateCreated?.toDate?.() || data.importedAt?.toDate?.() || (data['Date Created'] ? new Date(data['Date Created']) : undefined),
+              updatedAt: data.dateModified?.toDate?.() || data.updatedAt?.toDate?.() || (data['Date Modified'] ? new Date(data['Date Modified']) : undefined),
+            };
+            
+            contactMap.set(doc.id, contact);
+          }
+        });
+      };
+      
+      processSnapshot(nameResults);
+      processSnapshot(emailResults);
+      processSnapshot(companyResults);
+      
+      contacts.push(...Array.from(contactMap.values()));
+      totalCount = contacts.length;
+      
+      console.log(`Found ${contacts.length} contacts using indexed queries (reads: ~${nameResults.size + emailResults.size + companyResults.size})`);
+    } else {
+      // No search - return paginated results
+      const contactQuery = query(
+        collection(db, 'copper_people'),
+        limit(pageSize)
+      );
+      
+      const snapshot = await getDocs(contactQuery);
+      totalCount = snapshot.size;
+      
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        
+        const firstName = data.firstName || data['First Name'] || '';
+        const lastName = data.lastName || data['Last Name'] || '';
+        
+        const contact: UnifiedContact = {
+          id: doc.id,
+          source: 'copper_person',
+          copperId: data.id || Number(doc.id),
+          
+          firstName,
+          lastName,
+          fullName: data.name || data.Name || `${firstName} ${lastName}`.trim() || 'Unknown',
+          email: data.email || data.Email || data['Email Address'] || '',
+          phone: data.phone || data.Phone || data['Phone Number'] || '',
+          title: data.title || data.Title || '',
+          
+          accountId: data.companyId?.toString() || data['Company Id']?.toString(),
+          accountName: data.companyName || data['Company Name'] || data.Company || '',
+          copperId_company: data.companyId || data['Company Id'],
+          isPrimaryContact: false,
+          
+          street: data.street || data['Street Address'] || '',
+          city: data.city || data.City || '',
+          state: data.state || data.State || '',
+          
+          createdAt: data.dateCreated?.toDate?.() || data.importedAt?.toDate?.() || (data['Date Created'] ? new Date(data['Date Created']) : undefined),
+          updatedAt: data.dateModified?.toDate?.() || data.updatedAt?.toDate?.() || (data['Date Modified'] ? new Date(data['Date Modified']) : undefined),
+        };
+        
+        contacts.push(contact);
+      });
+      
+      console.log(`Loaded ${contacts.length} contacts (page size: ${pageSize})`);
+    }
   } catch (error) {
     console.error('Error loading copper_people:', error);
   }
   
-  return contacts.sort((a, b) => a.fullName.localeCompare(b.fullName));
+  return {
+    data: contacts,
+    total: totalCount,
+    hasMore: !searchTerm && contacts.length >= pageSize
+  };
 }
 
 /**

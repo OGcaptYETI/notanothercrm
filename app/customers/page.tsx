@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/contexts/AuthContext';
 import { db } from '@/lib/firebase/config';
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { Users } from 'lucide-react';
+import Image from 'next/image';
 import CustomersTab from '@/app/settings/CustomersTab';
 
 export default function CustomersPage() {
@@ -55,7 +56,14 @@ export default function CustomersPage() {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+          <Image 
+            src="/images/kanva_logo_rotate.gif" 
+            alt="Loading..." 
+            width={64}
+            height={64}
+            className="mx-auto"
+            unoptimized
+          />
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>

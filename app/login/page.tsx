@@ -2,16 +2,17 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { auth, db } from '@/lib/firebase/config';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithCredential } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { Mail, Lock, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -38,82 +39,90 @@ export default function LoginPage() {
     return hasMinLength && hasNumber && hasSpecial;
   };
 
-  // Handle Google Sign-In with domain restriction
-  // IMPORTANT: Links to existing email/password accounts to preserve UIDs
+  // Process Google sign-in result (used by both popup and redirect)
+  const processGoogleSignIn = async (result: any) => {
+    const userEmail = result.user.email || '';
+
+    // Verify domain after sign-in (double-check)
+    if (!validateEmail(userEmail)) {
+      await auth.signOut();
+      setError('Access denied. Please use a @kanvabotanicals.com or @cwlbrands.com email.');
+      return;
+    }
+
+    // Update user document with Google profile info (if exists)
+    const userDocRef = doc(db, 'users', result.user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      // User exists - update with Google profile data
+      const updates: any = {
+        updatedAt: new Date().toISOString(),
+      };
+      if (result.user.photoURL) {
+        updates.photoURL = result.user.photoURL;
+      }
+      if (result.user.displayName && !userDocSnap.data().name) {
+        updates.name = result.user.displayName;
+      }
+      await setDoc(userDocRef, updates, { merge: true });
+      console.log('✅ Existing user signed in via Google:', userEmail);
+    } else {
+      // Create new user document
+      const userDoc = {
+        id: result.user.uid,
+        email: userEmail,
+        name: result.user.displayName || userEmail.split('@')[0],
+        photoURL: result.user.photoURL || null,
+        role: 'sales',
+        isActive: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      await setDoc(userDocRef, userDoc);
+      console.log('✅ User document created via Google Sign-In:', userDoc);
+    }
+
+    toast.success('Signed in with Google!');
+    router.push('/dashboard');
+  };
+
+  // Handle Google Sign-In with popup, fallback to redirect if blocked
   const handleGoogleSignIn = async () => {
     setError('');
     setGoogleLoading(true);
 
     try {
       const provider = new GoogleAuthProvider();
-      // Restrict to specific domains using hd parameter
       provider.setCustomParameters({
-        hd: 'kanvabotanicals.com', // Primary domain hint
+        hd: 'kanvabotanicals.com',
         prompt: 'select_account'
       });
 
-      const result = await signInWithPopup(auth, provider);
-      const userEmail = result.user.email || '';
-
-      // Verify domain after sign-in (double-check)
-      if (!validateEmail(userEmail)) {
-        await auth.signOut();
-        setError('Access denied. Please use a @kanvabotanicals.com or @cwlbrands.com email.');
-        return;
-      }
-
-      // User signed in successfully - Firebase automatically links providers
-      // if "One account per email address" is enabled in Firebase Console
-      // The existing UID is preserved when the same email is used
-      
-      // Update user document with Google profile info (if exists)
-      const userDocRef = doc(db, 'users', result.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User exists - update with Google profile data
-        const updates: any = {
-          updatedAt: new Date().toISOString(),
-        };
-        // Add Google profile photo if not already set
-        if (result.user.photoURL) {
-          updates.photoURL = result.user.photoURL;
+      // Try popup first
+      try {
+        const result = await signInWithPopup(auth, provider);
+        await processGoogleSignIn(result);
+      } catch (popupError: any) {
+        // If popup was blocked, use redirect instead
+        if (popupError.code === 'auth/popup-blocked') {
+          console.log('Popup blocked, using redirect instead');
+          await signInWithRedirect(auth, provider);
+          return;
         }
-        // Update display name if available
-        if (result.user.displayName && !userDocSnap.data().name) {
-          updates.name = result.user.displayName;
-        }
-        await setDoc(userDocRef, updates, { merge: true });
-        console.log('✅ Existing user signed in via Google:', userEmail);
-      } else {
-        // No user document exists - this shouldn't happen for existing users
-        // but create one just in case
-        const userDoc = {
-          id: result.user.uid,
-          email: userEmail,
-          name: result.user.displayName || userEmail.split('@')[0],
-          photoURL: result.user.photoURL || null,
-          role: 'sales',
-          isActive: true,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        await setDoc(userDocRef, userDoc);
-        console.log('✅ User document created via Google Sign-In:', userDoc);
+        throw popupError;
       }
-
-      toast.success('Signed in with Google!');
-      router.push('/dashboard');
     } catch (err: any) {
       console.error('Google auth error:', err);
       
-      // Handle account exists with different credential
       if (err.code === 'auth/account-exists-with-different-credential') {
-        setError('An account already exists with this email. Please sign in with your email/password first, then link your Google account.');
+        setError('An account already exists with this email. Please sign in with your email/password first.');
       } else if (err.code === 'auth/popup-closed-by-user') {
         setError('Sign-in cancelled');
       } else if (err.code === 'auth/unauthorized-domain') {
         setError('This domain is not authorized for sign-in');
+      } else if (err.code === 'auth/popup-blocked') {
+        setError('Popup was blocked. Redirecting...');
       } else {
         setError(err.message || 'Google sign-in failed');
       }
@@ -122,11 +131,28 @@ export default function LoginPage() {
     }
   };
 
-  // Auto-trigger Google sign-in if provider=google in URL
+  // Handle redirect result on page load
   useEffect(() => {
-    if (searchParams.get('provider') === 'google') {
-      handleGoogleSignIn();
-    }
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          setGoogleLoading(true);
+          await processGoogleSignIn(result);
+        }
+      } catch (err: any) {
+        console.error('Redirect result error:', err);
+        if (err.code === 'auth/account-exists-with-different-credential') {
+          setError('An account already exists with this email. Please sign in with your email/password first.');
+        } else {
+          setError(err.message || 'Sign-in failed');
+        }
+      } finally {
+        setGoogleLoading(false);
+      }
+    };
+
+    handleRedirectResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -347,5 +373,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><LoadingSpinner size="lg" /></div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

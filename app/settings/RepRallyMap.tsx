@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import { Search, RefreshCw, MapPin, DollarSign, TrendingDown } from 'lucide-react';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 interface RepRallyCustomer {
   id: string;
@@ -339,7 +340,13 @@ export default function RepRallyMap() {
   if (!mapsScriptLoaded) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <Image 
+          src="/images/kanva_logo_rotate.gif" 
+          alt="Loading..." 
+          width={64}
+          height={64}
+          unoptimized
+        />
       </div>
     );
   }

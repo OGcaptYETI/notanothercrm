@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { X } from 'lucide-react';
+import Image from 'next/image';
 
 interface ProcessingModalProps {
   isOpen: boolean;
@@ -44,7 +46,14 @@ export default function ProcessingModal({
         <div className="text-center relative z-10">
           <div className="mb-6">
             {progress < 100 ? (
-              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
+              <Image 
+                src="/images/kanva_logo_rotate.gif" 
+                alt="Processing..." 
+                width={64}
+                height={64}
+                className="mx-auto"
+                unoptimized
+              />
             ) : (
               <div className="text-6xl mb-4">💰</div>
             )}

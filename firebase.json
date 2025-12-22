@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "kanvacommissions",
+    "site": "kanvaportal",
     "source": ".",
     "ignore": [
       "firebase.json",

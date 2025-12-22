@@ -36,6 +36,10 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
   // Copper API Fresh Sync state
   const [copperApiSyncLoading, setCopperApiSyncLoading] = useState(false);
   const [copperApiSyncResult, setCopperApiSyncResult] = useState<any>(null);
+  
+  // Copper People Sync state
+  const [copperPeopleSyncLoading, setCopperPeopleSyncLoading] = useState(false);
+  const [copperPeopleSyncResult, setCopperPeopleSyncResult] = useState<any>(null);
 
   // Mark Active in Copper state
   const [markActiveLoading, setMarkActiveLoading] = useState(false);
@@ -354,6 +358,39 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
     }
   };
 
+  const handleCopperPeopleSync = async () => {
+    setCopperPeopleSyncLoading(true);
+    setCopperPeopleSyncResult(null);
+    const loadingToast = toast.loading('👥 Fetching contacts from Copper API...');
+    
+    try {
+      const response = await fetch('/api/sync-copper-people', {
+        method: 'POST',
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Copper People sync failed');
+      }
+      
+      console.log('✅ Copper People sync completed!', data);
+      
+      setCopperPeopleSyncResult(data);
+      setCopperPeopleSyncLoading(false);
+      
+      toast.success(
+        `✅ Synced ${data.stats.totalFetched} contacts! (${data.stats.created} new, ${data.stats.updated} updated)`,
+        { id: loadingToast, duration: 5000 }
+      );
+      
+    } catch (error: any) {
+      console.error('Copper People sync error:', error);
+      toast.error(error.message || 'Failed to sync contacts from Copper API', { id: loadingToast });
+      setCopperPeopleSyncLoading(false);
+    }
+  };
+
   const handleCustomerSync = async (liveMode = false) => {
     setCustomerSyncLoading(true);
     setCustomerSyncResult(null);
@@ -622,6 +659,57 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
                 <li>📊 Active companies fetched: {copperApiSyncResult.stats?.activeFetched || 0}</li>
                 <li>➕ New records created: {copperApiSyncResult.stats?.created || 0}</li>
                 <li>🔄 Records updated: {copperApiSyncResult.stats?.updated || 0}</li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Step 1B: Copper People Sync */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-400 rounded-lg shadow-lg p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl">👥</span>
+          <div>
+            <h2 className="text-2xl font-bold text-blue-900">Step 1B: Sync Contacts from Copper API</h2>
+            <p className="text-sm text-blue-700">👥 Pull ALL contacts (people) directly from Copper CRM</p>
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          <div className="p-4 bg-blue-50 border border-blue-300 rounded-lg">
+            <p className="text-sm text-blue-900 font-semibold mb-2">
+              ⚡ <strong>WHAT IT DOES:</strong>
+            </p>
+            <ul className="mt-2 text-sm text-blue-800 space-y-1">
+              <li>✅ Connects directly to Copper API for contacts/people</li>
+              <li>✅ Pulls ALL contact fields (name, email, phone, title, company)</li>
+              <li>✅ Creates copper_people collection for Contacts page</li>
+              <li>✅ Links contacts to companies via Company ID</li>
+              <li>⏱️ Takes 2-3 minutes for all contacts</li>
+            </ul>
+          </div>
+
+          <div className="p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
+            <p className="text-sm text-yellow-900">
+              <strong>📌 Frequency:</strong> Initial setup, then quarterly or when contact data changes.
+            </p>
+          </div>
+
+          <button
+            onClick={handleCopperPeopleSync}
+            disabled={copperPeopleSyncLoading}
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-bold text-lg shadow-lg"
+          >
+            {copperPeopleSyncLoading ? '⏳ Syncing contacts...' : '👥 Sync Contacts from Copper'}
+          </button>
+
+          {copperPeopleSyncResult && (
+            <div className="mt-4 p-4 bg-green-50 border border-green-300 rounded-lg">
+              <p className="text-sm text-green-900 font-semibold">✅ Copper People Sync Complete!</p>
+              <ul className="mt-2 text-sm text-green-800">
+                <li>📊 Total contacts fetched: {copperPeopleSyncResult.stats?.totalFetched || 0}</li>
+                <li>➕ New records created: {copperPeopleSyncResult.stats?.created || 0}</li>
+                <li>🔄 Records updated: {copperPeopleSyncResult.stats?.updated || 0}</li>
               </ul>
             </div>
           )}

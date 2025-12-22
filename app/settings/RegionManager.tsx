@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, setDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
+import Image from 'next/image';
 import { Plus, Trash2, Save, Edit2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -157,7 +158,13 @@ export default function RegionManager() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <Image 
+          src="/images/kanva_logo_rotate.gif" 
+          alt="Loading..." 
+          width={64}
+          height={64}
+          unoptimized
+        />
       </div>
     );
   }

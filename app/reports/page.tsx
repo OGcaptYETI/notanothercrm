@@ -2,7 +2,8 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useEffect, useState, Fragment } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase/config';
 import { collection, query, where, getDocs, doc, getDoc, orderBy } from 'firebase/firestore';
@@ -1320,7 +1321,14 @@ export default function ReportsPage() {
                     <div className="overflow-x-auto">
                       {logsLoading ? (
                         <div className="text-center py-8">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+                          <Image 
+                            src="/images/kanva_logo_rotate.gif" 
+                            alt="Loading..." 
+                            width={48}
+                            height={48}
+                            className="mx-auto"
+                            unoptimized
+                          />
                           <p className="text-gray-600 mt-2">Loading calculation logs...</p>
                         </div>
                       ) : calculationLogs.length === 0 ? (

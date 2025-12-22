@@ -4,9 +4,10 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ColumnDef } from '@tanstack/react-table';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useContacts, useRefreshCRMData } from '@/lib/crm/hooks';
+import { useContacts, useRefreshCRMData, useContactCounts } from '@/lib/crm/hooks';
 import { DataTable } from '@/components/crm/DataTable';
 import type { UnifiedContact } from '@/lib/crm/dataService';
+import Image from 'next/image';
 import { 
   Plus,
   RefreshCw,
@@ -21,8 +22,13 @@ import {
 export default function ContactsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const { data: contacts = [], isLoading, isFetching } = useContacts();
+  const { data, isLoading, isFetching } = useContacts({ pageSize: 50 });
+  const { data: counts } = useContactCounts();
   const { refreshContacts } = useRefreshCRMData();
+  
+  const contacts = data?.data || [];
+  const totalContacts = counts?.total || 0;
+  const withAccounts = counts?.withAccounts || 0;
 
   // Define table columns
   const columns = useMemo<ColumnDef<UnifiedContact, any>[]>(
@@ -33,12 +39,21 @@ export default function ContactsPage() {
         header: 'Name',
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
               <User className="w-4 h-4 text-gray-500" />
             </div>
-            <span className="font-medium text-gray-900">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/contacts/${row.original.id}`);
+              }}
+              className="font-medium text-primary-600 hover:text-primary-700 hover:underline text-left truncate"
+            >
               {row.original.firstName} {row.original.lastName}
-            </span>
+              {row.original.isPrimaryContact && (
+                <span className="ml-2 px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">Primary</span>
+              )}
+            </button>
           </div>
         ),
       },
@@ -147,7 +162,15 @@ export default function ContactsPage() {
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#93D500]"></div>
+          <Image 
+            src="/images/kanva_logo_rotate.gif" 
+            alt="Loading..." 
+            width={64}
+            height={64}
+            className="mx-auto mb-4"
+            priority
+            unoptimized
+          />
       </div>
     );
   }
@@ -158,7 +181,7 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 max-w-full">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -187,21 +210,15 @@ export default function ContactsPage() {
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="text-sm text-gray-500">Total Contacts</div>
-          <div className="text-2xl font-bold text-gray-900">{contacts.length.toLocaleString()}</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <div className="text-sm text-gray-500">From Copper</div>
-          <div className="text-2xl font-bold text-orange-600">
-            {contacts.filter(c => c.source === 'copper_person').length.toLocaleString()}
-          </div>
+          <div className="text-2xl font-bold text-gray-900">{totalContacts.toLocaleString()}</div>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="text-sm text-gray-500">With Accounts</div>
           <div className="text-2xl font-bold text-green-600">
-            {contacts.filter(c => c.accountId).length.toLocaleString()}
+            {withAccounts.toLocaleString()}
           </div>
         </div>
       </div>

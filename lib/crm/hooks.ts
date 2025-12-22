@@ -8,12 +8,16 @@ import {
   loadUnifiedDeals,
   loadAccountOrders,
   loadAccountSalesSummary,
+  getTotalAccountsCount,
+  getTotalContactsCount,
   type UnifiedAccount,
   type UnifiedProspect,
   type UnifiedContact,
   type UnifiedDeal,
   type OrderSummary,
   type SalesSummary,
+  type PaginationOptions,
+  type PaginatedResult,
 } from './dataService';
 
 // Query keys for cache management
@@ -26,12 +30,22 @@ export const queryKeys = {
   accountSales: (accountId: string) => ['crm', 'sales', accountId] as const,
 };
 
-// Hook for loading all accounts with caching
-export function useAccounts() {
-  return useQuery<UnifiedAccount[]>({
-    queryKey: queryKeys.accounts,
-    queryFn: loadUnifiedAccounts,
-    staleTime: 5 * 60 * 1000, // Fresh for 5 minutes
+// Hook for loading accounts with pagination
+export function useAccounts(options?: PaginationOptions) {
+  return useQuery({
+    queryKey: [...queryKeys.accounts, options],
+    queryFn: () => loadUnifiedAccounts(options),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+  });
+}
+
+// Hook for getting total account counts
+export function useAccountCounts() {
+  return useQuery({
+    queryKey: ['crm', 'accounts', 'counts'],
+    queryFn: getTotalAccountsCount,
+    staleTime: 10 * 60 * 1000, // 10 minutes
   });
 }
 
@@ -44,12 +58,22 @@ export function useProspects() {
   });
 }
 
-// Hook for loading all contacts with caching
-export function useContacts() {
-  return useQuery<UnifiedContact[]>({
-    queryKey: queryKeys.contacts,
-    queryFn: loadUnifiedContacts,
+// Hook for loading contacts with pagination
+export function useContacts(options?: PaginationOptions) {
+  return useQuery({
+    queryKey: [...queryKeys.contacts, options],
+    queryFn: () => loadUnifiedContacts(options),
     staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+}
+
+// Hook for getting total contact counts
+export function useContactCounts() {
+  return useQuery({
+    queryKey: ['crm', 'contacts', 'counts'],
+    queryFn: getTotalContactsCount,
+    staleTime: 10 * 60 * 1000,
   });
 }
 
@@ -84,15 +108,28 @@ export function useAccountSales(accountId: string | null) {
 
 // Hook to get a single account by ID (uses cached data)
 export function useAccount(accountId: string | null) {
-  const { data: accounts } = useAccounts();
-  return accounts?.find((a) => a.id === accountId) || null;
+  const { data } = useAccounts();
+  return data?.data?.find((a: UnifiedAccount) => a.id === accountId) || null;
 }
 
-// Hook to get contacts for a specific account
+// Hook to get contacts for a specific account with primary contact marked
 export function useAccountContacts(accountId: string | null) {
-  const { data: contacts } = useContacts();
-  if (!accountId || !contacts) return [];
-  return contacts.filter((c) => c.accountId === accountId);
+  const { data } = useContacts();
+  const account = useAccount(accountId);
+  
+  if (!accountId || !data?.data) return [];
+  
+  const accountContacts = data.data.filter((c: UnifiedContact) => c.accountId === accountId);
+  
+  // Mark primary contact if account has primaryContactId
+  if (account?.primaryContactId) {
+    return accountContacts.map((c: UnifiedContact) => ({
+      ...c,
+      isPrimaryContact: c.copperId?.toString() === account.primaryContactId
+    }));
+  }
+  
+  return accountContacts;
 }
 
 // Hook to prefetch data (call on app mount for instant loading)
@@ -104,7 +141,7 @@ export function usePrefetchCRMData() {
     await Promise.all([
       queryClient.prefetchQuery({
         queryKey: queryKeys.accounts,
-        queryFn: loadUnifiedAccounts,
+        queryFn: () => loadUnifiedAccounts({ pageSize: 50 }),
         staleTime: 5 * 60 * 1000,
       }),
       queryClient.prefetchQuery({
@@ -114,7 +151,7 @@ export function usePrefetchCRMData() {
       }),
       queryClient.prefetchQuery({
         queryKey: queryKeys.contacts,
-        queryFn: loadUnifiedContacts,
+        queryFn: () => loadUnifiedContacts({ pageSize: 50 }),
         staleTime: 5 * 60 * 1000,
       }),
       queryClient.prefetchQuery({

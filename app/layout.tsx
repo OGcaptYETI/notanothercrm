@@ -56,13 +56,11 @@ export default function RootLayout({
           }}
         />
         
-        {/* Copper SDK Script - Only in iframe */}
-        {typeof window !== 'undefined' && window.self !== window.top && (
-          <Script
-            src={process.env.NEXT_PUBLIC_COPPER_SDK_URL || 'https://cdn.jsdelivr.net/npm/copper-sdk@latest/dist/copper-sdk.min.js'}
-            strategy="afterInteractive"
-          />
-        )}
+        {/* Copper SDK Script */}
+        <Script
+          src={process.env.NEXT_PUBLIC_COPPER_SDK_URL || 'https://cdn.jsdelivr.net/npm/copper-sdk@latest/dist/copper-sdk.min.js'}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

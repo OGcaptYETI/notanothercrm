@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ColumnDef } from '@tanstack/react-table';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useAccounts, useRefreshCRMData } from '@/lib/crm/hooks';
+import { useAccounts, useRefreshCRMData, useAccountCounts } from '@/lib/crm/hooks';
 import { DataTable } from '@/components/crm/DataTable';
 import type { UnifiedAccount } from '@/lib/crm/dataService';
 import { 
@@ -22,8 +22,14 @@ import {
 export default function AccountsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const { data: accounts = [], isLoading, isFetching } = useAccounts();
+  const { data, isLoading, isFetching } = useAccounts({ pageSize: 50 });
+  const { data: counts } = useAccountCounts();
   const { refreshAccounts } = useRefreshCRMData();
+  
+  const accounts = data?.data || [];
+  const totalAccounts = counts?.total || 0;
+  const activeAccounts = counts?.active || 0;
+  const fishbowlAccounts = counts?.fishbowl || 0;
 
   // Define table columns
   const columns = useMemo<ColumnDef<UnifiedAccount, any>[]>(
@@ -34,8 +40,16 @@ export default function AccountsPage() {
         header: 'Account Name',
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-gray-400" />
-            <span className="font-medium text-gray-900">{row.original.name}</span>
+            <Building2 className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/accounts/${row.original.id}`);
+              }}
+              className="font-medium text-primary-600 hover:text-primary-700 hover:underline text-left truncate"
+            >
+              {row.original.name}
+            </button>
           </div>
         ),
       },
@@ -279,27 +293,21 @@ export default function AccountsPage() {
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="text-sm text-gray-500">Total Accounts</div>
-          <div className="text-2xl font-bold text-gray-900">{accounts.length.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-gray-900">{totalAccounts.toLocaleString()}</div>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="text-sm text-gray-500">Active</div>
           <div className="text-2xl font-bold text-green-600">
-            {accounts.filter(a => a.status === 'active').length.toLocaleString()}
+            {activeAccounts.toLocaleString()}
           </div>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="text-sm text-gray-500">From Fishbowl</div>
           <div className="text-2xl font-bold text-purple-600">
-            {accounts.filter(a => a.source === 'fishbowl').length.toLocaleString()}
-          </div>
-        </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <div className="text-sm text-gray-500">From Copper</div>
-          <div className="text-2xl font-bold text-orange-600">
-            {accounts.filter(a => a.source === 'copper').length.toLocaleString()}
+            {fishbowlAccounts.toLocaleString()}
           </div>
         </div>
       </div>
