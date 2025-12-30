@@ -43,10 +43,11 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
   const [selectedRep, setSelectedRep] = useState('all');
   const [selectedAccountType, setSelectedAccountType] = useState('all');
   const [savingCustomer, setSavingCustomer] = useState<string | null>(null);
-  const [sortField, setSortField] = useState<'customerNum' | 'customerName' | 'accountType' | 'salesPerson' | 'originalOwner' | 'shippingCity' | 'shippingState'>('customerName');
+  const [sortField, setSortField] = useState<'customerNum' | 'customerName' | 'accountType' | 'salesPerson' | 'originalOwner' | 'shippingCity' | 'shippingState' | 'region' | 'orderCount' | 'lifetimeValue'>('customerName');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [selectedCity, setSelectedCity] = useState('all');
   const [selectedState, setSelectedState] = useState('all');
+  const [selectedRegion, setSelectedRegion] = useState('all');
   const [confirmAdminChange, setConfirmAdminChange] = useState<{ customerId: string; newRep: string; customerName: string } | null>(null);
 
   // Sub-tabs
@@ -131,6 +132,20 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
       });
       console.log(`Loaded ${repsMap.size} reps for mapping`);
 
+      // Load customer sales summary for metrics
+      const summarySnapshot = await getDocs(collection(db, 'customer_sales_summary'));
+      const summaryMap = new Map();
+      summarySnapshot.forEach((doc) => {
+        const data = doc.data();
+        summaryMap.set(doc.id, {
+          orderCount: data.orderCount || 0,
+          totalSales: data.totalSales || 0,
+          region: data.region || '',
+          regionColor: data.regionColor || '#808080'
+        });
+      });
+      console.log(`Loaded ${summaryMap.size} customer sales summaries`);
+
       // Get customers and their sales rep from most recent order
       const snapshot = await getDocs(collection(db, 'fishbowl_customers'));
       console.log(`Found ${snapshot.size} customers in Firestore`);
@@ -151,6 +166,14 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
       snapshot.forEach((doc) => {
         const data = doc.data();
         const customerId = data.id || data.customerNum || doc.id;
+
+        // Get sales summary metrics
+        const summary = summaryMap.get(customerId) || {
+          orderCount: 0,
+          totalSales: 0,
+          region: '',
+          regionColor: '#808080'
+        };
 
         // FIXED: Get CURRENT account owner (not originator)
         // Priority: manual override > currentOwner > salesRep (account owner) > fallback
@@ -178,7 +201,12 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           lat: data.lat,
           lng: data.lng,
           transferStatus: data.transferStatus,
-          copperId: data.copperId
+          copperId: data.copperId,
+          // Sales metrics from customer_sales_summary
+          orderCount: summary.orderCount,
+          lifetimeValue: summary.totalSales,
+          region: summary.region,
+          regionColor: summary.regionColor
         });
       });
 
@@ -383,7 +411,7 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
     }
   };
 
-  const handleSort = (field: 'customerNum' | 'customerName' | 'accountType' | 'salesPerson' | 'originalOwner' | 'shippingCity' | 'shippingState') => {
+  const handleSort = (field: 'customerNum' | 'customerName' | 'accountType' | 'salesPerson' | 'originalOwner' | 'shippingCity' | 'shippingState' | 'region' | 'orderCount' | 'lifetimeValue') => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -1015,6 +1043,10 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
       filtered = filtered.filter(c => c.shippingState === selectedState);
     }
 
+    if (selectedRegion !== 'all') {
+      filtered = filtered.filter(c => c.region === selectedRegion);
+    }
+
     // Sort
     filtered.sort((a, b) => {
       const aVal = a[sortField] || '';
@@ -1024,7 +1056,7 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
     });
 
     setFilteredCustomers(filtered);
-  }, [searchTerm, selectedRep, selectedAccountType, selectedCity, selectedState, customers, sortField, sortDirection]);
+  }, [searchTerm, selectedRep, selectedAccountType, selectedCity, selectedState, selectedRegion, customers, sortField, sortDirection]);
 
   return (
     <div className="space-y-8">
@@ -1145,46 +1177,92 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
         )}
       </div>
 
-      {/* Stats Cards - Shared across all tabs */}
-      <div className="grid md:grid-cols-4 gap-6">
-        <div className="card">
+      {/* Regional Stats Cards */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {/* Total Customers Card */}
+        <div className="card bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Total Customers</h3>
+            <h3 className="text-sm font-semibold text-blue-900">Total Customers</h3>
             <Users className="w-5 h-5 text-blue-600" />
           </div>
-          <p className="text-3xl font-bold text-gray-900">{customers.length}</p>
+          <p className="text-3xl font-bold text-blue-900">{customers.length}</p>
+          <div className="mt-2 pt-2 border-t border-blue-200 text-xs text-blue-700">
+            <div className="flex justify-between">
+              <span>Wholesale:</span>
+              <span className="font-semibold">{customers.filter(c => c.accountType === 'Wholesale').length}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Distributor:</span>
+              <span className="font-semibold">{customers.filter(c => c.accountType === 'Distributor').length}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Retail:</span>
+              <span className="font-semibold">{customers.filter(c => c.accountType === 'Retail').length}</span>
+            </div>
+          </div>
         </div>
 
-        <div className="card">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Retail</h3>
-            <Filter className="w-5 h-5 text-yellow-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">
-            {customers.filter(c => c.accountType === 'Retail').length}
-          </p>
-          <p className="text-xs text-gray-500 mt-1">No commission</p>
-        </div>
+        {/* Regional Cards */}
+        {Array.from(new Set(customers.map(c => c.region).filter(Boolean))).sort().map(region => {
+          const regionCustomers = customers.filter(c => c.region === region);
+          const regionColor = regionCustomers[0]?.regionColor || '#808080';
+          const wholesale = regionCustomers.filter(c => c.accountType === 'Wholesale').length;
+          const distributor = regionCustomers.filter(c => c.accountType === 'Distributor').length;
+          const retail = regionCustomers.filter(c => c.accountType === 'Retail').length;
+          
+          return (
+            <div key={region} className="card hover:shadow-lg transition-shadow cursor-pointer" 
+                 onClick={() => setSelectedRegion(region)}
+                 style={{ borderLeftWidth: '4px', borderLeftColor: regionColor }}>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-gray-900">{region}</h3>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: regionColor }}></div>
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{regionCustomers.length}</p>
+              <div className="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-600">
+                <div className="flex justify-between">
+                  <span>Wholesale:</span>
+                  <span className="font-semibold text-green-600">{wholesale}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Distributor:</span>
+                  <span className="font-semibold text-green-600">{distributor}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Retail:</span>
+                  <span className="font-semibold text-yellow-600">{retail}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
 
-        <div className="card">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Wholesale</h3>
-            <Users className="w-5 h-5 text-green-600" />
+        {/* Unassigned Region Card */}
+        {customers.filter(c => !c.region).length > 0 && (
+          <div className="card bg-gray-50 border-gray-300" 
+               onClick={() => setSelectedRegion('')}
+               style={{ borderLeftWidth: '4px', borderLeftColor: '#808080' }}>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-semibold text-gray-700">Unassigned</h3>
+              <AlertCircle className="w-5 h-5 text-gray-500" />
+            </div>
+            <p className="text-3xl font-bold text-gray-700">{customers.filter(c => !c.region).length}</p>
+            <div className="mt-2 pt-2 border-t border-gray-300 text-xs text-gray-600">
+              <div className="flex justify-between">
+                <span>Wholesale:</span>
+                <span className="font-semibold">{customers.filter(c => !c.region && c.accountType === 'Wholesale').length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Distributor:</span>
+                <span className="font-semibold">{customers.filter(c => !c.region && c.accountType === 'Distributor').length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Retail:</span>
+                <span className="font-semibold">{customers.filter(c => !c.region && c.accountType === 'Retail').length}</span>
+              </div>
+            </div>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
-            {customers.filter(c => c.accountType === 'Wholesale').length}
-          </p>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Distributor</h3>
-            <Users className="w-5 h-5 text-green-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">
-            {customers.filter(c => c.accountType === 'Distributor').length}
-          </p>
-        </div>
+        )}
       </div>
 
       {/* Customer List Tab */}
@@ -1193,7 +1271,7 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           {/* Filters */}
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
-            <div className="grid md:grid-cols-5 gap-4">
+            <div className="grid md:grid-cols-6 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Search className="w-4 h-4 inline mr-1" />
@@ -1239,6 +1317,21 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
                   <option value="Retail">Retail</option>
                   <option value="Wholesale">Wholesale</option>
                   <option value="Distributor">Distributor</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Region</label>
+                <select
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value)}
+                  className="input w-full"
+                >
+                  <option value="all">All Regions</option>
+                  {Array.from(new Set(customers.map(c => c.region).filter(Boolean))).sort().map(region => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                  <option value="">Unassigned</option>
                 </select>
               </div>
 
@@ -1481,13 +1574,52 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
                         )}
                       </div>
                     </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div
+                        className="flex items-center space-x-1 cursor-pointer hover:text-primary-600"
+                        onClick={() => handleSort('region')}
+                      >
+                        <span>Region</span>
+                        {sortField === 'region' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                        ) : (
+                          <ArrowUpDown className="w-4 h-4 text-gray-400" />
+                        )}
+                      </div>
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div
+                        className="flex items-center space-x-1 cursor-pointer hover:text-primary-600"
+                        onClick={() => handleSort('orderCount')}
+                      >
+                        <span>Orders</span>
+                        {sortField === 'orderCount' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                        ) : (
+                          <ArrowUpDown className="w-4 h-4 text-gray-400" />
+                        )}
+                      </div>
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div
+                        className="flex items-center space-x-1 cursor-pointer hover:text-primary-600"
+                        onClick={() => handleSort('lifetimeValue')}
+                      >
+                        <span>Lifetime Value</span>
+                        {sortField === 'lifetimeValue' ? (
+                          sortDirection === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                        ) : (
+                          <ArrowUpDown className="w-4 h-4 text-gray-400" />
+                        )}
+                      </div>
+                    </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredCustomers.length === 0 ? (
                     <tr>
-                      <td colSpan={batchEditMode ? 10 : 9} className="px-4 py-8 text-center text-gray-500">
+                      <td colSpan={batchEditMode ? 13 : 12} className="px-4 py-8 text-center text-gray-500">
                         No customers found
                       </td>
                     </tr>
@@ -1604,8 +1736,27 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
                             <option value="transferred">🔄 Transferred (2%)</option>
                           </select>
                         </td>
-                        <td className="px-4 py-3 text-sm text-gray-600">{customer.shippingCity || '-'}</td>
-                        <td className="px-4 py-3 text-sm text-gray-600">{customer.shippingState || '-'}</td>
+                        <td className="px-4 py-3 text-sm text-gray-700">{customer.shippingCity}</td>
+                        <td className="px-4 py-3 text-sm text-gray-700">{customer.shippingState}</td>
+                        <td className="px-4 py-3">
+                          {customer.region ? (
+                            <div className="flex items-center space-x-2">
+                              <div 
+                                className="w-3 h-3 rounded-full" 
+                                style={{ backgroundColor: customer.regionColor }}
+                              ></div>
+                              <span className="text-sm font-medium text-gray-900">{customer.region}</span>
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-400 italic">Unassigned</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-700 text-right font-medium">
+                          {customer.orderCount || 0}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-900 text-right font-semibold">
+                          ${(customer.lifetimeValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
                         <td className="px-4 py-3">
                           {customer.accountType === 'Retail' ? (
                             <span className="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">
