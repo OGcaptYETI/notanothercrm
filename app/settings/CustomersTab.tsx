@@ -1209,6 +1209,7 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           const wholesale = regionCustomers.filter(c => c.accountType === 'Wholesale').length;
           const distributor = regionCustomers.filter(c => c.accountType === 'Distributor').length;
           const retail = regionCustomers.filter(c => c.accountType === 'Retail').length;
+          const unassigned = regionCustomers.filter(c => !c.fishbowlUsername || c.fishbowlUsername === '' || c.originalOwner === 'Unassigned').length;
           
           return (
             <div key={region} className="card hover:shadow-lg transition-shadow cursor-pointer" 
@@ -1232,6 +1233,12 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
                   <span>Retail:</span>
                   <span className="font-semibold text-yellow-600">{retail}</span>
                 </div>
+                {unassigned > 0 && (
+                  <div className="flex justify-between mt-1 pt-1 border-t border-gray-200">
+                    <span className="text-orange-600">⚠ Unassigned:</span>
+                    <span className="font-semibold text-orange-600">{unassigned}</span>
+                  </div>
+                )}
               </div>
             </div>
           );
