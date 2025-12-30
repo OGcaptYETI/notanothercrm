@@ -128,11 +128,6 @@ export default function OrgChartTab({ isAdmin }: OrgChartTabProps) {
         )}
       </div>
 
-      {/* Region Manager Sub-Tab */}
-      {orgChartSubTab === 'regionManager' && (
-        <RegionManager />
-      )}
-
       {/* Users Table - Only show on Team tab */}
       {orgChartSubTab === 'team' && (
         <>
@@ -251,6 +246,24 @@ export default function OrgChartTab({ isAdmin }: OrgChartTabProps) {
           </div>
         </>
       )}
+
+      {orgChartSubTab === 'regions' && <RegionMap />}
+      {orgChartSubTab === 'regionManager' && <RegionManager />}
+
+      {/* User Modal */}
+      <UserModal
+        isOpen={showAddUserModal}
+        onClose={() => {
+          setShowAddUserModal(false);
+          setEditingUser(null);
+        }}
+        editingUser={editingUser}
+        onSaved={() => {
+          loadOrgUsers();
+          setShowAddUserModal(false);
+          setEditingUser(null);
+        }}
+      />
     </div>
   );
 }
