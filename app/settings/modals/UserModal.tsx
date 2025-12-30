@@ -21,6 +21,9 @@ export default function UserModal({
 
   const handleSaveUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('🔵 User Modal: Save button clicked!');
+    console.log('📝 Editing user:', editingUser);
+    
     const formData = new FormData(e.currentTarget);
     const userData = {
       name: formData.get('name') as string,
@@ -38,21 +41,30 @@ export default function UserModal({
       updatedAt: new Date(),
     };
 
+    console.log('📤 User data to save:', userData);
+
     try {
       if (editingUser) {
+        console.log('📝 Updating existing user:', editingUser.id);
         await updateDoc(doc(db, 'users', editingUser.id), userData);
+        console.log('✅ User updated successfully in Firestore');
         toast.success('User updated successfully!');
       } else {
-        await addDoc(collection(db, 'users'), {
+        console.log('🆕 Creating new user...');
+        const newDoc = await addDoc(collection(db, 'users'), {
           ...userData,
           createdAt: new Date(),
         });
+        console.log('✅ New user created with ID:', newDoc.id);
         toast.success('User added successfully!');
       }
+      console.log('🔄 Calling onSaved callback...');
       onSaved();
+      console.log('🚪 Closing modal...');
       onClose();
     } catch (error) {
-      console.error('Error saving user:', error);
+      console.error('❌ Error saving user:', error);
+      console.error('Error details:', error);
       toast.error('Failed to save user');
     }
   };

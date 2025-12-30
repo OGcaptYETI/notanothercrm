@@ -62,12 +62,20 @@ export default function SalesTeamTab({ isAdmin }: SalesTeamTabProps) {
   };
 
   const handleSaveReps = async () => {
+    console.log('🔵 Save Reps button clicked!');
+    console.log('📊 Current reps data:', reps);
+    
     setSaving(true);
     const loadingToast = toast.loading('Saving sales team...');
 
     try {
+      console.log(`📝 Starting to save ${reps.length} reps...`);
+      
       for (const rep of reps) {
+        console.log(`Processing rep: ${rep.name} (ID: ${rep.id})`);
+        
         if (!rep.name || !rep.email) {
+          console.error('❌ Validation failed: Missing name or email', rep);
           toast.error('All reps must have a name and email', { id: loadingToast });
           setSaving(false);
           return;
@@ -85,23 +93,32 @@ export default function SalesTeamTab({ isAdmin }: SalesTeamTabProps) {
           updatedAt: new Date().toISOString(),
         };
 
+        console.log('📤 Saving rep data:', repData);
+
         if (rep.id.startsWith('new_')) {
           // Create new rep
+          console.log('🆕 Creating new rep...');
           const newDocRef = doc(collection(db, 'users'));
           await setDoc(newDocRef, { ...repData, createdAt: new Date().toISOString() });
+          console.log('✅ New rep created with ID:', newDocRef.id);
         } else {
           // Update existing rep
+          console.log('📝 Updating existing rep:', rep.id);
           await setDoc(doc(db, 'users', rep.id), repData, { merge: true });
+          console.log('✅ Rep updated successfully');
         }
       }
 
+      console.log('✅ All reps saved successfully!');
       toast.success('Sales team saved!', { id: loadingToast });
       loadReps(); // Reload to get proper IDs
     } catch (error) {
-      console.error('Error saving reps:', error);
+      console.error('❌ Error saving reps:', error);
+      console.error('Error details:', error);
       toast.error('Failed to save sales team', { id: loadingToast });
     } finally {
       setSaving(false);
+      console.log('🔵 Save operation completed');
     }
   };
 
