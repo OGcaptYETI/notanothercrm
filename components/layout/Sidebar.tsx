@@ -10,7 +10,8 @@ import {
   Package,
   ChevronLeft,
   ChevronRight,
-  BookOpen
+  BookOpen,
+  Users
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -41,6 +42,12 @@ export default function Sidebar({ query = '' }: SidebarProps) {
       href: `/commissions${query}`,
       icon: DollarSign,
       active: pathname?.startsWith('/commissions')
+    },
+    {
+      name: 'Active Customers',
+      href: `/customers${query}`,
+      icon: Users,
+      active: pathname?.startsWith('/customers')
     },
     {
       name: 'Quotes',
