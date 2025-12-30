@@ -16,6 +16,20 @@ import {
 import toast from 'react-hot-toast';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
+const formatDate = (dateString: string) => {
+  if (!dateString || dateString === 'N/A') return 'N/A';
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'N/A';
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  } catch {
+    return 'N/A';
+  }
+};
+
 export default function ActiveCustomersPage() {
   const { user } = useAuth();
   const [customers, setCustomers] = useState<any[]>([]);
@@ -621,8 +635,8 @@ export default function ActiveCustomersPage() {
                     <td className="px-4 py-3 text-sm text-gray-700 text-right font-medium">
                       {customer.orderCount || 0}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
-                      {customer.lastOrderDate || 'N/A'}
+                    <td className="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">
+                      {formatDate(customer.lastOrderDate)}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-900 text-right font-semibold">
                       ${(customer.lifetimeValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
