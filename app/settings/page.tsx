@@ -62,14 +62,14 @@ function SettingsPageContent() {
   const [saving, setSaving] = useState(false);
   const [selectedQuarter, setSelectedQuarter] = useState('Q4 2025');
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
-  const [activeTab, setActiveTab] = useState<'rules' | 'datasync' | 'customers' | 'products'>('rules');
+  const [activeTab, setActiveTab] = useState<'rules' | 'datasync' | 'customers' | 'products' | 'orgchart'>('rules');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
 
   // Handle tab parameter from URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['rules', 'datasync', 'customers', 'products'].includes(tabParam)) {
-      setActiveTab(tabParam as 'rules' | 'datasync' | 'customers' | 'products');
+    if (tabParam && ['rules', 'datasync', 'customers', 'products', 'orgchart'].includes(tabParam)) {
+      setActiveTab(tabParam as 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart');
     }
   }, [searchParams]);
 
@@ -447,7 +447,7 @@ function SettingsPageContent() {
       console.error('Error loading settings:', error);
       toast.error('Failed to load settings');
     }
-  }, [selectedQuarter]);
+  }, [selectedQuarter, selectedTitle]);
 
   useEffect(() => {
     if (authLoading) return;
@@ -532,7 +532,7 @@ function SettingsPageContent() {
     if (selectedTitle && activeTab === 'rules' && rulesSubTab === 'monthly') {
       loadRatesForTitle();
     }
-  }, [selectedTitle, activeTab, rulesSubTab]);
+  }, [selectedTitle, activeTab, rulesSubTab, commissionRates.segments, commissionRates.titles]);
 
   // Load spiffs/kickers and products for spiff dropdown
   useEffect(() => {
@@ -543,7 +543,7 @@ function SettingsPageContent() {
         loadProducts();
       }
     }
-  }, [activeTab, rulesSubTab, isAdmin]);
+  }, [activeTab, rulesSubTab, isAdmin, allProducts.length]);
 
   const loadSpiffs = async () => {
     try {
