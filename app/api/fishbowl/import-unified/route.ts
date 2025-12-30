@@ -384,12 +384,24 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       // and sent to QuickBooks. This is the authoritative date for commission calculations.
       const rawDate = row['Issued date'];
       
+      // Debug: Log the raw date value and available columns
       if (!rawDate) {
-        console.warn(`⚠️  Order ${row['Sales order Number']} missing 'Issued date' - skipping`);
+        console.warn(`⚠️  Order ${row['Sales order Number']} missing 'Issued date'`);
+        console.warn(`   Available columns:`, Object.keys(row).filter(k => k.toLowerCase().includes('date')));
+        console.warn(`   Skipping order...`);
         continue;
       }
+      
+      console.log(`📅 Processing order ${row['Sales order Number']}: rawDate="${rawDate}" (type: ${typeof rawDate})`);
 
       const { date: postDate, monthKey, y } = parseExcelOrTextDate(rawDate);
+      
+      if (!postDate) {
+        console.error(`❌ Failed to parse date for order ${row['Sales order Number']}: rawDate="${rawDate}"`);
+        continue;
+      }
+      
+      console.log(`   ✅ Parsed: ${postDate.toISOString().split('T')[0]} → ${monthKey}`);
       const postingDate = postDate ? Timestamp.fromDate(postDate) : null;
       const postingDateStr = postDate
         ? `${String(postDate.getMonth() + 1).padStart(2, '0')}/${String(postDate.getDate()).padStart(2, '0')}/${postDate.getFullYear()}` 
@@ -511,6 +523,11 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
     }
 
     const { date: postDate2, monthKey: monthKey2, y: y2 } = parseExcelOrTextDate(rawDate2);
+    
+    if (!postDate2) {
+      console.error(`❌ Failed to parse date for line item ${lineItemId}: rawDate="${rawDate2}"`);
+      continue;
+    }
     const postingDate2 = postDate2 ? Timestamp.fromDate(postDate2) : null;
     const postingDateStr2 = postDate2
       ? `${String(postDate2.getMonth() + 1).padStart(2, '0')}/${String(postDate2.getDate()).padStart(2, '0')}/${postDate2.getFullYear()}` 
