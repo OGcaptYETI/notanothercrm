@@ -380,7 +380,14 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
 
       const sanitizedCustomerId = String(customerId).replace(/[\/\\]/g, '_').trim();
 
-      const rawDate = row['Issued date'] ?? row['Issued Date'] ?? row['Date fulfillment'] ?? row['Date fulfilled'] ?? row['Fulfilment Date'];
+      // Use ONLY 'Issued date' field - this is when the order was issued/closed in Fishbowl
+      // and sent to QuickBooks. This is the authoritative date for commission calculations.
+      const rawDate = row['Issued date'];
+      
+      if (!rawDate) {
+        console.warn(`⚠️  Order ${row['Sales order Number']} missing 'Issued date' - skipping`);
+        continue;
+      }
 
       const { date: postDate, monthKey, y } = parseExcelOrTextDate(rawDate);
       const postingDate = postDate ? Timestamp.fromDate(postDate) : null;
