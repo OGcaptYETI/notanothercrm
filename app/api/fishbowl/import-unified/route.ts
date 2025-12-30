@@ -339,7 +339,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
           accountId: accountId,
           accountType: 'Retail', // Default - will be corrected by Copper sync or admin
           accountTypeSource: 'fishbowl',
-          salesPerson: salesRep,
+          salesPerson: row['Sales person'] || salesRep,
+          salesRep: salesRep,
           createdAt: Timestamp.now(),
           updatedAt: Timestamp.now(),
           source: 'fishbowl_import',
@@ -411,8 +412,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
         customerId: sanitizedCustomerId,
         customerName: row['Customer Name'] || row['Customer'] || '',
 
-        salesPerson: row['Sales Rep'] || row['Sales person'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
-        salesRep: row['Sales Rep'] || row['Sales person'] || row['Default Sales Rep'] || '',
+        salesPerson: row['Sales person'] || row['Sales Rep'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
+        salesRep: row['Sales Rep'] || row['Default Sales Rep'] || '',
         salesRepInitials: row['Sales Rep Initials'] || '',
 
         postingDate,
@@ -529,8 +530,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       accountType: itemAccountType,
       accountTypeSource: itemAccountTypeSource,
 
-      salesPerson: row['Sales Rep'] || row['Sales person'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
-      salesRep: row['Sales Rep'] || row['Sales person'] || row['Default Sales Rep'] || '',
+      salesPerson: row['Sales person'] || row['Sales Rep'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
+      salesRep: row['Sales Rep'] || row['Default Sales Rep'] || '',
       salesRepInitials: row['Sales Rep Initials'] || '',
 
       postingDate: postingDate2,
