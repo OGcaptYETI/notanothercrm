@@ -303,7 +303,7 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       lastLogTime = now;
     }
     
-    const customerId = row['Account ID'] || row['Account id'] || row['Customer id'];
+    const customerId = row['Customer id'] || row['Account ID'];
     const salesOrderNum = String(row['Sales order Number'] ?? row['Sales Order Number'] ?? '').trim();
     const salesOrderId = row['Sales Order ID'] || row['BOL'] || row['SO ID'];
     const lineItemId = row['SO Item ID'] || row['SO item ID'] || row['SO Item Id'] || row['SO item id'];
@@ -327,7 +327,7 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
         // FIXED: Use "Sales Rep" (current account owner), NOT "Sales person" (originator)
         const currentAccountOwner = row['Sales Rep'] || row['Default Sales Rep'] || '';
         const accountNumber = row['Account Order ID'] || row['Account order ID'] || '';
-        const accountId = row['Account ID'] || row['Account id'] || '';
+        const accountId = row['Account ID'] || '';
         
         console.log(`🆕 Creating NEW customer: ${customerName} (ID: ${customerDocId}) - Owner: ${currentAccountOwner}`);
         
@@ -422,8 +422,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
 
       // Get accountType from cache (consistent with customer)
       const cachedType = customerTypeCache.get(String(customerId));
-      const accountNum2 = row['Account ID'] ?? row['Account id'];
-      const orderAccountType = cachedType?.type ?? (copperByAccountNumber.get(String(accountNum2))?.accountType?.trim() || (row['Account Type'] ?? row['Account type'] ?? ''));
+      const accountNum2 = row['Account ID'];
+      const orderAccountType = cachedType?.type ?? (copperByAccountNumber.get(String(accountNum2))?.accountType?.trim() || row['Account type'] || '');
       const orderAccountTypeSource = cachedType?.source ?? (copperByAccountNumber.get(String(accountNum2))?.accountType ? 'copper' : 'fishbowl');
 
       const orderData: any = {
@@ -434,8 +434,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
         customerId: sanitizedCustomerId,
         customerName: row['Customer Name'] || row['Customer'] || '',
 
-        salesPerson: row['Sales person'] || row['Sales Rep'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
-        salesRep: row['Sales Rep'] || row['Default Sales Rep'] || '',
+        salesPerson: row['Sales person'] || '',
+        salesRep: row['Sales Rep'] || '',
         salesRepInitials: row['Sales Rep Initials'] || '',
 
         postingDate,
