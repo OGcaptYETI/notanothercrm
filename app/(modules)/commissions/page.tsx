@@ -291,6 +291,52 @@ export default function CommissionsPage() {
         <p className="text-gray-500 mt-1">Track monthly commissions and quarterly bonuses</p>
       </div>
 
+      {/* Quick Actions - Moved Higher */}
+      <div className="grid md:grid-cols-3 gap-4">
+        <button
+          onClick={() => router.push('/reports')}
+          className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
+        >
+          <div className="flex items-center mb-3">
+            <FileText className="w-6 h-6 text-[#93D500] mr-3" />
+            <h3 className="font-semibold text-gray-900">Quarterly Reports</h3>
+          </div>
+          <p className="text-sm text-gray-600">
+            Generate quarterly bonus summaries and export data
+          </p>
+        </button>
+
+        {canViewAllCommissions && (
+          <button
+            onClick={() => router.push('/monthly-reports')}
+            className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
+          >
+            <div className="flex items-center mb-3">
+              <DollarSign className="w-6 h-6 text-[#93D500] mr-3" />
+              <h3 className="font-semibold text-gray-900">Monthly Commissions</h3>
+            </div>
+            <p className="text-sm text-gray-600">
+              View monthly commission reports and details
+            </p>
+          </button>
+        )}
+
+        {canViewAllCommissions && (
+          <button
+            onClick={() => router.push('/team')}
+            className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
+          >
+            <div className="flex items-center mb-3">
+              <TrendingUp className="w-6 h-6 text-[#93D500] mr-3" />
+              <h3 className="font-semibold text-gray-900">Team View</h3>
+            </div>
+            <p className="text-sm text-gray-600">
+              View all reps performance and rankings
+            </p>
+          </button>
+        )}
+      </div>
+
       {/* Monthly Commission Stats */}
       {(salesPersonId || canViewAllCommissions) && (
         <>
@@ -428,52 +474,6 @@ export default function CommissionsPage() {
           <RegionMap />
         </div>
       )}
-
-      {/* Quick Actions */}
-      <div className="grid md:grid-cols-3 gap-4">
-        <button
-          onClick={() => router.push('/reports')}
-          className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
-        >
-          <div className="flex items-center mb-3">
-            <FileText className="w-6 h-6 text-[#93D500] mr-3" />
-            <h3 className="font-semibold text-gray-900">Quarterly Reports</h3>
-          </div>
-          <p className="text-sm text-gray-600">
-            Generate quarterly bonus summaries and export data
-          </p>
-        </button>
-
-        {canViewAllCommissions && (
-          <button
-            onClick={() => router.push('/monthly-reports')}
-            className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
-          >
-            <div className="flex items-center mb-3">
-              <DollarSign className="w-6 h-6 text-[#93D500] mr-3" />
-              <h3 className="font-semibold text-gray-900">Monthly Commissions</h3>
-            </div>
-            <p className="text-sm text-gray-600">
-              View monthly commission reports and details
-            </p>
-          </button>
-        )}
-
-        {canViewAllCommissions && (
-          <button
-            onClick={() => router.push('/team')}
-            className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
-          >
-            <div className="flex items-center mb-3">
-              <TrendingUp className="w-6 h-6 text-[#93D500] mr-3" />
-              <h3 className="font-semibold text-gray-900">Team View</h3>
-            </div>
-            <p className="text-sm text-gray-600">
-              View all reps performance and rankings
-            </p>
-          </button>
-        )}
-      </div>
 
       {/* Commission Structure Info */}
       <div className="bg-white rounded-xl p-6 border border-gray-200">

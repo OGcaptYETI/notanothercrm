@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { db } from '@/lib/firebase/config';
 import { doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy } from 'firebase/firestore';
 import { useAuth } from '@/lib/contexts/AuthContext';
@@ -58,6 +58,7 @@ import ProductModal from './modals/ProductModal';
 
 export default function SettingsPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, isAdmin, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -65,6 +66,14 @@ export default function SettingsPage() {
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
   const [activeTab, setActiveTab] = useState<'rules' | 'datasync' | 'customers' | 'team' | 'orgchart' | 'products'>('rules');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
+
+  // Handle tab parameter from URL
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['rules', 'datasync', 'customers', 'team', 'orgchart', 'products'].includes(tabParam)) {
+      setActiveTab(tabParam as 'rules' | 'datasync' | 'customers' | 'team' | 'orgchart' | 'products');
+    }
+  }, [searchParams]);
 
   const currentTab = activeTab;
   const isRulesTab = activeTab === 'rules';

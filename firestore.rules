@@ -227,6 +227,12 @@ service cloud.firestore {
       allow write: if request.auth != null || isEmulator() || true; // Internal app - permissive
     }
     
+    // Product import history - internal app - permissive
+    match /product_import_history/{historyId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
     // Pricing configuration - public read, admin write
     match /pricing/{document=**} {
       allow read: if true;

@@ -114,7 +114,7 @@ export default function UserMenu({ query = '' }: UserMenuProps) {
             onClick={() => setIsOpen(false)}
           >
             <Settings className="w-4 h-4" />
-            Settings
+            Commission Settings
           </Link>
 
           <button

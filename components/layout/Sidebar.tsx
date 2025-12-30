@@ -9,7 +9,8 @@ import {
   ShoppingCart, 
   Package,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  BookOpen
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -46,6 +47,12 @@ export default function Sidebar({ query = '' }: SidebarProps) {
       href: `/quotes${query}`,
       icon: ShoppingCart,
       active: pathname?.startsWith('/quotes')
+    },
+    {
+      name: 'Products',
+      href: `/products${query}`,
+      icon: BookOpen,
+      active: pathname?.startsWith('/products')
     },
     {
       name: 'Shipments',
