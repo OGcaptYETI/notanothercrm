@@ -324,11 +324,12 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       if (!existingData) {
         // CREATE NEW CUSTOMER from Fishbowl data
         const customerName = row['Customer Name'] || row['Customer'] || 'Unknown';
-        const salesRep = row['Sales Rep'] || row['Sales person'] || row['Default Sales Rep'] || row['Sales man initials'] || '';
+        // FIXED: Use "Sales Rep" (current account owner), NOT "Sales person" (originator)
+        const currentAccountOwner = row['Sales Rep'] || row['Default Sales Rep'] || '';
         const accountNumber = row['Account Order ID'] || row['Account order ID'] || '';
         const accountId = row['Account ID'] || row['Account id'] || '';
         
-        console.log(`🆕 Creating NEW customer: ${customerName} (ID: ${customerDocId})`);
+        console.log(`🆕 Creating NEW customer: ${customerName} (ID: ${customerDocId}) - Owner: ${currentAccountOwner}`);
         
         const newCustomerData = {
           id: customerDocId,
@@ -339,8 +340,10 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
           accountId: accountId,
           accountType: 'Retail', // Default - will be corrected by Copper sync or admin
           accountTypeSource: 'fishbowl',
-          salesPerson: row['Sales person'] || salesRep,
-          salesRep: salesRep,
+          // CUSTOMER OWNERSHIP - Use current account owner (Sales Rep), not originator
+          currentOwner: currentAccountOwner,           // NEW: Current account owner
+          salesRep: currentAccountOwner,               // Current account owner (legacy)
+          salesPerson: currentAccountOwner,            // Display field (legacy compatibility)
           createdAt: Timestamp.now(),
           updatedAt: Timestamp.now(),
           source: 'fishbowl_import',
