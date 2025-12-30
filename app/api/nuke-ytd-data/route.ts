@@ -200,3 +200,49 @@ async function deleteSalesOrdersByYear(
   
   return totalDeleted;
 }
+
+async function deleteLineItemsByYear(
+  year: number,
+  actuallyDelete: boolean
+): Promise<number> {
+  let totalDeleted = 0;
+  const batchSize = 450;
+  
+  console.log(`🔍 Querying fishbowl_soitems for ${year} data...`);
+  
+  // Query by salesOrderDate timestamp
+  const startDate = new Date(`${year}-01-01`);
+  const endDate = new Date(`${year}-12-31T23:59:59`);
+  
+  const query = adminDb.collection('fishbowl_soitems')
+    .where('salesOrderDate', '>=', startDate)
+    .where('salesOrderDate', '<=', endDate);
+  
+  let lastDoc: FirebaseFirestore.QueryDocumentSnapshot | null = null;
+  
+  for (;;) {
+    let q = query.limit(batchSize);
+    if (lastDoc) q = q.startAfter(lastDoc);
+    
+    const snap = await q.get();
+    if (snap.empty) break;
+    
+    console.log(`   Found ${snap.size} line items in this batch...`);
+    
+    if (actuallyDelete) {
+      const batch = adminDb.batch();
+      snap.docs.forEach((doc) => batch.delete(doc.ref));
+      await batch.commit();
+      console.log(`   ✅ Deleted ${snap.size} line items`);
+    } else {
+      console.log(`   ℹ️  Would delete ${snap.size} line items (dry run)`);
+    }
+    
+    totalDeleted += snap.size;
+    lastDoc = snap.docs[snap.docs.length - 1];
+    
+    if (snap.size < batchSize) break;
+  }
+  
+  return totalDeleted;
+}
