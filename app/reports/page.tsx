@@ -77,7 +77,7 @@ export default function ReportsPage() {
   const router = useRouter();
   const { user, userProfile, loading: authLoading, canViewAllCommissions } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'quarterly' | 'monthly'>('quarterly');
+  const [activeTab, setActiveTab] = useState<'quarterly' | 'monthly'>('monthly');
   
   // Quarterly Bonus State
   const [selectedQuarter, setSelectedQuarter] = useState('Q1-2025');
@@ -721,26 +721,26 @@ export default function ReportsPage() {
         <div className="container mx-auto px-4">
           <div className="flex border-b border-gray-200">
             <button
-              onClick={() => setActiveTab('quarterly')}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
-                activeTab === 'quarterly'
-                  ? 'border-primary-600 text-primary-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-              }`}
-            >
-              <Award className="w-4 h-4 inline mr-2" />
-              Quarterly Bonuses
-            </button>
-            <button
               onClick={() => setActiveTab('monthly')}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 activeTab === 'monthly'
-                  ? 'border-primary-600 text-primary-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               <DollarSign className="w-4 h-4 inline mr-2" />
               Monthly Commissions
+            </button>
+            <button
+              onClick={() => setActiveTab('quarterly')}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                activeTab === 'quarterly'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Award className="w-4 h-4 inline mr-2" />
+              Quarterly Bonuses
             </button>
           </div>
         </div>

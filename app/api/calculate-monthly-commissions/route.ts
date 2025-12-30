@@ -993,18 +993,10 @@ async function getCustomerStatus(
     const REORG_DATE = new Date(reorgDateStr);
     const currentOrderDate = orderDate.toDate ? orderDate.toDate() : new Date(orderDate);
     
-    // HIGH CONFIDENCE TRANSFER CHECK (uses customer summary instead of raw order history)
-    // If this customer has an originalOwner that is different from the current rep and
-    // they have existing order history (totalOrders > 0), this is a transferred account.
-    // This is critical for merged/renumbered customers where old orders might live under
-    // a different customerId, so querying fishbowl_sales_orders by customerId would miss them.
-    if (customer?.originalOwner && customer.originalOwner !== currentSalesPerson) {
-      const totalOrders = customer.totalOrders ?? 0;
-      if (totalOrders > 0) {
-        console.log(`🔄 TRANSFER (summary-based): ${customer.customerName || customerId} - OriginalOwner=${customer.originalOwner}, CurrentRep=${currentSalesPerson}, totalOrders=${totalOrders}`);
-        return 'transferred';
-      }
-    }
+    // NOTE: originalOwner represents the FIRST sales rep from the first order, not a transfer indicator.
+    // Do NOT use originalOwner alone to determine transfer status - it causes false positives for
+    // customers who have always been with the same rep. Transfer detection must be based on
+    // actual order history showing a rep CHANGE.
     
     // Get recent orders for rep change detection
     const previousOrders = await adminDb.collection('fishbowl_sales_orders')
@@ -1069,17 +1061,6 @@ async function getCustomerStatus(
             hadDifferentRepBeforeReorg = true;
             break;
           }
-        }
-      }
-      
-      // NEW: Also check if originalOwner (Fishbowl owner) differs from assigned rep
-      // This catches transfers that happened but may not show in order history
-      if (customer?.originalOwner && customer.originalOwner !== currentSalesPerson) {
-        // Customer exists and has a different original owner
-        // If they had orders before reorg, this is a transferred customer
-        if (hadOrdersBeforeReorg) {
-          console.log(`🔄 Transfer detected: ${customer.customerName || customerId} - Original: ${customer.originalOwner} → Current: ${currentSalesPerson}`);
-          return 'transferred';
         }
       }
       
