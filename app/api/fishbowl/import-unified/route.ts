@@ -563,8 +563,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       accountType: itemAccountType,
       accountTypeSource: itemAccountTypeSource,
 
-      salesPerson: row['Sales person'] || row['Sales Rep'] || row['Default Sales Rep'] || row['Sales man initials'] || '',
-      salesRep: row['Sales Rep'] || row['Default Sales Rep'] || '',
+      salesPerson: row['Sales person'] || '',
+      salesRep: row['Sales Rep'] || '',
       salesRepInitials: row['Sales Rep Initials'] || '',
 
       postingDate: postingDate2,
