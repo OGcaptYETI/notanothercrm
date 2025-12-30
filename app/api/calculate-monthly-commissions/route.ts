@@ -480,7 +480,9 @@ async function calculateCommissionsWithProgress(
       
       // Determine customer status (check manual override first)
       let customerStatus: string;
-      if (manualTransferStatus) {
+      // Manual override: only if explicitly set to 'own' or 'transferred'
+      // Auto mode (null, undefined, or 'auto' string) triggers auto-calculation
+      if (manualTransferStatus && manualTransferStatus !== 'auto') {
         // Manual override from UI takes precedence
         customerStatus = manualTransferStatus; // 'own' or 'transferred'
         console.log(`📌 Manual override for ${order.customerName}: ${manualTransferStatus}`);
