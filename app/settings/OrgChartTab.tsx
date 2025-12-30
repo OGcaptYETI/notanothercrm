@@ -12,6 +12,7 @@ import {
 import toast from 'react-hot-toast';
 import RegionManager from './RegionManager';
 import RegionMap from './RegionMap';
+import UserModal from './modals/UserModal';
 
 interface OrgChartTabProps {
   isAdmin: boolean;

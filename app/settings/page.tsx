@@ -2857,16 +2857,6 @@ function SettingsPageContent() {
           <CustomersTab isAdmin={isAdmin} reps={reps} adminListOnly={true} />
         )}
 
-        {/* Sales Team Tab */}
-        {isTeamTab && (
-          <SalesTeamTab isAdmin={isAdmin} />
-        )}
-
-        {/* Org Chart Tab */}
-        {isOrgChartTab && (
-          <OrgChartTab isAdmin={isAdmin} />
-        )}
-
         {/* Products Tab */}
         {isProductsTab && (
           <ProductsTab isAdmin={isAdmin} />
