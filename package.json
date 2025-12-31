@@ -26,6 +26,7 @@
     "@tanstack/react-table": "^8.21.3",
     "bfg": "^0.3.0",
     "copper-sdk": "^0.9.1",
+    "csv-parse": "^6.1.0",
     "date-fns": "^2.30.0",
     "decimal.js": "^10.6.0",
     "firebase": "^11.10.0",
