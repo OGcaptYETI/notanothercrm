@@ -101,7 +101,8 @@ export async function POST(req: NextRequest) {
       // Detect field names
       // CRITICAL: Only salesPerson is used for commission calculation (salesRep is for reporting only)
       if (order.salesPerson !== undefined) fieldVariations.salesPerson.add('salesPerson');
-      if (order.salesRep !== undefined) fieldVariations.salesPerson.add('salesRep');
+      // Note: salesRep is stored but NOT used in calculations - don't flag as conflict
+      // if (order.salesRep !== undefined) fieldVariations.salesPerson.add('salesRep');
       if (order.soNumber !== undefined) fieldVariations.orderNumber.add('soNumber');
       if (order.num !== undefined) fieldVariations.orderNumber.add('num');
       if (order.customerId !== undefined) fieldVariations.customerId.add('customerId');
