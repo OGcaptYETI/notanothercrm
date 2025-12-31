@@ -210,20 +210,52 @@ async function processDataInBackground(
         ? `${issuedDate.getFullYear()}-${String(issuedDate.getMonth() + 1).padStart(2, '0')}`
         : undefined;
       const commissionYear = issuedDate ? issuedDate.getFullYear() : undefined;
+      const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
       
-      batch.set(orderRef, {
+      const orderData = {
         soNumber: soNum,
+        salesOrderId: String(salesOrderId),
         customerId: customerId,
         customerName: customerName,
-        postingDate: issuedDate ? Timestamp.fromDate(issuedDate) : null,
+        postingDate: postingDate,
         commissionMonth: commissionMonth,
         commissionYear: commissionYear,
         salesPerson: String(row['Sales person'] || '').trim(),
         salesRep: String(row['Sales Rep'] || '').trim(),
         updatedAt: Timestamp.now()
-      }, { merge: true });
+      };
+      
+      // Write to main collection
+      batch.set(orderRef, orderData, { merge: true });
       batchCount++;
       stats.ordersCreated++;
+      
+      // Write to customer's order history subcollection
+      // Use sales order number as document ID for readability
+      if (customerId && soNum) {
+        const orderHistoryRef = adminDb
+          .collection('fishbowl_customers')
+          .doc(customerId)
+          .collection('sales_order_history')
+          .doc(soNum);
+        
+        batch.set(orderHistoryRef, {
+          ...orderData,
+          writtenAt: Timestamp.now()
+        }, { merge: true });
+        batchCount++;
+        
+        // Update customer summary fields (last order date/info)
+        const customerSummaryRef = adminDb.collection('fishbowl_customers').doc(customerId);
+        batch.set(customerSummaryRef, {
+          lastOrderDate: postingDate,
+          lastOrderNum: soNum,
+          lastSalesPerson: String(row['Sales person'] || '').trim(),
+          updatedAt: Timestamp.now()
+        }, { merge: true });
+        batchCount++;
+      }
+      
       processedOrders.add(soNum);
     }
     
@@ -240,6 +272,7 @@ async function processDataInBackground(
     
     batch.set(itemRef, {
       soNumber: soNum,
+      salesOrderId: String(salesOrderId),
       soItemId: lineItemId,
       customerId: customerId,
       customerName: customerName,
