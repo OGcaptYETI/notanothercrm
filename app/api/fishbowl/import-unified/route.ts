@@ -81,10 +81,10 @@ export async function POST(req: NextRequest) {
     console.log(`📦 Processing ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
     
     const buffer = Buffer.from(await file.arrayBuffer());
-    const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: true });
+    const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: false });
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-    const data = XLSX.utils.sheet_to_json(worksheet, { raw: false, defval: '' });
+    const data = XLSX.utils.sheet_to_json(worksheet, { raw: true, defval: '' });
     
     console.log(`📊 Parsed ${data.length} rows from CSV`);
     
