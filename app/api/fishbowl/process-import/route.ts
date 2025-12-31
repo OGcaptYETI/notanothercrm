@@ -264,11 +264,44 @@ async function processDataInBackground(
       const orderRef = adminDb.collection('fishbowl_sales_orders').doc(soNum);
       
       // Parse 'Issued date' (MM-DD-YYYY HH:MM:SS format from Conversite)
-      const issuedDate = parseDate(row['Issued date']);
-      const commissionMonth = issuedDate 
-        ? `${issuedDate.getFullYear()}-${String(issuedDate.getMonth() + 1).padStart(2, '0')}`
-        : undefined;
-      const commissionYear = issuedDate ? issuedDate.getFullYear() : undefined;
+      let issuedDate = parseDate(row['Issued date']);
+      
+      // CRITICAL: Use Year-month field as fallback for commission month
+      // Some orders have corrupted Issued date (e.g., "01-01-2012" instead of December 2025)
+      // Year-month field is more reliable (e.g., "December 2025")
+      let commissionMonth: string | undefined;
+      let commissionYear: number | undefined;
+      
+      if (issuedDate && issuedDate.getFullYear() >= 2020) {
+        // Issued date is valid and reasonable
+        commissionMonth = `${issuedDate.getFullYear()}-${String(issuedDate.getMonth() + 1).padStart(2, '0')}`;
+        commissionYear = issuedDate.getFullYear();
+      } else {
+        // Issued date is invalid or unreasonable - use Year-month field
+        const yearMonth = String(row['Year-month'] || '').trim();
+        if (yearMonth) {
+          // Parse "December 2025" format
+          const match = yearMonth.match(/(\w+)\s+(\d{4})/);
+          if (match) {
+            const monthName = match[1];
+            const year = parseInt(match[2]);
+            const monthMap: Record<string, number> = {
+              'January': 1, 'February': 2, 'March': 3, 'April': 4,
+              'May': 5, 'June': 6, 'July': 7, 'August': 8,
+              'September': 9, 'October': 10, 'November': 11, 'December': 12
+            };
+            const month = monthMap[monthName];
+            if (month && year) {
+              commissionMonth = `${year}-${String(month).padStart(2, '0')}`;
+              commissionYear = year;
+              // Create a reasonable date (1st of the month) for postingDate
+              issuedDate = new Date(year, month - 1, 1);
+              console.log(`⚠️ Using Year-month fallback for order ${soNum}: ${yearMonth} -> ${commissionMonth}`);
+            }
+          }
+        }
+      }
+      
       const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
       
       const orderData = {
@@ -324,12 +357,37 @@ async function processDataInBackground(
     const itemId = String(lineItemId);
     const itemRef = adminDb.collection('fishbowl_soitems').doc(itemId);
     
-    // Parse 'Issued date' for line items
-    const itemIssuedDate = parseDate(row['Issued date']);
-    const itemCommissionMonth = itemIssuedDate 
-      ? `${itemIssuedDate.getFullYear()}-${String(itemIssuedDate.getMonth() + 1).padStart(2, '0')}`
-      : undefined;
-    const itemCommissionYear = itemIssuedDate ? itemIssuedDate.getFullYear() : undefined;
+    // Parse 'Issued date' for line items - use same logic as orders
+    let itemIssuedDate = parseDate(row['Issued date']);
+    let itemCommissionMonth: string | undefined;
+    let itemCommissionYear: number | undefined;
+    
+    if (itemIssuedDate && itemIssuedDate.getFullYear() >= 2020) {
+      // Issued date is valid
+      itemCommissionMonth = `${itemIssuedDate.getFullYear()}-${String(itemIssuedDate.getMonth() + 1).padStart(2, '0')}`;
+      itemCommissionYear = itemIssuedDate.getFullYear();
+    } else {
+      // Use Year-month fallback for line items too
+      const yearMonth = String(row['Year-month'] || '').trim();
+      if (yearMonth) {
+        const match = yearMonth.match(/(\w+)\s+(\d{4})/);
+        if (match) {
+          const monthName = match[1];
+          const year = parseInt(match[2]);
+          const monthMap: Record<string, number> = {
+            'January': 1, 'February': 2, 'March': 3, 'April': 4,
+            'May': 5, 'June': 6, 'July': 7, 'August': 8,
+            'September': 9, 'October': 10, 'November': 11, 'December': 12
+          };
+          const month = monthMap[monthName];
+          if (month && year) {
+            itemCommissionMonth = `${year}-${String(month).padStart(2, '0')}`;
+            itemCommissionYear = year;
+            itemIssuedDate = new Date(year, month - 1, 1);
+          }
+        }
+      }
+    }
     
     batch.set(itemRef, {
       soNumber: soNum,
