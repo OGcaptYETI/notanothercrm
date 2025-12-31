@@ -429,7 +429,7 @@ async function processDataInBackground(
       commissionDate: itemCommissionDate,
       salesPerson: String(row['Sales person'] || '').trim(),
       updatedAt: Timestamp.now()
-    }, { merge: true });
+    }); // CRITICAL: No merge - each composite key is unique, don't overwrite
     batchCount++;
     stats.itemsCreated++;
     
