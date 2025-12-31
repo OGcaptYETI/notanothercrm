@@ -46,6 +46,7 @@ import CustomersTab from './CustomersTab';
 import RulesTab from './RulesTab';
 import ProductsTab from './ProductsTab';
 import DataSyncTab from './DataSyncTab';
+import CalculateTab from './CalculateTab';
 import { CommissionConfig, CommissionBucket, ProductSubGoal, ActivitySubGoal, RoleCommissionScale, RepRole, CommissionEntry } from '@/types';
 import { validateWeightsSum, calculatePayout, formatCurrency, formatAttainment } from '@/lib/commission/calculator';
 import MonthYearModal from '@/components/MonthYearModal';
@@ -62,14 +63,14 @@ function SettingsPageContent() {
   const [saving, setSaving] = useState(false);
   const [selectedQuarter, setSelectedQuarter] = useState('Q4 2025');
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
-  const [activeTab, setActiveTab] = useState<'rules' | 'datasync' | 'customers' | 'products' | 'orgchart'>('rules');
+  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart'>('calculate');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
 
   // Handle tab parameter from URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['rules', 'datasync', 'customers', 'products', 'orgchart'].includes(tabParam)) {
-      setActiveTab(tabParam as 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart');
+    if (tabParam && ['calculate', 'rules', 'datasync', 'customers', 'products', 'orgchart'].includes(tabParam)) {
+      setActiveTab(tabParam as 'calculate' | 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart');
     }
   }, [searchParams]);
 
@@ -2754,15 +2755,6 @@ function SettingsPageContent() {
             {/* Quarter Selector & Actions */}
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setShowMonthYearModal(true)}
-                className="btn btn-primary flex items-center"
-                title="Calculate commissions for a month"
-              >
-                <Calculator className="w-4 h-4 mr-2" />
-                Calculate Commissions
-              </button>
-              
-              <button
                 onClick={addQuarter}
                 className="btn btn-secondary flex items-center"
                 title="Add new quarter for forecasting"
@@ -2793,6 +2785,17 @@ function SettingsPageContent() {
         <div className="container mx-auto px-4">
           <nav className="flex space-x-8" aria-label="Tabs">
             <button
+              onClick={() => setActiveTab('calculate')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'calculate'
+                  ? 'border-primary-500 text-primary-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <Calculator className="w-4 h-4 inline mr-1" />
+              Calculate Commissions
+            </button>
+            <button
               onClick={() => setActiveTab('rules')}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'rules'
@@ -2800,7 +2803,7 @@ function SettingsPageContent() {
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
-              <Calculator className="w-4 h-4 inline mr-1" />
+              <SettingsIcon className="w-4 h-4 inline mr-1" />
               Commission Rules
             </button>
             <button
@@ -2842,6 +2845,11 @@ function SettingsPageContent() {
     
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
+        {/* Calculate Commissions Tab */}
+        {activeTab === 'calculate' && (
+          <CalculateTab onCalculationComplete={loadCustomers} />
+        )}
+
         {/* Commission Rules Tab */}
         {isRulesTab && (
           <RulesTab selectedQuarter={selectedQuarter} isAdmin={isAdmin} />
