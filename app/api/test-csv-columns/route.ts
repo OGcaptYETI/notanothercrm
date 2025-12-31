@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parse } from 'csv-parse/sync';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,12 +12,22 @@ export async function POST(request: NextRequest) {
     }
     
     const text = await file.text();
-    const data = parse(text, {
-      columns: true,
-      skip_empty_lines: true,
-      trim: true,
-      bom: true
+    
+    // Simple CSV parsing (same as import code uses)
+    const lines = text.split('\n').filter(line => line.trim());
+    if (lines.length < 2) {
+      return NextResponse.json({ error: 'CSV must have header and at least one data row' }, { status: 400 });
+    }
+    
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    const firstDataLine = lines[1].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+    
+    const firstRow: any = {};
+    headers.forEach((header, idx) => {
+      firstRow[header] = firstDataLine[idx] || '';
     });
+    
+    const data = [firstRow];
     
     if (data.length === 0) {
       return NextResponse.json({ error: 'No data in CSV' }, { status: 400 });
