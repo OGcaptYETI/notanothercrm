@@ -813,7 +813,7 @@ async function calculateCommissionsWithProgress(
       }
       const repSummary = commissionsByRep.get(canonicalSalesPerson);
       repSummary.orders++;
-      repSummary.revenue += order.revenue;
+      repSummary.revenue += orderAmount; // Use calculated orderAmount, not order.revenue (which may be undefined)
       repSummary.commission += commissionAmount;
       repSummary.spiffs += orderSpiffTotal;
       
