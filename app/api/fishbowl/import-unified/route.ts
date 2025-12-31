@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase/admin';
 import { Timestamp } from 'firebase-admin/firestore';
-import * as XLSX from 'xlsx';
+import { parse } from 'csv-parse/sync';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -30,13 +30,9 @@ function parseDate(val: any): Date | null {
   if (!val) return null;
   if (val instanceof Date) return val;
   
-  if (typeof val === 'number') {
-    const date = XLSX.SSF.parse_date_code(val);
-    if (date) return new Date(date.y, date.m - 1, date.d);
-  }
-  
   const dateStr = String(val).trim();
   
+  // Handle Conversite format: MM-DD-YYYY HH:MM:SS or MM/DD/YYYY HH:MM
   const conversiteMatch = dateStr.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?/);
   if (conversiteMatch) {
     const [, month, day, year, hour, minute, second] = conversiteMatch;
@@ -55,11 +51,14 @@ function parseDate(val: any): Date | null {
     }
   }
   
-  const parsed = new Date(dateStr);
-  if (!isNaN(parsed.getTime())) {
+  // Handle simple date format: MM-DD-YYYY or MM/DD/YYYY
+  const simpleDateMatch = dateStr.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if (simpleDateMatch) {
+    const [, month, day, year] = simpleDateMatch;
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     const now = new Date();
-    if (parsed.getFullYear() >= 2000 && parsed <= now) {
-      return parsed;
+    if (date.getFullYear() >= 2000 && date <= now) {
+      return date;
     }
   }
   
@@ -80,11 +79,14 @@ export async function POST(req: NextRequest) {
     
     console.log(`📦 Processing ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
     
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: false });
-    const sheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[sheetName];
-    const data = XLSX.utils.sheet_to_json(worksheet, { raw: true, defval: '' });
+    // Read as text to preserve exact CSV values (no Excel date conversion)
+    const text = await file.text();
+    const data = parse(text, {
+      columns: true,
+      skip_empty_lines: true,
+      trim: true,
+      relax_column_count: true
+    });
     
     console.log(`📊 Parsed ${data.length} rows from CSV`);
     
