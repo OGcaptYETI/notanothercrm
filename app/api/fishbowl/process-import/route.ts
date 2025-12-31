@@ -243,7 +243,9 @@ async function processDataInBackground(
         postingDate: postingDate,
         commissionMonth: commissionMonth,
         commissionYear: commissionYear,
+        // CRITICAL: salesPerson (Column T) is the ONLY field used for commission calculation
         salesPerson: String(row['Sales person'] || '').trim(),
+        // salesRep is stored for reporting only - NOT used in commission calculation
         salesRep: String(row['Sales Rep'] || '').trim(),
         updatedAt: Timestamp.now()
       };

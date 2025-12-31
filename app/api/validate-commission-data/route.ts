@@ -99,6 +99,7 @@ export async function POST(req: NextRequest) {
       totalOrders++;
       
       // Detect field names
+      // CRITICAL: Only salesPerson is used for commission calculation (salesRep is for reporting only)
       if (order.salesPerson !== undefined) fieldVariations.salesPerson.add('salesPerson');
       if (order.salesRep !== undefined) fieldVariations.salesPerson.add('salesRep');
       if (order.soNumber !== undefined) fieldVariations.orderNumber.add('soNumber');
@@ -118,6 +119,7 @@ export async function POST(req: NextRequest) {
       }
       
       // Determine effective sales person
+      // CRITICAL: ONLY use order.salesPerson (Column T from Conversite CSV)
       let effectiveSalesPerson = order.salesPerson;
       if (order.salesPerson === 'admin' || order.salesPerson === 'Admin') {
         const customer = customersMap.get(order.customerId);

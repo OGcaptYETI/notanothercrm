@@ -37,11 +37,14 @@ Conversite is a data company that processes Fishbowl data and provides formatted
   - Used for: Primary customer ID in our system
 
 ### Sales Rep Information
-- **Sales Rep**: Sales rep identifier (e.g., `JL`, `BG`, `SF`)
-  - Used for: Matching to user records for commission calculation
-- **Sales person**: Sales person name (e.g., `Jared`, `BrandonG`, `Sergio`)
-  - Used for: Primary sales person assignment
+- **Sales person**: **CRITICAL - ONLY FIELD WE USE** - Sales person name (e.g., `Jared`, `BrandonG`, `Sergio`)
+  - Column T in CSV
+  - Used for: **PRIMARY AND ONLY field for sales rep assignment and commission calculation**
+  - Must match user records exactly for commission calculation
+- **Sales Rep**: Rep identifier (e.g., `JL`, `BG`, `SF`)
+  - Used for: Data reporting only - NOT used in commission calculation
 - **Sales Rep Initials**: Rep initials (e.g., `JL`, `MC`)
+  - Used for: Data reporting only - NOT used in commission calculation
 
 ### Product Information
 - **Product ID**: Product ID (numeric)
@@ -53,12 +56,13 @@ Conversite is a data company that processes Fishbowl data and provides formatted
 - **Sales Order Item Description**: Line item description
 
 ### Order Information
-- **Sales order Number**: Order number (numeric, e.g., `5811`)
-  - Used for: Order identification
-- **SO Number**: Same as Sales order Number
-- **Sales Order ID**: Order ID (numeric)
-  - Used for: Primary order identifier in our system
-- **SO ID**: Same as Sales Order ID
+- **Sales order Number**: **PRIMARY ORDER IDENTIFIER** - Order number (numeric, e.g., `5811`)
+  - Used for: **ONLY field for order identification in our system**
+- **SO Number**: Same as Sales order Number (duplicate column name)
+- **Sales Order ID**: Fishbowl internal ID assigned to the Sales order Number
+  - Used for: Linking line items to orders (foreign key)
+  - NOT the primary identifier - just Fishbowl's internal reference
+- **SO ID**: Same as Sales Order ID (duplicate column name)
 - **SO Status**: Order status (e.g., `Fulfilled`)
 - **Status ID**: Status ID (numeric, e.g., `30`)
 - **Ship status**: Shipping status (e.g., `Shipped`)
@@ -98,7 +102,7 @@ Conversite is a data company that processes Fishbowl data and provides formatted
 - **So ct**: Unknown custom field
 
 ### Other Fields
-- **Account id2**: Secondary account ID
+- **Account id2**: Duplicate of Account ID (will be deleted in future exports)
 
 ## How We Use This Data
 
@@ -163,7 +167,7 @@ When processing December 2025 Conversite data, we MUST match these totals from F
 **Interpretation:**
 - Order #5810 for Drip Botanical Tea Bar
 - Issued: 12-31-2024 17:07:30
-- Sales person: Jared (JL)
+- Sales person: **Jared** (this is the ONLY value we use for commission calculation)
 - Product: MC12 Focus + Flow
 - Quantity: 6
 - Unit price: $576.00

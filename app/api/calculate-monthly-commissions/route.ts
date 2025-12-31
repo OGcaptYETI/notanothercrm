@@ -433,6 +433,8 @@ async function calculateCommissionsWithProgress(
                       customersMap.get(order.customerName);
       
       // For admin orders, use the customer's assigned salesPerson instead
+      // CRITICAL: ONLY use order.salesPerson (Column T from Conversite CSV)
+      // order.salesRep is stored for reporting only and is NOT used in commission calculation
       let effectiveSalesPerson = order.salesPerson;
       if (order.salesPerson === 'admin' || order.salesPerson === 'Admin') {
         if (customer?.salesPerson) {
