@@ -302,6 +302,13 @@ async function processDataInBackground(
         }
       }
       
+      // Skip orders with no valid date
+      if (!commissionMonth || !commissionYear) {
+        console.warn(`⚠️ Skipping order ${soNum} - no valid date (Issued: ${row['Issued date']}, Year-month: ${row['Year-month']})`);
+        stats.skipped++;
+        continue;
+      }
+      
       const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
       
       // CRITICAL: commission-calculator.ts queries by commissionDate field
@@ -394,6 +401,13 @@ async function processDataInBackground(
       }
     }
     
+    // Skip line items with no valid date
+    if (!itemCommissionMonth || !itemCommissionYear) {
+      console.warn(`⚠️ Skipping line item ${lineItemId} for order ${soNum} - no valid date`);
+      stats.skipped++;
+      continue;
+    }
+    
     // CRITICAL: commission-calculator.ts queries by commissionDate field
     const itemCommissionDate = itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null;
     
@@ -405,7 +419,7 @@ async function processDataInBackground(
       customerName: customerName,
       product: String(row['SO Item Product Number'] || row['Part Description'] || row['Product'] || '').trim(),
       quantity: safeParseNumber(row['Qty fulfilled'] || row['Qty'] || row['Quantity']),
-      unitPrice: safeParseNumber(row['Unit price'] || row['Price']),
+      unitPrice: safeParseNumber(row['Total Price'] || row['Total']),
       totalPrice: safeParseNumber(row['Total Price'] || row['Total']),
       postingDate: itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null,
       commissionMonth: itemCommissionMonth,
