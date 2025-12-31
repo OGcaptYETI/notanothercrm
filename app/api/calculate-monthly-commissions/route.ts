@@ -426,33 +426,42 @@ async function calculateCommissionsWithProgress(
         console.log(`📊 Progress updated: ${processed}/${ordersSnapshot.size} (${percentage.toFixed(1)}%)`);
       }
 
-      // Skip admin/house account orders (no commission)
+      // Get customer to check for actual account owner
+      const customer = customersMap.get(order.customerId) || 
+                      customersMap.get(order.customerNum) ||
+                      customersMap.get(order.accountNumber) ||
+                      customersMap.get(order.customerName);
+      
+      // For admin orders, use the customer's assigned salesPerson instead
+      let effectiveSalesPerson = order.salesPerson;
       if (order.salesPerson === 'admin' || order.salesPerson === 'Admin') {
-        skippedCounts.admin++;
-        continue;
+        if (customer?.salesPerson) {
+          effectiveSalesPerson = customer.salesPerson;
+          console.log(`📋 Admin order ${order.soNumber || order.num} → Using customer's rep: ${effectiveSalesPerson}`);
+        } else {
+          // No customer or no assigned rep - skip this order
+          skippedCounts.admin++;
+          continue;
+        }
       }
 
       // Skip Commerce/Shopify orders (no commission on direct e-commerce)
-      const sp = (order.salesPerson || '').toUpperCase();
+      const sp = (effectiveSalesPerson || '').toUpperCase();
       const orderNum = order.soNumber || order.num || order.orderNum || '';
       if (sp === 'SHOPIFY' || sp === 'COMMERCE' || orderNum.startsWith('Sh')) {
         skippedCounts.shopify++;
         continue;
       }
 
-      // Get rep details
-      const rep = repsMap.get(order.salesPerson);
+      // Get rep details using effective sales person
+      const rep = repsMap.get(effectiveSalesPerson);
       if (!rep || !rep.active) {
-        skippedReps.add(order.salesPerson);
+        skippedReps.add(effectiveSalesPerson);
         skippedCounts.inactiveRep++;
         continue;
       }
 
-      // Get customer account type - try multiple keys
-      const customer = customersMap.get(order.customerId) || 
-                      customersMap.get(order.customerNum) ||
-                      customersMap.get(order.accountNumber) ||
-                      customersMap.get(order.customerName);
+      // Customer already loaded above for admin order handling
       const accountType = customer?.accountType || 'Retail';
       const manualTransferStatus = customer?.transferStatus; // Manual override from UI
       
@@ -488,9 +497,10 @@ async function calculateCommissionsWithProgress(
         console.log(`📌 Manual override for ${order.customerName}: ${manualTransferStatus}`);
       } else {
         // Auto-calculate based on order history AND customer assignment
+        // Use effectiveSalesPerson for status calculation
         customerStatus = await getCustomerStatus(
           order.customerId,
-          order.salesPerson,
+          effectiveSalesPerson,
           order.postingDate,
           commissionRules,
           customer // Pass customer object to check originalOwner
@@ -628,8 +638,8 @@ async function calculateCommissionsWithProgress(
         console.error(`❌ FAILED TO SAVE CALCULATION LOG for order ${order.soNumber || order.num}:`, error);
       }
 
-      // Save commission record
-      const commissionId = `${order.salesPerson}_${commissionMonth}_order_${order.salesOrderId}`;
+      // Save commission record using effective sales person
+      const commissionId = `${effectiveSalesPerson}_${commissionMonth}_order_${order.salesOrderId}`;
       const commissionRef = adminDb.collection('monthly_commissions').doc(commissionId);
       
       // Check if this commission already exists and has a manual override
@@ -659,7 +669,7 @@ async function calculateCommissionsWithProgress(
         await commissionRef.set({
           id: commissionId,
           repId: rep.id,
-          salesPerson: order.salesPerson,
+          salesPerson: effectiveSalesPerson,
           repName: rep.name,
           repTitle: rep.title,
           
