@@ -235,6 +235,11 @@ async function processDataInBackground(
       const commissionYear = issuedDate ? issuedDate.getFullYear() : undefined;
       const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
       
+      // Parse revenue from Shipped or Ordered columns
+      const shippedAmount = safeParseNumber(row['Shipped'] || 0);
+      const orderedAmount = safeParseNumber(row['Ordered'] || 0);
+      const orderRevenue = shippedAmount || orderedAmount || 0;
+      
       const orderData = {
         soNumber: soNum,
         salesOrderId: String(salesOrderId),
@@ -245,6 +250,8 @@ async function processDataInBackground(
         commissionYear: commissionYear,
         salesPerson: String(row['Sales person'] || '').trim(),
         salesRep: String(row['Sales Rep'] || '').trim(),
+        revenue: orderRevenue,
+        orderValue: orderRevenue,
         updatedAt: Timestamp.now()
       };
       

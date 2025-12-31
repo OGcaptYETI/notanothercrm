@@ -1,0 +1,307 @@
+SO #,Customer,Customer PO,"State/
+Province",Sales Person,Date Issued,Date Scheduled,Date Fulfilled,Status,Ordered,Shipped
+10006,Silk Road Distro,,IL,admin,12/23/2025,12/23/2025,12/29/2025,Fulfilled,"$97,668 ","$97,668 "
+9986,SMOKE ZONE STORRS-ST (CT),,CT,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$84 ,$84 
+9987,WILD SIDE PORTLAND-PT (ME),,ME,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$2,008.80 ","$2,008.80 "
+9989,WILD SIDE ST PETE-STP (FL),,FL,admin,12/22/2025,12/22/2025,12/23/2025,Fulfilled,$111.60 ,$111.60 
+10001,Good Vibes Boise,,ID,admin,12/23/2025,12/23/2025,12/23/2025,Fulfilled,"$1,152 ","$1,152 "
+10002,WILD SIDE GREELEY-GL2 (CO),,CO,admin,12/23/2025,12/23/2025,12/23/2025,Fulfilled,$669.60 ,$669.60 
+10003,WILD SIDE LAWRENCE-LR (KS),,KS,admin,12/23/2025,12/23/2025,12/23/2025,Fulfilled,"$2,400 ","$2,400 "
+10005,WILD SIDE LAWRENCE-LR2 (KS),,KS,admin,12/23/2025,12/23/2025,12/23/2025,Fulfilled,$669.60 ,$669.60 
+10011,Viable Alternatives - Nampa,,ID,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$684 ,$684 
+10012,WILD SIDE CAMARILLO-CAM (CA),,CA,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+10013,WILD SIDE TEMPE-TP (AZ),,AZ,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$669.60 ,$669.60 
+10014,PURPLE HAZE PORTER RANCH-RANCH (CA),,CA,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$334.80 ,$334.80 
+10021,WILD SIDE ISLA VISTA-IV (CA),,CA,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$334.80 ,$334.80 
+10025,Lg Mart,,ID,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,"$1,368 ","$1,368 "
+10030,WILD SIDE LAWRENCE-LR (KS),,KS,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,"$2,134.80 ","$2,134.80 "
+10041,Wild Side Livonia-LV | JNC Management,,MI,admin,12/29/2025,12/29/2025,12/29/2025,Fulfilled,"$1,674 ","$1,674 "
+10058,PURPLE HAZE HERMOSA BEACH-HM (CA),,CA,admin,12/31/2025,12/31/2025,12/31/2025,Fulfilled,$729.60 ,$729.60 
+10059,WILD SIDE MOORPARK-MPARK (CA),,CA,admin,12/31/2025,12/31/2025,12/31/2025,Fulfilled,$669.60 ,$669.60 
+9676,Wild Side Livonia-LV | JNC Management,,MI,admin,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$669.60 ,$669.60 
+9677,PURPLE HAZE STUDIO CITY-SC (CA),,CA,admin,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$223.20 ,$223.20 
+9678,WILD SIDE ATHENS-GA (GA),,GA,admin,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$390.60 ,$390.60 
+9682,WILD SIDE THOUSAND OAKS-T.O. (CA),,CA,admin,12/1/2025,12/1/2025,12/1/2025,Fulfilled,"$2,008.80 ","$2,008.80 "
+9683,Viable Alternatives - Nampa,,ID,admin,12/1/2025,12/1/2025,12/2/2025,Fulfilled,"$2,052 ","$2,052 "
+9695,Good Vibes Boise,,ID,admin,12/1/2025,12/1/2025,12/2/2025,Fulfilled,"$2,598 ","$2,598 "
+9696,Elevated Alternatives,,ID,admin,12/1/2025,12/1/2025,12/2/2025,Fulfilled,"$2,304 ","$2,304 "
+9699,Zee Wholesale,,MI,admin,12/8/2025,12/1/2025,12/8/2025,Fulfilled,"$35,723.20 ","$35,723.20 "
+9700,WILD SIDE MOORPARK-MPARK (CA),,CA,admin,12/1/2025,12/1/2025,12/2/2025,Fulfilled,$502.20 ,$502.20 
+9707,Viable Alternatives,,ID,admin,12/2/2025,12/2/2025,12/4/2025,Fulfilled,"$3,744 ","$3,744 "
+9711,WILD SIDE MONROEVILLE-MV (PA),,PA,admin,12/3/2025,12/3/2025,12/3/2025,Fulfilled,$390.60 ,$390.60 
+9712,WILD SIDE ANN ARBOR-AA2 (MI),,MI,admin,12/3/2025,12/3/2025,12/3/2025,Fulfilled,"$2,064.60 ","$2,064.60 "
+9713,Elevated Alternatives,,ID,admin,12/3/2025,12/3/2025,12/3/2025,Fulfilled,$468 ,$468 
+9714,WILD SIDE INDEPENDENCE-IND (MO),,MO,admin,12/4/2025,12/3/2025,12/4/2025,Fulfilled,$483 ,$483 
+9716,WILD SIDE CAMARILLO-CAM (CA),,CA,admin,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$669.60 ,$669.60 
+9737,Precision Edge Fit LLC,,NE,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9738,K. Roots | A & L WHOLESALE INC.,,IL,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9739,B.I.G. Wholesale,,WA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9743,Viable Alternatives,,ID,admin,12/8/2025,12/5/2025,12/8/2025,Fulfilled,$0 ,$0 
+9747,WILD SIDE LANSING-LS (MI),,MI,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9748,Wild Side Livonia-LV | JNC Management,,MI,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9749,Durity Distro,,ID,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9751,Vanguard Enterprises,,ID,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9752,Good Vibes Boise,,ID,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9753,smoke-n-stuff | Jtmm Trading,,CA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9755,WILD SIDE POOLER-PL (GA),,GA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$279 ,$279 
+9756,WILD SIDE BIRMINGHAM-BH (MI),,MI,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,"$1,158 ","$1,158 "
+9757,Fourice Brands LLC,,CA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9758,Gursatya Wholesale,,WA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9759,Inderbitzin Distributors,,WA,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9760,Silk Road Distro,,IL,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9761,Px wholesale,,OH,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9762,SMOKE RINGS DURHAM-DH (NC),,NC,admin,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$544.80 ,$544.80 
+9768,Max Distributing,319020,TX,admin,12/5/2025,12/5/2025,12/8/2025,Fulfilled,"$34,250.40 ","$34,250.40 "
+9772,WILD SIDE BALLWIN-BW (MO),,MO,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$315.60 ,$315.60 
+9775,WILD SIDE WEST LAFAYETTE-LF (IN),,IN,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$111.60 ,$111.60 
+9776,PURPLE HAZE LOS ANGELES-LA (CA),,CA,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$669.60 ,$669.60 
+9777,WILD SIDE VENTURA-JOHNSON (CA),,CA,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$2,232 ","$2,232 "
+9778,WILD SIDE VENTURA-MAIN (CA),,CA,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$1,674 ","$1,674 "
+9779,PURPLE HAZE COSTA MESA-CM (CA),,CA,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$669.60 ,$669.60 
+9780,WILD SIDE PASO ROBLES-PAS (CA),,CA,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$446.40 ,$446.40 
+9812,SMOKE RINGS WINSTON SALEM-WS (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$1,622.40 ","$1,622.40 "
+9813,SMOKE RINGS ASHEVILLE-ASH2 (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$1,176 ","$1,176 "
+9814,SMOKE RINGS BOONE-BN (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$1,004.40 ","$1,004.40 "
+9816,SMOKE RINGS WILMINGTON-WT (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$725.40 ,$725.40 
+9817,SMOKE RINGS DURHAM-DH (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$503.40 ,$503.40 
+9818,SMOKE RINGS ASHEVILLE-ASH1 (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$279 ,$279 
+9819,SMOKE RINGS CHAPEL HILL-CH (NC),,NC,admin,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$210 ,$210 
+9823,WILD SIDE PORTLAND-PT (ME),,ME,admin,12/8/2025,12/8/2025,12/9/2025,Fulfilled,"$1,562.40 ","$1,562.40 "
+9835,PURPLE HAZE STUDIO CITY-SC (CA),,CA,admin,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$223.20 ,$223.20 
+9836,Vanguard Enterprises,1706,ID,admin,12/8/2025,12/8/2025,12/10/2025,Fulfilled,"$9,180 ","$9,180 "
+9838,Good Vibes Boise,,ID,admin,12/9/2025,12/9/2025,12/9/2025,Fulfilled,"$2,460 ","$2,460 "
+9856,WILD SIDE CHARLESTON-CR (SC),,SC,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$2,232 ","$2,232 "
+9857,WILD SIDE NASHUA-NS (NH),,NH,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$1,549.20 ","$1,549.20 "
+9858,WILD SIDE BLACKSBURG-BB (VA),,VA,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$1,395 ","$1,395 "
+9859,WILD SIDE SALEM-SL (OR),,OR,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$1,269.60 ","$1,269.60 "
+9860,WILD SIDE MANCHESTER-MC1 (NH),,NH,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$1,257 ","$1,257 "
+9861,WILD SIDE ORLANDO-OL (FL),,FL,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$837 ,$837 
+9862,WILD SIDE CORVALLIS-CV (OR),,OR,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$837 ,$837 
+9863,SMOKE ZONE ENFIELD-EN (CT),,CT,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$446.40 ,$446.40 
+9864,SMOKE ZONE BOWLING GREEN-BG (OH),,OH,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$334.80 ,$334.80 
+9865,WILD SIDE GAINESVILLE-GV2 (FL),,FL,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$227.40 ,$227.40 
+9866,WILD SIDE NORTH HAMPTON-HAM (NH),,NH,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$334.80 ,$334.80 
+9867,WILD SIDE TACOMA-TC (WA),,WA,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,"$1,005.60 ","$1,005.60 "
+9874,PURPLE HAZE LOS ANGELES-LA2 (CA),,CA,admin,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$334.80 ,$334.80 
+9877,Elevated Alternatives,,ID,admin,12/10/2025,12/10/2025,12/10/2025,Fulfilled,"$2,772 ","$2,772 "
+9878,River Tobacco,,MN,admin,12/11/2025,12/10/2025,12/11/2025,Fulfilled,"$1,440 ","$1,440 "
+9885,Pumpernickel Pops,,FL,admin,12/11/2025,12/9/2025,12/11/2025,Fulfilled,"$5,602 ","$5,602 "
+9889,WILD SIDE THOUSAND OAKS-T.O. (CA),,CA,admin,12/11/2025,12/11/2025,12/11/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+9890,Px wholesale,,OH,admin,12/11/2025,12/11/2025,12/11/2025,Fulfilled,"$16,434.80 ","$16,434.80 "
+9893,Max Distributing,319460,TX,admin,12/11/2025,12/11/2025,12/11/2025,Fulfilled,"$57,254.40 ","$57,254.40 "
+9896,Inderbitzin Distributors,8925,WA,admin,12/11/2025,12/11/2025,12/11/2025,Fulfilled,"$40,481.28 ","$40,481.28 "
+9897,Lg Mart,,ID,admin,12/11/2025,12/11/2025,12/11/2025,Fulfilled,"$1,368 ","$1,368 "
+9902,WILD SIDE STILLWATER-SW (OK),,OK,admin,12/12/2025,12/12/2025,12/12/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+9903,WILD SIDE TUCSON-TUC (AZ),,AZ,admin,12/12/2025,12/12/2025,12/12/2025,Fulfilled,$390.60 ,$390.60 
+9904,WILD SIDE MOUNT PLEASANT-MP (MI),,MI,admin,12/12/2025,12/12/2025,12/12/2025,Fulfilled,"$1,465.20 ","$1,465.20 "
+9905,SF Professional Distribution LLC,,ID,admin,12/12/2025,12/12/2025,12/12/2025,Fulfilled,"$6,840 ","$6,840 "
+9908,PURPLE HAZE HERMOSA BEACH-HM (CA),,CA,admin,12/15/2025,12/15/2025,12/15/2025,Fulfilled,"$1,227.60 ","$1,227.60 "
+9915,Good Vibes Boise,,ID,admin,12/15/2025,12/15/2025,12/15/2025,Fulfilled,"$2,304 ","$2,304 "
+9917,Silk Road Distro,,IL,admin,12/15/2025,12/15/2025,12/16/2025,Fulfilled,"$69,768 ","$69,768 "
+9930,Viable Alternatives,,ID,admin,12/17/2025,12/17/2025,12/17/2025,Fulfilled,"$4,932 ","$4,932 "
+9932,Precision Edge Fit LLC,,NE,admin,12/17/2025,12/17/2025,12/17/2025,Fulfilled,"$5,976 ","$5,976 "
+9934,Elevated Alternatives,,ID,admin,12/17/2025,12/17/2025,12/17/2025,Fulfilled,"$2,304 ","$2,304 "
+9935,Viable Alternatives - Nampa,,ID,admin,12/17/2025,12/17/2025,12/29/2025,Fulfilled,$684 ,$684 
+9941,Wild Side Livonia-LV | JNC Management,,MI,admin,12/18/2025,12/18/2025,12/19/2025,Fulfilled,"$1,674 ","$1,674 "
+9942,WILD SIDE LOVELAND-LL,,CO,admin,12/18/2025,12/18/2025,12/19/2025,Fulfilled,"$4,185 ","$4,185 "
+9947,WILD SIDE FORT COLLINS-FC2 (CO),,CO,admin,12/18/2025,12/18/2025,12/19/2025,Fulfilled,"$5,356.80 ","$5,356.80 "
+9948,WILD SIDE MOORPARK-MPARK (CA),,CA,admin,12/18/2025,12/18/2025,12/22/2025,Fulfilled,$669.60 ,$669.60 
+9953,Good Vibes Boise,,ID,admin,12/19/2025,12/19/2025,12/19/2025,Fulfilled,"$2,772 ","$2,772 "
+9954,WILD SIDE FORT COLLINS-FC (CO),,CO,admin,12/21/2025,12/21/2025,12/22/2025,Fulfilled,"$7,398 ","$7,398 "
+9955,PURPLE HAZE LOS ANGELES-LA2 (CA),,CA,admin,12/21/2025,12/21/2025,12/22/2025,Fulfilled,$669.60 ,$669.60 
+9956,WILD SIDE WEST LAFAYETTE-LF (IN),,IN,admin,12/21/2025,12/21/2025,12/22/2025,Fulfilled,$167.40 ,$167.40 
+9963,PURPLE HAZE LOS ANGELES-LA (CA),,CA,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$892.80 ,$892.80 
+9964,WILD SIDE BIRMINGHAM-BH (MI),,MI,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$3,348 ","$3,348 "
+9971,SMOKE RINGS CHAPEL HILL-CH (NC),,NC,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$336 ,$336 
+9972,SMOKE RINGS BURLINGTON-BT (NC),,NC,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$111.60 ,$111.60 
+9973,SMOKE RINGS RALEIGH-RA (NC),,NC,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,227.60 ","$1,227.60 "
+9974,WILD SIDE NASHUA-NS (NH),,NH,admin,12/22/2025,12/22/2025,12/23/2025,Fulfilled,"$4,017.60 ","$4,017.60 "
+9975,SMOKE ZONE ENFIELD-EN (CT),,CT,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$2,678.40 ","$2,678.40 "
+9976,WILD SIDE SALEM-SL (OR),,OR,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+9977,WILD SIDE CORVALLIS-CV (OR),,OR,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+9978,WILD SIDE TACOMA-TC (WA),,WA,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,339.20 ","$1,339.20 "
+9979,WILD SIDE MANCHESTER-MC1 (NH),,NH,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$669.60 ,$669.60 
+9981,WILD SIDE NORTH HAMPTON-HAM (NH),,NH,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$669.60 ,$669.60 
+9982,WILD SIDE GAINESVILLE-GV2 (FL),,FL,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$283.20 ,$283.20 
+9983,WILD SIDE GAINESVILLE-GV (FL),,FL,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$111.60 ,$111.60 
+9984,WILD SIDE CHARLESTON-CR (SC),,SC,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$111.60 ,$111.60 
+9985,WILD SIDE CONWAY-CW (SC),,SC,admin,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$111.60 ,$111.60 
+9998,PURPLE HAZE SHERMAN OAKS-SO (CA),,CA,admin,12/23/2025,12/23/2025,12/23/2025,Fulfilled,$669.60 ,$669.60 
+10042,VOLCANO SMOKE N VAPE,,CA,BenW,12/30/2025,12/29/2025,12/31/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+9613,CK Import and Distributing,,OR,BenW,12/10/2025,11/21/2025,12/10/2025,Fulfilled,"$69,229 ","$69,229 "
+9688,woodland distributors,,CA,BenW,12/1/2025,12/1/2025,12/1/2025,Fulfilled,"$6,240 ","$6,240 "
+9715,woodland distributors,,CA,BenW,12/4/2025,12/3/2025,12/5/2025,Fulfilled,"$16,072 ","$16,072 "
+9717,Paradox Wilsonville,,OR,BenW,12/4/2025,12/4/2025,12/4/2025,Fulfilled,"$1,440 ","$1,440 "
+9720,Oregon Distro,,CA,BenW,12/5/2025,12/4/2025,12/8/2025,Fulfilled,"$33,660 ","$33,660 "
+9770,SAC Valley Vapes LLC,,CA,BenW,12/9/2025,12/6/2025,12/10/2025,Fulfilled,"$3,122 ","$3,122 "
+9773,Hotbox Smoke Shop | Bellevue,,WA,BenW,12/9/2025,12/8/2025,12/9/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+9783,The Vitamin Shoppe,,NJ,BenW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9809,Aryana Wholesale,,CA,BenW,12/9/2025,12/8/2025,12/9/2025,Fulfilled,"$34,614.72 ","$34,614.72 "
+9810,Karen Lord Pilates,,CA,BenW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9825,U V Distro,,OR,BenW,12/11/2025,12/8/2025,12/11/2025,Fulfilled,"$34,614 ","$34,614 "
+9840,A One Sales LLC,,WA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9841,Ace Wholesale Inc. | WA,,WA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9842,Allegria Novelties,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9843,Blueberry Trading,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9844,Dragon Tobacco,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9845,Honest Inc,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9846,IDNTFR LLC,,WA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9847,Metro wholesale inc,,WA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9848,Northwest Importer - mountlake,,WA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9849,Raw Distribution,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9850,RRR Wholesale,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9851,Top Notch Smoke Shop,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9852,woodland distributors,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9853,SAC Valley Vapes LLC,,CA,BenW,12/9/2025,12/9/2025,12/9/2025,Fulfilled,$0 ,$0 
+9879,CK Import and Distributing,,OR,BenW,12/10/2025,12/10/2025,12/11/2025,Fulfilled,$0 ,$0 
+9880,Smoke Stop Smoke Shop,,CA,BenW,12/10/2025,12/10/2025,12/10/2025,Fulfilled,$730 ,$730 
+9888,VIP VAPE STORE,,CA,BenW,12/11/2025,12/10/2025,12/11/2025,Fulfilled,"$7,776 ","$7,776 "
+9906,SAC Valley Vapes LLC,,CA,BenW,12/22/2025,12/12/2025,12/23/2025,Fulfilled,"$3,041 ","$3,041 "
+9912,Allegria Novelties,,CA,BenW,12/23/2025,12/15/2025,12/23/2025,Fulfilled,"$34,272 ","$34,272 "
+9913,SPEEDYS SMOKE AND VAPE SHOP,,CA,BenW,12/15/2025,12/15/2025,12/15/2025,Fulfilled,$753.96 ,$753.96 
+9914,82ND AVE TOBACCO & PIPE,,OR,BenW,12/29/2025,12/15/2025,12/29/2025,Fulfilled,$622.12 ,$622.12 
+9920,Gold Leaf Botanicals,,CA,BenW,12/16/2025,12/15/2025,12/16/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+9926,Metro wholesale inc,,WA,BenW,12/17/2025,12/16/2025,12/17/2025,Fulfilled,"$34,269.20 ","$34,269.20 "
+9927,The Mighty Quinn Smoke,,CA,BenW,12/16/2025,12/16/2025,12/17/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+9940,#1 Tobacco,,WA,BenW,12/17/2025,12/17/2025,12/19/2025,Fulfilled,"$6,840 ","$6,840 "
+9951,Gold Leaf Botanicals,,CA,BenW,12/19/2025,12/19/2025,12/19/2025,Fulfilled,$0 ,$0 
+9970,HighTide Pipe & Tobacco,,OR,BenW,12/22/2025,12/22/2025,12/23/2025,Fulfilled,$133.90 ,$133.90 
+10004,Smoke Solutions Super Store | SD,,SD,BrandonG,12/23/2025,12/23/2025,12/23/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+10028,Edison Grab N Go | UT,,UT,BrandonG,12/30/2025,12/29/2025,12/31/2025,Fulfilled,$740 ,$740 
+10040,CA Wholesale,,CO,BrandonG,12/29/2025,12/29/2025,12/31/2025,Fulfilled,"$2,770 ","$2,770 "
+10043,Lakeshore Market | ID,,ID,BrandonG,12/30/2025,12/29/2025,12/31/2025,Fulfilled,$740 ,$740 
+10047,Lazy Daze Inc,,CO,BrandonG,12/30/2025,12/30/2025,12/31/2025,Fulfilled,$704.52 ,$704.52 
+9675,SNJ GIFTS | AK,,AK,BrandonG,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$564.87 ,$564.87 
+9679,Colorado Herbal Imports | Eroy,,CO,BrandonG,12/1/2025,12/1/2025,12/1/2025,Fulfilled,"$17,873.20 ","$17,873.20 "
+9680,Rehbar Ehmar LLC | Bismarck,,ND,BrandonG,12/1/2025,12/1/2025,12/1/2025,Fulfilled,"$2,160 ","$2,160 "
+9681,Rehbar Ehmar LLC | Bismarck,,ND,BrandonG,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$783.25 ,$783.25 
+9684,Paykoc Imports,,CO,BrandonG,12/4/2025,12/1/2025,12/4/2025,Fulfilled,"$40,881.60 ","$40,881.60 "
+9689,Lakeshore Market | ID,,ID,BrandonG,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$740 ,$740 
+9694,Hemp Plus,,ND,BrandonG,12/2/2025,12/1/2025,12/3/2025,Fulfilled,"$2,880 ","$2,880 "
+9702,Pluto's Smoke Shop | WY,,WY,BrandonG,12/2/2025,12/2/2025,12/2/2025,Fulfilled,$688.04 ,$688.04 
+9708,Westside Vibes | HI,,HI,BrandonG,12/2/2025,12/2/2025,12/3/2025,Fulfilled,$360.50 ,$360.50 
+9721,iCloud Vape and Smoke | Laramie,,WY,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,"$1,742.76 ","$1,742.76 "
+9722,Everest Distribution,,UT,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9723,iCloud Vape and Smoke | Cheyenne,,WY,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,"$1,742.76 ","$1,742.76 "
+9724,Paykoc Imports,,CO,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9725,Colorado Herbal Imports | Eroy,,CO,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9726,420 Friendlys CBD and Kratom shop,,CO,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9727,CA Wholesale,,CO,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9728,Good Earth Markets,,UT,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9729,Hemp Plus,,ND,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9730,The Hawaii Shop,,CA,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9731,Uno Wireless distribution llc,,UT,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9732,The Karma Korner | Helena,,MT,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$0 ,$0 
+9733,CA Wholesale,,CO,BrandonG,12/4/2025,12/4/2025,12/4/2025,Fulfilled,"$64,512 ","$64,512 "
+9736,Ecig City | ND,,ND,BrandonG,12/4/2025,12/4/2025,12/5/2025,Fulfilled,$0 ,$0 
+9740,iCloud Vape and Smoke | Casper,,WY,BrandonG,12/5/2025,12/5/2025,12/5/2025,Fulfilled,$0 ,$0 
+9774,The Alternative Apothecary | CO,,CO,BrandonG,12/9/2025,12/8/2025,12/9/2025,Fulfilled,$740 ,$740 
+9815,Uno Wireless distribution llc,,ID,BrandonG,12/8/2025,12/8/2025,12/8/2025,Fulfilled,"$1,264 ","$1,264 "
+9830,Pluto's Smoke Shop | ND,,ND,BrandonG,12/9/2025,12/8/2025,12/9/2025,Fulfilled,$373.89 ,$373.89 
+9868,Uno Wireless distribution llc,,UT,BrandonG,12/11/2025,12/9/2025,12/12/2025,Fulfilled,"$19,626.65 ","$19,626.65 "
+9876,One Stop Smoke Shop | UT,,UT,BrandonG,12/10/2025,12/10/2025,12/10/2025,Fulfilled,$211.15 ,$211.15 
+9881,Everest Distribution,,UT,BrandonG,12/10/2025,12/10/2025,12/10/2025,Fulfilled,"$6,381.72 ","$6,381.72 "
+9883,Capitol Botanicals | WY,,WY,BrandonG,12/10/2025,12/10/2025,12/10/2025,Fulfilled,$256.47 ,$256.47 
+9887,Good Earth Markets,,UT,BrandonG,12/10/2025,12/10/2025,12/11/2025,Fulfilled,"$1,380 ","$1,380 "
+9891,Good Earth Markets,,UT,BrandonG,12/11/2025,12/11/2025,12/11/2025,Fulfilled,$216 ,$216 
+9898,midnight market | Vape And Smoke,,AK,BrandonG,12/11/2025,12/11/2025,12/11/2025,Fulfilled,$0 ,$0 
+9910,Mike's Smoke cigar and gifts,,UT,BrandonG,12/15/2025,12/15/2025,12/15/2025,Fulfilled,$740 ,$740 
+9919,Day N Night | UT,,UT,BrandonG,12/16/2025,12/15/2025,12/16/2025,Fulfilled,$967.17 ,$967.17 
+9921,Herbals Finest,,CO,BrandonG,12/16/2025,12/16/2025,12/16/2025,Fulfilled,"$2,818.08 ","$2,818.08 "
+9924,Lazy Daze Inc,,CO,BrandonG,12/16/2025,12/16/2025,12/17/2025,Fulfilled,$704.52 ,$704.52 
+9925,Vape Colorado,,CO,BrandonG,12/29/2025,12/16/2025,12/29/2025,Fulfilled,$66.95 ,$66.95 
+9939,Lakeshore Market | ID,,ID,BrandonG,12/17/2025,12/17/2025,12/18/2025,Fulfilled,$720 ,$720 
+9952,Camas Creek Country Store,,ID,BrandonG,12/19/2025,12/19/2025,12/22/2025,Fulfilled,$0 ,$0 
+9957,iCloud Vape and Smoke | Sheridan,,WY,BrandonG,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,409.04 ","$1,409.04 "
+9958,Grow Kratom,,UT,BrandonG,12/30/2025,12/22/2025,12/31/2025,Fulfilled,"$2,160 ","$2,160 "
+9959,Indochina Ginseng,,CO,BrandonG,12/22/2025,12/22/2025,12/22/2025,Fulfilled,$0 ,$0 
+9960,CA Wholesale,,CO,BrandonG,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$64,512 ","$64,512 "
+9961,The Hideout Vape & Glass | CO,,CO,BrandonG,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$1,480 ","$1,480 "
+9962,Hemp Plus,,ND,BrandonG,12/23/2025,12/22/2025,12/23/2025,Fulfilled,"$2,880 ","$2,880 "
+9988,Mountain High Wellness | WY,,WY,BrandonG,12/22/2025,12/22/2025,12/22/2025,Fulfilled,"$2,160 ","$2,160 "
+9992,Uno Wireless distribution llc,,UT,BrandonG,12/29/2025,12/22/2025,12/29/2025,Fulfilled,"$19,635.59 ","$19,635.59 "
+10016,Maine Smoke Shop,,ME,DerekW,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$141 ,$141 
+10020,Continental Smoke Shop,,NY,DerekW,12/30/2025,12/29/2025,12/31/2025,Fulfilled,$864 ,$864 
+10027,Glenwood One Stop Inc,,PA,DerekW,12/30/2025,12/29/2025,12/31/2025,Fulfilled,$404 ,$404 
+10048,Maine Smoke Shop,,ME,DerekW,12/30/2025,12/30/2025,12/31/2025,Fulfilled,$560 ,$560 
+9620,Adyah Wholesale,,PA,DerekW,12/1/2025,11/24/2025,12/2/2025,Fulfilled,"$37,368 ","$37,368 "
+9659,Route 11 Gas & Convenience,,NH,DerekW,12/9/2025,11/25/2025,12/9/2025,Fulfilled,$299 ,$299 
+9661,Giant Distribution,,PA,DerekW,12/3/2025,11/25/2025,12/3/2025,Fulfilled,"$33,882.88 ","$33,882.88 "
+9685,Space Smoke Shop,,NJ,DerekW,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$262.65 ,$262.65 
+9686,Tacony,,PA,DerekW,12/1/2025,12/1/2025,12/1/2025,Fulfilled,"$64,912 ","$64,912 "
+9718,Maine Smoke Shop,,ME,DerekW,12/4/2025,12/4/2025,12/4/2025,Fulfilled,$243 ,$243 
+9735,Continental Smoke Shop,,NY,DerekW,12/5/2025,12/4/2025,12/5/2025,Fulfilled,$750 ,$750 
+9771,Maine Smoke Shop,,ME,DerekW,12/9/2025,12/8/2025,12/9/2025,Fulfilled,$614 ,$614 
+9784,Erie Distributors,,PA,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9785,Giant Distribution,,PA,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9786,Savage Wholesale,,MN,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9787,Maine Smoke Shop,,ME,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9788,Tacony,,PA,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9789,Portland Smoke & Vape,,ME,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9790,The Hemp Social,,NJ,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9791,pittsburgh wholesale,,PA,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9792,Pehnawa Distro,,NY,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9793,Miracle Distributor,,PA,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9794,Zee Wholesale,,MI,DerekW,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9882,The Vape Way,,MA,DerekW,12/11/2025,12/10/2025,12/11/2025,Fulfilled,"$2,160 ","$2,160 "
+9892,Maine Smoke Shop,,ME,DerekW,12/11/2025,12/11/2025,12/11/2025,Fulfilled,$177 ,$177 
+9909,Britain One Stop Inc,,PA,DerekW,12/15/2025,12/15/2025,12/15/2025,Fulfilled,$403.76 ,$403.76 
+9911,New Smoke Shop,,MA,DerekW,12/15/2025,12/15/2025,12/15/2025,Fulfilled,$244 ,$244 
+9916,Cigarville Inc,,NY,DerekW,12/16/2025,12/15/2025,12/16/2025,Fulfilled,$750 ,$750 
+9923,Noreservations,,NY,DerekW,12/17/2025,12/16/2025,12/19/2025,Fulfilled,$260.08 ,$260.08 
+9931,Mahant 342 Inc,,NY,DerekW,12/17/2025,12/17/2025,12/17/2025,Fulfilled,"$1,332 ","$1,332 "
+9933,Tacony,,PA,DerekW,12/18/2025,12/17/2025,12/19/2025,Fulfilled,"$64,912 ","$64,912 "
+9938,Miracle Distributor,,PA,DerekW,12/23/2025,12/17/2025,12/23/2025,Fulfilled,"$37,339.20 ","$37,339.20 "
+9950,Portland Smoke & Vape,,ME,DerekW,12/19/2025,12/19/2025,12/22/2025,Fulfilled,"$2,743.92 ","$2,743.92 "
+10018,C's Liquor,,IA,Jared,12/29/2025,12/29/2025,12/29/2025,Fulfilled,$190 ,$190 
+10054,C's Liquor,,IA,Jared,12/30/2025,12/30/2025,12/31/2025,Fulfilled,$136 ,$136 
+9411,skyhigh distribution,,AZ,Jared,12/2/2025,11/3/2025,12/2/2025,Fulfilled,"$69,229 ","$69,229 "
+9652,Marathon- Twin Falls,,ID,Jared,12/1/2025,11/24/2025,12/1/2025,Fulfilled,$299 ,$299 
+9687,Tommy's║U Pump It,,KS,Jared,12/1/2025,12/1/2025,12/1/2025,Fulfilled,$216 ,$216 
+9705,Nikk Drips,,ID,Jared,12/2/2025,12/2/2025,12/2/2025,Fulfilled,$762.20 ,$762.20 
+9706,Body Logix | TX,,TX,Jared,12/2/2025,12/2/2025,12/2/2025,Fulfilled,$60 ,$60 
+9795,ISmoke Cigars and Vape LLC,,AZ,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9796,Cleveland CNC LLC (Metro Smoke Wholesale),,OH,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9797,The Kratom Depot,,MS,Jared,12/9/2025,12/8/2025,12/9/2025,Fulfilled,$220.42 ,$220.42 
+9798,Majestic Distribtion LLC,,IA,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9799,LV Cash n Carry Attn Parth,,NV,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9800,Luv Wholesale & Distro,,NV,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9801,Nimbus Wholesale (CO Springs),,CO,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9802,Nimbus Wholesale,,CO,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9803,Number One Distro,,CO,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9804,Amia Trading - AWS,,TX,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9805,Sema-Vape International,,MN,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9806,sky high Distribution,,AZ,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9807,Sooners Wholesale,,OK,Jared,12/8/2025,12/8/2025,12/8/2025,Fulfilled,$0 ,$0 
+9821,The Kind Connection Smoke Shop,,AZ,Jared,12/9/2025,12/8/2025,12/9/2025,Fulfilled,$524 ,$524 
+9872,505 Vape World,,NM,Jared,12/9/2025,12/9/2025,12/10/2025,Fulfilled,$383.16 ,$383.16 
+9901,House Samples,,ID,Jared,12/12/2025,12/12/2025,12/12/2025,Fulfilled,$0 ,$0 
+9918,Smoke Stop (Spencer),,IA,Jared,12/29/2025,12/15/2025,12/29/2025,Fulfilled,"$1,483.20 ","$1,483.20 "
+9922,Sema-Vape International,,MN,Jared,12/17/2025,12/16/2025,12/17/2025,Fulfilled,"$34,786 ","$34,786 "
+9936,C's Liquor,,IA,Jared,12/17/2025,12/17/2025,12/17/2025,Fulfilled,$89 ,$89 
+9949,Nimbus Wholesale,,CO,Jared,12/22/2025,12/19/2025,12/23/2025,Fulfilled,"$34,614.72 ","$34,614.72 "
+9991,HAWK DISTRO,,NV,Jared,12/23/2025,12/22/2025,12/23/2025,Fulfilled,"$17,370 ","$17,370 "
+10022,Mad Hatters Tea & Gifts,,TN,Zalak,12/29/2025,12/28/2025,12/29/2025,Fulfilled,$482 ,$482 
+9666,Mad Hatters Tea & Gifts,,TN,Zalak,12/1/2025,11/25/2025,12/1/2025,Fulfilled,$325 ,$325 
+9674,Oaks Goods Disribution LLC,,VA,Zalak,12/3/2025,11/26/2025,12/3/2025,Fulfilled,"$34,522 ","$34,522 "
+9693,Destin Smoke Shop,,FL,Zalak,12/1/2025,11/30/2025,12/1/2025,Fulfilled,"$2,224.80 ","$2,224.80 "
+9697,Aarna Distribution,,FL,Zalak,12/3/2025,11/30/2025,12/3/2025,Fulfilled,"$34,772 ","$34,772 "
+9701,Burnies Smoke Shop | FL,,FL,Zalak,12/2/2025,12/1/2025,12/2/2025,Fulfilled,"$5,932.80 ","$5,932.80 "
+9710,Drip Botanical Tea Bar,,FL,Zalak,12/3/2025,12/2/2025,12/3/2025,Fulfilled,"$3,522.60 ","$3,522.60 "
+9750,Elite Distributors - ED,,FL,Zalak,12/5/2025,12/4/2025,12/5/2025,Fulfilled,"$65,434 ","$65,434 "
+9765,VGO Market,,SC,Zalak,12/9/2025,12/4/2025,12/9/2025,Fulfilled,"$33,768 ","$33,768 "
+9767,Etown Marketing & Distributing,,KY,Zalak,12/9/2025,12/4/2025,12/9/2025,Fulfilled,"$65,312 ","$65,312 "
+9824,Drip Botanical Tea Bar,,FL,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9827,Etown Marketing & Distributing,,KY,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9828,Full House Wholesale,,MI,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9829,KMT Distribution,,MI,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9831,Nepa 2 Wholesale LLC,,FL,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9832,Pumpernickel Pops,,,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9833,Wholesale Express- ED,,GA,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9834,Port City Distro,,NC,Zalak,12/8/2025,12/8/2025,12/9/2025,Fulfilled,$0 ,$0 
+9869,Jay Mahaveer Inc,,TN,Zalak,12/10/2025,12/8/2025,12/10/2025,Fulfilled,"$34,272 ","$34,272 "
+9871,Nepa 2 Wholesale LLC,,FL,Zalak,12/9/2025,12/8/2025,12/10/2025,Fulfilled,"$3,240 ","$3,240 "
+9873,Metro Smoke,,OH,Zalak,12/10/2025,12/7/2025,12/10/2025,Fulfilled,"$56,496 ","$56,496 "
+9907,World of Smoke & Vape North MIami Beach,,FL,Zalak,12/15/2025,12/14/2025,12/15/2025,Fulfilled,"$1,480 ","$1,480 "
+9980,The Botany Bay (Woodhill),,KY,Zalak,12/23/2025,12/21/2025,12/29/2025,Fulfilled,"$10,260 ","$10,260 "
+,,,,,,,,Grand Total: ,"$1,836,883.30 ","$1,836,883.30 "
