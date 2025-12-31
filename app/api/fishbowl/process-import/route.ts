@@ -33,12 +33,13 @@ function parseDate(val: any): Date | null {
   if (!val) return null;
   if (val instanceof Date) return val;
   
-  // Handle Excel serial date numbers (Excel epoch: Dec 30, 1899)
+  // Handle Excel serial date numbers
+  // Excel stores dates as days since Jan 1, 1900
+  // Unix epoch is Jan 1, 1970 = Excel serial 25569
   if (typeof val === 'number' && val > 0 && val < 100000) {
-    const excelEpoch = new Date(1899, 11, 30);
-    const date = new Date(excelEpoch.getTime() + val * 86400000);
-    if (date.getFullYear() >= 2000 && date.getFullYear() <= new Date().getFullYear() + 1) {
-      return date;
+    const date = new Date((val - 25569) * 86400 * 1000);
+    if (date.getUTCFullYear() >= 2000 && date.getUTCFullYear() <= new Date().getUTCFullYear() + 1) {
+      return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
     }
   }
   
