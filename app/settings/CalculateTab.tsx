@@ -80,18 +80,21 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
       const pollInterval = setInterval(async () => {
         try {
           const progressResponse = await fetch(`/api/commission-progress?calcId=${calcId}`);
-          const progress = await progressResponse.json();
+          const progressData = await progressResponse.json();
+          
+          // API returns nested: {success, progress: {status, ...}}
+          const progress = progressData.progress;
           
           if (progress.status === 'processing') {
-            const { processed, total } = progress;
-            const percentage = total > 0 ? Math.round((processed / total) * 100) : 0;
-            setProcessingStatus(`Processing: ${processed}/${total} orders (${percentage}%)`);
+            const { currentOrder, totalOrders } = progress;
+            const percentage = totalOrders > 0 ? Math.round((currentOrder / totalOrders) * 100) : 0;
+            setProcessingStatus(`Processing: ${currentOrder}/${totalOrders} orders (${percentage}%)`);
           } else if (progress.status === 'complete') {
             clearInterval(pollInterval);
             setProcessingStatus('Complete!');
             setCalculating(false);
             
-            const { processed, total } = progress;
+            const { currentOrder, totalOrders } = progress;
             
             // Set summary
             setCommissionSummary({
@@ -99,7 +102,7 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
               year: selectedYear,
               commissionsCalculated: progress.stats?.commissionsCalculated || 0,
               totalCommission: progress.stats?.totalCommission || 0,
-              ordersProcessed: total || 0,
+              ordersProcessed: totalOrders || 0,
               repBreakdown: progress.stats?.repBreakdown || {}
             });
             
