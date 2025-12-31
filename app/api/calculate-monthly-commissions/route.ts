@@ -520,17 +520,18 @@ async function calculateCommissionsWithProgress(
       }
 
       // Calculate commission base by excluding shipping and CC processing if configured
-      let orderAmount = commissionRules?.useOrderValue ? (order.orderValue || order.revenue) : order.revenue;
+      // Note: order.revenue may not exist in new imports, will be calculated from line items below
+      let orderAmount = commissionRules?.useOrderValue ? (order.orderValue || order.revenue || 0) : (order.revenue || 0);
       let negativeAdjustments = 0; // Track negative items separately (rep-paid shipping, credits, refunds)
       
-      // If exclusions are enabled, calculate from line items
-      if (commissionRules?.excludeShipping || commissionRules?.excludeCCProcessing) {
-        const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
-          .where('salesOrderId', '==', order.salesOrderId)
-          .get();
-        
-        // Only recalculate if we found line items
-        if (!lineItemsSnapshot.empty) {
+      // Always calculate from line items (needed because order.revenue may not exist in new imports)
+      const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
+        .where('salesOrderId', '==', order.salesOrderId)
+        .get();
+      
+      if (!lineItemsSnapshot.empty) {
+        // Calculate revenue from line items
+        if (commissionRules?.excludeShipping || commissionRules?.excludeCCProcessing || orderAmount === 0) {
           let commissionableAmount = 0;
           
           for (const lineItemDoc of lineItemsSnapshot.docs) {
@@ -570,9 +571,8 @@ async function calculateCommissionsWithProgress(
             }
           }
           
-          // Only use the calculated amount if we found commissionable items
-          // Otherwise fall back to the original order amount
-          orderAmount = commissionableAmount > 0 ? commissionableAmount : orderAmount;
+          // Use the calculated amount (even if 0, because order.revenue doesn't exist in new imports)
+          orderAmount = commissionableAmount;
           
           // Debug logging for Order 9082
           if (order.soNumber === '9082' || order.num === '9082') {
@@ -670,8 +670,8 @@ async function calculateCommissionsWithProgress(
           customerSegment: customerSegment,
           customerStatus: customerStatus,
           
-          orderRevenue: commissionRules?.useOrderValue ? orderAmount : order.revenue,
-          orderValue: order.orderValue || order.revenue,
+          orderRevenue: commissionRules?.useOrderValue ? orderAmount : (order.revenue || orderAmount),
+          orderValue: order.orderValue || order.revenue || orderAmount,
           commissionRate: rate,
           commissionAmount: commissionAmount,
           
