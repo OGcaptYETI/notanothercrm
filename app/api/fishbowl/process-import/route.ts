@@ -366,7 +366,9 @@ async function processDataInBackground(
     }
     
     // Process line item
-    const itemId = String(lineItemId);
+    // CRITICAL: Use composite key to avoid duplicates
+    // CSV has duplicate SO Item IDs (656 duplicates), so we need unique doc IDs
+    const itemId = `${salesOrderId}_${lineItemId}`;
     const itemRef = adminDb.collection('fishbowl_soitems').doc(itemId);
     
     // Parse 'Issued date' for line items - use same logic as orders
