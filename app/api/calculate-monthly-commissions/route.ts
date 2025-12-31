@@ -554,10 +554,11 @@ async function calculateCommissionsWithProgress(
               productNum === 'cc processing'
             );
             
-            // CRITICAL: Negative items (rep-paid shipping, credits, refunds) are deducted from FINAL COMMISSION, not from revenue base
+            // Include negative items (credits/refunds) in revenue base calculation
+            // This ensures commission is calculated on NET revenue (positive items - credits)
             if (itemPrice < 0) {
-              negativeAdjustments += itemPrice; // Track separately (will be negative)
-              console.log(`  💳 NEGATIVE ITEM (will deduct from final commission): ${lineItem.productNum || lineItem.partNumber} | ${lineItem.productName} | $${itemPrice}`);
+              commissionableAmount += itemPrice; // Add negative value (reduces total)
+              console.log(`  💳 NEGATIVE ITEM (reduces revenue base): ${lineItem.productNum || lineItem.partNumber} | ${lineItem.productName} | $${itemPrice}`);
             }
             // Debug logging for exclusions
             else if (isShipping) {
@@ -586,8 +587,9 @@ async function calculateCommissionsWithProgress(
         }
       }
 
-      // Calculate commission on positive items, then add negative adjustments (which will subtract)
-      const commissionAmount = new Decimal(orderAmount).times(rate).dividedBy(100).plus(negativeAdjustments).toNumber();
+      // Calculate commission on net revenue (positive items minus credits/refunds)
+      // Negative adjustments are no longer used - all items included in orderAmount
+      const commissionAmount = new Decimal(orderAmount).times(rate).dividedBy(100).toNumber();
 
       totalCommission += commissionAmount;
       commissionsCalculated++;
