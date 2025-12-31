@@ -33,10 +33,13 @@ function parseDate(val: any): Date | null {
   if (!val) return null;
   if (val instanceof Date) return val;
   
-  // Handle Excel serial date numbers
-  if (typeof val === 'number') {
-    const date = XLSX.SSF.parse_date_code(val);
-    if (date) return new Date(date.y, date.m - 1, date.d);
+  // Handle Excel serial date numbers (Excel epoch: Dec 30, 1899)
+  if (typeof val === 'number' && val > 0 && val < 100000) {
+    const excelEpoch = new Date(1899, 11, 30);
+    const date = new Date(excelEpoch.getTime() + val * 86400000);
+    if (date.getFullYear() >= 2000 && date.getFullYear() <= new Date().getFullYear() + 1) {
+      return date;
+    }
   }
   
   // Convert to string for parsing
