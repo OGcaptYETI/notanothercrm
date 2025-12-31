@@ -27,13 +27,6 @@ export async function POST(request: NextRequest) {
       firstRow[header] = firstDataLine[idx] || '';
     });
     
-    const data = [firstRow];
-    
-    if (data.length === 0) {
-      return NextResponse.json({ error: 'No data in CSV' }, { status: 400 });
-    }
-    
-    const firstRow = data[0];
     const columns = Object.keys(firstRow);
     
     console.log('\n' + '='.repeat(80));
