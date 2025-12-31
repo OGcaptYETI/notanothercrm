@@ -367,7 +367,7 @@ async function calculateCommissionsWithProgress(
       // Stronger duplicate key (prefer immutable salesOrderId)
       const orderKey = `${order.salesOrderId || orderDoc.id}`;
       if (processedOrders.has(orderKey)) {
-        console.log(`⚠️ DUPLICATE ORDER DETECTED: ${order.salesOrderId || orderDoc.id} - ${order.num} - Skipping`);
+        console.log(`⚠️ DUPLICATE ORDER DETECTED: ${order.salesOrderId || orderDoc.id} - ${order.soNumber || order.num} - Skipping`);
         continue;
       }
       processedOrders.add(orderKey);
@@ -393,13 +393,13 @@ async function calculateCommissionsWithProgress(
       
       // Skip orders with no fulfilled items (all qty = 0)
       if (!hasFulfilledItems || totalFulfilledQty === 0) {
-        console.log(`⚠️ ZERO QUANTITY ORDER DETECTED: ${order.num} - ${order.customerName} - Total Qty: ${totalFulfilledQty} - Skipping`);
+        console.log(`⚠️ ZERO QUANTITY ORDER DETECTED: ${order.soNumber || order.num} - ${order.customerName} - Total Qty: ${totalFulfilledQty} - Skipping`);
         continue;
       }
       
       // DEBUG: Log order processing for Ben Wallner
       if (order.salesPerson === 'Ben Wallner' || order.salesPerson === 'BWallner' || order.salesPerson === 'BenW' || order.salesPerson === 'Ben') {
-        console.log(`🔍 PROCESSING ORDER: ${order.num} - ${order.customerName} - $${order.revenue} - Rep: "${order.salesPerson}"`);
+        console.log(`🔍 PROCESSING ORDER: ${order.soNumber || order.num} - ${order.customerName} - $${order.revenue} - Rep: "${order.salesPerson}"`);
       }
 
       // Update progress every 5 orders using safe helper
@@ -413,7 +413,7 @@ async function calculateCommissionsWithProgress(
           percentage: Math.round(percentage * 10) / 10,
           currentRep: order.salesPerson || '',
           currentCustomer: order.customerName || '',
-          currentOrderNum: order.num || '',
+          currentOrderNum: order.soNumber || order.num || '',
           stats: {
             commissionsCalculated,
             totalCommission,
@@ -434,8 +434,8 @@ async function calculateCommissionsWithProgress(
 
       // Skip Commerce/Shopify orders (no commission on direct e-commerce)
       const sp = (order.salesPerson || '').toUpperCase();
-      if (sp === 'SHOPIFY' || sp === 'COMMERCE' || 
-          order.num?.startsWith('Sh') || order.orderNum?.startsWith('Sh')) {
+      const orderNum = order.soNumber || order.num || order.orderNum || '';
+      if (sp === 'SHOPIFY' || sp === 'COMMERCE' || orderNum.startsWith('Sh')) {
         skippedCounts.shopify++;
         continue;
       }
@@ -575,7 +575,7 @@ async function calculateCommissionsWithProgress(
           orderAmount = commissionableAmount > 0 ? commissionableAmount : orderAmount;
           
           // Debug logging for Order 9082
-          if (order.num === '9082') {
+          if (order.soNumber === '9082' || order.num === '9082') {
             console.log(`\n🔍 ORDER 9082 CALCULATION:`);
             console.log(`   Positive items base: $${commissionableAmount.toFixed(2)}`);
             console.log(`   Commission at ${rate}%: $${(commissionableAmount * rate / 100).toFixed(2)}`);
@@ -593,7 +593,7 @@ async function calculateCommissionsWithProgress(
       commissionsCalculated++;
 
       // Log successful commission calculation
-      console.log(`✅ COMMISSION CALCULATED: Order ${order.num} | ${rep.name} | ${customerSegment} | ${customerStatus} | $${orderAmount.toFixed(2)} × ${rate}% = $${commissionAmount.toFixed(2)}`);
+      console.log(`✅ COMMISSION CALCULATED: Order ${order.soNumber || order.num} | ${rep.name} | ${customerSegment} | ${customerStatus} | $${orderAmount.toFixed(2)} × ${rate}% = $${commissionAmount.toFixed(2)}`);
 
       // Save calculation log for UI display
       const logId = `log_${order.salesOrderId}_${Date.now()}`;
@@ -603,7 +603,7 @@ async function calculateCommissionsWithProgress(
         await calculationLogRef.set({
         id: logId,
         commissionMonth: commissionMonth,
-        orderNum: order.num,
+        orderNum: order.soNumber || order.num || '',
         orderId: order.salesOrderId,
         customerName: order.customerName,
         repName: rep.name,
@@ -621,9 +621,9 @@ async function calculateCommissionsWithProgress(
         notes: `${accountType} - ${customerStatus} - ${customerSegment}`
       });
       
-      console.log(`📝 CALCULATION LOG SAVED: ${logId} for order ${order.num}`);
+      console.log(`📝 CALCULATION LOG SAVED: ${logId} for order ${order.soNumber || order.num}`);
       } catch (error) {
-        console.error(`❌ FAILED TO SAVE CALCULATION LOG for order ${order.num}:`, error);
+        console.error(`❌ FAILED TO SAVE CALCULATION LOG for order ${order.soNumber || order.num}:`, error);
       }
 
       // Save commission record
@@ -636,7 +636,7 @@ async function calculateCommissionsWithProgress(
       
       if (hasManualOverride) {
         // Preserve manual override - only update non-override fields
-        console.log(`⚠️  PRESERVING MANUAL OVERRIDE for Order ${order.num} - keeping adjusted commission`);
+        console.log(`⚠️  PRESERVING MANUAL OVERRIDE for Order ${order.soNumber || order.num} - keeping adjusted commission`);
         await commissionRef.update({
           // Update metadata fields only, preserve commission amount and override data
           repName: rep.name,
@@ -662,7 +662,7 @@ async function calculateCommissionsWithProgress(
           repTitle: rep.title,
           
           orderId: order.salesOrderId,
-          orderNum: order.num,
+          orderNum: order.soNumber || order.num || '',
           customerId: order.customerId,
           customerName: order.customerName,
           accountType: accountType,
@@ -743,7 +743,7 @@ async function calculateCommissionsWithProgress(
               spiffDetails.push({
                 repName: rep.name,
                 salesPerson: order.salesPerson,
-                orderNum: order.num,
+                orderNum: order.soNumber || order.num || '',
                 customerName: order.customerName,
                 productNum: productNumber,
                 productDescription: lineItem.description || lineItem.productDescription || '',
@@ -767,7 +767,7 @@ async function calculateCommissionsWithProgress(
                 productDescription: lineItem.description || lineItem.productDescription || '',
                 
                 orderId: order.salesOrderId,
-                orderNum: order.num,
+                orderNum: order.soNumber || order.num || '',
                 customerId: order.customerId,
                 customerName: order.customerName,
                 
@@ -875,7 +875,7 @@ async function calculateCommissionsWithProgress(
         const repTotal = spiffs.reduce((sum: number, s: any) => sum + s.spiffAmount, 0);
         console.log(`\n   ${repName}: ${spiffs.length} spiffs = $${repTotal.toFixed(2)}`);
         spiffs.forEach((s: any) => {
-          console.log(`      Order ${s.orderNum} | ${s.productNum} | Qty: ${s.quantity} | ${s.spiffType === 'flat' ? `$${s.spiffValue}/unit` : `${s.spiffValue}%`} = $${s.spiffAmount.toFixed(2)}`);
+          console.log(`      Order ${s.orderNum || 'N/A'} | ${s.productNum} | Qty: ${s.quantity} | ${s.spiffType === 'flat' ? `$${s.spiffValue}/unit` : `${s.spiffValue}%`} = $${s.spiffAmount.toFixed(2)}`);
         });
       }
     }
@@ -1021,7 +1021,7 @@ async function getCustomerStatus(
     const lastOrder = previousOrders.docs[0].data();
     const lastOrderDate = lastOrder.postingDate.toDate();
     
-    console.log(`   📦 Last order: ${lastOrder.orderNum} | Date: ${lastOrderDate.toISOString().split('T')[0]} | Rep: ${lastOrder.salesPerson}`);
+    console.log(`   📦 Last order: ${lastOrder.soNumber || lastOrder.num || lastOrder.orderNum} | Date: ${lastOrderDate.toISOString().split('T')[0]} | Rep: ${lastOrder.salesPerson}`);
     console.log(`   🎯 Current order rep: ${currentSalesPerson}`);
     
     // Get the ACTUAL FIRST order (oldest ever) to determine customer age
