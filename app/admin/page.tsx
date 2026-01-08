@@ -103,6 +103,20 @@ export default function AdminPage() {
           </div>
         </Link>
 
+        {/* Product Hierarchy Card */}
+        <Link href="/admin/product-hierarchy" className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-6 border border-emerald-200 hover:shadow-lg transition-shadow">
+          <div className="flex items-start justify-between mb-4">
+            <div className="bg-emerald-500 p-3 rounded-lg">
+              <Package className="w-6 h-6 text-white" />
+            </div>
+          </div>
+          <h3 className="text-lg font-semibold text-emerald-900 mb-2">Product Hierarchy</h3>
+          <p className="text-sm text-emerald-700 mb-4">Manage product families: Brand → Style → SKU structure.</p>
+          <div className="flex items-center text-emerald-600 text-sm font-medium">
+            Manage Hierarchy →
+          </div>
+        </Link>
+
         {/* Goals Card */}
         <Link href="/admin/goals" className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200 hover:shadow-lg transition-shadow">
           <div className="flex items-start justify-between mb-4">
