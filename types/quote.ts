@@ -1,5 +1,5 @@
 export type QuoteStatus = 'draft' | 'sent' | 'viewed' | 'accepted' | 'declined' | 'expired';
-export type PricingMode = 'distribution' | 'retail';
+export type PricingMode = 'distribution' | 'wholesale';
 export type PaymentMethod = 'wire' | 'check' | 'creditCard';
 
 export interface QuoteProduct {
@@ -11,6 +11,8 @@ export interface QuoteProduct {
   price: number; // Distribution price
   msrp: number; // Retail price
   image?: string;
+  parentSku?: string;
+  variantType?: string;
 }
 
 export interface QuoteLineItem {
@@ -164,7 +166,7 @@ export interface QuoteEmailTemplate {
 export interface QuoteActivity {
   id: string;
   quoteId: string;
-  type: 'created' | 'updated' | 'sent' | 'viewed' | 'accepted' | 'declined' | 'expired' | 'revised';
+  type: 'created' | 'updated' | 'sent' | 'viewed' | 'accepted' | 'declined' | 'expired' | 'revised' | 'deleted';
   description: string;
   userId?: string;
   userEmail?: string;

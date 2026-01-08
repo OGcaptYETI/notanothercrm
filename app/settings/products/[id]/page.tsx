@@ -9,10 +9,13 @@ import { ArrowLeft, Save, Package, DollarSign, Barcode, Box, Image as ImageIcon,
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-export default function AdminProductDetailPage() {
-  const params = useParams();
+interface ProductDetailContentProps {
+  productId: string;
+  backPath?: string;
+}
+
+export function ProductDetailContent({ productId, backPath = '/settings?tab=products' }: ProductDetailContentProps) {
   const router = useRouter();
-  const productId = params.id as string;
 
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -321,7 +324,7 @@ export default function AdminProductDetailPage() {
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
-              href="/settings?tab=products"
+              href={backPath}
               className="btn btn-ghost flex items-center gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -608,7 +611,7 @@ export default function AdminProductDetailPage() {
                   rows={3}
                 />
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-3">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -617,6 +620,15 @@ export default function AdminProductDetailPage() {
                     className="checkbox checkbox-primary"
                   />
                   <span className="label-text">Active</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.showInQuoteTool || false}
+                    onChange={(e) => handleInputChange('showInQuoteTool', e.target.checked)}
+                    className="checkbox checkbox-primary"
+                  />
+                  <span className="label-text">Show in Quote Tool</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -1166,4 +1178,10 @@ export default function AdminProductDetailPage() {
       </div>
     </div>
   );
+}
+
+// Default export for the settings route
+export default function SettingsProductDetailPage() {
+  const params = useParams();
+  return <ProductDetailContent productId={params.id as string} backPath="/settings?tab=products" />;
 }

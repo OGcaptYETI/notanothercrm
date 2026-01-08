@@ -44,7 +44,6 @@ import RegionManager from './RegionManager';
 import CustomerMap from './CustomerMap';
 import CustomersTab from './CustomersTab';
 import RulesTab from './RulesTab';
-import ProductsTab from './ProductsTab';
 import DataSyncTab from './DataSyncTab';
 import CalculateTab from './CalculateTab';
 import { CommissionConfig, CommissionBucket, ProductSubGoal, ActivitySubGoal, RoleCommissionScale, RepRole, CommissionEntry } from '@/types';
@@ -63,14 +62,14 @@ function SettingsPageContent() {
   const [saving, setSaving] = useState(false);
   const [selectedQuarter, setSelectedQuarter] = useState('Q4 2025');
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
-  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart'>('calculate');
+  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'datasync' | 'customers' | 'orgchart'>('calculate');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
 
   // Handle tab parameter from URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['calculate', 'rules', 'datasync', 'customers', 'products', 'orgchart'].includes(tabParam)) {
-      setActiveTab(tabParam as 'calculate' | 'rules' | 'datasync' | 'customers' | 'products' | 'orgchart');
+    if (tabParam && ['calculate', 'rules', 'datasync', 'customers', 'orgchart'].includes(tabParam)) {
+      setActiveTab(tabParam as 'calculate' | 'rules' | 'datasync' | 'customers' | 'orgchart');
     }
   }, [searchParams]);
 
@@ -78,7 +77,6 @@ function SettingsPageContent() {
   const isRulesTab = activeTab === 'rules';
   const isDataSyncTab = activeTab === 'datasync';
   const isCustomersTab = activeTab === 'customers';
-  const isProductsTab = activeTab === 'products';
 
   // Configuration state
   const [config, setConfig] = useState<CommissionConfig>({
@@ -644,13 +642,6 @@ function SettingsPageContent() {
       toast.error('Failed to update spiff status');
     }
   };
-
-  // Load products
-  useEffect(() => {
-    if (activeTab === 'products' && isAdmin) {
-      loadProducts();
-    }
-  }, [activeTab, isAdmin]);
 
   const loadProducts = async () => {
     try {
@@ -2828,17 +2819,6 @@ function SettingsPageContent() {
               <Users className="w-4 h-4 inline mr-1" />
               Customers
             </button>
-            <button
-              onClick={() => setActiveTab('products')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'products'
-                  ? 'border-primary-500 text-primary-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              <TrendingUp className="w-4 h-4 inline mr-1" />
-              Products
-            </button>
           </nav>
         </div>
       </div>
@@ -2863,11 +2843,6 @@ function SettingsPageContent() {
         {/* Customers Tab - Admin editing only (list view) */}
         {isCustomersTab && (
           <CustomersTab isAdmin={isAdmin} reps={reps} adminListOnly={true} />
-        )}
-
-        {/* Products Tab */}
-        {isProductsTab && (
-          <ProductsTab isAdmin={isAdmin} />
         )}
 
       {/* Modals that should appear outside tabs */}

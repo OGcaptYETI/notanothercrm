@@ -239,10 +239,28 @@ service cloud.firestore {
       allow write: if request.auth != null || isEmulator();
     }
     
+    // Pricing tiers - public read, admin write
+    match /pricing_tiers/{tierId} {
+      allow read: if true;
+      allow write: if true; // Internal app - permissive
+    }
+    
     // Shipping configuration - public read, admin write
     match /shipping/{document=**} {
       allow read: if true;
       allow write: if request.auth != null || isEmulator();
+    }
+    
+    // Shipping config - public read, admin write
+    match /shipping_config/{configId} {
+      allow read: if true;
+      allow write: if true; // Internal app - permissive
+    }
+    
+    // Shipping zones - public read, admin write
+    match /shipping_zones/{zoneId} {
+      allow read: if true;
+      allow write: if true; // Internal app - permissive
     }
     
     // Payment configuration - public read, admin write

@@ -1,7 +1,5 @@
-import { db } from '@/lib/firebase/config';
-import { adminDb } from '@/lib/firebase/admin';
-import { collection, query, where, getDocs, limit, orderBy } from 'firebase/firestore';
 import { QuoteCustomer } from '@/types/quote';
+import { adminDb } from '@/lib/firebase/admin';
 
 export interface CustomerSearchResult extends QuoteCustomer {
   matchScore: number;
@@ -11,6 +9,8 @@ export interface CustomerSearchResult extends QuoteCustomer {
 /**
  * Search for customers across Fishbowl and Copper collections
  * Priority: Fishbowl (active) > Copper (all)
+ * 
+ * NOTE: This service uses Firebase Admin SDK and must be called from server-side API routes only
  */
 export async function searchCustomers(searchTerm: string, maxResults: number = 10): Promise<CustomerSearchResult[]> {
   if (!searchTerm || searchTerm.length < 2) {
@@ -49,13 +49,12 @@ async function searchFishbowlCustomers(searchTerm: string): Promise<CustomerSear
   const results: CustomerSearchResult[] = [];
   
   try {
-    const customersRef = collection(db, 'fishbowl_customers');
+    const customersRef = adminDb.collection('fishbowl_customers');
     
-    // Search by name (case-insensitive via client-side filtering)
-    const nameQuery = query(customersRef, limit(50));
-    const nameSnapshot = await getDocs(nameQuery);
+    // Get a batch of customers to search through
+    const snapshot = await customersRef.limit(100).get();
     
-    nameSnapshot.forEach((doc) => {
+    snapshot.forEach((doc) => {
       const data = doc.data();
       const name = (data.name || '').toLowerCase();
       const email = (data.email || '').toLowerCase();
@@ -136,13 +135,12 @@ async function searchCopperCompanies(searchTerm: string, maxResults: number = 10
   const results: CustomerSearchResult[] = [];
   
   try {
-    const companiesRef = collection(db, 'copper_companies');
+    const companiesRef = adminDb.collection('copper_companies');
     
-    // Search by name (case-insensitive via client-side filtering)
-    const nameQuery = query(companiesRef, limit(100));
-    const nameSnapshot = await getDocs(nameQuery);
+    // Get a batch of companies to search through
+    const snapshot = await companiesRef.limit(100).get();
     
-    nameSnapshot.forEach((doc) => {
+    snapshot.forEach((doc) => {
       const data = doc.data();
       const name = (data.name || '').toLowerCase();
       const email = (data.email_domain || '').toLowerCase();
@@ -270,14 +268,13 @@ function normalizeAccountType(copperType: any): 'Distributor' | 'Wholesale' | 'R
 export async function getCustomerById(id: string, source: 'fishbowl' | 'copper'): Promise<QuoteCustomer | null> {
   try {
     const collectionName = source === 'fishbowl' ? 'fishbowl_customers' : 'copper_companies';
-    const docRef = collection(db, collectionName);
-    const q = query(docRef, where(source === 'fishbowl' ? '__name__' : 'id', '==', id), limit(1));
-    const snapshot = await getDocs(q);
+    const docRef = adminDb.collection(collectionName).doc(id);
+    const doc = await docRef.get();
     
-    if (snapshot.empty) return null;
+    if (!doc.exists) return null;
     
-    const doc = snapshot.docs[0];
     const data = doc.data();
+    if (!data) return null;
     
     if (source === 'fishbowl') {
       return {
@@ -332,15 +329,13 @@ export async function getCustomerById(id: string, source: 'fishbowl' | 'copper')
  */
 export async function getRecentCustomers(userId: string, limit_count: number = 5): Promise<QuoteCustomer[]> {
   try {
-    const quotesRef = collection(db, 'quotes');
-    const q = query(
-      quotesRef,
-      where('createdBy', '==', userId),
-      orderBy('createdAt', 'desc'),
-      limit(limit_count * 2) // Get more to account for duplicates
-    );
+    const quotesRef = adminDb.collection('quotes');
+    const snapshot = await quotesRef
+      .where('createdBy', '==', userId)
+      .orderBy('createdAt', 'desc')
+      .limit(limit_count * 2) // Get more to account for duplicates
+      .get();
     
-    const snapshot = await getDocs(q);
     const customers: QuoteCustomer[] = [];
     const seenCompanies = new Set<string>();
     

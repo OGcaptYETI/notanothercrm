@@ -64,7 +64,7 @@ export default function QuoteBuilder({
             {item.product.image && (
               <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                 <img
-                  src={item.product.image}
+                  src={item.product.image.startsWith('http') ? item.product.image : `https://${item.product.image.replace(/^https?:\/\//, '')}`}
                   alt={item.product.name}
                   className="w-full h-full object-contain"
                 />

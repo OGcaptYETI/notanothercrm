@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChange } from '@/lib/firebase/client';
 import { userService } from '@/lib/firebase/services';
 import Link from 'next/link';
-import { Settings, Users, Target, Database, Phone, FileText, DollarSign, Sliders, Plug, BarChart3, Wrench } from 'lucide-react';
+import { Settings, Users, Target, Database, Phone, FileText, DollarSign, Sliders, Plug, BarChart3, Wrench, Package } from 'lucide-react';
 
 
 export default function AdminPage() {
@@ -86,6 +86,20 @@ export default function AdminPage() {
           <p className="text-sm text-blue-700 mb-4">View team performance, metrics, and analytics.</p>
           <div className="flex items-center text-blue-600 text-sm font-medium">
             View Insights →
+          </div>
+        </Link>
+
+        {/* Products Card */}
+        <Link href="/admin/products" className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl p-6 border border-teal-200 hover:shadow-lg transition-shadow">
+          <div className="flex items-start justify-between mb-4">
+            <div className="bg-teal-500 p-3 rounded-lg">
+              <Package className="w-6 h-6 text-white" />
+            </div>
+          </div>
+          <h3 className="text-lg font-semibold text-teal-900 mb-2">Product Management</h3>
+          <p className="text-sm text-teal-700 mb-4">Manage products, pricing tiers, and inventory settings.</p>
+          <div className="flex items-center text-teal-600 text-sm font-medium">
+            Manage Products →
           </div>
         </Link>
 

@@ -19,6 +19,7 @@ export default function NewQuotePage() {
   const [customer, setCustomer] = useState<QuoteCustomer | undefined>();
   const [lineItems, setLineItems] = useState<QuoteLineItem[]>([]);
   const [pricingMode, setPricingMode] = useState<PricingMode>('distribution');
+  const [selectedTier, setSelectedTier] = useState<number>(1);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('wire');
   const [internalNotes, setInternalNotes] = useState('');
   const [customerNotes, setCustomerNotes] = useState('');
@@ -71,6 +72,7 @@ export default function NewQuotePage() {
         internalNotes,
         customerNotes,
         calculation,
+        selectedTier,
         shipping: {
           zone: '',
           zoneName: '',
@@ -165,22 +167,37 @@ export default function NewQuotePage() {
           <div className="bg-white rounded-xl shadow-sm p-5">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Select Products</h2>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Pricing Mode:</span>
-                <button
-                  onClick={() => setPricingMode(pricingMode === 'distribution' ? 'retail' : 'distribution')}
-                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                    pricingMode === 'retail'
-                      ? 'bg-primary-100 text-primary-700'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  {pricingMode === 'retail' ? 'Retail' : 'Distribution'}
-                </button>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Pricing Tier:</span>
+                  <select
+                    value={selectedTier}
+                    onChange={(e) => setSelectedTier(Number(e.target.value))}
+                    className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  >
+                    <option value={1}>Tier 1 (0-55 cases)</option>
+                    <option value={2}>Tier 2 (56-111 cases)</option>
+                    <option value={3}>Tier 3 (112+ cases)</option>
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Mode:</span>
+                  <button
+                    onClick={() => setPricingMode(pricingMode === 'distribution' ? 'wholesale' : 'distribution')}
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                      pricingMode === 'wholesale'
+                        ? 'bg-primary-100 text-primary-700'
+                        : 'bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    {pricingMode === 'wholesale' ? 'Wholesale' : 'Distribution'}
+                  </button>
+                </div>
               </div>
             </div>
             <ProductSelector
               pricingMode={pricingMode}
+              selectedTier={selectedTier}
               onAddProduct={handleAddLineItem}
             />
           </div>

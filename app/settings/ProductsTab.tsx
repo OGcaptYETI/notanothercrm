@@ -27,6 +27,7 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedProductType, setSelectedProductType] = useState('all');
   const [selectedProductStatus, setSelectedProductStatus] = useState('all');
+  const [selectedQuoteToolStatus, setSelectedQuoteToolStatus] = useState('all');
   const [productSortField, setProductSortField] = useState<'productNum' | 'productDescription' | 'category' | 'productType' | 'isActive'>('productNum');
   const [productSortDirection, setProductSortDirection] = useState<'asc' | 'desc'>('asc');
   const [showAddProductModal, setShowAddProductModal] = useState(false);
@@ -135,6 +136,14 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
       }
     }
 
+    if (selectedQuoteToolStatus !== 'all') {
+      if (selectedQuoteToolStatus === 'enabled') {
+        filtered = filtered.filter(product => product.showInQuoteTool === true);
+      } else if (selectedQuoteToolStatus === 'disabled') {
+        filtered = filtered.filter(product => product.showInQuoteTool !== true);
+      }
+    }
+
     filtered.sort((a, b) => {
       let aVal = a[productSortField];
       let bVal = b[productSortField];
@@ -157,7 +166,7 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
     });
 
     setFilteredProducts(filtered);
-  }, [productSearchTerm, allProducts, selectedCategory, selectedProductType, selectedProductStatus, productSortField, productSortDirection]);
+  }, [productSearchTerm, allProducts, selectedCategory, selectedProductType, selectedProductStatus, selectedQuoteToolStatus, productSortField, productSortDirection]);
 
   const downloadTemplate = () => {
     const headers = [
@@ -430,6 +439,64 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
     }
   };
 
+  const bulkToggleBonus = async () => {
+    if (selectedProducts.size === 0) return;
+    
+    try {
+      const promises = Array.from(selectedProducts).map(async (id) => {
+        const product = allProducts.find(p => p.id === id);
+        return updateDoc(doc(db, 'products', id), {
+          quarterlyBonusEligible: !product?.quarterlyBonusEligible,
+          updatedAt: new Date().toISOString(),
+        });
+      });
+      await Promise.all(promises);
+      toast.success(`Toggled bonus eligibility for ${selectedProducts.size} products`);
+      setSelectedProducts(new Set());
+      loadProducts();
+    } catch (error) {
+      toast.error('Failed to toggle bonus eligibility');
+    }
+  };
+
+  const bulkEnableQuoteTool = async () => {
+    if (selectedProducts.size === 0) return;
+    
+    try {
+      const promises = Array.from(selectedProducts).map(id =>
+        updateDoc(doc(db, 'products', id), {
+          showInQuoteTool: true,
+          updatedAt: new Date().toISOString(),
+        })
+      );
+      await Promise.all(promises);
+      toast.success(`Enabled quote tool for ${selectedProducts.size} products`);
+      setSelectedProducts(new Set());
+      loadProducts();
+    } catch (error) {
+      toast.error('Failed to enable quote tool');
+    }
+  };
+
+  const bulkDisableQuoteTool = async () => {
+    if (selectedProducts.size === 0) return;
+    
+    try {
+      const promises = Array.from(selectedProducts).map(id =>
+        updateDoc(doc(db, 'products', id), {
+          showInQuoteTool: false,
+          updatedAt: new Date().toISOString(),
+        })
+      );
+      await Promise.all(promises);
+      toast.success(`Disabled quote tool for ${selectedProducts.size} products`);
+      setSelectedProducts(new Set());
+      loadProducts();
+    } catch (error) {
+      toast.error('Failed to disable quote tool');
+    }
+  };
+
   const bulkExport = () => {
     const selectedData = allProducts.filter(p => selectedProducts.has(p.id));
     const exportData = selectedData.map(p => ({
@@ -441,6 +508,7 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
       'UOM': p.uom,
       'Active': p.isActive ? 'Yes' : 'No',
       'Quarterly Bonus': p.quarterlyBonusEligible ? 'Yes' : 'No',
+      'Quote Tool': p.showInQuoteTool ? 'Yes' : 'No',
     }));
 
     const ws = XLSX.utils.json_to_sheet(exportData);
@@ -533,13 +601,6 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
 
   return (
     <div className="space-y-6">
-      {/* Breadcrumb */}
-      <div className="flex items-center text-sm text-gray-600">
-        <span>Commission Settings</span>
-        <ChevronRight className="w-4 h-4 mx-2" />
-        <span className="text-gray-900 font-medium">Products</span>
-      </div>
-
       {/* Header */}
       <div className="card bg-gradient-to-r from-indigo-50 to-blue-50 border-indigo-200">
         <div className="flex items-center justify-between mb-4">
@@ -687,6 +748,25 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
 
           <div>
             <label className="block text-xs font-medium text-gray-700 mb-1">
+              <Filter className="w-3 h-3 inline mr-1" />
+              Quote Tool
+            </label>
+            <select
+              value={selectedQuoteToolStatus}
+              onChange={(e) => setSelectedQuoteToolStatus(e.target.value)}
+              className="input w-full text-sm"
+            >
+              <option value="all">All Products</option>
+              <option value="enabled">Quote Tool Enabled</option>
+              <option value="disabled">Quote Tool Disabled</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Sort Controls */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">
               <ArrowUpDown className="w-3 h-3 inline mr-1" />
               Sort By
             </label>
@@ -725,6 +805,7 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
             {selectedCategory !== 'all' && ` • Category: ${selectedCategory}`}
             {selectedProductType !== 'all' && ` • Type: ${selectedProductType}`}
             {selectedProductStatus !== 'all' && ` • Status: ${selectedProductStatus}`}
+            {selectedQuoteToolStatus !== 'all' && ` • Quote Tool: ${selectedQuoteToolStatus}`}
           </div>
           
           {selectedProducts.size > 0 && (
@@ -747,6 +828,30 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
               >
                 <XCircle className="w-4 h-4 mr-1" />
                 Deactivate
+              </button>
+              <button
+                onClick={bulkToggleBonus}
+                className="btn btn-sm btn-secondary"
+                title="Toggle quarterly bonus for selected"
+              >
+                <Star className="w-4 h-4 mr-1" />
+                Toggle Bonus
+              </button>
+              <button
+                onClick={bulkEnableQuoteTool}
+                className="btn btn-sm btn-secondary"
+                title="Enable quote tool for selected"
+              >
+                <Package className="w-4 h-4 mr-1" />
+                Enable Quote
+              </button>
+              <button
+                onClick={bulkDisableQuoteTool}
+                className="btn btn-sm btn-secondary"
+                title="Disable quote tool for selected"
+              >
+                <Package className="w-4 h-4 mr-1" />
+                Disable Quote
               </button>
               <button
                 onClick={bulkExport}
@@ -868,7 +973,7 @@ export default function ProductsTab({ isAdmin }: ProductsTabProps) {
                           )}
                         </button>
                         <Link
-                          href={`/settings/products/${product.id}`}
+                          href={`/admin/products/${product.id}`}
                           className="text-blue-600 hover:text-blue-800 hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
