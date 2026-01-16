@@ -2743,30 +2743,6 @@ function SettingsPageContent() {
               </div>
             </div>
             
-            {/* Quarter Selector & Actions */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={addQuarter}
-                className="btn btn-secondary flex items-center"
-                title="Add new quarter for forecasting"
-              >
-                <Calendar className="w-4 h-4 mr-2" />
-                Add Quarter
-              </button>
-              
-              <div className="flex items-center">
-                <label className="text-sm font-medium text-gray-700 mr-2">Quarter:</label>
-                <select
-                  value={selectedQuarter}
-                  onChange={(e) => setSelectedQuarter(e.target.value)}
-                  className="input w-40"
-                >
-                  {quarters.map((q) => (
-                    <option key={q} value={q}>{q}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
           </div>
         </div>
       </header>

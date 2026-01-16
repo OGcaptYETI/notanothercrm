@@ -21,9 +21,11 @@ interface RulesTabProps {
   isAdmin: boolean;
 }
 
-export default function RulesTab({ selectedQuarter, isAdmin }: RulesTabProps) {
+export default function RulesTab({ selectedQuarter: initialQuarter, isAdmin }: RulesTabProps) {
   const [saving, setSaving] = useState(false);
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
+  const [selectedQuarter, setSelectedQuarter] = useState(initialQuarter);
+  const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
 
   // Configuration state
   const [config, setConfig] = useState<CommissionConfig>({
@@ -447,6 +449,30 @@ export default function RulesTab({ selectedQuarter, isAdmin }: RulesTabProps) {
     setConfig({ ...config, roleScales: newScales });
   };
 
+  const handleAddQuarter = () => {
+    const newQuarter = prompt('Enter new quarter (e.g., Q2 2026):');
+    if (!newQuarter) return;
+    
+    const quarterPattern = /^Q[1-4]\s\d{4}$/;
+    if (!quarterPattern.test(newQuarter)) {
+      toast.error('Invalid quarter format. Use format: Q1 2026');
+      return;
+    }
+    
+    if (quarters.includes(newQuarter)) {
+      toast.error('Quarter already exists');
+      return;
+    }
+    
+    setQuarters([...quarters, newQuarter]);
+    toast.success(`Quarter ${newQuarter} added successfully`);
+  };
+
+  const handleQuarterChange = (newQuarter: string) => {
+    setSelectedQuarter(newQuarter);
+    setConfig({ ...config, quarter: newQuarter });
+  };
+
   const handleSaveConfig = async () => {
     const weights = config.buckets.filter(b => b.active).map(b => b.weight);
     if (!validateWeightsSum(weights)) {
@@ -735,14 +761,38 @@ export default function RulesTab({ selectedQuarter, isAdmin }: RulesTabProps) {
           <div className="card mb-8">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-gray-900">Global Settings</h2>
-              <button
-                onClick={handleSaveConfig}
-                disabled={saving}
-                className="btn btn-primary flex items-center"
-              >
-                <Save className="w-4 h-4 mr-2" />
-                {saving ? 'Saving...' : 'Save Config'}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleAddQuarter}
+                  className="btn btn-secondary flex items-center"
+                  title="Add new quarter for forecasting"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Quarter
+                </button>
+                
+                <div className="flex items-center">
+                  <label className="text-sm font-medium text-gray-700 mr-2">Quarter:</label>
+                  <select
+                    value={selectedQuarter}
+                    onChange={(e) => handleQuarterChange(e.target.value)}
+                    className="input w-40"
+                  >
+                    {quarters.map((q) => (
+                      <option key={q} value={q}>{q}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <button
+                  onClick={handleSaveConfig}
+                  disabled={saving}
+                  className="btn btn-primary flex items-center"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  {saving ? 'Saving...' : 'Save Config'}
+                </button>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
