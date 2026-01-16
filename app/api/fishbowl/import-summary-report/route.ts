@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase/admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import Papa from 'papaparse';
-import { normalizeHeaders } from '../normalize-headers';
+import { createHeaderMap, normalizeRow } from '../normalize-headers';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -87,7 +87,13 @@ export async function POST(req: NextRequest) {
     }
 
     const rows = parsed.data as any[];
-    const normalizedRows = normalizeHeaders(rows);
+    
+    // Create header mapping
+    const headers = rows.length > 0 ? Object.keys(rows[0]) : [];
+    const headerMap = createHeaderMap(headers);
+    
+    // Normalize all rows
+    const normalizedRows = rows.map(row => normalizeRow(row, headerMap));
     
     console.log(`📄 Analyzing ${normalizedRows.length} rows...`);
     
