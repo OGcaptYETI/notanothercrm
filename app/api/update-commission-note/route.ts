@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
 
     console.log(`📝 Updating commission note for order ${orderId}`);
 
-    // Update the order in sales_order_history
-    const orderRef = adminDb.collection('sales_order_history').doc(orderId);
+    // Update the order in fishbowl_sales_orders
+    const orderRef = adminDb.collection('fishbowl_sales_orders').doc(orderId);
     const orderDoc = await orderRef.get();
 
     if (!orderDoc.exists) {

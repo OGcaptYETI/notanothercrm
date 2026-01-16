@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
 
     console.log(`📊 Fetching commission orders for ${year}-${month}${salesPerson ? ` (${salesPerson})` : ''}`);
 
-    // Query sales_order_history collection
+    // Query fishbowl_sales_orders collection
     let query = adminDb
-      .collection('sales_order_history')
+      .collection('fishbowl_sales_orders')
       .where('commissionYear', '==', parseInt(year))
       .where('commissionMonth', '==', parseInt(month));
 
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 
     const snapshot = await query.get();
 
-    console.log(`📦 Found ${snapshot.size} orders in sales_order_history`);
+    console.log(`📦 Found ${snapshot.size} orders in fishbowl_sales_orders`);
 
     // Get line items for each order to calculate totals
     const orders = await Promise.all(
