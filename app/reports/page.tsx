@@ -286,7 +286,10 @@ export default function ReportsPage() {
       const customer = grouped.get(detail.customerName)!;
       customer.orders.push(detail);
       customer.totalRevenue += detail.orderRevenue;
-      customer.totalCommission += detail.commissionAmount;
+      // Only add to commission total if not excluded by admin
+      if (!detail.excludeFromCommission) {
+        customer.totalCommission += detail.commissionAmount;
+      }
     });
 
     return Array.from(grouped.values()).sort((a, b) => 
@@ -1232,7 +1235,7 @@ export default function ReportsPage() {
                                   {customer.orders.map((order) => (
   <Fragment key={order.id}>
     <tr 
-      className="border-t border-gray-100 hover:bg-gray-50 cursor-pointer"
+      className={`border-t border-gray-100 hover:bg-gray-50 cursor-pointer ${order.excludeFromCommission ? 'bg-red-50' : ''}`}
       onClick={() => toggleOrder(order.orderNum, order.commissionRate)}
     >
       <td className="px-4 py-3 text-sm font-medium text-gray-900">
@@ -1243,6 +1246,11 @@ export default function ReportsPage() {
             <ChevronRight className="w-4 h-4 text-gray-600" />
           )}
           <span>{order.orderNum}</span>
+          {order.excludeFromCommission && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700" title={order.commissionNote || 'Excluded by admin'}>
+              🚫 Excluded
+            </span>
+          )}
           {order.hasSpiff && (
             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
               🎁 Spiff
@@ -1260,7 +1268,7 @@ export default function ReportsPage() {
       </td>
       <td className="px-4 py-3 text-sm text-right">{formatCurrency(order.orderRevenue)}</td>
       <td className="px-4 py-3 text-sm text-right text-gray-600">{order.commissionRate.toFixed(2)}%</td>
-      <td className="px-4 py-3 text-sm text-right font-semibold text-green-600">
+      <td className={`px-4 py-3 text-sm text-right font-semibold ${order.excludeFromCommission ? 'text-red-600 line-through' : 'text-green-600'}`}>
         {formatCurrency(order.commissionAmount)}
       </td>
     </tr>
@@ -1374,8 +1382,17 @@ export default function ReportsPage() {
                             {calculationLogs
                               .filter(log => selectedRep === 'all' || log.repName === selectedRep)
                               .map((log) => (
-                              <tr key={log.id} className="hover:bg-gray-50">
-                                <td className="text-sm font-medium">{log.orderNum}</td>
+                              <tr key={log.id} className={`hover:bg-gray-50 ${log.excludeFromCommission ? 'bg-red-50' : ''}`}>
+                                <td className="text-sm font-medium">
+                                  <div className="flex items-center gap-2">
+                                    <span>{log.orderNum}</span>
+                                    {log.excludeFromCommission && (
+                                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700" title={log.commissionNote || 'Excluded by admin'}>
+                                        🚫 Excluded
+                                      </span>
+                                    )}
+                                  </div>
+                                </td>
                                 <td className="text-sm">{log.customerName}</td>
                                 <td className="text-sm text-gray-600">{log.repName}</td>
                                 <td>
@@ -1399,7 +1416,9 @@ export default function ReportsPage() {
                                 </td>
                                 <td className="text-right">{formatCurrency(log.orderAmount)}</td>
                                 <td className="text-right text-gray-600">{log.commissionRate.toFixed(2)}%</td>
-                                <td className="text-right font-bold text-green-600">{formatCurrency(log.commissionAmount)}</td>
+                                <td className={`text-right font-bold ${log.excludeFromCommission ? 'text-red-600 line-through' : 'text-green-600'}`}>
+                                  {formatCurrency(log.commissionAmount)}
+                                </td>
                                 <td className="text-center">
                                   <span className={`px-2 py-1 text-xs rounded-full ${
                                     log.rateSource === 'configured' 

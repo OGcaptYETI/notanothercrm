@@ -9,7 +9,7 @@ interface SalesOrder {
   soNumber: string;
   customerName: string;
   salesPerson: string;
-  postingDate: string;
+  postingDate: any; // Can be Firestore Timestamp or string
   totalPrice: number;
   accountType: string;
   excludeFromCommission?: boolean;
@@ -284,7 +284,7 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="SO#, Customer, Rep..."
-                className="input w-full pl-10"
+                className="input w-full pl-10 text-sm placeholder:text-sm"
               />
             </div>
           </div>
@@ -396,7 +396,14 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
                       {order.salesPerson}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(order.postingDate).toLocaleDateString()}
+                      {order.postingDate ? (() => {
+                        try {
+                          const date = order.postingDate?.toDate ? order.postingDate.toDate() : new Date(order.postingDate);
+                          return date.toLocaleDateString();
+                        } catch {
+                          return '-';
+                        }
+                      })() : '-'}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       ${order.totalPrice?.toLocaleString() || '0'}
