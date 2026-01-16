@@ -74,8 +74,8 @@ export async function POST(request: NextRequest) {
 }
 
 async function recalculateMonthCommissions(salesPerson: string, month: number, year: number) {
-  // Build commission month string
-  const commissionMonth = `${String(month).padStart(2, '0')}-${year}`;
+  // Build commission month string in YYYY-MM format to match Reports page
+  const commissionMonth = `${year}-${String(month).padStart(2, '0')}`;
   
   // Get all commission records for this rep/month
   const commissionsSnapshot = await adminDb

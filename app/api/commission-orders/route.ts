@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
 
     console.log(`📊 Fetching commission orders for ${year}-${month}${salesPerson ? ` (${salesPerson})` : ''}`);
 
-    // Build commission month string (e.g., "12-2025")
-    const commissionMonth = `${month.padStart(2, '0')}-${year}`;
+    // Build commission month string in YYYY-MM format (e.g., "2025-12") to match Reports page
+    const commissionMonth = `${year}-${month.padStart(2, '0')}`;
 
     // Query monthly_commissions collection (same as reports page)
     let query = adminDb
