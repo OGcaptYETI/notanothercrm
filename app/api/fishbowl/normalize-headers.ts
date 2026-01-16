@@ -576,3 +576,16 @@ export function validateRequiredHeaders(headerMap: Map<string, string>): { valid
     missing
   };
 }
+
+/**
+ * Convenience function to normalize an array of CSV rows
+ * Automatically creates header map and normalizes all rows
+ */
+export function normalizeHeaders(rows: any[]): any[] {
+  if (rows.length === 0) return [];
+  
+  const headers = Object.keys(rows[0]);
+  const headerMap = createHeaderMap(headers);
+  
+  return rows.map(row => normalizeRow(row, headerMap));
+}
