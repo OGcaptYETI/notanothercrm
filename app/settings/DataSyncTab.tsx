@@ -78,147 +78,36 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
       const fileSizeMB = fileSize / 1024 / 1024;
       console.log(`📦 Uploading ${fishbowlFile.name} (${fileSizeMB.toFixed(2)} MB)`);
       
+      // ALWAYS use chunked upload for consistency (ensures Copper account type lookup)
       // Chunk size must stay under ~750KB so base64 encoded data fits in Firestore's 1MB field limit
       const CHUNK_SIZE = 700 * 1024; // 700KB chunks
-      const useChunkedUpload = fileSize > CHUNK_SIZE;
+      const useChunkedUpload = true; // Always use chunked path
       
-      if (useChunkedUpload) {
-        const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);
-        const fileId = `file_${Date.now()}`;
-        
-        console.log(`📦 Splitting into ${totalChunks} chunks...`);
-        toast.loading(`Uploading in ${totalChunks} chunks...`, { id: loadingToast });
-        
-        let currentImportId: string | null = null;
-        
-        for (let i = 0; i < totalChunks; i++) {
-          const start = i * CHUNK_SIZE;
-          const end = Math.min(start + CHUNK_SIZE, fileSize);
-          const chunk = fishbowlFile.slice(start, end);
-          
-          const formData = new FormData();
-          formData.append('chunk', chunk);
-          formData.append('chunkIndex', i.toString());
-          formData.append('totalChunks', totalChunks.toString());
-          formData.append('fileId', fileId);
-          formData.append('filename', fishbowlFile.name);
-          
-          const uploadProgress = ((i + 1) / totalChunks * 100).toFixed(0);
-          toast.loading(`Uploading chunk ${i + 1}/${totalChunks} (${uploadProgress}%)`, { id: loadingToast });
-          
-          const response = await fetch('/api/fishbowl/import-chunked', {
-            method: 'POST',
-            body: formData,
-          });
-          
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error(data.error || 'Chunk upload failed');
-          }
-          
-          console.log(`✅ Uploaded chunk ${i + 1}/${totalChunks}`);
-          
-          if (data.complete && data.importId) {
-            currentImportId = data.importId;
-            console.log(`🎉 All chunks uploaded! Import ID: ${currentImportId}`);
-            break;
-          }
-        }
-        
-        if (!currentImportId) {
-          throw new Error('Failed to get import ID after upload');
-        }
-        
-        setImportId(currentImportId);
-        toast.loading('Starting processing...', { id: loadingToast });
-        
-        // Start processing in a separate request (fire and forget)
-        console.log('🚀 Triggering processing...');
-        const processResponse = await fetch('/api/fishbowl/process-import', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ importId: currentImportId }),
-        });
-        
-        if (!processResponse.ok) {
-          const errorData = await processResponse.json();
-          throw new Error(errorData.error || 'Processing failed');
-        }
-        
-        const processResult = await processResponse.json();
-        console.log('🚀 Processing started:', processResult);
-        
-        // Poll for progress until complete
-        toast.loading(`Processing ${processResult.totalRows?.toLocaleString() || '?'} rows...`, { id: loadingToast });
-        setImportId(currentImportId);
-        
-        // Start polling
-        const pollInterval = setInterval(async () => {
-          try {
-            const progressRes = await fetch(`/api/fishbowl/import-progress?importId=${currentImportId}`);
-            const progressData = await progressRes.json();
-            
-            if (progressData.progress) {
-              const p = progressData.progress;
-              setImportProgress(p);
-              
-              if (p.status === 'complete') {
-                clearInterval(pollInterval);
-                console.log('✅ Import complete:', p.stats);
-                
-                setFishbowlResult({
-                  success: true,
-                  complete: true,
-                  stats: p.stats
-                });
-                
-                setFishbowlFile(null);
-                setFishbowlLoading(false);
-                
-                const stats = p.stats || {};
-                const totalWrites = (stats.ordersCreated || 0) + (stats.ordersUpdated || 0) + (stats.itemsCreated || 0) + (stats.itemsUpdated || 0);
-                
-                toast.success(
-                  `✅ Import Complete! ${totalWrites.toLocaleString()} records written`,
-                  { id: loadingToast, duration: 5000 }
-                );
-                
-                onCustomersUpdated?.();
-              } else if (p.status === 'error') {
-                clearInterval(pollInterval);
-                throw new Error(p.error || 'Processing failed');
-              } else {
-                // Still processing - update toast
-                toast.loading(
-                  `Processing: ${p.currentRow?.toLocaleString() || 0}/${p.totalRows?.toLocaleString() || '?'} (${p.percentage || 0}%)`,
-                  { id: loadingToast }
-                );
-              }
-            }
-          } catch (pollError) {
-            console.error('Poll error:', pollError);
-          }
-        }, 2000); // Poll every 2 seconds
-        
-        // Safety timeout after 10 minutes
-        setTimeout(() => {
-          clearInterval(pollInterval);
-          if (fishbowlLoading) {
-            setFishbowlLoading(false);
-            toast.error('Import timed out - check import progress manually', { id: loadingToast });
-          }
-        }, 600000);
-        
-      } else {
-        console.log(`📦 File is small (${fileSizeMB.toFixed(2)} MB), using direct upload`);
+      // Always use chunked upload (even for small files) for consistency
+      const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);
+      const fileId = `file_${Date.now()}`;
+      
+      console.log(`📦 Splitting into ${totalChunks} chunks...`);
+      toast.loading(`Uploading in ${totalChunks} chunks...`, { id: loadingToast });
+      
+      let currentImportId: string | null = null;
+      
+      for (let i = 0; i < totalChunks; i++) {
+        const start = i * CHUNK_SIZE;
+        const end = Math.min(start + CHUNK_SIZE, fileSize);
+        const chunk = fishbowlFile.slice(start, end);
         
         const formData = new FormData();
-        formData.append('file', fishbowlFile);
+        formData.append('chunk', chunk);
+        formData.append('chunkIndex', i.toString());
+        formData.append('totalChunks', totalChunks.toString());
+        formData.append('fileId', fileId);
+        formData.append('filename', fishbowlFile.name);
         
-        toast.loading('Uploading and processing...', { id: loadingToast });
+        const uploadProgress = ((i + 1) / totalChunks * 100).toFixed(0);
+        toast.loading(`Uploading chunk ${i + 1}/${totalChunks} (${uploadProgress}%)`, { id: loadingToast });
         
-        const response = await fetch('/api/fishbowl/import-unified', {
+        const response = await fetch('/api/fishbowl/import-chunked', {
           method: 'POST',
           body: formData,
         });
@@ -226,31 +115,98 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
         const data = await response.json();
         
         if (!response.ok) {
-          throw new Error(data.error || 'Import failed');
+          throw new Error(data.error || 'Chunk upload failed');
         }
         
-        console.log('✅ Import completed!', data.stats);
+        console.log(`✅ Uploaded chunk ${i + 1}/${totalChunks}`);
         
-        setFishbowlResult({
-          success: true,
-          complete: true,
-          stats: data.stats
-        });
-        
-        setFishbowlFile(null);
-        setFishbowlLoading(false);
-        
-        const totalWrites = (data.stats.ordersCreated || 0) + (data.stats.ordersUpdated || 0) + (data.stats.itemsCreated || 0) + (data.stats.itemsUpdated || 0);
-        const totalSkipped = (data.stats.ordersUnchanged || 0) + (data.stats.itemsUnchanged || 0);
-        const savedPercentage = totalWrites + totalSkipped > 0 ? ((totalSkipped / (totalWrites + totalSkipped)) * 100).toFixed(1) : '0.0';
-        
-        toast.success(
-          `✅ Import Complete! ${totalWrites.toLocaleString()} writes (saved ${totalSkipped.toLocaleString()} - ${savedPercentage}% reduction)`,
-          { id: loadingToast, duration: 5000 }
-        );
-        
-        onCustomersUpdated?.();
+        if (data.complete && data.importId) {
+          currentImportId = data.importId;
+          console.log(`🎉 All chunks uploaded! Import ID: ${currentImportId}`);
+          break;
+        }
       }
+      
+      if (!currentImportId) {
+        throw new Error('Failed to get import ID after upload');
+      }
+      
+      setImportId(currentImportId);
+      toast.loading('Starting processing...', { id: loadingToast });
+      
+      // Start processing in a separate request (fire and forget)
+      console.log('🚀 Triggering processing...');
+      const processResponse = await fetch('/api/fishbowl/process-import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ importId: currentImportId }),
+      });
+      
+      if (!processResponse.ok) {
+        const errorData = await processResponse.json();
+        throw new Error(errorData.error || 'Processing failed');
+      }
+      
+      const processResult = await processResponse.json();
+      console.log('🚀 Processing started:', processResult);
+      
+      // Poll for progress until complete
+      toast.loading(`Processing ${processResult.totalRows?.toLocaleString() || '?'} rows...`, { id: loadingToast });
+      setImportId(currentImportId);
+      
+      // Start polling
+      const pollInterval = setInterval(async () => {
+        try {
+          const progressRes = await fetch(`/api/fishbowl/import-progress?importId=${currentImportId}`);
+          const progressData = await progressRes.json();
+          
+          if (progressData.progress) {
+            const p = progressData.progress;
+            setImportProgress(p);
+            
+            if (p.status === 'complete') {
+              clearInterval(pollInterval);
+              console.log('✅ Import complete:', p.stats);
+              
+              setFishbowlResult({
+                success: true,
+                complete: true,
+                stats: p.stats
+              });
+              
+              setFishbowlFile(null);
+              setFishbowlLoading(false);
+              
+              const stats = p.stats || {};
+              const totalWrites = (stats.ordersCreated || 0) + (stats.ordersUpdated || 0) + (stats.itemsCreated || 0) + (stats.itemsUpdated || 0);
+              const totalSkipped = (stats.ordersUnchanged || 0) + (stats.itemsUnchanged || 0);
+              const savedPercentage = totalWrites + totalSkipped > 0 ? ((totalSkipped / (totalWrites + totalSkipped)) * 100).toFixed(1) : '0.0';
+              
+              toast.success(
+                `✅ Import Complete! ${totalWrites.toLocaleString()} writes (saved ${totalSkipped.toLocaleString()} - ${savedPercentage}% reduction)`,
+                { id: loadingToast, duration: 5000 }
+              );
+              
+              onCustomersUpdated?.();
+            } else if (p.status === 'error') {
+              clearInterval(pollInterval);
+              setFishbowlLoading(false);
+              toast.error(p.error || 'Import failed', { id: loadingToast });
+            }
+          }
+        } catch (pollError) {
+          console.error('Poll error:', pollError);
+        }
+      }, 2000); // Poll every 2 seconds
+      
+      // Safety timeout after 10 minutes
+      setTimeout(() => {
+        clearInterval(pollInterval);
+        if (fishbowlLoading) {
+          setFishbowlLoading(false);
+          toast.error('Import timed out - check import progress manually', { id: loadingToast });
+        }
+      }, 600000);
       
     } catch (error: any) {
       console.error('Import error:', error);

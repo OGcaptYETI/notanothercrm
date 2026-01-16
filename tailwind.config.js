@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'kanva-green': '#93D500',
         primary: {
           50: '#f0fdf4',
           100: '#dcfce7',

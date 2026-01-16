@@ -202,12 +202,19 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
         
         if (postingDateRaw) {
           try {
+            let serialNumber = postingDateRaw;
+            
+            // Check if it's a numeric string (Excel serial number as string)
+            if (typeof postingDateRaw === 'string' && !isNaN(Number(postingDateRaw)) && Number(postingDateRaw) > 1000) {
+              serialNumber = Number(postingDateRaw);
+            }
+            
             // Check if it's an Excel serial number (numeric)
-            if (typeof postingDateRaw === 'number') {
+            if (typeof serialNumber === 'number') {
               // Convert Excel serial date to JavaScript Date
               // Excel dates are days since 1/1/1900
               const excelEpoch = new Date(1899, 11, 30); // Excel epoch (Dec 30, 1899)
-              postingDate = new Date(excelEpoch.getTime() + postingDateRaw * 86400000);
+              postingDate = new Date(excelEpoch.getTime() + serialNumber * 86400000);
               
               const month = postingDate.getMonth() + 1;
               const day = postingDate.getDate();
@@ -237,7 +244,7 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
               }
             }
           } catch (e) {
-            // Silently ignore parse errors
+            console.error(`⚠️ Failed to parse date: "${postingDateRaw}"`, e);
           }
         }
         
@@ -260,8 +267,8 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
           commissionYear: commissionYear, // For filtering: 2025
           
           // Financial totals
-          revenue: parseFloat(row['Total Price'] || 0),  // Total amount of Sales Order
-          orderValue: parseFloat(row['Total Price'] || 0),  // Total amount of Sales Order
+          revenue: parseFloat(row['Total price'] || row['Total Price'] || 0),  // Total amount of Sales Order
+          orderValue: parseFloat(row['Total price'] || row['Total Price'] || 0),  // Total amount of Sales Order
           
           updatedAt: Timestamp.now(),
           source: 'fishbowl_unified',
@@ -303,10 +310,17 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
       
       if (postingDateRaw2) {
         try {
+          let serialNumber2 = postingDateRaw2;
+          
+          // Check if it's a numeric string (Excel serial number as string)
+          if (typeof postingDateRaw2 === 'string' && !isNaN(Number(postingDateRaw2)) && Number(postingDateRaw2) > 1000) {
+            serialNumber2 = Number(postingDateRaw2);
+          }
+          
           // Check if it's an Excel serial number (numeric)
-          if (typeof postingDateRaw2 === 'number') {
+          if (typeof serialNumber2 === 'number') {
             const excelEpoch = new Date(1899, 11, 30);
-            postingDate2 = new Date(excelEpoch.getTime() + postingDateRaw2 * 86400000);
+            postingDate2 = new Date(excelEpoch.getTime() + serialNumber2 * 86400000);
             
             const month = postingDate2.getMonth() + 1;
             const day = postingDate2.getDate();
@@ -336,7 +350,7 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
             }
           }
         } catch (e) {
-          // Ignore parse errors
+          console.error(`⚠️ Failed to parse line item date: "${postingDateRaw2}"`, e);
         }
       }
       
@@ -381,14 +395,14 @@ async function importUnifiedReport(buffer: Buffer, filename: string): Promise<Im
         itemType: row['SO Item Type'] || '',
         
         // Financial Data (LINE ITEM LEVEL)
-        revenue: parseFloat(row['Total Price'] || 0),  // Line item revenue
+        revenue: parseFloat(row['Total price'] || row['Total Price'] || 0),  // Line item revenue
         unitPrice: parseFloat(row['Unit price'] || 0),  // Price customer pays per unit
         invoicedCost: parseFloat(row['Last Unit Price'] || 0),  // Cost of the product/line item
-        margin: parseFloat(row['Total Price'] || 0) - parseFloat(row['Last Unit Price'] || 0) * parseFloat(row['Qty fulfilled'] || 0),  // Calculate margin
-        quantity: parseFloat(row['Qty fulfilled'] || 0),  // Unit quantity of line item
-        totalPrice: parseFloat(row['Total Price'] || 0),
+        margin: parseFloat(row['Total price'] || row['Total Price'] || 0) - parseFloat(row['Last Unit Price'] || 0) * parseFloat(row['Fulfilled Quantity'] || row['Qty fulfilled'] || 0),  // Calculate margin
+        quantity: parseFloat(row['Fulfilled Quantity'] || row['Qty fulfilled'] || 0),  // Unit quantity of line item
+        totalPrice: parseFloat(row['Total price'] || row['Total Price'] || 0),
         qtyOrdered: parseFloat(row['Qty ordered'] || 0),
-        qtyFulfilled: parseFloat(row['Qty fulfilled'] || 0),
+        qtyFulfilled: parseFloat(row['Fulfilled Quantity'] || row['Qty fulfilled'] || 0),
         
         // Metadata
         shippingItemId: row['Shipping Item ID'] || '',

@@ -36,7 +36,8 @@ import {
   Store,
   Clock,
   UserX,
-  RefreshCw
+  RefreshCw,
+  BookOpen
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import RegionMap from './RegionMap';
@@ -44,7 +45,6 @@ import RegionManager from './RegionManager';
 import CustomerMap from './CustomerMap';
 import CustomersTab from './CustomersTab';
 import RulesTab from './RulesTab';
-import DataSyncTab from './DataSyncTab';
 import CalculateTab from './CalculateTab';
 import { CommissionConfig, CommissionBucket, ProductSubGoal, ActivitySubGoal, RoleCommissionScale, RepRole, CommissionEntry } from '@/types';
 import { validateWeightsSum, calculatePayout, formatCurrency, formatAttainment } from '@/lib/commission/calculator';
@@ -62,20 +62,19 @@ function SettingsPageContent() {
   const [saving, setSaving] = useState(false);
   const [selectedQuarter, setSelectedQuarter] = useState('Q4 2025');
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
-  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'datasync' | 'customers' | 'orgchart'>('calculate');
+  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'customers' | 'orgchart' | 'test'>('calculate');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
 
   // Handle tab parameter from URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['calculate', 'rules', 'datasync', 'customers', 'orgchart'].includes(tabParam)) {
-      setActiveTab(tabParam as 'calculate' | 'rules' | 'datasync' | 'customers' | 'orgchart');
+    if (tabParam && ['calculate', 'rules', 'customers', 'orgchart'].includes(tabParam)) {
+      setActiveTab(tabParam as 'calculate' | 'rules' | 'customers' | 'orgchart');
     }
   }, [searchParams]);
 
   const currentTab = activeTab;
   const isRulesTab = activeTab === 'rules';
-  const isDataSyncTab = activeTab === 'datasync';
   const isCustomersTab = activeTab === 'customers';
 
   // Configuration state
@@ -2794,19 +2793,8 @@ function SettingsPageContent() {
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
-              <SettingsIcon className="w-4 h-4 inline mr-1" />
+              <BookOpen className="w-4 h-4 inline mr-1" />
               Commission Rules
-            </button>
-            <button
-              onClick={() => setActiveTab('datasync')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'datasync'
-                  ? 'border-primary-500 text-primary-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              <DatabaseIcon className="w-4 h-4 inline mr-1" />
-              Data & Sync
             </button>
             <button
               onClick={() => setActiveTab('customers')}
@@ -2833,11 +2821,6 @@ function SettingsPageContent() {
         {/* Commission Rules Tab */}
         {isRulesTab && (
           <RulesTab selectedQuarter={selectedQuarter} isAdmin={isAdmin} />
-        )}
-
-        {/* Data & Sync Tab */}
-        {isDataSyncTab && (
-          <DataSyncTab isAdmin={isAdmin} onCustomersUpdated={loadCustomers} />
         )}
 
         {/* Customers Tab - Admin editing only (list view) */}

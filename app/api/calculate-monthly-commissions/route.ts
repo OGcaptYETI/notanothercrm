@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase/admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import Decimal from 'decimal.js';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export const dynamic = 'force-dynamic';
 
@@ -74,6 +76,21 @@ export async function POST(request: NextRequest) {
     if (!month || !year) {
       return NextResponse.json(
         { error: 'Month and year are required' },
+        { status: 400 }
+      );
+    }
+    
+    // Validate that the selected month is not in the future
+    const selectedDate = new Date(year, parseInt(month) - 1, 1);
+    const currentDate = new Date();
+    const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    
+    if (selectedDate > currentMonthStart) {
+      return NextResponse.json(
+        { 
+          error: 'Cannot calculate commissions for future months',
+          message: `Selected: ${month}/${year}. Please select a month that has already occurred.`
+        },
         { status: 400 }
       );
     }
@@ -298,13 +315,24 @@ async function calculateCommissionsWithProgress(
         console.log(`   Sample order: ${data.num} | commissionMonth: "${data.commissionMonth}" | postingDate: ${data.postingDateStr}`);
       });
       
+      // Mark progress as complete with error
+      await markProgress(progressRef, {
+        status: 'error',
+        error: `No orders found for ${commissionMonth}`,
+        processed: 0,
+        commissionsCalculated: 0,
+        totalCommission: 0,
+        completedAt: Timestamp.now()
+      });
+      
       return NextResponse.json({
-        success: true,
-        message: `No orders found for commissionMonth="${commissionMonth}". Check console for debug info.`,
+        success: false,
+        error: `No orders found for ${commissionMonth}`,
+        message: `No sales orders were found for the selected period. Please verify that orders have been imported for this month.`,
         processed: 0,
         commissionsCalculated: 0,
         totalCommission: 0
-      });
+      }, { status: 404 });
     }
 
     console.log(`✅ Found ${ordersSnapshot.size} orders to process`);
@@ -458,7 +486,19 @@ async function calculateCommissionsWithProgress(
       }
 
       // Customer already loaded above for admin order handling
-      const accountType = customer?.accountType || 'Retail';
+      let accountType = customer?.accountType || 'Retail';
+      
+      // Normalize accountType to handle Copper array format
+      if (Array.isArray(accountType) && accountType.length > 0) {
+        const typeId = accountType[0];
+        if (typeId === 2063862 || typeId === '2063862') accountType = 'Wholesale';
+        else if (typeId === 1981470 || typeId === '1981470') accountType = 'Distributor';
+        else if (typeId === 2066840 || typeId === '2066840') accountType = 'Retail';
+        else accountType = 'Retail';
+      } else if (typeof accountType !== 'string') {
+        accountType = 'Retail';
+      }
+      
       const manualTransferStatus = customer?.transferStatus; // Manual override from UI
       
       // CRITICAL: Log ALL orders where customer is NOT found (defaults to Retail)
@@ -480,7 +520,7 @@ async function calculateCommissionsWithProgress(
       }
 
       // Use accountType from Fishbowl customer data (NOT Copper segment)
-      // accountType is already loaded from customersMap above
+      // accountType is already normalized above
       const customerSegment = accountType; // Use Fishbowl accountType as the segment
       
       // Determine customer status (check manual override first)
@@ -519,6 +559,11 @@ async function calculateCommissionsWithProgress(
       );
       const rate = rateResult.rate;
       const rateFound = rateResult.found;
+      
+      // Log to file for debugging
+      const calcLogPath = path.join(process.cwd(), `commission-calc-debug-${commissionMonth}.txt`);
+      const calcLogEntry = `Order ${order.soNumber || order.num} | Customer ${order.customerId} (${order.customerName}) | Rep: ${rep.name} | Status: ${customerStatus} | Segment: ${customerSegment} | Rate: ${rate}% | Found: ${rateFound}\n`;
+      fs.appendFileSync(calcLogPath, calcLogEntry);
 
       if (!rate) {
         console.log(`No rate found for ${rep.title}, ${customerSegment}, ${customerStatus}`);
@@ -602,6 +647,11 @@ async function calculateCommissionsWithProgress(
 
       // Log successful commission calculation
       console.log(`✅ COMMISSION CALCULATED: Order ${order.soNumber || order.num} | ${rep.name} | ${customerSegment} | ${customerStatus} | $${orderAmount.toFixed(2)} × ${rate}% = $${commissionAmount.toFixed(2)}`);
+      
+      // Detailed file log
+      const detailLogPath = path.join(process.cwd(), `commission-calc-debug-${commissionMonth}.txt`);
+      const detailLogEntry = `  ✅ CALCULATED: $${orderAmount.toFixed(2)} × ${rate}% = $${commissionAmount.toFixed(2)}\n`;
+      fs.appendFileSync(detailLogPath, detailLogEntry);
 
       // Save calculation log for UI display
       const logId = `log_${order.salesOrderId}_${Date.now()}`;
@@ -712,11 +762,8 @@ async function calculateCommissionsWithProgress(
           console.log(`  🔍 Line Item Fields:`, {
             productNum: lineItem.productNum,
             partNumber: lineItem.partNumber,
-            partNum: lineItem.partNum,
-            productId: lineItem.productId,
             product: lineItem.product,
             productName: lineItem.productName,
-            productDescription: lineItem.productDescription,
             description: lineItem.description,
             quantity: lineItem.quantity
           });
@@ -754,7 +801,7 @@ async function calculateCommissionsWithProgress(
                 orderNum: order.soNumber || order.num || '',
                 customerName: order.customerName,
                 productNum: productNumber,
-                productDescription: lineItem.description || lineItem.productDescription || '',
+                productDescription: lineItem.description || '',
                 quantity: quantity,
                 spiffType: typeNormalized,
                 spiffValue: spiff.incentiveValue,
@@ -771,8 +818,8 @@ async function calculateCommissionsWithProgress(
                 
                 spiffId: spiff.id,
                 spiffName: spiff.name,
-                productNum: productNumber, // Use productNumber instead of lineItem.productNum (which is undefined)
-                productDescription: lineItem.description || lineItem.productDescription || '',
+                productNum: productNumber,
+                productDescription: lineItem.description || '',
                 
                 orderId: order.salesOrderId,
                 orderNum: order.soNumber || order.num || '',
@@ -1008,21 +1055,90 @@ async function getCustomerStatus(
     // customers who have always been with the same rep. Transfer detection must be based on
     // actual order history showing a rep CHANGE.
     
-    // Get recent orders for rep change detection
-    const previousOrders = await adminDb.collection('fishbowl_sales_orders')
-      .where('customerId', '==', customerId)
-      .where('postingDate', '<', orderDate)
+    // Get recent orders for rep change detection from sales_order_history subcollection
+    const debugCustomers = ['1439', '1505']; // Metro wholesale inc and Northwest Importer
+    const isDebugCustomer = debugCustomers.includes(customerId);
+    let debugLog = '';
+    
+    if (isDebugCustomer) {
+      debugLog += `\n${'='.repeat(80)}\n`;
+      debugLog += `DEBUG: Customer ${customerId} - ${customer?.customerName || 'Unknown'}\n`;
+      debugLog += `${'='.repeat(80)}\n`;
+      debugLog += `Query path: fishbowl_customers/${customerId}/sales_order_history\n`;
+      debugLog += `Current order date: ${currentOrderDate.toISOString()}\n`;
+      debugLog += `Order timestamp (seconds): ${Timestamp.fromDate(currentOrderDate).seconds}\n`;
+      debugLog += `Current sales person: ${currentSalesPerson}\n`;
+      debugLog += `Reorg date: ${REORG_DATE.toISOString()}\n`;
+      debugLog += `Apply reorg rule: ${applyReorgRule}\n\n`;
+    }
+    
+    console.log(`🔍 DEBUG: Querying sales_order_history for customerId: ${customerId}`);
+    console.log(`   Query path: fishbowl_customers/${customerId}/sales_order_history`);
+    console.log(`   Order date filter: < ${currentOrderDate.toISOString()}`);
+    
+    // Convert to Firestore Timestamp for proper comparison
+    const orderTimestamp = Timestamp.fromDate(currentOrderDate);
+    console.log(`   Order timestamp: ${orderTimestamp.seconds} seconds`);
+    
+    // First, get ALL orders in subcollection to see what's there
+    const allOrdersInHistory = await adminDb.collection('fishbowl_customers')
+      .doc(customerId)
+      .collection('sales_order_history')
+      .get();
+    
+    console.log(`   Total orders in sales_order_history (no filter): ${allOrdersInHistory.size}`);
+    if (allOrdersInHistory.size > 0 && isDebugCustomer) {
+      debugLog += `All orders in subcollection (no date filter):\n`;
+      allOrdersInHistory.docs.forEach((doc, idx) => {
+        const data = doc.data();
+        const docDate = data.postingDate?.toDate?.();
+        debugLog += `  ${idx + 1}. SO: ${data.soNumber} | Date: ${docDate?.toISOString() || 'N/A'} | Timestamp: ${data.postingDate?.seconds || 'N/A'} | Rep: ${data.salesPerson}\n`;
+      });
+    }
+    
+    const previousOrders = await adminDb.collection('fishbowl_customers')
+      .doc(customerId)
+      .collection('sales_order_history')
+      .where('postingDate', '<', orderTimestamp)
       .orderBy('postingDate', 'desc')
-      .limit(10) // Get recent orders to check for rep changes
+      .limit(50)
       .get();
 
-    console.log(`🔍 Customer ${customerId} (${customer?.customerName || 'Unknown'}): Found ${previousOrders.size} previous orders`);
+    console.log(`🔍 Customer ${customerId} (${customer?.customerName || 'Unknown'}): Found ${previousOrders.size} previous orders with date filter`);
+    
+    if (isDebugCustomer) {
+      debugLog += `\nPrevious orders found (with date < ${currentOrderDate.toISOString()}): ${previousOrders.size}\n`;
+    }
+    
+    // DEBUG: If empty, log warning
+    if (previousOrders.empty) {
+      console.log(`   ⚠️ WARNING: Query with date filter returned 0 orders, but ${allOrdersInHistory.size} orders exist in subcollection`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n⚠️ WARNING: Date filter excluded all orders\n`;
+        debugLog += `This suggests the current order date (${currentOrderDate.toISOString()}) is earlier than all historical orders\n`;
+      }
+    } else if (isDebugCustomer) {
+      debugLog += `\nHistorical orders found (with date filter):\n`;
+      previousOrders.docs.slice(0, 10).forEach((doc, idx) => {
+        const data = doc.data();
+        debugLog += `  ${idx + 1}. SO: ${data.soNumber} | Date: ${data.postingDate?.toDate?.()?.toISOString() || 'N/A'} | Rep: ${data.salesPerson}\n`;
+      });
+    }
 
     if (previousOrders.empty) {
       // No prior orders found under this customerId.
       // If we didn't already classify as transferred via originalOwner above,
       // treat this as true NEW business.
       console.log(`   ✅ NEW - No previous orders found`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n✅ RESULT: NEW (no previous orders found)\n`;
+        const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+        fs.writeFileSync(debugPath, debugLog);
+        console.log(`   📝 Debug log written to: ${debugPath}`);
+      }
+      
       return 'new';
     }
 
@@ -1032,9 +1148,14 @@ async function getCustomerStatus(
     console.log(`   📦 Last order: ${lastOrder.soNumber || lastOrder.num || lastOrder.orderNum} | Date: ${lastOrderDate.toISOString().split('T')[0]} | Rep: ${lastOrder.salesPerson}`);
     console.log(`   🎯 Current order rep: ${currentSalesPerson}`);
     
-    // Get the ACTUAL FIRST order (oldest ever) to determine customer age
-    const firstOrderQuery = await adminDb.collection('fishbowl_sales_orders')
-      .where('customerId', '==', customerId)
+    if (isDebugCustomer) {
+      debugLog += `\nLast order: ${lastOrder.soNumber} | Date: ${lastOrderDate.toISOString()} | Rep: ${lastOrder.salesPerson}\n`;
+    }
+    
+    // Get the ACTUAL FIRST order (oldest ever) to determine customer age from sales_order_history
+    const firstOrderQuery = await adminDb.collection('fishbowl_customers')
+      .doc(customerId)
+      .collection('sales_order_history')
       .orderBy('postingDate', 'asc')
       .limit(1)
       .get();
@@ -1047,6 +1168,12 @@ async function getCustomerStatus(
     
     // Calculate months since FIRST order (for customer age)
     const customerAgeMonths = Math.floor((currentOrderDate - firstOrderDate) / (1000 * 60 * 60 * 24 * 30));
+    
+    if (isDebugCustomer) {
+      debugLog += `First order: ${firstOrder.soNumber} | Date: ${firstOrderDate.toISOString()} | Rep: ${firstOrder.salesPerson}\n`;
+      debugLog += `Months since last order: ${monthsSinceLastOrder}\n`;
+      debugLog += `Customer age (months): ${customerAgeMonths}\n`;
+    }
 
     // Check if customer hasn't ordered in 12+ months (dormant/reactivated)
     // Dead accounts that come back to life get 8% "Own" rate
@@ -1082,13 +1209,37 @@ async function getCustomerStatus(
       
       // If customer existed before reorg AND had a different rep in order history → "transferred" (2%)
       if (hadOrdersBeforeReorg && hadDifferentRepBeforeReorg) {
+        if (isDebugCustomer) {
+          debugLog += `\n✅ RESULT: TRANSFERRED (reorg rule)\n`;
+          debugLog += `  - Had orders before reorg: ${hadOrdersBeforeReorg}\n`;
+          debugLog += `  - Had different rep before reorg: ${hadDifferentRepBeforeReorg}\n`;
+          const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+          fs.writeFileSync(debugPath, debugLog);
+          console.log(`   📝 Debug log written to: ${debugPath}`);
+        }
         return 'transferred';
+      }
+      
+      if (isDebugCustomer) {
+        debugLog += `\n❌ REORG RULE NOT TRIGGERED:\n`;
+        debugLog += `  - Had orders before reorg: ${hadOrdersBeforeReorg}\n`;
+        debugLog += `  - Had different rep before reorg: ${hadDifferentRepBeforeReorg}\n`;
       }
     }
 
     // Check for rep transfer (non-reorg scenario)
     if (lastOrder.salesPerson !== currentSalesPerson) {
       console.log(`   🔄 TRANSFERRED - Rep changed from ${lastOrder.salesPerson} to ${currentSalesPerson}`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n✅ RESULT: TRANSFERRED (non-reorg)\n`;
+        debugLog += `  - Last order rep: ${lastOrder.salesPerson}\n`;
+        debugLog += `  - Current order rep: ${currentSalesPerson}\n`;
+        const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+        fs.writeFileSync(debugPath, debugLog);
+        console.log(`   📝 Debug log written to: ${debugPath}`);
+      }
+      
       return 'transferred';
     }
     
@@ -1099,12 +1250,36 @@ async function getCustomerStatus(
     
     if (customerAgeMonths <= 6) {
       console.log(`   ✅ NEW (0-6 months old) → 8%`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n✅ RESULT: NEW (customer age: ${customerAgeMonths} months)\n`;
+        const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+        fs.writeFileSync(debugPath, debugLog);
+        console.log(`   📝 Debug log written to: ${debugPath}`);
+      }
+      
       return 'new'; // Customer is 0-6 months old → New Business (8%)
     } else if (customerAgeMonths <= 12) {
       console.log(`   ⏱️ 6MONTH (6-12 months old) → 4%`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n✅ RESULT: 6MONTH (customer age: ${customerAgeMonths} months)\n`;
+        const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+        fs.writeFileSync(debugPath, debugLog);
+        console.log(`   📝 Debug log written to: ${debugPath}`);
+      }
+      
       return '6month'; // Customer is 6-12 months old → 6 Month Active (4%)
     } else {
       console.log(`   ⏱️ 12MONTH (12+ months old) → 4%`);
+      
+      if (isDebugCustomer) {
+        debugLog += `\n✅ RESULT: 12MONTH (customer age: ${customerAgeMonths} months)\n`;
+        const debugPath = path.join(process.cwd(), `debug-customer-${customerId}.txt`);
+        fs.writeFileSync(debugPath, debugLog);
+        console.log(`   📝 Debug log written to: ${debugPath}`);
+      }
+      
       return '12month'; // Customer is 12+ months old → 12 Month Active (4%)
     }
   } catch (error) {

@@ -5,12 +5,14 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 interface ValidationWarning {
-  type: 'unmatchedRep' | 'missingCustomer' | 'inactiveRep' | 'missingRate' | 'dataQuality';
+  type: 'unmatchedRep' | 'missingCustomer' | 'inactiveRep' | 'missingRate' | 'dataQuality' | 'orphanedOrders' | 'retailExcluded' | 'customerNotFound';
   severity: 'error' | 'warning' | 'info';
   count: number;
   message: string;
   details?: string[];
   orderNumbers?: string[];
+  totalRevenue?: number;
+  affectedReps?: string[];
 }
 
 interface RepBreakdown {
@@ -26,6 +28,15 @@ interface FieldMapping {
   detected: Record<string, string[]>;
   suggested: Record<string, string>;
   conflicts: string[];
+}
+
+interface ExcludedOrder {
+  orderNum: string;
+  customerName: string;
+  customerId?: string;
+  accountType?: string;
+  revenue: number;
+  salesPerson: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -68,6 +79,18 @@ export async function POST(req: NextRequest) {
       }
     });
     
+    // Debug: Show available rep mappings
+    console.log('\n🔍 DEBUG: Available rep mappings:');
+    console.log('  By salesPerson:', Array.from(repsMap.keys()));
+    console.log('  By name:', Array.from(repsByName.keys()));
+    
+    // Debug: Show first 5 order salesPerson values
+    console.log('\n🔍 DEBUG: First 5 order salesPerson values:');
+    ordersSnapshot.docs.slice(0, 5).forEach(doc => {
+      const order = doc.data();
+      console.log(`  Order ${order.soNumber}: salesPerson="${order.salesPerson}"`);
+    });
+    
     const customersMap = new Map();
     customersSnapshot.forEach(doc => {
       const data = doc.data();
@@ -82,6 +105,9 @@ export async function POST(req: NextRequest) {
     const unmatchedReps = new Set<string>();
     const missingCustomers: string[] = [];
     const adminOrders: string[] = [];
+    const retailExcludedOrders: ExcludedOrder[] = [];
+    const customerNotFoundOrders: ExcludedOrder[] = [];
+    const orphanedOrdersBySalesPerson = new Map<string, {orders: number, revenue: number}>();
     
     let totalOrders = 0;
     let matchedOrders = 0;
@@ -131,13 +157,7 @@ export async function POST(req: NextRequest) {
         continue;
       }
       
-      // Check if customer exists
-      const customer = customersMap.get(order.customerId);
-      if (!customer) {
-        missingCustomers.push(order.soNumber || order.num || orderDoc.id);
-      }
-      
-      // Calculate revenue from line items (Conversite data is line-item based)
+      // Calculate revenue from line items FIRST (Conversite data is line-item based)
       const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
         .where('salesOrderId', '==', order.salesOrderId)
         .get();
@@ -147,6 +167,59 @@ export async function POST(req: NextRequest) {
         const item = itemDoc.data();
         orderRevenue += item.totalPrice || 0;
       });
+      
+      // Check if customer exists and track account type issues
+      const customer = customersMap.get(order.customerId) || 
+                      customersMap.get(order.customerNum) ||
+                      customersMap.get(order.accountNumber);
+      
+      if (!customer) {
+        missingCustomers.push(order.soNumber || order.num || orderDoc.id);
+        
+        // Track as orphaned - customer not found, will default to Retail and be skipped
+        customerNotFoundOrders.push({
+          orderNum: order.soNumber || order.num || orderDoc.id,
+          customerName: order.customerName || 'Unknown',
+          customerId: order.customerId || 'N/A',
+          revenue: orderRevenue,
+          salesPerson: effectiveSalesPerson
+        });
+        
+        // Track by sales person
+        if (!orphanedOrdersBySalesPerson.has(effectiveSalesPerson)) {
+          orphanedOrdersBySalesPerson.set(effectiveSalesPerson, {orders: 0, revenue: 0});
+        }
+        const orphanStats = orphanedOrdersBySalesPerson.get(effectiveSalesPerson)!;
+        orphanStats.orders++;
+        orphanStats.revenue += orderRevenue;
+      } else if (customer.accountType === 'Retail') {
+        // Track retail exclusions (but skip house accounts and $0 orders to reduce noise)
+        const customerNameLower = (order.customerName || customer.name || '').toLowerCase();
+        const isHouseAccount = customerNameLower.includes('house') || 
+                               customerNameLower.includes('sample') ||
+                               customerNameLower.includes('admin');
+        const hasRevenue = orderRevenue > 0;
+        
+        // Only track meaningful retail exclusions
+        if (!isHouseAccount && hasRevenue) {
+          retailExcludedOrders.push({
+            orderNum: order.soNumber || order.num || orderDoc.id,
+            customerName: order.customerName || customer.name || 'Unknown',
+            customerId: order.customerId,
+            accountType: customer.accountType,
+            revenue: orderRevenue,
+            salesPerson: effectiveSalesPerson
+          });
+          
+          // Track by sales person
+          if (!orphanedOrdersBySalesPerson.has(effectiveSalesPerson)) {
+            orphanedOrdersBySalesPerson.set(effectiveSalesPerson, {orders: 0, revenue: 0});
+          }
+          const orphanStats = orphanedOrdersBySalesPerson.get(effectiveSalesPerson)!;
+          orphanStats.orders++;
+          orphanStats.revenue += orderRevenue;
+        }
+      }
       
       totalRevenue += orderRevenue;
       matchedOrders++;
@@ -190,13 +263,65 @@ export async function POST(req: NextRequest) {
       });
     }
     
-    if (missingCustomers.length > 0) {
+    if (customerNotFoundOrders.length > 0) {
+      const totalOrphanedRevenue = customerNotFoundOrders.reduce((sum, o) => sum + o.revenue, 0);
+      const affectedReps = [...new Set(customerNotFoundOrders.map(o => o.salesPerson))];
+      
       warnings.push({
-        type: 'missingCustomer',
+        type: 'customerNotFound',
+        severity: 'error',
+        count: customerNotFoundOrders.length,
+        totalRevenue: totalOrphanedRevenue,
+        affectedReps: affectedReps,
+        message: `🚨 ${customerNotFoundOrders.length} orders with MISSING CUSTOMER records (defaulting to Retail = EXCLUDED from commissions)`,
+        details: customerNotFoundOrders.slice(0, 20).map(o => 
+          `Order ${o.orderNum} | ${o.customerName} (ID: ${o.customerId}) | $${o.revenue.toFixed(2)} | Rep: ${o.salesPerson}`
+        ),
+        orderNumbers: customerNotFoundOrders.map(o => o.orderNum)
+      });
+    }
+    
+    if (retailExcludedOrders.length > 0) {
+      const totalRetailRevenue = retailExcludedOrders.reduce((sum, o) => sum + o.revenue, 0);
+      const affectedReps = [...new Set(retailExcludedOrders.map(o => o.salesPerson))];
+      
+      warnings.push({
+        type: 'retailExcluded',
         severity: 'warning',
-        count: missingCustomers.length,
-        message: `${missingCustomers.length} orders with missing customer data (will default to Retail)`,
-        orderNumbers: missingCustomers.slice(0, 10)
+        count: retailExcludedOrders.length,
+        totalRevenue: totalRetailRevenue,
+        affectedReps: affectedReps,
+        message: `⚠️ ${retailExcludedOrders.length} orders from RETAIL customers (EXCLUDED from commissions)`,
+        details: retailExcludedOrders.slice(0, 20).map(o => 
+          `Order ${o.orderNum} | ${o.customerName} | $${o.revenue.toFixed(2)} | Rep: ${o.salesPerson}`
+        ),
+        orderNumbers: retailExcludedOrders.map(o => o.orderNum)
+      });
+    }
+    
+    // Add orphaned orders summary by sales person
+    if (orphanedOrdersBySalesPerson.size > 0) {
+      const totalOrphanedRevenue = Array.from(orphanedOrdersBySalesPerson.values())
+        .reduce((sum, stats) => sum + stats.revenue, 0);
+      const totalOrphanedOrders = Array.from(orphanedOrdersBySalesPerson.values())
+        .reduce((sum, stats) => sum + stats.orders, 0);
+      
+      const orphanDetails = Array.from(orphanedOrdersBySalesPerson.entries())
+        .map(([rep, stats]) => `${rep}: ${stats.orders} orders | $${stats.revenue.toFixed(2)}`)
+        .sort((a, b) => {
+          const aRev = parseFloat(a.split('$')[1]);
+          const bRev = parseFloat(b.split('$')[1]);
+          return bRev - aRev;
+        });
+      
+      warnings.push({
+        type: 'orphanedOrders',
+        severity: 'error',
+        count: totalOrphanedOrders,
+        totalRevenue: totalOrphanedRevenue,
+        message: `🚨 ORPHANED COMMISSIONS: ${totalOrphanedOrders} orders ($${totalOrphanedRevenue.toFixed(2)}) NOT being calculated`,
+        details: orphanDetails,
+        affectedReps: Array.from(orphanedOrdersBySalesPerson.keys())
       });
     }
     
@@ -221,10 +346,27 @@ export async function POST(req: NextRequest) {
     }
     
     console.log(`✅ Validation complete: ${matchedOrders}/${totalOrders} orders matched`);
+    console.log(`🚨 ORPHANED: ${customerNotFoundOrders.length + retailExcludedOrders.length} orders excluded from commissions`);
+    console.log(`   - Customer Not Found: ${customerNotFoundOrders.length} orders`);
+    console.log(`   - Retail Excluded: ${retailExcludedOrders.length} orders`);
+    
+    if (orphanedOrdersBySalesPerson.size > 0) {
+      console.log(`\n📊 ORPHANED ORDERS BY REP:`);
+      Array.from(orphanedOrdersBySalesPerson.entries())
+        .sort((a, b) => b[1].revenue - a[1].revenue)
+        .forEach(([rep, stats]) => {
+          console.log(`   ${rep}: ${stats.orders} orders | $${stats.revenue.toFixed(2)}`);
+        });
+    }
+    
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
     
     return NextResponse.json({
       valid: warnings.filter(w => w.severity === 'error').length === 0,
+      excludedOrders: {
+        retail: retailExcludedOrders,
+        customerNotFound: customerNotFoundOrders
+      },
       statistics: {
         totalOrders,
         matchedOrders,

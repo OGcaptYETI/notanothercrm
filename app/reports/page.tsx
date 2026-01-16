@@ -191,7 +191,7 @@ export default function ReportsPage() {
           // Load line items for this order
           const itemsQuery = query(
             collection(db, 'fishbowl_soitems'),
-            where('salesOrderNum', '==', detail.orderNum)
+            where('soNumber', '==', detail.orderNum)
           );
           
           const itemsSnapshot = await getDocs(itemsQuery);
@@ -200,12 +200,12 @@ export default function ReportsPage() {
           
           itemsSnapshot.forEach((doc) => {
             const data = doc.data();
-            const lineTotal = data.revenue || 0;
+            const lineTotal = data.totalPrice || 0;
             const quantity = data.quantity || 0;
             const productNumber = data.partNumber || data.productNum || '';
             
             // Check if shipping or CC processing
-            const productName = (data.product || data.description || '').toLowerCase();
+            const productName = (data.productName || '').toLowerCase();
             const productNum = productNumber.toLowerCase();
             const isShipping = productName.includes('shipping') || productNum.includes('shipping') || productName === 'shipping';
             const isCCProcessing = productName.includes('cc processing') || productName.includes('credit card processing') || productNum.includes('cc processing');
@@ -403,7 +403,7 @@ export default function ReportsPage() {
       // Query fishbowl_soitems for this order
       const itemsQuery = query(
         collection(db, 'fishbowl_soitems'),
-        where('salesOrderNum', '==', orderNum)
+        where('soNumber', '==', orderNum)
       );
       
       const itemsSnapshot = await getDocs(itemsQuery);
@@ -411,11 +411,11 @@ export default function ReportsPage() {
       
       itemsSnapshot.forEach((doc) => {
         const data = doc.data();
-        const lineTotal = (data.revenue || 0);
+        const lineTotal = (data.totalPrice || 0);
         const quantity = data.quantity || 0;
         
         // Check if this is a shipping or CC processing line (should not be commissioned)
-        const productName = (data.product || data.description || '').toLowerCase();
+        const productName = (data.productName || '').toLowerCase();
         const productNumber = data.partNumber || data.productNum || '';
         const productNum = productNumber.toLowerCase();
         
@@ -449,7 +449,7 @@ export default function ReportsPage() {
           orderNum: orderNum,
           productNum: productNumber,
           product: data.product || '',
-          description: data.description || data.productDesc || '',
+          description: data.description || '',
           quantity: quantity,
           unitPrice: data.unitPrice || 0,
           lineTotal: lineTotal,

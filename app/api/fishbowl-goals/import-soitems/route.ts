@@ -47,62 +47,86 @@ async function importSOItems(buffer: Buffer, filename: string): Promise<number> 
       console.log(`📊 Progress: ${processed} of ${totalRows} (${((processed/totalRows)*100).toFixed(1)}%) - Imported: ${totalImported}, Skipped: ${skipped}`);
     }
     
-    // Get SOItem ID and soLineItem (which contains the SO number)
-    const soItemId = row['id'];
-    const soLineItem = row['soLineItem']; // This is the SO number!
+    // Get SOItem ID and Sales Order info from Conversite CSV
+    const soItemId = row['SO Item ID'] || row['id'];
+    const soNumber = row['Sales order Number'] || row['soLineItem'];
+    const salesOrderId = row['Sales Order ID'];
+    const salesPerson = row['Sales person'];
+    const customerId = row['Customer ID'];
+    const customerName = row['Customer Name'];
     
-    // Skip if no valid ID or SO line item
-    if (!soItemId || !soLineItem) {
+    // Skip if no valid ID or SO number
+    if (!soItemId || !soNumber) {
       skipped++;
       if (skipped <= 3) {
-        console.log(`⚠️  Skipping row - missing id or soLineItem. Row:`, row);
+        console.log(`⚠️  Skipping row - missing SO Item ID or Sales order Number. Row:`, row);
       }
       continue;
     }
     
-    // Use SOItem ID as document ID
-    const docId = String(soItemId).trim();
+    // Create composite document ID: salesOrderId_soItemId to ensure uniqueness
+    const docId = `${salesOrderId}_${soItemId}`;
     const docRef = adminDb.collection('fishbowl_soitems').doc(docId);
     
-    // Check if already exists (for resume capability)
-    const existingDoc = await docRef.get();
-    if (existingDoc.exists) {
-      skipped++;
-      continue;
+    // Parse commission month from Issued date (MM-DD-YYYY format or Excel serial)
+    let commissionMonth = '';
+    const issuedDate = row['Issued date'];
+    if (issuedDate) {
+      // Try to parse as Excel serial number first
+      if (!isNaN(Number(issuedDate))) {
+        const excelDate = new Date((Number(issuedDate) - 25569) * 86400 * 1000);
+        commissionMonth = `${excelDate.getFullYear()}-${String(excelDate.getMonth() + 1).padStart(2, '0')}`;
+      } else if (typeof issuedDate === 'string') {
+        // Parse MM-DD-YYYY format
+        const match = issuedDate.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+        if (match) {
+          const [, month, , year] = match;
+          commissionMonth = `${year}-${month.padStart(2, '0')}`;
+        }
+      }
     }
     
-    // Create document with ALL fields from CSV
+    // Create document starting with metadata
     const soItemData: any = {
       id: soItemId,
-      soLineItem: String(soLineItem), // SO number from soLineItem field
-      soId: `fb_so_${soLineItem}`, // Reference to fishbowl_sales_orders collection
+      soNumber: String(soNumber),
+      salesOrderId: salesOrderId,
+      salesPerson: salesPerson || '',
+      customerId: customerId || '',
+      customerName: customerName || '',
+      commissionMonth: commissionMonth,
       
       // Import metadata
       importedAt: Timestamp.now(),
-      source: 'fishbowl',
+      source: 'conversite',
     };
     
-    // Add ALL CSV columns as fields (preserving exact field names)
+    // Add ALL CSV columns as fields (preserving exact field names) - FIRST
     for (const [key, value] of Object.entries(row)) {
       if (key) {
         soItemData[key] = value || '';
       }
     }
     
-    // Add computed/cleaned fields for easier querying
-    soItemData.productId = row['productId'] || '';
-    soItemData.productNum = row['productNum'] || '';
-    soItemData.description = row['description'] || '';
-    soItemData.quantity = parseFloat(row['qtyToFullfill'] || row['qtyFullfilled'] || 0);
-    soItemData.unitPrice = parseFloat(row['unitPrice'] || 0);
-    soItemData.totalPrice = parseFloat(row['totalPrice'] || 0);
-    soItemData.totalCost = parseFloat(row['totalCost'] || 0);
-    soItemData.markupCost = parseFloat(row['markupCost'] || 0);
-    soItemData.taxRate = parseFloat(row['taxRate'] || 0);
+    // Add computed/cleaned fields for easier querying - THESE WILL OVERWRITE THE STRINGS
+    soItemData.productId = row['Product ID'] || row['productId'] || '';
+    soItemData.productNum = row['SO Item Product Number'] || row['productNum'] || '';
+    soItemData.description = row['Product description'] || row['description'] || '';
+    soItemData.product = row['Product'] || '';
+    soItemData.quantity = parseFloat(row['Fulfilled Quantity'] || row['qtyToFullfill'] || row['qtyFullfilled'] || '0');
+    soItemData.unitPrice = parseFloat(row['Unit price'] || row['unitPrice'] || '0');
+    soItemData.totalPrice = parseFloat(row['Total price'] || row['totalPrice'] || '0');
+    soItemData.totalCost = parseFloat(row['Total cost'] || row['totalCost'] || '0');
+    
+    // Debug log for first few items
+    if (totalImported < 5) {
+      console.log(`📊 Line item ${soItemId}: Product="${soItemData.product}", Qty=${soItemData.quantity}, UnitPrice=${soItemData.unitPrice}, TotalPrice=${soItemData.totalPrice}`);
+    }
     
     // Calculate total if not provided
     if (!soItemData.totalPrice && soItemData.quantity && soItemData.unitPrice) {
       soItemData.totalPrice = soItemData.quantity * soItemData.unitPrice;
+      console.log(`   Calculated totalPrice: ${soItemData.totalPrice}`);
     }
     
     batch.set(docRef, soItemData, { merge: true });
@@ -134,17 +158,39 @@ async function importSOItems(buffer: Buffer, filename: string): Promise<number> 
 }
 
 /**
- * Parse CSV data
+ * Parse CSV data - handles quoted fields with commas
  */
 function parseCSV(text: string): Record<string, any>[] {
   const lines = text.split('\n').filter(line => line.trim());
   if (lines.length === 0) return [];
   
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  // Parse CSV line respecting quotes
+  const parseLine = (line: string): string[] => {
+    const result: string[] = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    result.push(current.trim());
+    return result;
+  };
+  
+  const headers = parseLine(lines[0]);
   const data: Record<string, any>[] = [];
   
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+    const values = parseLine(lines[i]);
     const row: Record<string, any> = {};
     
     for (let j = 0; j < headers.length; j++) {

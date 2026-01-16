@@ -6,6 +6,20 @@ export const dynamic = 'force-dynamic';
 
 export const maxDuration = 300; // 5 minutes
 
+// Global progress tracker for customer sync operation
+let syncProgress = {
+  inProgress: false,
+  currentStep: '',
+  totalCompanies: 0,
+  processedCompanies: 0,
+  created: 0,
+  updated: 0,
+  noChanges: 0,
+  errors: 0,
+  status: 'idle' as 'idle' | 'loading' | 'analyzing' | 'syncing' | 'complete' | 'error',
+  message: '',
+};
+
 interface SyncStats {
   dryRun: boolean;
   copperCompaniesLoaded: number;
@@ -156,6 +170,23 @@ function hasChanged(oldVal: any, newVal: any): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const dryRun = searchParams.get('live') !== 'true';
+  
+  // Reset progress
+  syncProgress = {
+    inProgress: true,
+    currentStep: 'Initializing',
+    totalCompanies: 0,
+    processedCompanies: 0,
+    created: 0,
+    updated: 0,
+    noChanges: 0,
+    errors: 0,
+    status: 'loading',
+    message: 'Starting customer sync...',
+  };
+
   try {
     // Check if this is a live run or dry run
     const { searchParams } = new URL(request.url);
@@ -179,7 +210,9 @@ export async function POST(request: NextRequest) {
       errors_details: [],
     };
 
-    // STEP 1: Load Users (for sales rep mapping)
+    // STEP 1: Load users with Copper IDs
+    syncProgress.currentStep = 'Loading users';
+    syncProgress.message = 'Loading users collection...';
     console.log('📂 Loading users collection...');
     const usersSnap = await adminDb.collection('users').get();
     const usersByCopperId = new Map<number, any>();
@@ -201,7 +234,9 @@ export async function POST(request: NextRequest) {
     stats.usersLoaded = usersByCopperId.size;
     console.log(`   ✅ Loaded ${stats.usersLoaded} users with Copper IDs`);
 
-    // STEP 2: Load copper_companies (ACTIVE ONLY)
+    // STEP 2: Load copper_companies
+    syncProgress.currentStep = 'Loading Copper companies';
+    syncProgress.message = 'Loading copper_companies collection...';
     console.log('\n📂 Loading copper_companies collection...');
     const copperSnap = await adminDb.collection('copper_companies').get();
     
@@ -270,42 +305,37 @@ export async function POST(request: NextRequest) {
     console.log(`   ✅ Indexed ${copperByAccountOrderId.size} by Account Order ID (duplicates resolved)\n`);
 
     // STEP 3: Load fishbowl_customers (current state)
+    syncProgress.currentStep = 'Loading Fishbowl customers';
+    syncProgress.message = 'Loading fishbowl_customers collection...';
     console.log('\n📂 Loading fishbowl_customers collection...');
     const fishbowlSnap = await adminDb.collection('fishbowl_customers').get();
     
-    // Build multiple indexes for matching
-    const fishbowlByAccountNumber = new Map<string, any>();
-    const fishbowlByCopperId = new Map<string, any>();
-    const fishbowlByAccountId = new Map<string, any>();
+    // Build index for matching
+    // KEY: fishbowl_customers.id (doc.id) = Copper Account Order ID
+    const fishbowlById = new Map<string, any>();
     
     fishbowlSnap.forEach(doc => {
-      const data: any = { id: doc.id, ...doc.data() };
-      
-      if (data.accountNumber) {
-        fishbowlByAccountNumber.set(String(data.accountNumber).trim(), data);
-      }
-      if (data.copperId) {
-        fishbowlByCopperId.set(String(data.copperId).trim(), data);
-      }
-      if (data.accountId) {
-        fishbowlByAccountId.set(String(data.accountId).trim(), data);
-      }
+      const data: any = { firestoreDocId: doc.id, ...doc.data() };
+      // Index by the Firestore document ID (e.g., "1037")
+      fishbowlById.set(String(doc.id).trim(), data);
     });
     
     stats.fishbowlCustomersLoaded = fishbowlSnap.size;
     console.log(`   ✅ Loaded ${stats.fishbowlCustomersLoaded} fishbowl customers`);
 
-    // STEP 4: Process each de-duplicated Copper company
-    // Use copperByAccountOrderId which has duplicates resolved (best record chosen)
-    const uniqueCompanies = Array.from(copperByAccountOrderId.values());
-    console.log(`\n🔍 Analyzing ${uniqueCompanies.length} unique active Copper companies (duplicates resolved)...\n`);
+    // STEP 4: Analyze and sync
+    syncProgress.currentStep = 'Analyzing companies';
+    syncProgress.totalCompanies = copperByAccountOrderId.size;
+    syncProgress.status = 'analyzing';
+    syncProgress.message = `Analyzing ${copperByAccountOrderId.size} active Copper companies...`;
+    console.log(`\n🔍 Analyzing ${copperByAccountOrderId.size} unique active Copper companies (duplicates resolved)...\n`);
     
     let batch = adminDb.batch();
     let batchCount = 0;
     const BATCH_SIZE = 450;
     let processedCount = 0;
 
-    for (const copperCompany of uniqueCompanies) {
+    for (const copperCompany of Array.from(copperByAccountOrderId.values())) {
       try {
         const copperName = copperCompany.name || '';
         const copperAccountOrderId = copperCompany['Account Order ID cf_698467'] || '';
@@ -337,23 +367,13 @@ export async function POST(request: NextRequest) {
         }
 
         // Find matching fishbowl_customer
+        // Match: fishbowl_customers.id = Copper Account Order ID
         let existingCustomer = null;
         let matchMethod = '';
         
-        // Try matching by Copper ID first
-        if (copperCompany.id && fishbowlByCopperId.has(copperCompany.id)) {
-          existingCustomer = fishbowlByCopperId.get(copperCompany.id);
-          matchMethod = 'copperId';
-        }
-        // Try matching by Account Order ID
-        else if (copperAccountOrderId && fishbowlByAccountNumber.has(String(copperAccountOrderId).trim())) {
-          existingCustomer = fishbowlByAccountNumber.get(String(copperAccountOrderId).trim());
-          matchMethod = 'accountNumber';
-        }
-        // Try matching by Account ID
-        else if (copperAccountId && fishbowlByAccountId.has(String(copperAccountId).trim())) {
-          existingCustomer = fishbowlByAccountId.get(String(copperAccountId).trim());
-          matchMethod = 'accountId';
+        if (copperAccountOrderId && fishbowlById.has(String(copperAccountOrderId).trim())) {
+          existingCustomer = fishbowlById.get(String(copperAccountOrderId).trim());
+          matchMethod = 'accountOrderId';
         }
 
         // Build the new customer data from Copper
@@ -404,31 +424,59 @@ export async function POST(request: NextRequest) {
           newCustomerData.salesRepRegion = salesRepData.region;
         }
 
-        // Determine action: skip or update
+        // Determine action: create or update
         if (!existingCustomer) {
-          // NO MATCH FOUND - SKIP (do not create new customers)
-          // Customers must be created from Fishbowl data first, then enriched by Copper
-          stats.wouldCreate++;
-          
-          stats.changes.push({
-            copperCompanyId: copperCompany.id,
-            companyName: copperName,
-            action: 'no_change',
-            fieldsChanged: [],
-            after: {},
-            concerns: [
-              '⚠️ No matching customer in fishbowl_customers',
-              'Customer must be imported from Fishbowl before Copper sync can update it',
-              'SKIPPED - Not creating new customer',
-            ],
-          });
-          
-          // Log warning for first 10 unmatched companies
-          if (stats.wouldCreate <= 10) {
-            console.log(`⚠️  SKIPPED (No match): ${copperName} - Copper ID: ${copperCompany.id}, Account Order ID: ${copperAccountOrderId || 'N/A'}`);
+          // NO MATCH FOUND - CREATE NEW CUSTOMER
+          // If they have an Order ID, they ARE a Fishbowl customer
+          if (copperAccountOrderId) {
+            stats.wouldCreate++;
+            
+            // Create complete customer record
+            const newCustomerRecord = {
+              ...newCustomerData,
+              source: 'copper_sync',
+              createdAt: Timestamp.now(),
+              updatedAt: Timestamp.now(),
+            };
+            
+            stats.changes.push({
+              copperCompanyId: copperCompany.id,
+              companyName: copperName,
+              action: 'create',
+              fieldsChanged: Object.keys(newCustomerRecord),
+              after: newCustomerRecord,
+              concerns: [
+                '✅ Creating new fishbowl_customer from Copper data',
+                `Account Order ID: ${copperAccountOrderId}`,
+                `Account Type: ${newCustomerData.accountType}`,
+              ],
+            });
+            
+            if (!dryRun) {
+              // Use Account Order ID as the Firestore document ID
+              const customerRef = adminDb.collection('fishbowl_customers').doc(String(copperAccountOrderId));
+              batch.set(customerRef, newCustomerRecord);
+              batchCount++;
+            }
+            
+            // Log creation for first 10 companies
+            if (stats.wouldCreate <= 10) {
+              console.log(`✅ CREATING: ${copperName} - Account Order ID: ${copperAccountOrderId}, Type: ${newCustomerData.accountType}`);
+            }
+          } else {
+            // No Order ID - truly not a Fishbowl customer yet
+            stats.changes.push({
+              copperCompanyId: copperCompany.id,
+              companyName: copperName,
+              action: 'no_change',
+              fieldsChanged: [],
+              after: {},
+              concerns: [
+                '⚠️ No Account Order ID - not a Fishbowl customer yet',
+                'SKIPPED - Cannot create without Order ID',
+              ],
+            });
           }
-          
-          // DO NOT CREATE - just skip and continue
         } else {
           // EXISTING CUSTOMER - check what would change
           const fieldsChanged: string[] = [];
@@ -488,7 +536,7 @@ export async function POST(request: NextRequest) {
               concerns,
             });
 
-            if (isLiveMode) {
+            if (!dryRun) {
               const updateData = { ...newCustomerData };
               
               // PRESERVE commission-specific fields
@@ -504,7 +552,8 @@ export async function POST(request: NextRequest) {
               
               updateData.updatedAt = Timestamp.now();
 
-              const customerRef = adminDb.collection('fishbowl_customers').doc(existingCustomer.id);
+              // Use the Firestore document ID for updates
+              const customerRef = adminDb.collection('fishbowl_customers').doc(existingCustomer.firestoreDocId);
               batch.update(customerRef, updateData);
               batchCount++;
             }
@@ -512,28 +561,47 @@ export async function POST(request: NextRequest) {
         }
 
         // Commit batch if needed
-        if (isLiveMode && batchCount >= BATCH_SIZE) {
+        if (!dryRun && batchCount >= BATCH_SIZE) {
+          syncProgress.status = 'syncing';
+          syncProgress.message = `Committing ${batchCount} changes to database...`;
           await batch.commit();
           console.log(`   ✅ Committed batch of ${batchCount} updates`);
           batch = adminDb.batch();
           batchCount = 0;
         }
 
+        syncProgress.processedCompanies++;
+        syncProgress.message = `Analyzing: ${syncProgress.processedCompanies} / ${syncProgress.totalCompanies}`;
+
       } catch (error: any) {
         stats.errors++;
         stats.errors_details.push({
-          copperCompanyId: copperCompany.id,
+          copperCompanyId: String(copperCompany.id),
           companyName: copperCompany.name || 'Unknown',
           error: error.message,
         });
+        
+        syncProgress.processedCompanies++;
+        syncProgress.errors++;
+        syncProgress.message = `Processing: ${syncProgress.processedCompanies} / ${syncProgress.totalCompanies} (${syncProgress.errors} errors)`;
       }
     }
 
     // Commit final batch
-    if (isLiveMode && batchCount > 0) {
+    if (!dryRun && batchCount > 0) {
+      syncProgress.status = 'syncing';
+      syncProgress.message = `Committing ${batchCount} changes to database...`;
       await batch.commit();
-      console.log(`   ✅ Committed final batch of ${batchCount} updates`);
+      console.log(`   ✅ Committed final batch of ${batchCount} updates\n`);
     }
+    
+    // Mark as complete
+    syncProgress.status = 'complete';
+    syncProgress.inProgress = false;
+    syncProgress.created = stats.wouldCreate;
+    syncProgress.updated = stats.wouldUpdate;
+    syncProgress.noChanges = stats.noChanges;
+    syncProgress.message = `Sync complete: ${stats.wouldCreate} created, ${stats.wouldUpdate} updated`;
 
     // STEP 5: Generate report
     console.log(`\n${'='.repeat(80)}`);
@@ -567,9 +635,17 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('❌ Sync error:', error);
+    syncProgress.status = 'error';
+    syncProgress.inProgress = false;
+    syncProgress.message = `Error: ${error.message}`;
     return NextResponse.json(
       { error: error.message, stack: error.stack },
       { status: 500 }
     );
   }
+}
+
+// GET endpoint to check sync progress
+export async function GET(request: NextRequest) {
+  return NextResponse.json(syncProgress);
 }

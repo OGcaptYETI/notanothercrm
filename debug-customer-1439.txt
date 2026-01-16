@@ -1,0 +1,45 @@
+
+================================================================================
+DEBUG: Customer 1439 - Unknown
+================================================================================
+Query path: fishbowl_customers/1439/sales_order_history
+Current order date: 2025-12-10T07:00:00.000Z
+Order timestamp (seconds): 1765350000
+Current sales person: BenW
+Reorg date: 2025-07-01T00:00:00.000Z
+Apply reorg rule: true
+
+All orders in subcollection (no date filter):
+  1. SO: 5687 | Date: 2024-12-30T07:00:00.000Z | Timestamp: 1735542000 | Rep: Jared
+  2. SO: 6447 | Date: 2025-04-01T06:00:00.000Z | Timestamp: 1743487200 | Rep: Jared
+  3. SO: 6993 | Date: 2025-05-01T06:00:00.000Z | Timestamp: 1746079200 | Rep: Jared
+  4. SO: 7342 | Date: 2025-06-04T06:00:00.000Z | Timestamp: 1749016800 | Rep: Jared
+  5. SO: 7624 | Date: 2025-06-20T06:00:00.000Z | Timestamp: 1750399200 | Rep: Jared
+  6. SO: 7843 | Date: 2025-07-07T06:00:00.000Z | Timestamp: 1751868000 | Rep: Jared
+  7. SO: 8771 | Date: 2025-09-08T06:00:00.000Z | Timestamp: 1757311200 | Rep: BenW
+  8. SO: 8988 | Date: 2025-09-25T06:00:00.000Z | Timestamp: 1758780000 | Rep: BenW
+  9. SO: 9247 | Date: 2025-11-03T07:00:00.000Z | Timestamp: 1762153200 | Rep: BenW
+  10. SO: 9613 | Date: 2025-12-10T07:00:00.000Z | Timestamp: 1765350000 | Rep: BenW
+  11. SO: 9879 | Date: 2025-12-10T07:00:00.000Z | Timestamp: 1765350000 | Rep: BenW
+
+Previous orders found (with date < 2025-12-10T07:00:00.000Z): 9
+
+Historical orders found (with date filter):
+  1. SO: 9247 | Date: 2025-11-03T07:00:00.000Z | Rep: BenW
+  2. SO: 8988 | Date: 2025-09-25T06:00:00.000Z | Rep: BenW
+  3. SO: 8771 | Date: 2025-09-08T06:00:00.000Z | Rep: BenW
+  4. SO: 7843 | Date: 2025-07-07T06:00:00.000Z | Rep: Jared
+  5. SO: 7624 | Date: 2025-06-20T06:00:00.000Z | Rep: Jared
+  6. SO: 7342 | Date: 2025-06-04T06:00:00.000Z | Rep: Jared
+  7. SO: 6993 | Date: 2025-05-01T06:00:00.000Z | Rep: Jared
+  8. SO: 6447 | Date: 2025-04-01T06:00:00.000Z | Rep: Jared
+  9. SO: 5687 | Date: 2024-12-30T07:00:00.000Z | Rep: Jared
+
+Last order: 9247 | Date: 2025-11-03T07:00:00.000Z | Rep: BenW
+First order: 5687 | Date: 2024-12-30T07:00:00.000Z | Rep: Jared
+Months since last order: 1
+Customer age (months): 11
+
+✅ RESULT: TRANSFERRED (reorg rule)
+  - Had orders before reorg: true
+  - Had different rep before reorg: true

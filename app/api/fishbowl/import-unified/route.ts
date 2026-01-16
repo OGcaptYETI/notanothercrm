@@ -30,6 +30,24 @@ function parseDate(val: any): Date | null {
   if (!val) return null;
   if (val instanceof Date) return val;
   
+  // Check if it's an Excel serial number (numeric or numeric string)
+  let serialNumber = val;
+  if (typeof val === 'string' && !isNaN(Number(val)) && Number(val) > 1000) {
+    serialNumber = Number(val);
+  }
+  
+  if (typeof serialNumber === 'number' && serialNumber > 1000) {
+    // Convert Excel serial date to JavaScript Date
+    // Excel dates are days since 1/1/1900
+    const excelEpoch = new Date(1899, 11, 30); // Excel epoch (Dec 30, 1899)
+    const date = new Date(excelEpoch.getTime() + serialNumber * 86400000);
+    
+    // Validate it's a reasonable date
+    if (date.getFullYear() >= 2000 && date.getFullYear() <= 2100) {
+      return date;
+    }
+  }
+  
   const dateStr = String(val).trim();
   
   // Handle Conversite format: MM-DD-YYYY HH:MM:SS or MM/DD/YYYY HH:MM
@@ -90,6 +108,17 @@ export async function POST(req: NextRequest) {
     
     console.log(`📊 Parsed ${data.length} rows from CSV`);
     
+    // Debug: Show first row's column names and price values
+    if (data.length > 0) {
+      const firstRow = data[0] as Record<string, any>;
+      console.log('\n🔍 DEBUG: First row column names containing "price":');
+      Object.keys(firstRow).forEach(key => {
+        if (key.toLowerCase().includes('price')) {
+          console.log(`  "${key}": "${firstRow[key]}"`);
+        }
+      });
+    }
+    
     const stats: ImportStats = {
       processed: 0,
       customersNotFound: 0,
@@ -109,6 +138,18 @@ export async function POST(req: NextRequest) {
     const processedOrders = new Set<string>();
     const processedCustomers = new Set<string>();
     
+    // Load existing Fishbowl customers (already populated by Copper Sync with account types)
+    console.log('📋 Loading existing Fishbowl customers...');
+    const fishbowlCustomersSnapshot = await adminDb.collection('fishbowl_customers').get();
+    const fishbowlCustomersMap = new Map<string, any>();
+    fishbowlCustomersSnapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.id) {
+        fishbowlCustomersMap.set(data.id, data);
+      }
+    });
+    console.log(`✅ Loaded ${fishbowlCustomersMap.size} existing Fishbowl customers (from Copper Sync)`);
+    
     for (let i = 0; i < data.length; i++) {
       const row = data[i] as Record<string, any>;
       stats.processed++;
@@ -124,12 +165,18 @@ export async function POST(req: NextRequest) {
         continue;
       }
       
-      // Upsert customer
+      // Get account type from existing Fishbowl customer (set by Copper Sync)
+      // If customer doesn't exist yet, default to 'Retail' (will be updated by next Copper Sync)
+      const existingCustomer = fishbowlCustomersMap.get(customerId);
+      const accountType = existingCustomer?.accountType || 'Retail';
+      
+      // Upsert customer with account type
       if (!processedCustomers.has(customerId)) {
         const customerRef = adminDb.collection('fishbowl_customers').doc(customerId);
         batch.set(customerRef, {
           id: customerId,
           name: customerName,
+          accountType: accountType, // Defaults to 'Retail' if not found
           updatedAt: Timestamp.now()
         }, { merge: true });
         batchCount++;
@@ -139,6 +186,20 @@ export async function POST(req: NextRequest) {
       
       // Process order (once per order)
       if (!processedOrders.has(soNum)) {
+        // CRITICAL: Check if order has been manually corrected via validation
+        const orderRef = adminDb.collection('fishbowl_sales_orders').doc(soNum);
+        const existingOrderDoc = await orderRef.get();
+        
+        if (existingOrderDoc.exists) {
+          const existingData = existingOrderDoc.data();
+          if (existingData?.manuallyLinked === true) {
+            console.log(`🔒 Skipping order ${soNum} - manually corrected via validation (preserving correction)`);
+            stats.ordersUnchanged++;
+            processedOrders.add(soNum);
+            continue; // Don't overwrite manual corrections
+          }
+        }
+        
         let issuedDate = parseDate(row['Issued date']);
         let commissionMonth: string | undefined;
         let commissionYear: number | undefined;
@@ -178,13 +239,23 @@ export async function POST(req: NextRequest) {
         const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
         const commissionDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
         
-        const orderRef = adminDb.collection('fishbowl_sales_orders').doc(soNum);
+        const salesPersonValue = String(row['Sales Rep'] || '').trim();
+        
+        // Debug first order to verify salesPerson is being read
+        if (stats.ordersCreated === 0) {
+          console.log('\n🔍 DEBUG: First order salesPerson:');
+          console.log(`  CSV "Sales Rep": "${row['Sales Rep']}"`);
+          console.log(`  Parsed salesPerson: "${salesPersonValue}"`);
+          console.log(`  Order Number: ${soNum}`);
+        }
+        
         const orderData = {
           soNumber: soNum,
           salesOrderId: String(salesOrderId),
           customerId: customerId,
           customerName: customerName,
-          salesPerson: String(row['Sales person'] || '').trim(),
+          accountType: accountType, // ✅ NOW INCLUDES ACCOUNT TYPE FROM COPPER
+          salesPerson: salesPersonValue,
           salesRep: String(row['Sales Rep'] || '').trim(),
           postingDate: postingDate,
           commissionMonth: commissionMonth,
@@ -264,21 +335,41 @@ export async function POST(req: NextRequest) {
       
       const itemCommissionDate = itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null;
       
+      const unitPrice = safeParseNumber(row['Unit price']);
+      const totalPrice = safeParseNumber(row['Total price']);
+      
+      // Debug first 3 items to verify parsing
+      if (stats.itemsCreated < 3) {
+        console.log(`📊 Line Item ${stats.itemsCreated + 1}:`, {
+          soNumber: soNum,
+          product: String(row['SO Item Product Number'] || '').trim(),
+          quantity: safeParseNumber(row['Fulfilled Quantity']),
+          unitPriceRaw: row['Unit price'],
+          unitPriceParsed: unitPrice,
+          totalPriceRaw: row['Total price'],
+          totalPriceParsed: totalPrice
+        });
+      }
+      
       batch.set(itemRef, {
         soNumber: soNum,
         salesOrderId: String(salesOrderId),
         soItemId: lineItemId,
         customerId: customerId,
         customerName: customerName,
-        product: String(row['SO Item Product Number'] || row['Part Description'] || row['Product'] || '').trim(),
-        quantity: safeParseNumber(row['Qty fulfilled'] || row['Qty'] || row['Quantity']),
-        unitPrice: safeParseNumber(row['Total Price'] || row['Total']),
-        totalPrice: safeParseNumber(row['Total Price'] || row['Total']),
+        product: String(row['SO Item Product Number'] || row['Sku'] || row['Product'] || '').trim(),
+        productNum: String(row['SO Item Product Number'] || row['Sku'] || row['Product ID'] || '').trim(),
+        partNumber: String(row['SO Item Product Number'] || row['Sku'] || row['Product ID'] || '').trim(),
+        productName: String(row['Product Description'] || row['SO Item Description'] || row['Description'] || '').trim(),
+        description: String(row['Product Description'] || row['SO Item Description'] || row['Description'] || '').trim(),
+        quantity: safeParseNumber(row['Fulfilled Quantity']),
+        unitPrice: unitPrice,
+        totalPrice: totalPrice,
         postingDate: itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null,
         commissionMonth: itemCommissionMonth,
         commissionYear: itemCommissionYear,
         commissionDate: itemCommissionDate,
-        salesPerson: String(row['Sales person'] || '').trim(),
+        salesPerson: String(row['Sales Rep'] || row['Default Sales Rep'] || '').trim(),
         updatedAt: Timestamp.now()
       }, { merge: true });
       batchCount++;

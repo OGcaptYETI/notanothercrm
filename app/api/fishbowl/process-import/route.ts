@@ -234,6 +234,46 @@ async function processDataInBackground(
   const processedOrders = new Set<string>();
   const processedCustomers = new Set<string>();
   
+  // Load ONLY ACTIVE Copper customers for account type lookup
+  console.log('📋 Loading ACTIVE Copper customers for account type mapping...');
+  const copperCustomersSnap = await adminDb.collection('copper_companies')
+    .where('Active Customer cf_712751', '==', 'checked')
+    .get();
+  
+  const copperCustomersMap = new Map<string, any>();
+  copperCustomersSnap.forEach(doc => {
+    const data = doc.data();
+    // Map by Fishbowl ID if available
+    if (data.fishbowlId) {
+      copperCustomersMap.set(data.fishbowlId, data);
+    }
+    // Also map by Account Order ID (Fishbowl account number)
+    const accountOrderId = data['Account Order ID cf_698467'];
+    if (accountOrderId) {
+      copperCustomersMap.set(String(accountOrderId), data);
+    }
+    // Also map by name for fallback matching
+    if (data.name) {
+      copperCustomersMap.set(data.name.toLowerCase().trim(), data);
+    }
+  });
+  console.log(`✅ Loaded ${copperCustomersMap.size} ACTIVE Copper customer mappings (filtered from 270k+ total)`);
+  
+  // Load existing Fishbowl customers for account type lookup (fallback)
+  console.log('📋 Loading existing Fishbowl customers...');
+  const existingCustomersSnap = await adminDb.collection('fishbowl_customers').get();
+  const existingCustomersMap = new Map<string, any>();
+  existingCustomersSnap.forEach(doc => {
+    const data = doc.data();
+    if (data.id) {
+      existingCustomersMap.set(data.id, data);
+    }
+  });
+  console.log(`✅ Loaded ${existingCustomersMap.size} existing Fishbowl customers`);
+  
+  // Cache for account types to avoid repeated lookups
+  const accountTypeCache = new Map<string, string>();
+  
   for (let i = 0; i < data.length; i++) {
     const row = data[i];
     stats.processed++;
@@ -250,12 +290,61 @@ async function processDataInBackground(
       continue;
     }
     
-    // Upsert customer (once per customer in this batch)
+    // Determine account type from Copper or existing data
+    let accountType = 'Retail'; // Default fallback
+    
+    if (!accountTypeCache.has(customerId)) {
+      // Try to find in Copper by Fishbowl ID
+      let copperCustomer = copperCustomersMap.get(customerId);
+      
+      // Fallback: try to find by name match
+      if (!copperCustomer && customerName) {
+        copperCustomer = copperCustomersMap.get(customerName.toLowerCase().trim());
+      }
+      
+      if (copperCustomer) {
+        const copperAccountTypeRaw = copperCustomer['Account Type cf_675914'];
+        if (copperAccountTypeRaw) {
+          // Handle array format from Copper (e.g., [2063862] or [1981470])
+          let copperAccountType = copperAccountTypeRaw;
+          if (Array.isArray(copperAccountTypeRaw) && copperAccountTypeRaw.length > 0) {
+            const typeId = copperAccountTypeRaw[0];
+            // Map Copper custom field option IDs to readable values
+            if (typeId === 2063862 || typeId === '2063862') {
+              copperAccountType = 'Wholesale';
+            } else if (typeId === 1981470 || typeId === '1981470') {
+              copperAccountType = 'Distributor';
+            } else {
+              copperAccountType = String(typeId); // Fallback to ID as string
+            }
+          }
+          accountType = copperAccountType;
+          if (stats.customersCreated % 100 === 0) {
+            console.log(`✅ Copper match: ${customerName} -> ${accountType}`);
+          }
+        }
+      } else {
+        // Fallback: check existing Fishbowl customer data
+        const existingCustomer = existingCustomersMap.get(customerId);
+        if (existingCustomer?.accountType) {
+          accountType = existingCustomer.accountType;
+        } else if (stats.customersCreated % 100 === 0) {
+          console.log(`⚠️ No Copper match for: ${customerName} (ID: ${customerId}) - defaulting to Retail`);
+        }
+      }
+      
+      accountTypeCache.set(customerId, accountType);
+    } else {
+      accountType = accountTypeCache.get(customerId)!;
+    }
+    
+    // Upsert customer with account type (once per customer in this batch)
     if (!processedCustomers.has(customerId)) {
       const customerRef = adminDb.collection('fishbowl_customers').doc(customerId);
       batch.set(customerRef, {
         id: customerId,
         name: customerName,
+        accountType: accountType, // ✅ NOW INCLUDES ACCOUNT TYPE FROM COPPER
         updatedAt: Timestamp.now()
       }, { merge: true });
       batchCount++;
@@ -324,6 +413,7 @@ async function processDataInBackground(
         salesOrderId: String(salesOrderId),
         customerId: customerId,
         customerName: customerName,
+        accountType: accountType, // ✅ NOW INCLUDES ACCOUNT TYPE FROM COPPER
         postingDate: postingDate,
         commissionMonth: commissionMonth,
         commissionYear: commissionYear,

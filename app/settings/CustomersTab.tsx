@@ -187,11 +187,23 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
         // Get the original owner from Fishbowl orders (for reference only)
         const originalOwner = customerSalesRepMap.get(customerId) || data.salesRep || 'Unassigned';
 
+        // Normalize accountType to handle Copper array format
+        let accountType = data.accountType || 'Retail';
+        if (Array.isArray(accountType) && accountType.length > 0) {
+          const typeId = accountType[0];
+          if (typeId === 2063862 || typeId === '2063862') accountType = 'Wholesale';
+          else if (typeId === 1981470 || typeId === '1981470') accountType = 'Distributor';
+          else if (typeId === 2066840 || typeId === '2066840') accountType = 'Retail';
+          else accountType = 'Retail';
+        } else if (typeof accountType !== 'string') {
+          accountType = 'Retail';
+        }
+
         customersData.push({
           id: doc.id,
           customerNum: data.id || data.accountNumber?.toString() || doc.id,
           customerName: data.name || data.customerContact || 'Unknown',
-          accountType: data.accountType || 'Retail',
+          accountType: accountType,
           salesPerson: currentOwnerName,                    // Display name of CURRENT owner
           fishbowlUsername: currentOwner,                   // Fishbowl username for filtering
           currentOwner: currentOwner,                       // New: current account owner

@@ -6,6 +6,17 @@ export const dynamic = 'force-dynamic';
 
 export const maxDuration = 300; // 5 minutes
 
+// Global progress tracker for this sync operation
+let syncProgress = {
+  inProgress: false,
+  currentPage: 0,
+  totalFetched: 0,
+  totalProcessed: 0,
+  totalToProcess: 0,
+  status: 'idle' as 'idle' | 'fetching' | 'processing' | 'complete' | 'error',
+  message: '',
+};
+
 interface CopperCompany {
   id: number;
   name: string;
@@ -19,10 +30,19 @@ interface CopperCompany {
   };
   phone_numbers?: Array<{ number: string; category: string }>;
   email_domain?: string;
+  websites?: Array<{ url: string; category: string }>;
+  socials?: Array<{ url: string; category: string }>;
+  details?: string;
+  tags?: string[];
+  date_created?: number;
+  date_modified?: number;
+  interaction_count?: number;
   custom_fields?: Array<{
     custom_field_definition_id: number;
     value: any;
   }>;
+  // Store ALL fields from Copper
+  [key: string]: any;
 }
 
 interface SyncStats {
@@ -40,6 +60,17 @@ interface SyncStats {
  */
 export async function POST(request: NextRequest) {
   try {
+    // Reset progress
+    syncProgress = {
+      inProgress: true,
+      currentPage: 0,
+      totalFetched: 0,
+      totalProcessed: 0,
+      totalToProcess: 0,
+      status: 'fetching',
+      message: 'Starting Copper API sync...',
+    };
+
     console.log('\n' + '='.repeat(80));
     console.log('🔥 DIRECT COPPER API SYNC → copper_companies');
     console.log('='.repeat(80) + '\n');
@@ -83,8 +114,45 @@ export async function POST(request: NextRequest) {
     let currentPage = 1;
     let hasMore = true;
 
+    // Fetch first page to get total count
+    const firstPageResponse = await fetch(
+      `https://api.copper.com/developer_api/v1/companies/search?page_number=1&page_size=200`,
+      {
+        method: 'POST',
+        headers: {
+          'X-PW-AccessToken': copperApiKey,
+          'X-PW-Application': 'developer_api',
+          'X-PW-UserEmail': copperEmail,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchBody),
+      }
+    );
+
+    if (!firstPageResponse.ok) {
+      throw new Error(`Copper API error: ${firstPageResponse.status}`);
+    }
+
+    const firstPageData = await firstPageResponse.json();
+    allCompanies.push(...firstPageData);
+    
+    console.log(`   ✅ Fetched ${firstPageData.length} companies from page 1`);
+    
+    // Set estimated total for progress tracking (will be updated as we fetch)
+    if (firstPageData.length === 200) {
+      // Estimate ~8 pages (1600 companies) - will update as we go
+      syncProgress.totalToProcess = 200 * 8;
+      syncProgress.message = 'Fetching companies from Copper API...';
+    }
+    
+    // Continue fetching remaining pages if needed
+    currentPage = 2;
+    hasMore = firstPageData.length === 200;
+
     // Fetch all pages
     while (hasMore) {
+      syncProgress.currentPage = currentPage;
+      syncProgress.message = `Fetching page ${currentPage} from Copper API...`;
       console.log(`   Fetching page ${currentPage}...`);
 
       const response = await fetch('https://api.copper.com/developer_api/v1/companies/search', {
@@ -125,6 +193,10 @@ export async function POST(request: NextRequest) {
 
     stats.totalFetched = allCompanies.length;
     stats.activeFetched = allCompanies.length; // All fetched are active (filtered by API)
+    syncProgress.totalFetched = stats.activeFetched;
+    syncProgress.totalToProcess = stats.activeFetched;
+    syncProgress.status = 'processing';
+    syncProgress.message = `Processing ${stats.activeFetched} companies...`;
     console.log(`\n✅ Total ACTIVE companies fetched: ${stats.activeFetched}\n`);
 
     // Process each company and update Firestore
@@ -136,57 +208,62 @@ export async function POST(request: NextRequest) {
 
     for (const company of allCompanies) {
       try {
-        // Extract custom fields into a more usable format
+        // Extract custom fields - store ALL fields with their IDs
         const customFieldsMap: Record<string, any> = {};
+        const customFieldsRaw: Array<{ id: number; value: any }> = [];
+        
         if (company.custom_fields) {
           company.custom_fields.forEach(cf => {
-            // Map field ID to field name with ID suffix
             const fieldId = cf.custom_field_definition_id;
-            let fieldName = '';
             
-            // Map known field IDs to names
-            switch (fieldId) {
-              case 675914: fieldName = 'Account Type cf_675914'; break;
-              case 698467: fieldName = 'Account Order ID cf_698467'; break;
-              case 712751: fieldName = 'Active Customer cf_712751'; break;
-              case 713477: fieldName = 'Account ID cf_713477'; break;
-              case 680701: fieldName = 'Region cf_680701'; break;
-              case 698457: fieldName = 'Street Address cf_698457'; break;
-              case 698461: fieldName = 'City cf_698461'; break;
-              case 698465: fieldName = 'State cf_698465'; break;
-              case 698469: fieldName = 'Postal Code cf_698469'; break;
-              case 698473: fieldName = 'Phone cf_698473'; break;
-              case 698477: fieldName = 'Email cf_698477'; break;
-              case 708027: fieldName = 'Sales Rep cf_708027'; break;
-              case 708028: fieldName = 'Original Owner cf_708028'; break;
-              default: fieldName = `cf_${fieldId}`;
-            }
+            // Store with cf_ prefix for easy identification
+            customFieldsMap[`cf_${fieldId}`] = cf.value;
             
-            customFieldsMap[fieldName] = cf.value;
+            // Also store raw for metadata review
+            customFieldsRaw.push({
+              id: fieldId,
+              value: cf.value
+            });
           });
         }
 
-        // Build Firestore document
+        // Build Firestore document - store EVERYTHING from Copper
         const firestoreDoc: any = {
+          // Core Copper fields
           id: company.id,
           name: company.name || '',
           assignee_id: company.assignee_id || null,
           
           // Standard address fields
+          address: company.address || {},
           Street: company.address?.street || '',
           city: company.address?.city || '',
           State: company.address?.state || '',
           'Postal Code': company.address?.postal_code || '',
           country: company.address?.country || '',
           
-          // Phone
+          // Contact info
+          phone_numbers: company.phone_numbers || [],
           phone: company.phone_numbers?.[0]?.number || '',
-          
-          // Email
           email_domain: company.email_domain || '',
+          websites: company.websites || [],
+          socials: company.socials || [],
           
-          // Custom fields
+          // Additional Copper fields
+          details: company.details || '',
+          tags: company.tags || [],
+          date_created: company.date_created || null,
+          date_modified: company.date_modified || null,
+          interaction_count: company.interaction_count || 0,
+          
+          // Custom fields (flattened)
           ...customFieldsMap,
+          
+          // Raw custom fields for metadata review
+          custom_fields_raw: customFieldsRaw,
+          
+          // Store complete raw Copper data for reference
+          copper_raw_data: company,
           
           // Metadata
           syncedFromCopperApiAt: Timestamp.now(),
@@ -220,6 +297,10 @@ export async function POST(request: NextRequest) {
           batchCount = 0;
         }
 
+        // Update progress
+        syncProgress.totalProcessed = stats.updated + stats.created;
+        syncProgress.message = `Processing: ${syncProgress.totalProcessed} / ${syncProgress.totalToProcess}`;
+        
         // Log progress every 50 companies
         if ((stats.updated + stats.created) % 50 === 0) {
           console.log(`   Progress: ${stats.updated + stats.created} / ${stats.totalFetched}`);
@@ -252,6 +333,11 @@ export async function POST(request: NextRequest) {
     console.log(`Errors:                 ${stats.errors}`);
     console.log('='.repeat(80) + '\n');
 
+    // Mark as complete
+    syncProgress.status = 'complete';
+    syncProgress.inProgress = false;
+    syncProgress.message = `Sync complete: ${stats.activeFetched} companies processed`;
+
     if (stats.errorDetails.length > 0) {
       console.log('❌ Errors:');
       stats.errorDetails.forEach(err => {
@@ -267,9 +353,17 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('❌ Copper API sync error:', error);
+    syncProgress.status = 'error';
+    syncProgress.inProgress = false;
+    syncProgress.message = `Error: ${error.message}`;
     return NextResponse.json(
       { error: error.message, stack: error.stack },
       { status: 500 }
     );
   }
+}
+
+// GET endpoint to check sync progress
+export async function GET(request: NextRequest) {
+  return NextResponse.json(syncProgress);
 }

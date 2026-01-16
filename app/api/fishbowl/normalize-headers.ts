@@ -57,8 +57,6 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     aliases: [
       'account id',
       'accountid',
-      'customer id',
-      'customerid',
       'cust id',
       'custid'
     ],
@@ -172,6 +170,291 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'extendedprice'
     ],
     description: 'Total line item price'
+  },
+  {
+    standardName: 'Bill to name',
+    aliases: [
+      'bill to name',
+      'billtoname',
+      'billing name',
+      'billingname'
+    ],
+    description: 'Billing contact name'
+  },
+  {
+    standardName: 'Billing Address',
+    aliases: [
+      'billing address',
+      'billingaddress',
+      'bill to address',
+      'billtoaddress'
+    ],
+    description: 'Billing street address'
+  },
+  {
+    standardName: 'Billing City',
+    aliases: [
+      'billing city',
+      'billingcity',
+      'bill to city',
+      'billtocity'
+    ],
+    description: 'Billing city'
+  },
+  {
+    standardName: 'Billing State',
+    aliases: [
+      'billing state',
+      'billingstate',
+      'bill to state',
+      'billtostate'
+    ],
+    description: 'Billing state/province'
+  },
+  {
+    standardName: 'Billing Zip',
+    aliases: [
+      'billing zip',
+      'billingzip',
+      'bill to zip',
+      'billtozip',
+      'billing postal code',
+      'billingpostalcode'
+    ],
+    description: 'Billing ZIP/postal code'
+  },
+  {
+    standardName: 'Product ID',
+    aliases: [
+      'product id',
+      'productid',
+      'prod id',
+      'prodid'
+    ],
+    description: 'Product identifier'
+  },
+  {
+    standardName: 'SO Status',
+    aliases: [
+      'so status',
+      'sostatus',
+      'order status',
+      'orderstatus',
+      'status'
+    ],
+    description: 'Sales order status'
+  },
+  {
+    standardName: 'Product description',
+    aliases: [
+      'product description',
+      'productdescription',
+      'prod description',
+      'proddescription',
+      'description'
+    ],
+    description: 'Product description'
+  },
+  {
+    standardName: 'Sales Order Item Description',
+    aliases: [
+      'sales order item description',
+      'so item description',
+      'soitemdescription',
+      'item description',
+      'itemdescription',
+      'line item description'
+    ],
+    description: 'Line item description'
+  },
+  {
+    standardName: 'Soitem type',
+    aliases: [
+      'soitem type',
+      'so item type',
+      'soitemtype',
+      'item type',
+      'itemtype',
+      'line type',
+      'linetype'
+    ],
+    description: 'Line item type (Sale, Shipping, etc.)'
+  },
+  {
+    standardName: 'BOL',
+    aliases: [
+      'bol',
+      'bill of lading',
+      'billoflading',
+      'bol number',
+      'bolnumber'
+    ],
+    description: 'Bill of lading number'
+  },
+  {
+    standardName: 'Carrier name',
+    aliases: [
+      'carrier name',
+      'carriername',
+      'carrier',
+      'shipping carrier',
+      'shippingcarrier'
+    ],
+    description: 'Shipping carrier name'
+  },
+  {
+    standardName: 'Company id',
+    aliases: [
+      'company id',
+      'companyid',
+      'company identifier'
+    ],
+    description: 'Company identifier'
+  },
+  {
+    standardName: 'Company name',
+    aliases: [
+      'company name',
+      'companyname',
+      'company'
+    ],
+    description: 'Company name'
+  },
+  {
+    standardName: 'Ship status',
+    aliases: [
+      'ship status',
+      'shipstatus',
+      'shipping status',
+      'shippingstatus'
+    ],
+    description: 'Shipping status'
+  },
+  {
+    standardName: 'Status ID',
+    aliases: [
+      'status id',
+      'statusid',
+      'status identifier'
+    ],
+    description: 'Status identifier'
+  },
+  {
+    standardName: 'Sales Rep Initials',
+    aliases: [
+      'sales rep initials',
+      'salesrepinitials',
+      'rep initials',
+      'repinitials',
+      'initials'
+    ],
+    description: 'Sales rep initials'
+  },
+  {
+    standardName: 'Fulfilled Quantity',
+    aliases: [
+      'fulfilled quantity',
+      'fulfilledquantity',
+      'qty fulfilled',
+      'qtyfulfilled',
+      'quantity fulfilled'
+    ],
+    description: 'Quantity fulfilled'
+  },
+  {
+    standardName: 'Last Unit Price',
+    aliases: [
+      'last unit price',
+      'lastunitprice',
+      'last price',
+      'lastprice'
+    ],
+    description: 'Last unit price'
+  },
+  {
+    standardName: 'So ct',
+    aliases: [
+      'so ct',
+      'soct',
+      'so count',
+      'socount'
+    ],
+    description: 'Sales order count'
+  },
+  {
+    standardName: 'Sales Order Line Item',
+    aliases: [
+      'sales order line item',
+      'so line item',
+      'solineitem',
+      'line item number',
+      'lineitemnumber',
+      'line number',
+      'linenumber',
+      'line item',
+      'lineitem'
+    ],
+    description: 'Line item number/sequence'
+  },
+  {
+    standardName: 'So c1',
+    aliases: [
+      'so c1',
+      'soc1',
+      'sales order custom 1',
+      'so custom 1'
+    ],
+    description: 'Sales order custom field 1'
+  },
+  {
+    standardName: 'So c2',
+    aliases: [
+      'so c2',
+      'soc2',
+      'sales order custom 2',
+      'so custom 2'
+    ],
+    description: 'Sales order custom field 2'
+  },
+  {
+    standardName: 'Sales Order Custom Field 3',
+    aliases: [
+      'sales order custom field 3',
+      'so c3',
+      'soc3',
+      'so custom 3'
+    ],
+    description: 'Sales order custom field 3'
+  },
+  {
+    standardName: 'So c4',
+    aliases: [
+      'so c4',
+      'soc4',
+      'sales order custom 4',
+      'so custom 4'
+    ],
+    description: 'Sales order custom field 4'
+  },
+  {
+    standardName: 'So c5',
+    aliases: [
+      'so c5',
+      'soc5',
+      'sales order custom 5',
+      'so custom 5'
+    ],
+    description: 'Sales order custom field 5'
+  },
+  {
+    standardName: 'Sales Order Custom Field 6',
+    aliases: [
+      'sales order custom field 6',
+      'so c6',
+      'soc6',
+      'so custom 6'
+    ],
+    description: 'Sales order custom field 6'
   }
 ];
 

@@ -1,0 +1,34 @@
+
+================================================================================
+DEBUG: Customer 1505 - Unknown
+================================================================================
+Query path: fishbowl_customers/1505/sales_order_history
+Current order date: 2025-12-31T07:00:00.000Z
+Order timestamp (seconds): 1767164400
+Current sales person: BenW
+Reorg date: 2025-07-01T00:00:00.000Z
+Apply reorg rule: true
+
+All orders in subcollection (no date filter):
+  1. SO: 6315 | Date: 2025-02-19T07:00:00.000Z | Timestamp: 1739948400 | Rep: Sergio
+  2. SO: 8847 | Date: 2025-09-11T06:00:00.000Z | Timestamp: 1757570400 | Rep: BenW
+  3. SO: 9097 | Date: 2025-10-06T06:00:00.000Z | Timestamp: 1759730400 | Rep: BenW
+  4. SO: 9848 | Date: 2025-12-09T07:00:00.000Z | Timestamp: 1765263600 | Rep: BenW
+  5. SO: 9946 | Date: 2025-12-31T07:00:00.000Z | Timestamp: 1767164400 | Rep: BenW
+
+Previous orders found (with date < 2025-12-31T07:00:00.000Z): 4
+
+Historical orders found (with date filter):
+  1. SO: 9848 | Date: 2025-12-09T07:00:00.000Z | Rep: BenW
+  2. SO: 9097 | Date: 2025-10-06T06:00:00.000Z | Rep: BenW
+  3. SO: 8847 | Date: 2025-09-11T06:00:00.000Z | Rep: BenW
+  4. SO: 6315 | Date: 2025-02-19T07:00:00.000Z | Rep: Sergio
+
+Last order: 9848 | Date: 2025-12-09T07:00:00.000Z | Rep: BenW
+First order: 6315 | Date: 2025-02-19T07:00:00.000Z | Rep: Sergio
+Months since last order: 0
+Customer age (months): 10
+
+✅ RESULT: TRANSFERRED (reorg rule)
+  - Had orders before reorg: true
+  - Had different rep before reorg: true

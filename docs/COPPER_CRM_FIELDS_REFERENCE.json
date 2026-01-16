@@ -1,0 +1,405 @@
+"description": "Copper CRM Field Reference for KanvaPortal Integration",
+  "lastUpdated": "2026-01-15",
+  "sampleCompanyId": "72196288",
+  "sampleCompanyName": "ILLUSIONS SMOKE SHOP",
+  "fields": {
+    "coreFields": {
+      "id": {
+        "type": "number",
+        "example": 72196288,
+        "description": "Copper's internal company ID"
+      },
+      "name": {
+        "type": "string",
+        "example": "ILLUSIONS SMOKE SHOP",
+        "description": "Company name"
+      },
+      "assignee_id": {
+        "type": "number",
+        "example": 1198774,
+        "description": "ID of the user who owns this company"
+      },
+      "contact_type_id": {
+        "type": "number",
+        "example": 2480265,
+        "description": "Type of contact relationship"
+      },
+      "date_created": {
+        "type": "number",
+        "example": 1745004728,
+        "description": "Unix timestamp of creation date"
+      },
+      "date_modified": {
+        "type": "number",
+        "example": 1765493380,
+        "description": "Unix timestamp of last modification"
+      },
+      "interaction_count": {
+        "type": "number",
+        "example": 23,
+        "description": "Number of interactions with this company"
+      }
+    },
+    "addressFields": {
+      "street": {
+        "type": "string",
+        "example": "203 G ST",
+        "description": "Street address"
+      },
+      "city": {
+        "type": "string",
+        "example": "DAVIS",
+        "description": "City"
+      },
+      "state": {
+        "type": "string",
+        "example": "CA",
+        "description": "State abbreviation"
+      },
+      "postal_code": {
+        "type": "string",
+        "example": "95616",
+        "description": "ZIP/Postal code"
+      },
+      "country": {
+        "type": "string|null",
+        "example": null,
+        "description": "Country code"
+      }
+    },
+    "contactFields": {
+      "phone_numbers": {
+        "type": "array",
+        "example": [
+          {
+            "category": "work",
+            "number": "530-756-0118"
+          }
+        ],
+        "description": "Array of phone numbers with categories"
+      },
+      "email_domain": {
+        "type": "string",
+        "example": "moekhat@ymail.com",
+        "description": "Primary email domain"
+      },
+      "primary_contact_id": {
+        "type": "number",
+        "example": 174120354,
+        "description": "ID of the primary contact person"
+      },
+      "websites": {
+        "type": "array",
+        "example": [],
+        "description": "Array of website URLs"
+      },
+      "socials": {
+        "type": "array",
+        "example": [],
+        "description": "Array of social media profiles"
+      }
+    },
+    "customFields": {
+      "cf_713477": {
+        "fieldId": 713477,
+        "name": "Account ID cf_713477",
+        "type": "string",
+        "example": "72196288",
+        "description": "Unique account identifier (matches Copper ID, used for Fishbowl integration)"
+      },
+      "cf_712751": {
+        "fieldId": 712751,
+        "name": "Active Customer cf_712751",
+        "type": "boolean",
+        "example": true,
+        "description": "Whether the customer is currently active"
+      },
+      "cf_698467": {
+        "fieldId": 698467,
+        "name": "Account Order ID cf_698467",
+        "type": "string",
+        "example": "323",
+        "description": "Fishbowl account/order number"
+      },
+      "cf_675914": {
+        "fieldId": 675914,
+        "name": "Account Type cf_675914",
+        "type": "array",
+        "example": [2063862],
+        "description": "Account type (Wholesale=2063862, Distributor=1981470, Retail=2066840)"
+      },
+      "cf_680701": {
+        "fieldId": 680701,
+        "name": "Region cf_680701",
+        "type": "number",
+        "example": 2063731,
+        "description": "Geographic region identifier"
+      },
+      "cf_697979": {
+        "fieldId": 697979,
+        "name": "County cf_697979",
+        "type": "string",
+        "example": "YOLO",
+        "description": "County name"
+      },
+      "cf_698121": {
+        "fieldId": 698121,
+        "name": "Customer Priority cf_698121",
+        "type": "number",
+        "example": 3,
+        "description": "Priority level (1-5)"
+      },
+      "cf_698130": {
+        "fieldId": 698130,
+        "name": "State cf_698130",
+        "type": "number",
+        "example": 2063771,
+        "description": "State identifier (dropdown value)"
+      },
+      "cf_698149": {
+        "fieldId": 698149,
+        "name": "Segment cf_698149",
+        "type": "number",
+        "example": 2063875,
+        "description": "Customer segment (e.g., Smoke & Vape)"
+      },
+      "cf_698259": {
+        "fieldId": 698259,
+        "name": "Account Opportunity cf_698259",
+        "type": "number",
+        "example": 2064436,
+        "description": "Opportunity classification (Core, Growth, etc.)"
+      },
+      "cf_698356": {
+        "fieldId": 698356,
+        "name": "Business Model cf_698356",
+        "type": "number",
+        "example": 2065273,
+        "description": "Business model type (Retail Only, Wholesale, etc.)"
+      },
+      "cf_698362": {
+        "fieldId": 698362,
+        "name": "Organization Level cf_698362",
+        "type": "number",
+        "example": 2065275,
+        "description": "Organization structure (Corp HQ, Branch, etc.)"
+      },
+      "cf_698403": {
+        "fieldId": 698403,
+        "name": "Total Orders cf_698403",
+        "type": "number",
+        "example": 38,
+        "description": "Total number of orders placed"
+      },
+      "cf_698404": {
+        "fieldId": 698404,
+        "name": "Total Spent cf_698404",
+        "type": "number",
+        "example": 49087,
+        "description": "Lifetime value / total spent (currency)"
+      },
+      "cf_698405": {
+        "fieldId": 698405,
+        "name": "First Order Date cf_698405",
+        "type": "number",
+        "example": 1704351600,
+        "description": "Unix timestamp of first order"
+      },
+      "cf_698406": {
+        "fieldId": 698406,
+        "name": "Last Order Date cf_698406",
+        "type": "number",
+        "example": 1759820400,
+        "description": "Unix timestamp of last order"
+      },
+      "cf_698407": {
+        "fieldId": 698407,
+        "name": "Average Order Value cf_698407",
+        "type": "number",
+        "example": 1291.76,
+        "description": "Average order value (currency)"
+      },
+      "cf_698409": {
+        "fieldId": 698409,
+        "name": "Order Frequency cf_698409",
+        "type": "number",
+        "example": 2066209,
+        "description": "Order frequency (Monthly, Quarterly, etc.)"
+      },
+      "cf_698434": {
+        "fieldId": 698434,
+        "name": "Payment Terms cf_698434",
+        "type": "number",
+        "example": 2066218,
+        "description": "Payment terms (ACH, Net 30, etc.)"
+      },
+      "cf_698462": {
+        "fieldId": 698462,
+        "name": "Shipping Terms cf_698462",
+        "type": "number",
+        "example": 2066265,
+        "description": "Shipping terms (Prepaid & Billed, FOB, etc.)"
+      },
+      "cf_698464": {
+        "fieldId": 698464,
+        "name": "Carrier Name cf_698464",
+        "type": "number",
+        "example": 2066267,
+        "description": "Preferred shipping carrier (UPS, FedEx, etc.)"
+      },
+      "cf_700318": {
+        "fieldId": 700318,
+        "name": "Favorite Product (s) cf_700318",
+        "type": "number",
+        "example": 2071534,
+        "description": "Most frequently ordered product"
+      },
+      "cf_712752": {
+        "fieldId": 712752,
+        "name": "Credit Limit cf_712752",
+        "type": "number",
+        "example": 0,
+        "description": "Credit limit amount"
+      },
+      "cf_712754": {
+        "fieldId": 712754,
+        "name": "Last Modified Date cf_712754",
+        "type": "number",
+        "example": 1761112800,
+        "description": "Unix timestamp of last modification"
+      },
+      "cf_713845": {
+        "fieldId": 713845,
+        "name": "Top Products cf_713845",
+        "type": "string",
+        "example": "FG- MC12 Focus+ Flow",
+        "description": "Top selling products for this customer"
+      },
+      "cf_713846": {
+        "fieldId": 713846,
+        "name": "Days Since Last Order cf_713846",
+        "type": "number",
+        "example": 9,
+        "description": "Number of days since last order"
+      },
+      "cf_715755": {
+        "fieldId": 715755,
+        "name": "On Store Locator cf_715755",
+        "type": "boolean",
+        "example": false,
+        "description": "Whether company appears on public store locator"
+      }
+    },
+    "metadataFields": {
+      "details": {
+        "type": "string",
+        "example": "Re-Allocation",
+        "description": "Additional notes/details about the company"
+      },
+      "tags": {
+        "type": "array",
+        "example": [
+          "companies import-1745004569110",
+          "us_indy_all-1750029345699"
+        ],
+        "description": "Tags for categorization and filtering"
+      },
+      "source": {
+        "type": "string",
+        "example": "copper_api_direct",
+        "description": "Source of the data import"
+      },
+      "importedAt": {
+        "type": "timestamp",
+        "example": "October 9, 2025 at 9:53:01 AM UTC-6",
+        "description": "Firestore timestamp of import"
+      },
+      "syncedFromCopperApiAt": {
+        "type": "timestamp",
+        "example": "January 14, 2026 at 3:28:18 PM UTC-7",
+        "description": "Firestore timestamp of last Copper API sync"
+      },
+      "copperUrl": {
+        "type": "string",
+        "example": "https://app.copper.com/auth/auto_login?redirect_url=...",
+        "description": "Direct link to company in Copper CRM"
+      }
+    }
+  },
+  "salesInsightsFields": {
+    "description": "Fields populated by Sync FB → Copper tool",
+    "fields": [
+      {
+        "fieldId": 712751,
+        "name": "Active Customer",
+        "type": "boolean",
+        "purpose": "Auto-marked as active when Fishbowl data exists"
+      },
+      {
+        "fieldId": 698403,
+        "name": "Total Orders",
+        "type": "number",
+        "purpose": "Total number of orders from sales_order_history"
+      },
+      {
+        "fieldId": 698404,
+        "name": "Total Spent",
+        "type": "number",
+        "purpose": "Lifetime value / total revenue"
+      },
+      {
+        "fieldId": 698405,
+        "name": "First Order Date",
+        "type": "number",
+        "purpose": "Unix timestamp of first order"
+      },
+      {
+        "fieldId": 698406,
+        "name": "Last Order Date",
+        "type": "number",
+        "purpose": "Unix timestamp of most recent order"
+      },
+      {
+        "fieldId": 698407,
+        "name": "Average Order Value",
+        "type": "number",
+        "purpose": "Average order value across all orders"
+      },
+      {
+        "fieldId": 713846,
+        "name": "Days Since Last Order",
+        "type": "number",
+        "purpose": "Days elapsed since last order (for engagement tracking)"
+      },
+      {
+        "fieldId": 713845,
+        "name": "Top Products",
+        "type": "string",
+        "purpose": "Top 3 products ordered (product + count)"
+      }
+    ]
+  },
+  "integrationNotes": {
+    "fishbowlMatching": {
+      "description": "How Fishbowl customers match to Copper companies",
+      "mapping": {
+        "fishbowl_customers.accountId": "copper_companies['Account ID cf_713477']",
+        "note": "Both are string representations of Copper's internal ID"
+      }
+    },
+    "orderDataSource": {
+      "description": "Order data comes from sales_order_history subcollection",
+      "path": "fishbowl_customers/{customerId}/sales_order_history",
+      "dateRange": "2023 to present"
+    },
+    "activeCustomerLogic": {
+      "description": "Active Customer field is a boolean",
+      "values": {
+        "true": "Active customer",
+        "false": "Inactive customer",
+        "unchecked": "Legacy string value (deprecated)"
+      },
+      "query": "Use .where('Active Customer cf_712751', '==', true) to get active customers"
+    }
+  }
+}

@@ -25,6 +25,7 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [showProcessingModal, setShowProcessingModal] = useState(false);
   const [processingStatus, setProcessingStatus] = useState('');
+  const [processingProgress, setProcessingProgress] = useState(0);
   const [calculating, setCalculating] = useState(false);
   const [commissionSummary, setCommissionSummary] = useState<CommissionSummary | null>(null);
 
@@ -89,9 +90,11 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
             const { currentOrder, totalOrders } = progress;
             const percentage = totalOrders > 0 ? Math.round((currentOrder / totalOrders) * 100) : 0;
             setProcessingStatus(`Processing: ${currentOrder}/${totalOrders} orders (${percentage}%)`);
+            setProcessingProgress(percentage);
           } else if (progress.status === 'complete') {
             clearInterval(pollInterval);
             setProcessingStatus('Complete!');
+            setProcessingProgress(100);
             setCalculating(false);
             
             const { currentOrder, totalOrders } = progress;
@@ -412,7 +415,7 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
         <ProcessingModal
           isOpen={showProcessingModal}
           status={processingStatus}
-          progress={0}
+          progress={processingProgress}
           onClose={() => setShowProcessingModal(false)}
         />
       )}
