@@ -46,6 +46,7 @@ import CustomerMap from './CustomerMap';
 import CustomersTab from './CustomersTab';
 import RulesTab from './RulesTab';
 import CalculateTab from './CalculateTab';
+import EditCommissionsTab from './EditCommissionsTab';
 import { CommissionConfig, CommissionBucket, ProductSubGoal, ActivitySubGoal, RoleCommissionScale, RepRole, CommissionEntry } from '@/types';
 import { validateWeightsSum, calculatePayout, formatCurrency, formatAttainment } from '@/lib/commission/calculator';
 import MonthYearModal from '@/components/MonthYearModal';
@@ -62,14 +63,14 @@ function SettingsPageContent() {
   const [saving, setSaving] = useState(false);
   const [selectedQuarter, setSelectedQuarter] = useState('Q4 2025');
   const [quarters, setQuarters] = useState<string[]>(['Q4 2025', 'Q1 2026']);
-  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'customers' | 'orgchart' | 'test'>('calculate');
+  const [activeTab, setActiveTab] = useState<'calculate' | 'rules' | 'customers' | 'edit' | 'orgchart' | 'test'>('calculate');
   const [rulesSubTab, setRulesSubTab] = useState<'quarterly' | 'monthly'>('quarterly');
 
   // Handle tab parameter from URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['calculate', 'rules', 'customers', 'orgchart'].includes(tabParam)) {
-      setActiveTab(tabParam as 'calculate' | 'rules' | 'customers' | 'orgchart');
+    if (tabParam && ['calculate', 'rules', 'customers', 'edit', 'orgchart'].includes(tabParam)) {
+      setActiveTab(tabParam as 'calculate' | 'rules' | 'customers' | 'edit' | 'orgchart');
     }
   }, [searchParams]);
 
@@ -2807,6 +2808,17 @@ function SettingsPageContent() {
               <Users className="w-4 h-4 inline mr-1" />
               Customers
             </button>
+            <button
+              onClick={() => setActiveTab('edit')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'edit'
+                  ? 'border-primary-500 text-primary-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <DollarSign className="w-4 h-4 inline mr-1" />
+              Edit Commissions
+            </button>
           </nav>
         </div>
       </div>
@@ -2826,6 +2838,11 @@ function SettingsPageContent() {
         {/* Customers Tab - Admin editing only (list view) */}
         {isCustomersTab && (
           <CustomersTab isAdmin={isAdmin} reps={reps} adminListOnly={true} />
+        )}
+
+        {/* Edit Commissions Tab */}
+        {activeTab === 'edit' && (
+          <EditCommissionsTab isAdmin={isAdmin} />
         )}
 
       {/* Modals that should appear outside tabs */}

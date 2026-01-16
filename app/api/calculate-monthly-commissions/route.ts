@@ -400,6 +400,12 @@ async function calculateCommissionsWithProgress(
       }
       processedOrders.add(orderKey);
       
+      // Check if order is manually excluded from commissions
+      if (order.excludeFromCommission === true) {
+        console.log(`⏭️  EXCLUDED ORDER: ${order.soNumber || order.num} - ${order.customerName} - Reason: ${order.commissionNote || 'Manual exclusion'}`);
+        continue;
+      }
+      
       // CRITICAL FIX: Check if order has any fulfilled line items (qty > 0)
       const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
         .where('salesOrderId', '==', order.salesOrderId)
