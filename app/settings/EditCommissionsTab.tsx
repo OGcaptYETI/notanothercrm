@@ -15,6 +15,10 @@ interface SalesOrder {
   excludeFromCommission?: boolean;
   commissionNote?: string;
   productDetails?: string;
+  commissionAmount?: number;
+  commissionRate?: number;
+  customerSegment?: string;
+  customerStatus?: string;
 }
 
 interface EditCommissionsTabProps {
@@ -342,10 +346,16 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
                     Date
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total
+                    Revenue
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Account Type
+                    Rate
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Commission
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Segment
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Note
@@ -391,13 +401,19 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       ${order.totalPrice?.toLocaleString() || '0'}
                     </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {order.commissionRate ? `${order.commissionRate.toFixed(1)}%` : '-'}
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-primary-600">
+                      ${order.commissionAmount?.toLocaleString() || '0'}
+                    </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        order.accountType === 'Wholesale' ? 'bg-blue-100 text-blue-800' :
-                        order.accountType === 'Distributor' ? 'bg-purple-100 text-purple-800' :
+                        order.customerSegment === 'Wholesale' || order.accountType === 'Wholesale' ? 'bg-blue-100 text-blue-800' :
+                        order.customerSegment === 'Distributor' || order.accountType === 'Distributor' ? 'bg-purple-100 text-purple-800' :
                         'bg-gray-100 text-gray-800'
                       }`}>
-                        {order.accountType}
+                        {order.customerSegment || order.accountType || 'Unknown'}
                       </span>
                     </td>
                     <td className="px-4 py-4 text-sm">
