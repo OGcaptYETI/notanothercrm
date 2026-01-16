@@ -59,6 +59,8 @@ interface MonthlyCommissionDetail {
   hasSpiff?: boolean; // Flag to indicate if order has spiff overrides
   isOverride?: boolean; // Flag to indicate if commission was manually overridden
   overrideReason?: string; // Reason for manual override
+  excludeFromCommission?: boolean; // Flag to indicate if order is excluded by admin
+  commissionNote?: string; // Admin note for exclusion/modification
 }
 
 interface OrderLineItem {
@@ -1105,8 +1107,22 @@ export default function ReportsPage() {
                             monthlyDetails
                               .filter(detail => selectedRep === 'all' || detail.repName === selectedRep)
                               .map((detail) => (
-                              <tr key={detail.id}>
-                                <td className="text-sm font-medium">{detail.orderNum}</td>
+                              <tr key={detail.id} className={detail.excludeFromCommission ? 'bg-red-50' : ''}>
+                                <td className="text-sm font-medium">
+                                  <div className="flex items-center space-x-2">
+                                    <span>{detail.orderNum}</span>
+                                    {detail.excludeFromCommission && (
+                                      <span className="px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 font-medium" title={detail.overrideReason || 'Excluded by admin'}>
+                                        Excluded
+                                      </span>
+                                    )}
+                                    {!detail.excludeFromCommission && detail.overrideReason && (
+                                      <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-700 font-medium" title={detail.overrideReason}>
+                                        Modified
+                                      </span>
+                                    )}
+                                  </div>
+                                </td>
                                 <td className="text-sm">{detail.customerName}</td>
                                 <td className="text-sm text-gray-600">{detail.repName}</td>
                                 <td>
