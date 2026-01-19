@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { metricService } from '@/lib/firebase/services/goals';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { createJustCallClient } from '@/lib/justcall/client';
+import { FieldValue } from 'firebase-admin/firestore';
 
 export async function POST(request: NextRequest) {
   try {
@@ -66,12 +66,14 @@ export async function POST(request: NextRequest) {
       durationByDate.set(dateKey, (durationByDate.get(dateKey) || 0) + talkTime);
     });
 
-    // Log metrics to goals system
+    // Log metrics to goals system using adminDb
     const metricsLogged = [];
     
     // Log call quantity metrics
     for (const [dateStr, count] of callsByDate.entries()) {
-      const metricId = await metricService.logMetric({
+      const metricRef = adminDb.collection('metrics').doc();
+      await metricRef.set({
+        id: metricRef.id,
         userId,
         type: 'phone_call_quantity',
         value: count,
@@ -80,16 +82,19 @@ export async function POST(request: NextRequest) {
         metadata: { 
           syncDate: new Date().toISOString(),
           userEmail 
-        }
+        },
+        createdAt: FieldValue.serverTimestamp()
       });
-      metricsLogged.push(metricId);
+      metricsLogged.push(metricRef.id);
     }
 
     // Log talk time metrics (in minutes)
     for (const [dateStr, seconds] of durationByDate.entries()) {
       const minutes = Math.round(seconds / 60);
       if (minutes > 0) {
-        const metricId = await metricService.logMetric({
+        const metricRef = adminDb.collection('metrics').doc();
+        await metricRef.set({
+          id: metricRef.id,
           userId,
           type: 'talk_time_minutes',
           value: minutes,
@@ -99,9 +104,10 @@ export async function POST(request: NextRequest) {
             syncDate: new Date().toISOString(),
             userEmail,
             totalSeconds: seconds
-          }
+          },
+          createdAt: FieldValue.serverTimestamp()
         });
-        metricsLogged.push(metricId);
+        metricsLogged.push(metricRef.id);
       }
     }
 
