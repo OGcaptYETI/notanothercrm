@@ -66,44 +66,55 @@ export async function POST(request: NextRequest) {
     console.log(`   To: ${toCommissionMonth}`);
     console.log(`   Reason: ${reason || 'No reason provided'}`);
 
-    // Trigger recalculation for both months
-    console.log('🔄 Triggering recalculation for both months...');
+    // Get the sales person from the order data for targeted recalculation
+    const salesPerson = orderData?.salesPerson || orderData?.repName || '';
+    
+    if (!salesPerson) {
+      console.warn('⚠️ No sales person found on order - skipping summary recalculation');
+    } else {
+      // Trigger smart recalculation for both months (only this rep)
+      console.log(`🔄 Recalculating summaries for ${salesPerson}...`);
 
-    try {
-      // Recalculate source month (where order was removed from)
-      const fromRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/fishbowl/calculate-metrics`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          month: fromMonth,
-          year: fromYear
-        })
-      });
+      try {
+        // Recalculate source month summary (where order was removed from)
+        const fromRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/recalculate-commission-summary`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            salesPerson,
+            month: fromMonth,
+            year: fromYear
+          })
+        });
 
-      if (!fromRecalcResponse.ok) {
-        console.warn(`⚠️ Failed to recalculate source month ${fromCommissionMonth}`);
-      } else {
-        console.log(`✅ Recalculated source month ${fromCommissionMonth}`);
+        if (!fromRecalcResponse.ok) {
+          console.warn(`⚠️ Failed to recalculate source month ${fromCommissionMonth} for ${salesPerson}`);
+        } else {
+          const fromResult = await fromRecalcResponse.json();
+          console.log(`✅ Recalculated ${fromCommissionMonth} for ${fromResult.summary?.repName || salesPerson}: ${fromResult.summary?.totalOrders || 0} orders, $${fromResult.summary?.totalCommission?.toLocaleString() || 0}`);
+        }
+
+        // Recalculate target month summary (where order was added to)
+        const toRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/recalculate-commission-summary`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            salesPerson,
+            month: toMonth,
+            year: toYear
+          })
+        });
+
+        if (!toRecalcResponse.ok) {
+          console.warn(`⚠️ Failed to recalculate target month ${toCommissionMonth} for ${salesPerson}`);
+        } else {
+          const toResult = await toRecalcResponse.json();
+          console.log(`✅ Recalculated ${toCommissionMonth} for ${toResult.summary?.repName || salesPerson}: ${toResult.summary?.totalOrders || 0} orders, $${toResult.summary?.totalCommission?.toLocaleString() || 0}`);
+        }
+      } catch (recalcError) {
+        console.error('❌ Error during recalculation:', recalcError);
+        // Don't fail the whole operation if recalculation fails
       }
-
-      // Recalculate target month (where order was added to)
-      const toRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/fishbowl/calculate-metrics`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          month: toMonth,
-          year: toYear
-        })
-      });
-
-      if (!toRecalcResponse.ok) {
-        console.warn(`⚠️ Failed to recalculate target month ${toCommissionMonth}`);
-      } else {
-        console.log(`✅ Recalculated target month ${toCommissionMonth}`);
-      }
-    } catch (recalcError) {
-      console.error('❌ Error during recalculation:', recalcError);
-      // Don't fail the whole operation if recalculation fails
     }
 
     return NextResponse.json({
