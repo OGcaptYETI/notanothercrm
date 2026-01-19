@@ -486,6 +486,25 @@ function normalizeHeaderString(header: string): string {
 }
 
 /**
+ * Generates all possible variants of a header (with spaces and underscores)
+ */
+function generateHeaderVariants(header: string): string[] {
+  const variants = [header];
+  
+  // Add underscore variant (spaces → underscores)
+  if (header.includes(' ')) {
+    variants.push(header.replace(/\s+/g, '_'));
+  }
+  
+  // Add space variant (underscores → spaces)
+  if (header.includes('_')) {
+    variants.push(header.replace(/_/g, ' '));
+  }
+  
+  return variants;
+}
+
+/**
  * Creates a mapping from CSV headers to standardized field names
  */
 export function createHeaderMap(csvHeaders: string[]): Map<string, string> {
@@ -501,19 +520,17 @@ export function createHeaderMap(csvHeaders: string[]): Map<string, string> {
     
     // Try to find a match in our mappings
     for (const mapping of HEADER_MAPPINGS) {
-      // Check if CSV header matches the standard name
-      if (normalizeHeaderString(mapping.standardName) === normalizedCsv) {
-        headerMap.set(csvHeader, mapping.standardName);
-        console.log(`✅ "${csvHeader}" → "${mapping.standardName}" (exact match)`);
-        matched = true;
-        break;
-      }
+      // Generate all variants of the standard name and aliases
+      const allVariants = [
+        ...generateHeaderVariants(mapping.standardName),
+        ...mapping.aliases.flatMap(alias => generateHeaderVariants(alias))
+      ];
       
-      // Check if CSV header matches any alias
-      for (const alias of mapping.aliases) {
-        if (normalizeHeaderString(alias) === normalizedCsv) {
+      // Check if CSV header matches any variant
+      for (const variant of allVariants) {
+        if (normalizeHeaderString(variant) === normalizedCsv) {
           headerMap.set(csvHeader, mapping.standardName);
-          console.log(`✅ "${csvHeader}" → "${mapping.standardName}" (via alias: "${alias}")`);
+          console.log(`✅ "${csvHeader}" → "${mapping.standardName}" (via: "${variant}")`);
           matched = true;
           break;
         }
