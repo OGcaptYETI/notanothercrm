@@ -398,7 +398,23 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       {order.postingDate ? (() => {
                         try {
-                          const date = order.postingDate?.toDate ? order.postingDate.toDate() : new Date(order.postingDate);
+                          // Handle Firestore Timestamp or string date
+                          let date: Date;
+                          if (order.postingDate?.toDate) {
+                            date = order.postingDate.toDate();
+                          } else if (typeof order.postingDate === 'string') {
+                            date = new Date(order.postingDate);
+                          } else if (order.postingDate instanceof Date) {
+                            date = order.postingDate;
+                          } else {
+                            return '-';
+                          }
+                          
+                          // Validate the date is valid
+                          if (isNaN(date.getTime())) {
+                            return '-';
+                          }
+                          
                           return date.toLocaleDateString();
                         } catch {
                           return '-';
