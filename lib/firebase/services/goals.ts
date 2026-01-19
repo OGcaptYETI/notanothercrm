@@ -68,6 +68,16 @@ export const userService = {
       const snapshot = await getDocs(q);
       return snapshot.docs.map(doc => {
         const data = doc.data();
+        
+        // Helper to convert Timestamp to Date
+        const toDate = (val: any): Date => {
+          if (!val) return new Date();
+          if (val instanceof Date) return val;
+          if (val.toDate && typeof val.toDate === 'function') return val.toDate();
+          if (val.seconds) return new Date(val.seconds * 1000);
+          return new Date();
+        };
+        
         return {
           id: doc.id,
           email: data.email || '',
@@ -77,8 +87,8 @@ export const userService = {
           copperId: data.copperId,
           photoUrl: data.photoUrl,
           passwordChanged: data.passwordChanged,
-          createdAt: data.createdAt?.toDate() || new Date(),
-          updatedAt: data.updatedAt?.toDate() || new Date()
+          createdAt: toDate(data.createdAt),
+          updatedAt: toDate(data.updatedAt)
         } as User;
       });
     } catch (error) {
