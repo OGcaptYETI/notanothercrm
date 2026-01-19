@@ -5,6 +5,92 @@ import { Timestamp } from 'firebase-admin/firestore';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/**
+ * Recalculate commission summary for a specific rep/month
+ */
+async function recalculateSummary(salesPerson: string, month: string, year: string) {
+  const commissionMonth = `${year}-${month.padStart(2, '0')}`;
+  console.log(`🔄 Recalculating summary for ${salesPerson} - ${commissionMonth}`);
+
+  // Get the rep's full name from users collection
+  const usersSnapshot = await adminDb
+    .collection('users')
+    .where('salesPerson', '==', salesPerson)
+    .limit(1)
+    .get();
+
+  let repName = salesPerson; // Default to salesPerson if not found
+  if (!usersSnapshot.empty) {
+    const userData = usersSnapshot.docs[0].data();
+    repName = userData.name || salesPerson;
+  }
+
+  // Query all commission records for this rep/month
+  const commissionsSnapshot = await adminDb
+    .collection('monthly_commissions')
+    .where('salesPerson', '==', salesPerson)
+    .where('commissionMonth', '==', commissionMonth)
+    .get();
+
+  console.log(`📊 Found ${commissionsSnapshot.size} commission records`);
+
+  // Calculate totals
+  let totalOrders = 0;
+  let totalRevenue = 0;
+  let totalCommission = 0;
+  let totalSpiffs = 0;
+  let totalExcluded = 0;
+  let excludedRevenue = 0;
+  let excludedCommission = 0;
+
+  commissionsSnapshot.docs.forEach(doc => {
+    const data = doc.data();
+    
+    if (data.excludeFromCommission) {
+      totalExcluded++;
+      excludedRevenue += data.orderRevenue || 0;
+      excludedCommission += data.commissionAmount || 0;
+    } else {
+      totalOrders++;
+      totalRevenue += data.orderRevenue || 0;
+      totalCommission += data.commissionAmount || 0;
+      totalSpiffs += data.spiffAmount || 0;
+    }
+  });
+
+  // Update or create summary document
+  const summaryId = `${salesPerson}_${commissionMonth}`;
+  const summaryRef = adminDb.collection('monthly_commission_summary').doc(summaryId);
+
+  const summaryData = {
+    salesPerson,
+    repName, // Full name like "Brandon Good"
+    commissionMonth,
+    month: commissionMonth, // Store as "2025-12" format for Reports page filtering
+    year: parseInt(year),
+    totalOrders,
+    totalRevenue,
+    totalCommission,
+    totalSpiffs,
+    totalExcluded,
+    excludedRevenue,
+    excludedCommission,
+    updatedAt: Timestamp.now(),
+    lastRecalculated: Timestamp.now()
+  };
+
+  await summaryRef.set(summaryData, { merge: true });
+
+  console.log(`✅ Updated summary for ${repName} (${salesPerson}) - ${commissionMonth}`);
+  console.log(`   Total Orders: ${totalOrders}`);
+  console.log(`   Total Revenue: $${totalRevenue.toLocaleString()}`);
+  console.log(`   Total Commission: $${totalCommission.toLocaleString()}`);
+  console.log(`   Total Spiffs: $${totalSpiffs.toLocaleString()}`);
+  console.log(`   Excluded: ${totalExcluded}`);
+
+  return summaryData;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { orderId, fromMonth, fromYear, toMonth, toYear, reason } = await request.json();
@@ -72,45 +158,15 @@ export async function POST(request: NextRequest) {
     if (!salesPerson) {
       console.warn('⚠️ No sales person found on order - skipping summary recalculation');
     } else {
-      // Trigger smart recalculation for both months (only this rep)
-      console.log(`🔄 Recalculating summaries for ${salesPerson}...`);
-
+      // Directly call recalculation function for both months (only this rep)
       try {
         // Recalculate source month summary (where order was removed from)
-        const fromRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/recalculate-commission-summary`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            salesPerson,
-            month: fromMonth,
-            year: fromYear
-          })
-        });
-
-        if (!fromRecalcResponse.ok) {
-          console.warn(`⚠️ Failed to recalculate source month ${fromCommissionMonth} for ${salesPerson}`);
-        } else {
-          const fromResult = await fromRecalcResponse.json();
-          console.log(`✅ Recalculated ${fromCommissionMonth} for ${fromResult.summary?.repName || salesPerson}: ${fromResult.summary?.totalOrders || 0} orders, $${fromResult.summary?.totalCommission?.toLocaleString() || 0}`);
-        }
+        const fromSummary = await recalculateSummary(salesPerson, fromMonth, fromYear);
+        console.log(`✅ Recalculated ${fromCommissionMonth} for ${fromSummary.repName}: ${fromSummary.totalOrders} orders, $${fromSummary.totalCommission.toLocaleString()}`);
 
         // Recalculate target month summary (where order was added to)
-        const toRecalcResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/recalculate-commission-summary`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            salesPerson,
-            month: toMonth,
-            year: toYear
-          })
-        });
-
-        if (!toRecalcResponse.ok) {
-          console.warn(`⚠️ Failed to recalculate target month ${toCommissionMonth} for ${salesPerson}`);
-        } else {
-          const toResult = await toRecalcResponse.json();
-          console.log(`✅ Recalculated ${toCommissionMonth} for ${toResult.summary?.repName || salesPerson}: ${toResult.summary?.totalOrders || 0} orders, $${toResult.summary?.totalCommission?.toLocaleString() || 0}`);
-        }
+        const toSummary = await recalculateSummary(salesPerson, toMonth, toYear);
+        console.log(`✅ Recalculated ${toCommissionMonth} for ${toSummary.repName}: ${toSummary.totalOrders} orders, $${toSummary.totalCommission.toLocaleString()}`);
       } catch (recalcError) {
         console.error('❌ Error during recalculation:', recalcError);
         // Don't fail the whole operation if recalculation fails
