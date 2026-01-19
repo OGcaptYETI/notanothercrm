@@ -41,13 +41,26 @@ export async function GET(request: NextRequest) {
     const orders = snapshot.docs.map((doc) => {
       const data = doc.data();
       
+      // Convert Firestore Timestamp to ISO string for API response
+      let postingDate = '';
+      if (data.orderDate) {
+        if (data.orderDate.toDate) {
+          // Firestore Timestamp
+          postingDate = data.orderDate.toDate().toISOString();
+        } else if (typeof data.orderDate === 'string') {
+          postingDate = data.orderDate;
+        } else if (data.orderDate instanceof Date) {
+          postingDate = data.orderDate.toISOString();
+        }
+      }
+      
       return {
         id: doc.id,
         soNumber: data.orderNum || '',
         salesOrderId: data.salesOrderId || '',
         customerName: data.customerName || '',
         salesPerson: data.salesPerson || '',
-        postingDate: data.orderDate || '',
+        postingDate,
         totalPrice: data.orderRevenue || 0,
         commissionAmount: data.commissionAmount || 0,
         commissionRate: data.commissionRate || 0,
