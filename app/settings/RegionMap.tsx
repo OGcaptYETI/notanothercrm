@@ -39,6 +39,9 @@ interface StateStats {
   sales_90d: number;
   activeCustomers: number;
   growth: number;
+  distributors: number;
+  wholesale: number;
+  retail: number;
 }
 
 interface RegionConfig {
@@ -193,7 +196,7 @@ export default function RegionMap() {
         setIsStale(hoursSinceUpdate > 24);
       }
       
-      // Calculate state stats with growth metrics
+      // Calculate state stats with growth metrics and account segments
       const stats: { [key: string]: StateStats } = {};
       customersData.forEach(c => {
         if (!stats[c.shippingState]) {
@@ -203,7 +206,10 @@ export default function RegionMap() {
             sales_30d: 0, 
             sales_90d: 0, 
             activeCustomers: 0,
-            growth: 0
+            growth: 0,
+            distributors: 0,
+            wholesale: 0,
+            retail: 0
           };
         }
         stats[c.shippingState].count++;
@@ -212,6 +218,16 @@ export default function RegionMap() {
         stats[c.shippingState].sales_90d += c.sales_90d;
         if (c.orders_30d > 0) {
           stats[c.shippingState].activeCustomers++;
+        }
+        
+        // Count account segments
+        const accountType = (c.accountType || '').toLowerCase();
+        if (accountType.includes('distributor')) {
+          stats[c.shippingState].distributors++;
+        } else if (accountType.includes('wholesale')) {
+          stats[c.shippingState].wholesale++;
+        } else if (accountType.includes('retail')) {
+          stats[c.shippingState].retail++;
         }
       });
 
@@ -772,10 +788,24 @@ export default function RegionMap() {
               </div>
             </div>
             <div>
-              <div className="font-semibold text-gray-900 mb-2">Active Accounts</div>
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-blue-600" />
-                <span className="text-xs text-gray-600">Customers with orders in last 30 days</span>
+              <div className="font-semibold text-gray-900 mb-2">Account Segments</div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-blue-600" />
+                  <span className="text-xs text-gray-600">Distributors</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-600" />
+                  <span className="text-xs text-gray-600">Wholesale</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-purple-600" />
+                  <span className="text-xs text-gray-600">Retail</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-3 h-3 text-gray-600" />
+                  <span className="text-xs text-gray-600">Active (30d orders)</span>
+                </div>
               </div>
             </div>
           </div>
@@ -925,14 +955,28 @@ export default function RegionMap() {
                       </span>
                     </div>
                     
-                    <div className="flex items-center justify-between text-xs">
-                      <span className={`flex items-center gap-1 ${intensity > 0.6 ? 'text-white/90' : 'text-gray-600'}`}>
-                        <Users className="w-3 h-3" />
-                        Active:
-                      </span>
-                      <span className={`font-semibold ${intensity > 0.6 ? 'text-white' : 'text-blue-700'}`}>
-                        {stats.activeCustomers}
-                      </span>
+                    {/* Account Segment Breakdown */}
+                    <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-xs">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-blue-600" />
+                        <span className={intensity > 0.6 ? 'text-white/90' : 'text-gray-600'}>Dist:</span>
+                        <span className={`font-semibold ${getTextColor(intensity)}`}>{stats.distributors}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-green-600" />
+                        <span className={intensity > 0.6 ? 'text-white/90' : 'text-gray-600'}>Whl:</span>
+                        <span className={`font-semibold ${getTextColor(intensity)}`}>{stats.wholesale}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-purple-600" />
+                        <span className={intensity > 0.6 ? 'text-white/90' : 'text-gray-600'}>Ret:</span>
+                        <span className={`font-semibold ${getTextColor(intensity)}`}>{stats.retail}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-2 h-2" />
+                        <span className={intensity > 0.6 ? 'text-white/90' : 'text-gray-600'}>Act:</span>
+                        <span className={`font-semibold ${intensity > 0.6 ? 'text-white' : 'text-blue-700'}`}>{stats.activeCustomers}</span>
+                      </div>
                     </div>
                     
                     {hasSignificantChange && (
