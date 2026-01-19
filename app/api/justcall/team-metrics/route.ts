@@ -39,7 +39,24 @@ export async function GET(request: NextRequest) {
       }, { status: 500 });
     }
 
-    // Get all users (remove status filter as it might not exist)
+    // Determine which period to fetch based on date range
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const now = new Date();
+    
+    let period = 'monthly'; // default
+    
+    // Check if it's a weekly range (7 days)
+    const daysDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    if (daysDiff <= 7) {
+      period = 'weekly';
+    } else if (daysDiff >= 80) {
+      period = 'quarterly';
+    }
+
+    console.log(`[Team Metrics] Fetching ${period} metrics for date range: ${startDate} to ${endDate}`);
+
+    // Get all users
     const usersSnapshot = await adminDb
       .collection('users')
       .get();
@@ -48,7 +65,7 @@ export async function GET(request: NextRequest) {
 
     const teamMetrics = [];
 
-    // Fetch metrics for each user
+    // Fetch cached metrics for each user
     for (const userDoc of usersSnapshot.docs) {
       const user = userDoc.data();
       const email = user.email;
@@ -61,55 +78,43 @@ export async function GET(request: NextRequest) {
       console.log(`[Team Metrics] Processing user: ${email}`);
 
       try {
-        // Fetch calls for this user
-        const calls = await justCallClient.getCallsByUserEmail(
-          email,
-          startDate,
-          endDate
-        );
+        // Fetch metrics from Firestore cache
+        const metricsDoc = await adminDb
+          .collection('users')
+          .doc(userDoc.id)
+          .collection('metrics')
+          .doc('justcall')
+          .collection(period)
+          .doc('current')
+          .get();
 
-        // Calculate metrics
-        const metrics = justCallClient.calculateMetrics(calls);
+        if (!metricsDoc.exists) {
+          console.log(`[Team Metrics] No cached metrics for ${email} - skipping`);
+          continue;
+        }
+
+        const metrics = metricsDoc.data();
         
-        // Get previous period for trend calculation
-        const prevStartDate = new Date(startDate);
-        prevStartDate.setDate(prevStartDate.getDate() - 30);
-        const prevCalls = await justCallClient.getCallsByUserEmail(
-          email,
-          prevStartDate.toISOString().split('T')[0],
-          startDate
-        );
-        const prevMetrics = justCallClient.calculateMetrics(prevCalls);
-
-        // Calculate trend
-        let trend: 'up' | 'down' | 'stable' = 'stable';
-        if (metrics.totalCalls > prevMetrics.totalCalls * 1.1) trend = 'up';
-        else if (metrics.totalCalls < prevMetrics.totalCalls * 0.9) trend = 'down';
-
         const memberMetric = {
           userId: userDoc.id,
           name: user.name || email.split('@')[0],
           email: email,
-          calls: metrics.totalCalls,
-          inbound: metrics.inboundCalls,
-          outbound: metrics.outboundCalls,
-          completed: metrics.completedCalls,
-          missed: metrics.missedCalls,
-          talkTime: metrics.totalDuration,
-          avgDuration: metrics.averageDuration,
-          connectionRate: metrics.totalCalls > 0 
-            ? Math.round((metrics.completedCalls / metrics.totalCalls) * 100) 
-            : 0,
-          trend: trend,
-          previousPeriodCalls: prevMetrics.totalCalls,
-          change: metrics.totalCalls - prevMetrics.totalCalls,
-          changePercent: prevMetrics.totalCalls > 0
-            ? Math.round(((metrics.totalCalls - prevMetrics.totalCalls) / prevMetrics.totalCalls) * 100)
-            : 0
+          calls: metrics?.totalCalls || 0,
+          inbound: metrics?.inboundCalls || 0,
+          outbound: metrics?.outboundCalls || 0,
+          completed: metrics?.completedCalls || 0,
+          missed: metrics?.missedCalls || 0,
+          talkTime: metrics?.totalDuration || 0,
+          avgDuration: metrics?.averageDuration || 0,
+          connectionRate: metrics?.connectionRate || 0,
+          trend: metrics?.trend || 'stable',
+          previousPeriodCalls: metrics?.previousPeriodCalls || 0,
+          change: metrics?.change || 0,
+          changePercent: metrics?.changePercent || 0
         };
         
         teamMetrics.push(memberMetric);
-        console.log(`[Team Metrics] Added ${email}: ${metrics.totalCalls} calls`);
+        console.log(`[Team Metrics] Added ${email}: ${metrics?.totalCalls || 0} calls (cached)`);
       } catch (error) {
         console.error(`[Team Metrics] Error fetching metrics for ${email}:`, error);
         // Continue with other users

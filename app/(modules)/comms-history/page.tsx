@@ -118,18 +118,36 @@ export default function CommsHistoryPage() {
     try {
       const token = await user?.getIdToken();
       
-      // Fetch my metrics
-      const response = await fetch(
-        `/api/justcall/metrics?email=${encodeURIComponent(user?.email || '')}&start_date=${dateRange.start}&end_date=${dateRange.end}`
-      );
-      
-      if (response.ok) {
-        const data = await response.json();
-        setMyMetrics(data.metrics);
+      // First, sync metrics to Firestore cache
+      const syncResponse = await fetch('/api/justcall/sync-metrics', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!syncResponse.ok) {
+        console.error('Failed to sync metrics');
       }
 
-      // If admin, fetch team metrics
-      if (isAdmin && token) {
+      // Then fetch my metrics from cache
+      const myResponse = await fetch(
+        `/api/justcall/metrics?email=${user?.email}&start_date=${dateRange.start}&end_date=${dateRange.end}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      if (myResponse.ok) {
+        const myData = await myResponse.json();
+        setMyMetrics(myData.metrics);
+      }
+
+      // Fetch team metrics if admin (also from cache)
+      if (isAdmin) {
         const teamResponse = await fetch(
           `/api/justcall/team-metrics?start_date=${dateRange.start}&end_date=${dateRange.end}`,
           {
@@ -138,7 +156,7 @@ export default function CommsHistoryPage() {
             }
           }
         );
-        
+
         if (teamResponse.ok) {
           const teamData = await teamResponse.json();
           setTeamMetrics(teamData.teamMetrics || []);

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createJustCallClient } from '@/lib/integrations/justcall/client';
+import { adminAuth, adminDb } from '@/lib/firebase/admin';
+import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfQuarter, endOfQuarter, parseISO, isWithinInterval } from 'date-fns';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/justcall/metrics
@@ -12,41 +12,88 @@ export const dynamic = 'force-dynamic';
  *   - start_date: YYYY-MM-DD (optional)
  *   - end_date: YYYY-MM-DD (optional)
  */
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const client = createJustCallClient();
-    
-    if (!client) {
-      return NextResponse.json(
-        { error: 'JustCall API not configured' },
-        { status: 500 }
-      );
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(req.url);
+    const token = authHeader.split('Bearer ')[1];
+    const decodedToken = await adminAuth.verifyIdToken(token);
+    const userId = decodedToken.uid;
+
+    const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
     const startDate = searchParams.get('start_date');
     const endDate = searchParams.get('end_date');
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email parameter is required' },
-        { status: 400 }
-      );
+    if (!email || !startDate || !endDate) {
+      return NextResponse.json({ 
+        error: 'Missing required parameters: email, start_date, end_date' 
+      }, { status: 400 });
     }
 
-    const metrics = await client.getUserMetrics(
-      email,
-      startDate || undefined,
-      endDate || undefined
-    );
+    // Determine which period to fetch based on date range
+    const start = parseISO(startDate);
+    const end = parseISO(endDate);
+    const now = new Date();
+    
+    let period = 'monthly'; // default
+    
+    // Check if it's a weekly range (7 days)
+    const weekStart = startOfWeek(now);
+    const weekEnd = endOfWeek(now);
+    if (isWithinInterval(start, { start: weekStart, end: weekEnd })) {
+      period = 'weekly';
+    }
+    
+    // Check if it's a monthly range
+    const monthStart = startOfMonth(now);
+    const monthEnd = endOfMonth(now);
+    if (isWithinInterval(start, { start: monthStart, end: monthEnd })) {
+      period = 'monthly';
+    }
+    
+    // Check if it's a quarterly range
+    const quarterStart = startOfQuarter(now);
+    const quarterEnd = endOfQuarter(now);
+    if (isWithinInterval(start, { start: quarterStart, end: quarterEnd })) {
+      period = 'quarterly';
+    }
 
-    return NextResponse.json({ metrics, email });
-  } catch (error: any) {
-    console.error('[API] /api/justcall/metrics error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Failed to fetch JustCall metrics' },
-      { status: 500 }
-    );
+    // Fetch metrics from Firestore cache
+    const metricsDoc = await adminDb
+      .collection('users')
+      .doc(userId)
+      .collection('metrics')
+      .doc('justcall')
+      .collection(period)
+      .doc('current')
+      .get();
+
+    if (!metricsDoc.exists) {
+      return NextResponse.json({ 
+        error: 'Metrics not found. Please sync metrics first.',
+        needsSync: true
+      }, { status: 404 });
+    }
+
+    const metrics = metricsDoc.data();
+
+    return NextResponse.json({
+      success: true,
+      email: email,
+      dateRange: { start: startDate, end: endDate },
+      period: period,
+      metrics: metrics,
+      cached: true
+    });
+
+  } catch (error) {
+    console.error('Error fetching JustCall metrics:', error);
+    return NextResponse.json({ 
+      error: error instanceof Error ? error.message : 'Failed to fetch metrics' 
+    }, { status: 500 });
   }
 }
