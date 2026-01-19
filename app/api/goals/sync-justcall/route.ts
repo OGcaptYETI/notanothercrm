@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'User email not found' }, { status: 400 });
     }
 
-    console.log(`[JustCall Sync] Fetching calls for ${userEmail} from ${startDate} to ${endDate}`);
+    console.log(`[JustCall Sync] Fetching calls and SMS for ${userEmail} from ${startDate} to ${endDate}`);
 
     // Fetch calls from JustCall API
     const calls = await justCallClient.getCallsByUserEmail(
@@ -52,6 +52,15 @@ export async function POST(request: NextRequest) {
     );
 
     console.log(`[JustCall Sync] Found ${calls.length} calls for ${userEmail}`);
+
+    // Fetch SMS from JustCall API
+    const smsMessages = await justCallClient.getSMSByUserEmail(
+      userEmail,
+      startDate,
+      endDate
+    );
+
+    console.log(`[JustCall Sync] Found ${smsMessages.length} SMS for ${userEmail}`);
 
     // Aggregate calls by date
     const callsByDate = new Map<string, number>();
@@ -64,6 +73,14 @@ export async function POST(request: NextRequest) {
       // Track total talk time (conversation time, not total duration)
       const talkTime = call.call_duration?.conversation_time || 0;
       durationByDate.set(dateKey, (durationByDate.get(dateKey) || 0) + talkTime);
+    });
+
+    // Aggregate SMS by date
+    const smsByDate = new Map<string, number>();
+
+    smsMessages.forEach(sms => {
+      const dateKey = sms.sent_at.split('T')[0]; // Extract YYYY-MM-DD from ISO timestamp
+      smsByDate.set(dateKey, (smsByDate.get(dateKey) || 0) + 1);
     });
 
     // Log metrics to goals system using adminDb
@@ -111,20 +128,41 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Calculate total talk time
+    // Log SMS quantity metrics
+    for (const [dateStr, count] of smsByDate.entries()) {
+      const metricRef = adminDb.collection('metrics').doc();
+      await metricRef.set({
+        id: metricRef.id,
+        userId,
+        type: 'sms_quantity',
+        value: count,
+        date: new Date(dateStr),
+        source: 'justcall',
+        metadata: { 
+          syncDate: new Date().toISOString(),
+          userEmail 
+        },
+        createdAt: FieldValue.serverTimestamp()
+      });
+      metricsLogged.push(metricRef.id);
+    }
+
+    // Calculate totals
     const totalTalkTimeSeconds = Array.from(durationByDate.values()).reduce((sum, val) => sum + val, 0);
     const totalTalkTimeMinutes = Math.round(totalTalkTimeSeconds / 60);
 
     return NextResponse.json({
       success: true,
       totalCalls: calls.length,
+      totalSMS: smsMessages.length,
       totalTalkTimeMinutes,
       metricsLogged: metricsLogged.length,
       dateRange: {
         start: startDate,
         end: endDate
       },
-      callsByDate: Object.fromEntries(callsByDate)
+      callsByDate: Object.fromEntries(callsByDate),
+      smsByDate: Object.fromEntries(smsByDate)
     });
   } catch (error: any) {
     console.error('Error syncing JustCall metrics:', error);

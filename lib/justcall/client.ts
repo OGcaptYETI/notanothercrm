@@ -90,6 +90,32 @@ export interface JustCallCallsParams {
   page?: number;
 }
 
+export interface JustCallSMSRecord {
+  id: number;
+  contact_number: string;
+  contact_name?: string;
+  agent_id?: number;
+  agent_name?: string;
+  agent_email?: string;
+  message: string;
+  direction: 'Incoming' | 'Outgoing';
+  sent_at: string; // ISO timestamp
+  delivered_at?: string;
+  status: string; // "sent", "delivered", "failed", etc.
+  justcall_number: string;
+  created_at: string;
+}
+
+export interface JustCallSMSParams {
+  agent_id?: number;
+  agent_email?: string;
+  start_date?: string; // YYYY-MM-DD format
+  end_date?: string; // YYYY-MM-DD format
+  direction?: 'Incoming' | 'Outgoing';
+  limit?: number;
+  page?: number;
+}
+
 export class JustCallClient {
   private apiKey: string;
   private apiSecret: string;
@@ -340,6 +366,122 @@ export class JustCallClient {
   ): Promise<JustCallMetrics> {
     const calls = await this.getCallsByUserEmail(email, startDate, endDate);
     return this.calculateMetrics(calls);
+  }
+
+  /**
+   * Get SMS records with filters
+   */
+  async getSMS(params: JustCallSMSParams = {}): Promise<JustCallSMSRecord[]> {
+    try {
+      const queryParams = new URLSearchParams();
+      
+      if (params.agent_id) queryParams.append('agent_id', params.agent_id.toString());
+      if (params.agent_email) queryParams.append('agent_email', params.agent_email);
+      if (params.start_date) queryParams.append('start_date', params.start_date);
+      if (params.end_date) queryParams.append('end_date', params.end_date);
+      if (params.direction) queryParams.append('direction', params.direction);
+      if (params.limit) queryParams.append('per_page', params.limit.toString());
+      if (params.page) queryParams.append('page', params.page.toString());
+
+      const endpoint = `/texts/get${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      const response = await this.request<{ data: JustCallSMSRecord[]; total?: number }>(endpoint);
+      
+      console.log(`[JustCall SMS API] Response for page ${params.page || 0}: ${response.data?.length || 0} messages`);
+      
+      return response.data || [];
+    } catch (error) {
+      console.error('[JustCall] Failed to fetch SMS:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get SMS for a specific user by email with pagination
+   */
+  async getSMSByUserEmail(
+    email: string,
+    startDate?: string,
+    endDate?: string
+  ): Promise<JustCallSMSRecord[]> {
+    const user = await this.getUserByEmail(email);
+    
+    if (!user) {
+      console.warn(`[JustCall] User not found for SMS: ${email}`);
+      return [];
+    }
+
+    // JustCall API uses pagination - fetch all pages
+    const allSMS: JustCallSMSRecord[] = [];
+    let page = 0;
+    const perPage = 100; // Max per page
+    let hasMore = true;
+
+    while (hasMore) {
+      const messages = await this.getSMS({
+        agent_id: user.id,
+        start_date: startDate,
+        end_date: endDate,
+        page: page,
+        limit: perPage,
+      });
+
+      if (messages.length === 0) {
+        hasMore = false;
+      } else {
+        allSMS.push(...messages);
+        
+        // If we got less than perPage, we've reached the end
+        if (messages.length < perPage) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      }
+
+      // Safety check to prevent infinite loops
+      if (page > 100) {
+        console.warn(`[JustCall] Stopping SMS pagination at page ${page} for ${email}`);
+        hasMore = false;
+      }
+    }
+
+    console.log(`[JustCall] Fetched ${allSMS.length} SMS for ${email} across ${page + 1} pages`);
+    return allSMS;
+  }
+
+  /**
+   * Calculate SMS metrics from SMS records
+   */
+  calculateSMSMetrics(messages: JustCallSMSRecord[]): {
+    totalSMS: number;
+    inboundSMS: number;
+    outboundSMS: number;
+    smsByDay: Record<string, number>;
+    smsByStatus: Record<string, number>;
+  } {
+    const metrics = {
+      totalSMS: messages.length,
+      inboundSMS: 0,
+      outboundSMS: 0,
+      smsByDay: {} as Record<string, number>,
+      smsByStatus: {} as Record<string, number>,
+    };
+
+    messages.forEach(sms => {
+      // Direction
+      if (sms.direction === 'Incoming') metrics.inboundSMS++;
+      if (sms.direction === 'Outgoing') metrics.outboundSMS++;
+
+      // Status
+      const status = sms.status || 'Unknown';
+      metrics.smsByStatus[status] = (metrics.smsByStatus[status] || 0) + 1;
+
+      // SMS by day (extract date from sent_at timestamp)
+      const date = sms.sent_at.split('T')[0]; // Get YYYY-MM-DD
+      metrics.smsByDay[date] = (metrics.smsByDay[date] || 0) + 1;
+    });
+
+    return metrics;
   }
 }
 
