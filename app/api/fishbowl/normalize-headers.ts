@@ -175,6 +175,7 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Bill to name',
     aliases: [
       'bill to name',
+      'bill_to_name',
       'billtoname',
       'billing name',
       'billingname'
@@ -185,8 +186,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Billing Address',
     aliases: [
       'billing address',
+      'billing_address',
       'billingaddress',
       'bill to address',
+      'bill_to_address',
       'billtoaddress'
     ],
     description: 'Billing street address'
@@ -195,8 +198,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Billing City',
     aliases: [
       'billing city',
+      'billing_city',
       'billingcity',
       'bill to city',
+      'bill_to_city',
       'billtocity'
     ],
     description: 'Billing city'
@@ -205,8 +210,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Billing State',
     aliases: [
       'billing state',
+      'billing_state',
       'billingstate',
       'bill to state',
+      'bill_to_state',
       'billtostate'
     ],
     description: 'Billing state/province'
@@ -215,8 +222,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Billing Zip',
     aliases: [
       'billing zip',
+      'billing_zip',
       'billingzip',
       'bill to zip',
+      'bill_to_zip',
       'billtozip',
       'billing postal code',
       'billingpostalcode'
@@ -227,8 +236,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Product ID',
     aliases: [
       'product id',
+      'product_id',
       'productid',
       'prod id',
+      'prod_id',
       'prodid'
     ],
     description: 'Product identifier'
@@ -248,8 +259,10 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     standardName: 'Product description',
     aliases: [
       'product description',
+      'product_description',
       'productdescription',
       'prod description',
+      'prod_description',
       'proddescription',
       'description'
     ],
