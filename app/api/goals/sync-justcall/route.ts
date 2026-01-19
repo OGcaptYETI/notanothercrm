@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { metricService } from '@/lib/firebase/services/goals';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
+import { createJustCallClient } from '@/lib/justcall/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,36 +21,55 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing date range' }, { status: 400 });
     }
 
-    // Fetch JustCall data from Firestore (assuming it's synced there)
-    // This will be populated by a separate JustCall webhook/sync process
-    const justCallSnapshot = await adminDb
-      .collection('justcall_activities')
-      .where('userId', '==', userId)
-      .where('timestamp', '>=', new Date(startDate))
-      .where('timestamp', '<=', new Date(endDate))
-      .get();
+    // Create JustCall client
+    const justCallClient = createJustCallClient();
+    if (!justCallClient) {
+      return NextResponse.json({ 
+        error: 'JustCall API not configured. Please add JUSTCALL_API_KEY and JUSTCALL_API_SECRET to environment variables.' 
+      }, { status: 500 });
+    }
 
-    let totalCalls = 0;
-    let totalSMS = 0;
+    // Get user's email from Firestore
+    const userDoc = await adminDb.collection('users').doc(userId).get();
+    if (!userDoc.exists) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+    
+    const userData = userDoc.data();
+    const userEmail = userData?.email;
+    
+    if (!userEmail) {
+      return NextResponse.json({ error: 'User email not found' }, { status: 400 });
+    }
+
+    console.log(`[JustCall Sync] Fetching calls for ${userEmail} from ${startDate} to ${endDate}`);
+
+    // Fetch calls from JustCall API
+    const calls = await justCallClient.getCallsByUserEmail(
+      userEmail,
+      startDate,
+      endDate
+    );
+
+    console.log(`[JustCall Sync] Found ${calls.length} calls for ${userEmail}`);
+
+    // Aggregate calls by date
     const callsByDate = new Map<string, number>();
-    const smsByDate = new Map<string, number>();
+    const durationByDate = new Map<string, number>();
 
-    justCallSnapshot.forEach(doc => {
-      const data = doc.data();
-      const dateKey = new Date(data.timestamp.toDate()).toISOString().split('T')[0];
+    calls.forEach(call => {
+      const dateKey = call.call_date; // Already in YYYY-MM-DD format
+      callsByDate.set(dateKey, (callsByDate.get(dateKey) || 0) + 1);
       
-      if (data.type === 'call') {
-        totalCalls++;
-        callsByDate.set(dateKey, (callsByDate.get(dateKey) || 0) + 1);
-      } else if (data.type === 'sms') {
-        totalSMS++;
-        smsByDate.set(dateKey, (smsByDate.get(dateKey) || 0) + 1);
-      }
+      // Track total talk time (conversation time, not total duration)
+      const talkTime = call.call_duration?.conversation_time || 0;
+      durationByDate.set(dateKey, (durationByDate.get(dateKey) || 0) + talkTime);
     });
 
     // Log metrics to goals system
     const metricsLogged = [];
     
+    // Log call quantity metrics
     for (const [dateStr, count] of callsByDate.entries()) {
       const metricId = await metricService.logMetric({
         userId,
@@ -57,31 +77,54 @@ export async function POST(request: NextRequest) {
         value: count,
         date: new Date(dateStr),
         source: 'justcall',
-        metadata: { syncDate: new Date().toISOString() }
+        metadata: { 
+          syncDate: new Date().toISOString(),
+          userEmail 
+        }
       });
       metricsLogged.push(metricId);
     }
 
-    for (const [dateStr, count] of smsByDate.entries()) {
-      const metricId = await metricService.logMetric({
-        userId,
-        type: 'sms_quantity',
-        value: count,
-        date: new Date(dateStr),
-        source: 'justcall',
-        metadata: { syncDate: new Date().toISOString() }
-      });
-      metricsLogged.push(metricId);
+    // Log talk time metrics (in minutes)
+    for (const [dateStr, seconds] of durationByDate.entries()) {
+      const minutes = Math.round(seconds / 60);
+      if (minutes > 0) {
+        const metricId = await metricService.logMetric({
+          userId,
+          type: 'talk_time_minutes',
+          value: minutes,
+          date: new Date(dateStr),
+          source: 'justcall',
+          metadata: { 
+            syncDate: new Date().toISOString(),
+            userEmail,
+            totalSeconds: seconds
+          }
+        });
+        metricsLogged.push(metricId);
+      }
     }
+
+    // Calculate total talk time
+    const totalTalkTimeSeconds = Array.from(durationByDate.values()).reduce((sum, val) => sum + val, 0);
+    const totalTalkTimeMinutes = Math.round(totalTalkTimeSeconds / 60);
 
     return NextResponse.json({
       success: true,
-      totalCalls,
-      totalSMS,
-      metricsLogged: metricsLogged.length
+      totalCalls: calls.length,
+      totalTalkTimeMinutes,
+      metricsLogged: metricsLogged.length,
+      dateRange: {
+        start: startDate,
+        end: endDate
+      },
+      callsByDate: Object.fromEntries(callsByDate)
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error syncing JustCall metrics:', error);
-    return NextResponse.json({ error: 'Failed to sync JustCall data' }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message || 'Failed to sync JustCall data',
+      details: error.toString()
+    }, { status: 500 });
   }
 }
