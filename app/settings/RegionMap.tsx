@@ -111,31 +111,63 @@ export default function RegionMap() {
       console.log(`Loaded ${regionsData.length} regions`);
       setRegions(regionsData);
 
-      console.log('Loading customer summaries...');
-      const snapshot = await getDocs(collection(db, 'customer_sales_summary'));
+      console.log('Loading customers and calculating revenue from commissions...');
+      
+      // Load customers from fishbowl_customers
+      const customersSnapshot = await getDocs(collection(db, 'fishbowl_customers'));
       const customersData: CustomerSummary[] = [];
       
-      snapshot.forEach((doc) => {
+      // Load all commission data to calculate revenue
+      const commissionsSnapshot = await getDocs(collection(db, 'monthly_commissions'));
+      const customerRevenue = new Map<string, { total: number; ytd: number; orders: number; ordersYTD: number }>();
+      
+      const currentYear = new Date().getFullYear();
+      
+      commissionsSnapshot.forEach((doc) => {
         const data = doc.data();
+        const customerId = data.customerId || '';
+        const revenue = data.orderRevenue || 0;
+        const commissionMonth = data.commissionMonth || '';
+        const year = commissionMonth.split('-')[0];
+        
+        if (!customerRevenue.has(customerId)) {
+          customerRevenue.set(customerId, { total: 0, ytd: 0, orders: 0, ordersYTD: 0 });
+        }
+        
+        const stats = customerRevenue.get(customerId)!;
+        stats.total += revenue;
+        stats.orders += 1;
+        
+        if (parseInt(year) === currentYear) {
+          stats.ytd += revenue;
+          stats.ordersYTD += 1;
+        }
+      });
+      
+      customersSnapshot.forEach((doc) => {
+        const data = doc.data();
+        const customerId = doc.id;
+        const revenue = customerRevenue.get(customerId) || { total: 0, ytd: 0, orders: 0, ordersYTD: 0 };
+        
         customersData.push({
-          customerId: data.customerId || doc.id,
-          customerName: data.customerName || '',
-          totalSales: data.totalSales || 0,
-          totalSalesYTD: data.totalSalesYTD || 0,
-          orderCount: data.orderCount || 0,
-          orderCountYTD: data.orderCountYTD || 0,
-          sales_30d: data.sales_30d || 0,
-          sales_90d: data.sales_90d || 0,
-          sales_12m: data.sales_12m || 0,
-          orders_30d: data.orders_30d || 0,
-          orders_90d: data.orders_90d || 0,
-          orders_12m: data.orders_12m || 0,
-          avgOrderValue: data.avgOrderValue || 0,
+          customerId,
+          customerName: data.name || '',
+          totalSales: revenue.total,
+          totalSalesYTD: revenue.ytd,
+          orderCount: revenue.orders,
+          orderCountYTD: revenue.ordersYTD,
+          sales_30d: 0, // Not calculated yet
+          sales_90d: 0, // Not calculated yet
+          sales_12m: revenue.total,
+          orders_30d: 0,
+          orders_90d: 0,
+          orders_12m: revenue.orders,
+          avgOrderValue: revenue.orders > 0 ? revenue.total / revenue.orders : 0,
           salesPerson: data.salesPerson || '',
           salesPersonName: data.salesPersonName || '',
-          salesPersonRegion: data.salesPersonRegion || '',
+          salesPersonRegion: data.region || '',
           region: data.region || '',
-          regionColor: data.regionColor || '#808080',
+          regionColor: '#808080',
           accountType: data.accountType || '',
           shippingState: normalizeState(data.shippingState || ''),
           shippingCity: data.shippingCity || '',
@@ -143,7 +175,7 @@ export default function RegionMap() {
         });
       });
 
-      console.log(`Loaded ${customersData.length} customer summaries`);
+      console.log(`Loaded ${customersData.length} customers with revenue from ${commissionsSnapshot.size} commission records`);
       setCustomers(customersData);
       
       // Check last updated timestamp

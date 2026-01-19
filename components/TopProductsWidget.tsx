@@ -184,15 +184,14 @@ export function TopProductsWidget({
       setDisplayPeriod(periodLabel);
 
       // Query commissioned orders for the period
-      // monthly_commissions uses: commissionYear (number) and commissionMonth (string "YYYY-MM")
+      // monthly_commissions uses: commissionMonth (string "YYYY-MM" format)
       const monthPadded = String(targetMonth).padStart(2, '0');
       const monthYearFormat = `${targetYear}-${monthPadded}`;
       
-      console.log(`🔍 Querying monthly_commissions for commissionYear=${targetYear}, commissionMonth=${monthYearFormat}, rep=${selectedRep}`);
+      console.log(`🔍 Querying monthly_commissions for commissionMonth=${monthYearFormat}, rep=${selectedRep}`);
       
       // Build query with optional rep filter
       const constraints = [
-        where('commissionYear', '==', targetYear),
         where('commissionMonth', '==', monthYearFormat)
       ];
       

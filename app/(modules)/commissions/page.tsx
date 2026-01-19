@@ -292,7 +292,7 @@ export default function CommissionsPage() {
       </div>
 
       {/* Quick Actions - Moved Higher */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <button
           onClick={() => router.push('/reports')}
           className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
@@ -305,21 +305,6 @@ export default function CommissionsPage() {
             View detailed commission reports and quarterly bonuses
           </p>
         </button>
-
-        {canViewAllCommissions && (
-          <button
-            onClick={() => router.push('/monthly-reports')}
-            className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-left"
-          >
-            <div className="flex items-center mb-3">
-              <DollarSign className="w-6 h-6 text-[#93D500] mr-3" />
-              <h3 className="font-semibold text-gray-900">Monthly Commissions</h3>
-            </div>
-            <p className="text-sm text-gray-600">
-              View monthly commission reports and details
-            </p>
-          </button>
-        )}
 
         {canViewAllCommissions && (
           <button
@@ -400,63 +385,65 @@ export default function CommissionsPage() {
         </>
       )}
 
-      {/* Quarterly Bonus Stats */}
-      <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quarterly Bonus</h2>
-        <div className="grid md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Total Payout</h3>
-              <DollarSign className="w-5 h-5 text-[#93D500]" />
+      {/* Quarterly Bonus Stats - HIDDEN (Feature not in use yet) */}
+      {false && (
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quarterly Bonus</h2>
+          <div className="grid md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-gray-600">Total Payout</h3>
+                <DollarSign className="w-5 h-5 text-[#93D500]" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                ${stats.totalPayout.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Current quarter{canViewAllCommissions && ' (Team Total)'}
+              </p>
             </div>
-            <p className="text-2xl font-bold text-gray-900">
-              ${stats.totalPayout.toLocaleString()}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Current quarter{canViewAllCommissions && ' (Team Total)'}
-            </p>
-          </div>
 
-          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Avg Attainment</h3>
-              <Target className="w-5 h-5 text-[#93D500]" />
+            <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-gray-600">Avg Attainment</h3>
+                <Target className="w-5 h-5 text-[#93D500]" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {(stats.avgAttainment * 100).toFixed(1)}%
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Across all buckets{canViewAllCommissions && ' (Team Avg)'}
+              </p>
             </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {(stats.avgAttainment * 100).toFixed(1)}%
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Across all buckets{canViewAllCommissions && ' (Team Avg)'}
-            </p>
-          </div>
 
-          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Budget</h3>
-              <Award className="w-5 h-5 text-[#93D500]" />
+            <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-gray-600">Budget</h3>
+                <Award className="w-5 h-5 text-[#93D500]" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                ${stats.budget.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                {canViewAllCommissions ? 'Total team budget' : 'Max bonus per rep'}
+              </p>
             </div>
-            <p className="text-2xl font-bold text-gray-900">
-              ${stats.budget.toLocaleString()}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              {canViewAllCommissions ? 'Total team budget' : 'Max bonus per rep'}
-            </p>
-          </div>
 
-          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Utilization</h3>
-              <TrendingUp className="w-5 h-5 text-[#93D500]" />
+            <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-gray-600">Utilization</h3>
+                <TrendingUp className="w-5 h-5 text-[#93D500]" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {(stats.utilization * 100).toFixed(1)}%
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Of total budget{canViewAllCommissions && ' (Team)'}
+              </p>
             </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {(stats.utilization * 100).toFixed(1)}%
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Of total budget{canViewAllCommissions && ' (Team)'}
-            </p>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Top Products Widget */}
       {canViewAllCommissions && (
@@ -475,50 +462,7 @@ export default function CommissionsPage() {
         </div>
       )}
 
-      {/* Commission Structure Info */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Commission Structure</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="font-medium text-gray-900 mb-3">Buckets</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">A - New Business</span>
-                <span className="font-medium">50%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">B - Product Mix</span>
-                <span className="font-medium">15%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">C - Maintain Business</span>
-                <span className="font-medium">20%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">D - Effort</span>
-                <span className="font-medium">15%</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-medium text-gray-900 mb-3">Rules</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-start">
-                <span className="text-gray-600">• Minimum attainment to pay:</span>
-                <span className="font-medium ml-2">75%</span>
-              </div>
-              <div className="flex items-start">
-                <span className="text-gray-600">• Maximum performance cap:</span>
-                <span className="font-medium ml-2">125%</span>
-              </div>
-              <div className="flex items-start">
-                <span className="text-gray-600">• Max bonus per rep:</span>
-                <span className="font-medium ml-2">$25,000</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Commission Structure Info - REMOVED (Part of unused quarterly bonus feature) */}
     </div>
   );
 }
