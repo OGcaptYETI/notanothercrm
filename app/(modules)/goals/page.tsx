@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { useAuth } from '@/lib/firebase/auth-context';
-import { goalService, metricService, settingsService } from '@/lib/firebase/services/goals';
-import { Goal, GoalPeriod, GoalType, Metric } from '@/types/goals';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { goalService, metricService, settingsService, userService } from '@/lib/firebase/services/goals';
+import { Goal, GoalPeriod, GoalType, Metric, User as GoalsUser } from '@/types/goals';
 import { eachDayOfInterval, endOfMonth, format, startOfMonth, subDays } from 'date-fns';
 import GoalGrid from '@/components/goals-tracker/organisms/GoalGrid';
 import GoalSetter from '@/components/goals-tracker/molecules/GoalSetter';
@@ -22,7 +22,7 @@ const goalTypes: GoalType[] = [
 ];
 
 export default function GoalsPage() {
-  const { user } = useAuth();
+  const { user, userProfile, isAdmin } = useAuth();
   const [period, setPeriod] = useState<GoalPeriod>('weekly');
   const [goals, setGoals] = useState<Goal[]>([]);
   const [metrics, setMetrics] = useState<Metric[]>([]);
@@ -32,14 +32,31 @@ export default function GoalsPage() {
   const [setterType, setSetterType] = useState<GoalType | null>(null);
   const [calendarMarks, setCalendarMarks] = useState<Record<string, boolean>>({});
   const [calendarColors, setCalendarColors] = useState<Record<string, { pct: number; color: string }>>({});
+  
+  // Admin features: view all users
+  const [allUsers, setAllUsers] = useState<GoalsUser[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const viewingUserId = selectedUserId || user?.uid || '';
+
+  // Load all users for admin
+  useEffect(() => {
+    if (!isAdmin) return;
+    
+    const loadUsers = async () => {
+      const users = await userService.getAllUsers();
+      setAllUsers(users);
+    };
+    
+    loadUsers();
+  }, [isAdmin]);
 
   // Load user goals and metrics
   useEffect(() => {
-    if (!user) return;
+    if (!user || !viewingUserId) return;
 
     const loadData = async () => {
       try {
-        const g = await goalService.getUserGoals(user.uid, period);
+        const g = await goalService.getUserGoals(viewingUserId, period);
         setGoals(g);
         
         const today = new Date();
@@ -48,7 +65,7 @@ export default function GoalsPage() {
         const colorData: Record<string, { pct: number; color: string }> = {};
         
         for (const t of goalTypes) {
-          const ms = await metricService.getMetrics(user.uid, t, start, today);
+          const ms = await metricService.getMetrics(viewingUserId, t, start, today);
           ms.forEach(m => { 
             const k = format(m.date, 'yyyy-MM-dd'); 
             perDay[k] = true;
@@ -78,7 +95,7 @@ export default function GoalsPage() {
         setCalendarColors(colorData);
         
         // Subscribe to real-time metrics
-        const unsubscribe = metricService.subscribeToMetrics(user.uid, setMetrics);
+        const unsubscribe = metricService.subscribeToMetrics(viewingUserId, setMetrics);
         return () => unsubscribe();
       } catch (error) {
         console.error('Error loading goals data:', error);
@@ -87,7 +104,7 @@ export default function GoalsPage() {
     };
 
     loadData();
-  }, [user, period]);
+  }, [user, period, viewingUserId]);
 
   // Load team aggregates
   useEffect(() => {
@@ -177,20 +194,49 @@ export default function GoalsPage() {
             <div className="w-10 h-10 rounded-lg bg-kanva-green text-white grid place-items-center">🌿</div>
             <div>
               <div className="text-sm text-gray-500">Kanva Botanicals</div>
-              <div className="font-semibold">{user?.displayName || user?.email?.split('@')[0] || 'Sales Rep'}</div>
-              <div className="text-xs text-gray-500">{user?.email || ''}</div>
+              <div className="font-semibold">
+                {isAdmin && selectedUserId 
+                  ? allUsers.find(u => u.id === selectedUserId)?.name || 'User'
+                  : userProfile?.name || user?.displayName || user?.email?.split('@')[0] || 'Sales Rep'}
+              </div>
+              <div className="text-xs text-gray-500">
+                {isAdmin && selectedUserId 
+                  ? allUsers.find(u => u.id === selectedUserId)?.email || ''
+                  : user?.email || ''}
+              </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
-            {(['weekly','monthly','quarterly'] as GoalPeriod[]).map((p) => (
-              <button 
-                key={p} 
-                onClick={() => setPeriod(p)} 
-                className={`px-3 py-1 rounded-md text-sm ${period===p?'bg-white text-kanva-green shadow-sm':'text-gray-600'}`}
+          <div className="flex items-center gap-3">
+            {/* Admin User Selector */}
+            {isAdmin && allUsers.length > 0 && (
+              <select
+                value={selectedUserId || user?.uid || ''}
+                onChange={(e) => setSelectedUserId(e.target.value === user?.uid ? null : e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-kanva-green focus:border-transparent"
               >
-                {p[0].toUpperCase()+p.slice(1)}
-              </button>
-            ))}
+                <option value={user?.uid || ''}>My Goals</option>
+                <optgroup label="Team Members">
+                  {allUsers.map((u) => (
+                    <option key={u.id} value={u.id}>
+                      {u.name} ({u.email})
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            )}
+            
+            {/* Period Selector */}
+            <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+              {(['weekly','monthly','quarterly'] as GoalPeriod[]).map((p) => (
+                <button 
+                  key={p} 
+                  onClick={() => setPeriod(p)} 
+                  className={`px-3 py-1 rounded-md text-sm ${period===p?'bg-white text-kanva-green shadow-sm':'text-gray-600'}`}
+                >
+                  {p[0].toUpperCase()+p.slice(1)}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -329,11 +375,11 @@ export default function GoalsPage() {
 
       {/* NO SHARPENING THE SAW SECTION */}
 
-      {showSetter && setterType && user && (
+      {showSetter && setterType && viewingUserId && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="max-w-md w-full">
             <GoalSetter
-              userId={user.uid}
+              userId={viewingUserId}
               goalType={setterType}
               period={period}
               existingGoal={goals.find(g=>g.type===setterType) || undefined}

@@ -33,7 +33,7 @@ export default function Sidebar({ query = '' }: SidebarProps) {
   const sidebarItems = [
     {
       name: 'Goals',
-      href: `/goals/dashboard${query}`,
+      href: `/goals${query}`,
       icon: Target,
       active: pathname?.startsWith('/goals')
     },
