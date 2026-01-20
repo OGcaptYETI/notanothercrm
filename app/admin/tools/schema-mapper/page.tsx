@@ -168,6 +168,39 @@ function SchemaMapperContent() {
     return connected;
   }, [edges]);
 
+  // Update connected fields after edge creation
+  const updateConnectedFieldsForNodes = React.useCallback(() => {
+    const connected: Record<string, string[]> = {};
+    edges.forEach(edge => {
+      const sourceField = edge.data?.sourceField || edge.data?.fromField;
+      const targetField = edge.data?.targetField || edge.data?.toField;
+      
+      if (sourceField) {
+        if (!connected[edge.source]) connected[edge.source] = [];
+        if (!connected[edge.source].includes(sourceField)) {
+          connected[edge.source].push(sourceField);
+        }
+      }
+      
+      if (targetField) {
+        if (!connected[edge.target]) connected[edge.target] = [];
+        if (!connected[edge.target].includes(targetField)) {
+          connected[edge.target].push(targetField);
+        }
+      }
+    });
+    
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          connectedFields: connected[node.id] || [],
+        },
+      }))
+    );
+  }, [edges]);
+
   // Handle field drag-and-drop to create relationships
   const handleFieldDrop = useCallback((targetField: string, dragData: any) => {
     const sourceCollectionId = dragData.collectionId;
@@ -204,9 +237,14 @@ function SchemaMapperContent() {
       },
     };
     
-    setEdges((eds) => [...eds, newEdge]);
+    setEdges((eds) => {
+      const newEdges = [...eds, newEdge];
+      // Update connected fields after adding edge
+      setTimeout(() => updateConnectedFieldsForNodes(), 0);
+      return newEdges;
+    });
     console.log(`✅ Created relationship: ${sourceCollectionId}.${sourceField} → ${targetCollectionId}.${targetField}`);
-  }, [nodes, setEdges]);
+  }, [nodes, setEdges, updateConnectedFieldsForNodes]);
 
   // Add collection to canvas
   const addCollectionToCanvas = async (collection: any) => {
@@ -237,21 +275,6 @@ function SchemaMapperContent() {
     
     setNodes((nds) => [...nds, newNode]);
   };
-
-  // Update nodes with connected fields whenever edges change
-  React.useEffect(() => {
-    const connectedFields = getConnectedFields();
-    setNodes((nds) =>
-      nds.map((node) => ({
-        ...node,
-        data: {
-          ...node.data,
-          connectedFields: connectedFields[node.id] || [],
-          onFieldDrop: handleFieldDrop,
-        },
-      }))
-    );
-  }, [edges, getConnectedFields, handleFieldDrop]);
 
   // Define custom node types
   const nodeTypes: NodeTypes = useMemo(
