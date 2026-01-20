@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -13,9 +13,11 @@ import ReactFlow, {
   MarkerType,
   Panel,
   ReactFlowProvider,
+  NodeTypes,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Database, Save, Download, Upload, Plus, Trash2, GitBranch, Link2 } from 'lucide-react';
+import { CollectionNode } from './components/CollectionNode';
 
 function SchemaMapperContent() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -47,6 +49,26 @@ function SchemaMapperContent() {
     }
   };
 
+  // Schema-based lookup detection
+  const KNOWN_LOOKUPS: Record<string, Record<string, string>> = {
+    copper_companies: {
+      cf_698467: 'fishbowl_sales_orders.customerId',
+      id: 'copper_people.company_id',
+      assignee_id: 'users.copper_user_id',
+    },
+    copper_people: {
+      company_id: 'copper_companies.id',
+      assignee_id: 'users.copper_user_id',
+    },
+    fishbowl_sales_orders: {
+      customerId: 'copper_companies.cf_698467',
+      salesRep: 'users.email',
+    },
+    fishbowl_sales_order_items: {
+      orderId: 'fishbowl_sales_orders.id',
+    },
+  };
+
   // Load fields for a collection
   const loadCollectionFields = async (collectionName: string) => {
     if (collectionFields[collectionName]) return; // Already loaded
@@ -61,8 +83,25 @@ function SchemaMapperContent() {
 
       if (response.ok) {
         const data = await response.json();
-        const fields = data.fields?.all || [];
-        setCollectionFields((prev) => ({ ...prev, [collectionName]: fields }));
+        const rawFields = data.fields?.all || [];
+        
+        // Enhance fields with lookup information from schema
+        const enhancedFields = rawFields.map((field: any) => ({
+          ...field,
+          isLookup: KNOWN_LOOKUPS[collectionName]?.[field.fieldName] !== undefined,
+          lookupTarget: KNOWN_LOOKUPS[collectionName]?.[field.fieldName],
+        }));
+        
+        setCollectionFields((prev) => ({ ...prev, [collectionName]: enhancedFields }));
+        
+        // Update node with field data
+        setNodes((nds) =>
+          nds.map((node) =>
+            node.id === collectionName
+              ? { ...node, data: { ...node.data, fields: enhancedFields } }
+              : node
+          )
+        );
       }
     } catch (err) {
       console.error(`Error loading fields for ${collectionName}:`, err);
@@ -75,7 +114,7 @@ function SchemaMapperContent() {
   const addCollectionToCanvas = async (collection: any) => {
     const newNode: Node = {
       id: collection.id,
-      type: 'default',
+      type: 'collectionNode',
       position: { 
         x: Math.random() * 500 + 100, 
         y: Math.random() * 300 + 100 
@@ -84,13 +123,8 @@ function SchemaMapperContent() {
         label: collection.id,
         collectionName: collection.id,
         documentCount: collection.countNote,
-      },
-      style: {
-        background: '#fff',
-        border: '2px solid #4F46E5',
-        borderRadius: '8px',
-        padding: '10px',
-        width: 200,
+        fields: [],
+        expanded: false,
       },
     };
 
@@ -99,6 +133,14 @@ function SchemaMapperContent() {
     // Load fields for this collection
     await loadCollectionFields(collection.id);
   };
+
+  // Define custom node types
+  const nodeTypes: NodeTypes = useMemo(
+    () => ({
+      collectionNode: CollectionNode,
+    }),
+    []
+  );
 
   // Handle connection between nodes
   const onConnect = useCallback(
@@ -326,6 +368,7 @@ function SchemaMapperContent() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            nodeTypes={nodeTypes}
             fitView
             attributionPosition="bottom-left"
           >
