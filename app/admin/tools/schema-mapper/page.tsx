@@ -251,7 +251,7 @@ function SchemaMapperContent() {
         },
       }))
     );
-  }, [edges, getConnectedFields, handleFieldDrop, setNodes]);
+  }, [edges, getConnectedFields, handleFieldDrop]);
 
   // Define custom node types
   const nodeTypes: NodeTypes = useMemo(
