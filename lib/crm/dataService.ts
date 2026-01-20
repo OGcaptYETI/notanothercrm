@@ -282,7 +282,7 @@ export async function getTotalAccountsCount(): Promise<{
 }
 
 /**
- * Load accounts with pagination and filtering
+ * Load accounts with pagination and filtering from copper_companies
  * Uses indexed queries for efficient search
  */
 export async function loadUnifiedAccounts(
@@ -290,122 +290,67 @@ export async function loadUnifiedAccounts(
 ): Promise<PaginatedResult<UnifiedAccount>> {
   const { pageSize = 50, offset = 0, searchTerm, filters } = options;
   const accounts: UnifiedAccount[] = [];
-  const accountMap = new Map<string, UnifiedAccount>();
   let totalCount = 0;
   
-  // If searching, use indexed queries
-  if (searchTerm && searchTerm.trim()) {
-    const term = searchTerm.toLowerCase().trim();
-    console.log(`Searching accounts with indexed queries for: "${term}"`);
-    
-    const searchLimit = 100;
-    
-    // Search by name (prefix match)
-    const nameQuery = query(
-      collection(db, 'fishbowl_customers'),
-      where('name', '>=', term),
-      where('name', '<=', term + '\uf8ff'),
-      limit(searchLimit)
-    );
-    
-    const nameResults = await getDocs(nameQuery);
-    
-    nameResults.forEach((doc) => {
-      if (!accountMap.has(doc.id)) {
-        const fb = doc.data();
-        const account = buildAccountFromFirestore(doc.id, fb);
-        accountMap.set(doc.id, account);
-      }
-    });
-    
-    accounts.push(...Array.from(accountMap.values()));
-    totalCount = accounts.length;
-    
-    console.log(`Found ${accounts.length} accounts using indexed queries (reads: ~${nameResults.size})`);
-  } else {
-    // Build query with filters
-    let fishbowlQuery = query(
-      collection(db, 'fishbowl_customers'),
-      orderBy('name'),
-      limit(pageSize)
-    );
-    
-    // Apply filters if provided
-    if (filters?.salesPerson) {
-      fishbowlQuery = query(
-        collection(db, 'fishbowl_customers'),
-        where('salesPerson', '==', filters.salesPerson),
-        orderBy('name'),
-        limit(pageSize)
-      );
-    }
-  
-    // Load fishbowl_customers with pagination
-    try {
-      const fishbowlSnapshot = await getDocs(fishbowlQuery);
-      totalCount = fishbowlSnapshot.size;
+  try {
+    // If searching, use indexed queries
+    if (searchTerm && searchTerm.trim()) {
+      const term = searchTerm.toLowerCase().trim();
+      console.log(`Searching accounts in copper_companies for: "${term}"`);
       
-      fishbowlSnapshot.forEach((doc) => {
-        const fb = doc.data();
-        
-        const account: UnifiedAccount = {
-          id: doc.id,
-          source: 'fishbowl',
-          fishbowlId: fb.id || fb.customerNum || doc.id,
-          copperId: fb.copperId ? Number(fb.copperId) : undefined,
-          
-          // Core fields from Fishbowl
-          name: fb.name || fb.customerContact || 'Unknown',
-          accountNumber: fb.accountId || fb.accountNumber || fb.customerNum,
-          website: fb.website,
-          phone: fb.phone,
-          email: fb.email,
-          
-          // Address
-          shippingStreet: fb.shippingAddress,
-          shippingCity: fb.shippingCity,
-          shippingState: fb.shippingState,
-          shippingZip: fb.shippingZip,
-          
-          // Classification
-          accountType: parseAccountType(fb.accountType),
-          region: fb.region,
-          segment: fb.segment,
-          customerPriority: fb.customerPriority,
-          
-          // Terms
-          paymentTerms: fb.paymentTerms,
-          shippingTerms: fb.shippingTerms,
-          carrierName: fb.carrierName,
-          
-          // Sales
-          salesPerson: fb.salesPerson || fb.fishbowlUsername,
-          totalOrders: fb.totalOrders || 0,
-          totalSpent: fb.totalSpent || 0,
-          lastOrderDate: fb.lastOrderDate?.toDate?.() || undefined,
-          firstOrderDate: fb.firstOrderDate?.toDate?.() || undefined,
-          
-          // Primary Contact (from Copper if available)
-          primaryContactId: fb['Primary Contact ID']?.toString() || fb.primaryContactId?.toString(),
-          primaryContactName: fb['Primary Contact'] || fb.primaryContactName,
-          
-          // Status
-          status: determineAccountStatus(fb, undefined),
-          isActiveCustomer: fb.isActiveCustomer,
-          
-          // Metadata
-          createdAt: fb.createdAt?.toDate?.(),
-          updatedAt: fb.updatedAt?.toDate?.(),
-          notes: fb.notes,
-        };
-        
+      const searchLimit = 100;
+      
+      // Search by name (prefix match)
+      const nameQuery = query(
+        collection(db, 'copper_companies'),
+        where('name', '>=', term),
+        where('name', '<=', term + '\uf8ff'),
+        limit(searchLimit)
+      );
+      
+      const nameResults = await getDocs(nameQuery);
+      
+      nameResults.forEach((doc) => {
+        const data = doc.data();
+        const account = buildAccountFromCopper(doc.id, data);
         accounts.push(account);
       });
       
-      console.log(`Loaded ${accounts.length} accounts (page size: ${pageSize})`);
-    } catch (error) {
-      console.error('Error loading fishbowl_customers:', error);
+      totalCount = accounts.length;
+      
+      console.log(`Found ${accounts.length} accounts using indexed queries`);
+    } else {
+      // Build query for copper_companies
+      let copperQuery = query(
+        collection(db, 'copper_companies'),
+        orderBy('name'),
+        limit(pageSize)
+      );
+      
+      // Apply filters if provided
+      if (filters?.salesPerson) {
+        copperQuery = query(
+          collection(db, 'copper_companies'),
+          where('Owned By', '==', filters.salesPerson),
+          orderBy('name'),
+          limit(pageSize)
+        );
+      }
+  
+      // Load copper_companies with pagination
+      const copperSnapshot = await getDocs(copperQuery);
+      totalCount = copperSnapshot.size;
+      
+      copperSnapshot.forEach((doc) => {
+        const data = doc.data();
+        const account = buildAccountFromCopper(doc.id, data);
+        accounts.push(account);
+      });
+      
+      console.log(`Loaded ${accounts.length} accounts from copper_companies`);
     }
+  } catch (error) {
+    console.error('Error loading accounts from copper_companies:', error);
   }
   
   return {
@@ -415,49 +360,59 @@ export async function loadUnifiedAccounts(
   };
 }
 
-// Helper function to build account from Firestore data
-function buildAccountFromFirestore(docId: string, fb: DocumentData): UnifiedAccount {
+// Helper function to build account from copper_companies data
+function buildAccountFromCopper(docId: string, data: DocumentData): UnifiedAccount {
+  // Parse address from copper data
+  const address = data.address || {};
+  const street = address.street || data.street || data.Street || '';
+  const city = address.city || data.city || data.City || '';
+  const state = address.state || data.state || data.State || '';
+  const zip = address.postal_code || data.zip || data['Postal Code'] || '';
+  
   return {
     id: docId,
-    source: 'fishbowl',
-    fishbowlId: fb.id || fb.customerNum || docId,
-    copperId: fb.copperId ? Number(fb.copperId) : undefined,
+    source: 'copper',
+    copperId: data.id || data['Copper ID'] || Number(docId),
     
-    name: fb.name || fb.customerContact || 'Unknown',
-    accountNumber: fb.accountId || fb.accountNumber || fb.customerNum,
-    website: fb.website,
-    phone: fb.phone,
-    email: fb.email,
+    name: data.name || data.Name || 'Unknown',
+    accountNumber: data.cf_713477 || data['Account ID cf_713477'],
+    website: data.websites?.[0] || '',
+    phone: data.phone_numbers?.[0]?.number || data.phone || data.Phone || '',
+    email: data.email || data.Email || '',
     
-    shippingStreet: fb.shippingAddress,
-    shippingCity: fb.shippingCity,
-    shippingState: fb.shippingState,
-    shippingZip: fb.shippingZip,
+    shippingStreet: street,
+    shippingCity: city,
+    shippingState: state,
+    shippingZip: zip,
     
-    accountType: parseAccountType(fb.accountType),
-    region: fb.region,
-    segment: fb.segment,
-    customerPriority: fb.customerPriority,
+    // Classification
+    accountType: parseAccountType(data.cf_675914 || data['Account Type cf_675914']),
+    region: data.cf_680701 || data['Region cf_680701'],
     
-    paymentTerms: fb.paymentTerms,
-    shippingTerms: fb.shippingTerms,
-    carrierName: fb.carrierName,
+    // Copper custom fields
+    accountOrderId: data.cf_698467 || data['Account Order ID cf_698467'],
+    copperUrl: data.copperUrl,
+    contactType: data['Contact Type'] || data.contact_type_id,
+    inactiveDays: data['Inactive Days'],
+    interactionCount: data['Interaction Count'] || data.interaction_count,
+    lastContacted: data['Last Contacted'] ? new Date(data['Last Contacted'] * 1000) : undefined,
+    ownedBy: data['Owned By'],
+    ownerId: data['Owner Id'] || data.assignee_id,
     
-    salesPerson: fb.salesPerson || fb.fishbowlUsername,
-    totalOrders: fb.totalOrders || 0,
-    totalSpent: fb.totalSpent || 0,
-    lastOrderDate: fb.lastOrderDate?.toDate?.() || undefined,
-    firstOrderDate: fb.firstOrderDate?.toDate?.() || undefined,
+    // Primary Contact
+    primaryContactId: data['Primary Contact ID']?.toString() || data.primary_contact_id?.toString(),
+    primaryContactName: data['Primary Contact'],
     
-    primaryContactId: fb['Primary Contact ID']?.toString() || fb.primaryContactId?.toString(),
-    primaryContactName: fb['Primary Contact'] || fb.primaryContactName,
+    // Status
+    status: data.cf_712751 || data['Active Customer cf_712751'] ? 'active' : 'prospect',
+    isActiveCustomer: data.cf_712751 || data['Active Customer cf_712751'],
     
-    status: determineAccountStatus(fb, undefined),
-    isActiveCustomer: fb.isActiveCustomer,
-    
-    createdAt: fb.createdAt?.toDate?.(),
-    updatedAt: fb.updatedAt?.toDate?.(),
-    notes: fb.notes,
+    // Metadata
+    createdAt: data['Created At'] ? new Date(data['Created At'] * 1000) : 
+               data.date_created ? new Date(data.date_created * 1000) : undefined,
+    updatedAt: data['Updated At'] ? new Date(data['Updated At'] * 1000) : 
+               data.date_modified ? new Date(data.date_modified * 1000) : undefined,
+    notes: data.details || data.notes || '',
   };
 }
 
