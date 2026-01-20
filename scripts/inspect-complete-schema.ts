@@ -191,6 +191,30 @@ async function main() {
   console.log('   2. Load schema-mapper-config.json into Visual Schema Mapper');
   console.log('   3. Define missing relationships on the canvas');
   console.log('   4. Save and implement corrected schema\n');
+  
+  // Initialize schema in Firestore DB
+  console.log('📤 Initializing schema in Firestore DB...');
+  try {
+    const initResponse = await fetch('http://localhost:3000/api/schema-config', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(mapperConfig),
+    });
+    
+    if (initResponse.ok) {
+      const result: any = await initResponse.json();
+      console.log(`✅ Schema saved to Firestore!`);
+      console.log(`   - ${result.stats?.collections || 0} collections`);
+      console.log(`   - ${result.stats?.relationships || 0} relationships`);
+      console.log(`   - ${result.stats?.nodes || 0} nodes auto-positioned\n`);
+      console.log('🎨 Open Visual Schema Mapper to see your schema with relationships!\n');
+    } else {
+      console.error('⚠️  Failed to initialize DB. Schema saved to files only.');
+    }
+  } catch (err) {
+    console.error('⚠️  Could not connect to API. Make sure dev server is running.');
+    console.error('   Schema saved to files. You can manually load it later.\n');
+  }
 }
 
 if (require.main === module) {
