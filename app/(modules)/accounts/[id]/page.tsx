@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useAccount, useAccountContacts, useAccountOrders, useAccountSales } from '@/lib/crm/hooks';
@@ -27,6 +27,9 @@ import {
   MessageSquare,
   Activity,
   Plus,
+  TrendingDown,
+  Clock,
+  BarChart3,
 } from 'lucide-react';
 
 export default function AccountDetailPage() {
@@ -40,6 +43,13 @@ export default function AccountDetailPage() {
   const { data: orders = [], isLoading: loadingOrders } = useAccountOrders(accountId);
   const { data: salesSummary, isLoading: loadingSales } = useAccountSales(accountId);
   
+  // Tab state
+  const [activeTab, setActiveTab] = useState<'activity' | 'insights'>('activity');
+  
+  // Customer sales summary data
+  const [customerSummary, setCustomerSummary] = useState<any>(null);
+  const [loadingSummary, setLoadingSummary] = useState(false);
+  
   // Collapsible sections state
   const [sectionsOpen, setSectionsOpen] = useState({
     info: true,
@@ -51,6 +61,41 @@ export default function AccountDetailPage() {
   
   const toggleSection = (section: keyof typeof sectionsOpen) => {
     setSectionsOpen(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+  
+  // Load customer sales summary when insights tab is active
+  useEffect(() => {
+    if (activeTab === 'insights' && !customerSummary && user) {
+      loadCustomerSummary();
+    }
+  }, [activeTab, user]);
+  
+  const loadCustomerSummary = async () => {
+    setLoadingSummary(true);
+    try {
+      const token = await user?.getIdToken();
+      const response = await fetch(`/api/customers/${accountId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setCustomerSummary(data.customer);
+      }
+    } catch (error) {
+      console.error('Error loading customer summary:', error);
+    } finally {
+      setLoadingSummary(false);
+    }
+  };
+  
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(value);
   };
 
   if (authLoading) {
@@ -351,15 +396,49 @@ export default function AccountDetailPage() {
           </div>
         </div>
 
-        {/* Center Column - Activity Feed */}
+        {/* Center Column - Tabbed Content */}
         <div className="flex-1 bg-white overflow-y-auto">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">Activity</h2>
-              <button className="px-3 py-1.5 text-sm text-[#93D500] border border-[#93D500] rounded-lg hover:bg-[#93D500]/10">
-                Create Note
+          {/* Tabs */}
+          <div className="border-b border-gray-200 px-6 pt-4">
+            <div className="flex gap-6">
+              <button
+                onClick={() => setActiveTab('activity')}
+                className={`pb-3 px-1 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'activity'
+                    ? 'border-[#93D500] text-[#93D500]'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Activity className="w-4 h-4" />
+                  Activity
+                </div>
+              </button>
+              <button
+                onClick={() => setActiveTab('insights')}
+                className={`pb-3 px-1 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'insights'
+                    ? 'border-[#93D500] text-[#93D500]'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" />
+                  Sales Insights
+                </div>
               </button>
             </div>
+          </div>
+          
+          <div className="p-6">
+            {activeTab === 'activity' && (
+              <>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900">Activity</h2>
+                  <button className="px-3 py-1.5 text-sm text-[#93D500] border border-[#93D500] rounded-lg hover:bg-[#93D500]/10">
+                    Create Note
+                  </button>
+                </div>
             
             {/* Activity Timeline */}
             <div className="space-y-4">
@@ -406,6 +485,187 @@ export default function AccountDetailPage() {
                 </div>
               )}
             </div>
+              </>
+            )}
+            
+            {activeTab === 'insights' && (
+              <>
+                {loadingSummary ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#93D500]"></div>
+                  </div>
+                ) : customerSummary ? (
+                  <div className="space-y-6">
+                    {/* Key Metrics */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-green-700">Lifetime Value</span>
+                          <DollarSign className="w-5 h-5 text-green-600" />
+                        </div>
+                        <p className="text-2xl font-bold text-green-900">{formatCurrency(customerSummary.totalSales)}</p>
+                        <p className="text-xs text-green-600 mt-1">
+                          YTD: {formatCurrency(customerSummary.totalSalesYTD)}
+                        </p>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-blue-700">Total Orders</span>
+                          <ShoppingCart className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <p className="text-2xl font-bold text-blue-900">{customerSummary.orderCount}</p>
+                        <p className="text-xs text-blue-600 mt-1">
+                          YTD: {customerSummary.orderCountYTD}
+                        </p>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-purple-700">Avg Order Value</span>
+                          <BarChart3 className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <p className="text-2xl font-bold text-purple-900">{formatCurrency(customerSummary.avgOrderValue)}</p>
+                        <p className="text-xs text-purple-600 mt-1">
+                          Last: {formatCurrency(customerSummary.lastOrderAmount)}
+                        </p>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border border-orange-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-orange-700">Velocity</span>
+                          <Clock className="w-5 h-5 text-orange-600" />
+                        </div>
+                        <p className="text-2xl font-bold text-orange-900">{customerSummary.velocity.toFixed(1)}</p>
+                        <p className="text-xs text-orange-600 mt-1">orders/month</p>
+                      </div>
+                    </div>
+
+                    {/* Trend & Activity */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                          {customerSummary.trend >= 0 ? (
+                            <TrendingUp className="w-5 h-5 text-green-600" />
+                          ) : (
+                            <TrendingDown className="w-5 h-5 text-red-600" />
+                          )}
+                          Ordering Trend
+                        </h3>
+                        <div className="space-y-4">
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-gray-600">Last 90 Days</span>
+                              <span className="text-xl font-bold text-gray-900">
+                                {formatCurrency(customerSummary.sales_90d)}
+                              </span>
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {customerSummary.orders_90d} orders
+                            </div>
+                          </div>
+                          <div className={`flex items-center gap-2 p-3 rounded-lg ${
+                            customerSummary.trend >= 0 ? 'bg-green-50' : 'bg-red-50'
+                          }`}>
+                            {customerSummary.trend >= 0 ? (
+                              <TrendingUp className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <TrendingDown className="w-5 h-5 text-red-600" />
+                            )}
+                            <span className={`font-semibold ${
+                              customerSummary.trend >= 0 ? 'text-green-700' : 'text-red-700'
+                            }`}>
+                              {customerSummary.trend >= 0 ? '+' : ''}{customerSummary.trend.toFixed(1)}%
+                            </span>
+                            <span className="text-sm text-gray-600">vs previous 90 days</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                          <Calendar className="w-5 h-5 text-[#93D500]" />
+                          Recent Activity
+                        </h3>
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-600">Last Order</span>
+                            <span className="font-medium text-gray-900">
+                              {customerSummary.lastOrderDate ? new Date(customerSummary.lastOrderDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-600">Days Since Last Order</span>
+                            <span className={`font-medium ${
+                              customerSummary.daysSinceLastOrder && customerSummary.daysSinceLastOrder > 90 
+                                ? 'text-red-600' 
+                                : 'text-gray-900'
+                            }`}>
+                              {customerSummary.daysSinceLastOrder || 'N/A'} days
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-600">First Order</span>
+                            <span className="font-medium text-gray-900">
+                              {customerSummary.firstOrderDate ? new Date(customerSummary.firstOrderDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}
+                            </span>
+                          </div>
+                          <div className="pt-3 border-t">
+                            <div className="text-sm text-gray-600 mb-2">Last 30 Days</div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-gray-600">{customerSummary.orders_30d} orders</span>
+                              <span className="font-semibold text-gray-900">{formatCurrency(customerSummary.sales_30d)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Top Products */}
+                    {customerSummary.skuMix && customerSummary.skuMix.length > 0 && (
+                      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                          <Package className="w-5 h-5 text-[#93D500]" />
+                          Top Products
+                        </h3>
+                        <div className="overflow-x-auto">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead>
+                              <tr>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
+                                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Revenue</th>
+                                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Orders</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                              {customerSummary.skuMix.slice(0, 10).map((product: any, idx: number) => (
+                                <tr key={idx} className="hover:bg-gray-50">
+                                  <td className="px-4 py-3 text-sm text-gray-900">{product.productName}</td>
+                                  <td className="px-4 py-3 text-sm text-gray-600">{product.sku}</td>
+                                  <td className="px-4 py-3 text-sm text-gray-900 text-right">{product.quantity}</td>
+                                  <td className="px-4 py-3 text-sm text-gray-900 text-right font-medium">
+                                    {formatCurrency(product.revenue)}
+                                  </td>
+                                  <td className="px-4 py-3 text-sm text-gray-600 text-right">{product.orderCount}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <BarChart3 className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                    <p className="text-sm text-gray-500">No sales insights available</p>
+                    <p className="text-xs text-gray-400 mt-1">Sales data is being processed and will appear here soon</p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
 
