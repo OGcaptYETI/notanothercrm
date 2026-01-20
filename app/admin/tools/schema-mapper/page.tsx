@@ -1,0 +1,420 @@
+'use client';
+
+import React, { useState, useCallback, useEffect } from 'react';
+import ReactFlow, {
+  Node,
+  Edge,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Connection,
+  MarkerType,
+  Panel,
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+import { Database, Save, Download, Upload, Plus, Trash2, GitBranch } from 'lucide-react';
+
+interface CollectionNode extends Node {
+  data: {
+    label: string;
+    collectionName: string;
+    documentCount: string;
+    fields?: string[];
+  };
+}
+
+interface RelationshipEdge extends Edge {
+  data?: {
+    type: '1:1' | '1:many' | 'many:many';
+    fromField?: string;
+    toField?: string;
+  };
+}
+
+export default function SchemaMapperPage() {
+  const [nodes, setNodes, onNodesChange] = useNodesState<CollectionNode>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<RelationshipEdge>([]);
+  const [allCollections, setAllCollections] = useState<any[]>([]);
+  const [selectedEdge, setSelectedEdge] = useState<RelationshipEdge | null>(null);
+  const [showRelationshipModal, setShowRelationshipModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Load all collections on mount
+  useEffect(() => {
+    loadCollections();
+  }, []);
+
+  const loadCollections = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/firestore-collections-list');
+      if (response.ok) {
+        const data = await response.json();
+        setAllCollections(data.collections || []);
+      }
+    } catch (err) {
+      console.error('Error loading collections:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Add collection to canvas
+  const addCollectionToCanvas = (collection: any) => {
+    const newNode: CollectionNode = {
+      id: collection.id,
+      type: 'default',
+      position: { 
+        x: Math.random() * 500 + 100, 
+        y: Math.random() * 300 + 100 
+      },
+      data: {
+        label: collection.id,
+        collectionName: collection.id,
+        documentCount: collection.countNote,
+      },
+      style: {
+        background: '#fff',
+        border: '2px solid #4F46E5',
+        borderRadius: '8px',
+        padding: '10px',
+        width: 200,
+      },
+    };
+
+    setNodes((nds) => [...nds, newNode]);
+  };
+
+  // Handle connection between nodes
+  const onConnect = useCallback(
+    (params: Connection) => {
+      const newEdge: RelationshipEdge = {
+        ...params,
+        id: `${params.source}-${params.target}`,
+        type: 'smoothstep',
+        animated: true,
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+          width: 20,
+          height: 20,
+        },
+        data: {
+          type: '1:many', // Default relationship type
+        },
+        style: {
+          stroke: '#4F46E5',
+          strokeWidth: 2,
+        },
+      };
+
+      setEdges((eds) => addEdge(newEdge, eds));
+      setSelectedEdge(newEdge);
+      setShowRelationshipModal(true);
+    },
+    [setEdges]
+  );
+
+  // Update relationship type
+  const updateRelationshipType = (edgeId: string, type: '1:1' | '1:many' | 'many:many') => {
+    setEdges((eds) =>
+      eds.map((edge) => {
+        if (edge.id === edgeId) {
+          return {
+            ...edge,
+            data: { ...edge.data, type },
+            label: type,
+            style: {
+              ...edge.style,
+              stroke: type === '1:1' ? '#10B981' : type === '1:many' ? '#4F46E5' : '#F59E0B',
+            },
+          };
+        }
+        return edge;
+      })
+    );
+  };
+
+  // Save schema configuration
+  const saveSchema = async () => {
+    const schema = {
+      nodes: nodes.map((node) => ({
+        id: node.id,
+        position: node.position,
+        data: node.data,
+      })),
+      edges: edges.map((edge) => ({
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        data: edge.data,
+      })),
+      savedAt: new Date().toISOString(),
+    };
+
+    // Save to localStorage for now (later we'll save to Firestore)
+    localStorage.setItem('schema-mapper-config', JSON.stringify(schema));
+    alert('Schema saved successfully!');
+  };
+
+  // Load schema configuration
+  const loadSchema = () => {
+    const saved = localStorage.getItem('schema-mapper-config');
+    if (saved) {
+      const schema = JSON.parse(saved);
+      setNodes(schema.nodes || []);
+      setEdges(schema.edges || []);
+      alert('Schema loaded successfully!');
+    } else {
+      alert('No saved schema found');
+    }
+  };
+
+  // Export schema as JSON
+  const exportSchema = () => {
+    const schema = {
+      nodes,
+      edges,
+      exportedAt: new Date().toISOString(),
+    };
+    const blob = new Blob([JSON.stringify(schema, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'firestore-schema.json';
+    a.click();
+  };
+
+  // Clear canvas
+  const clearCanvas = () => {
+    if (confirm('Are you sure you want to clear the canvas?')) {
+      setNodes([]);
+      setEdges([]);
+    }
+  };
+
+  return (
+    <div className="h-screen flex flex-col bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <GitBranch className="w-8 h-8 text-indigo-600" />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Visual Schema Mapper</h1>
+              <p className="text-sm text-gray-500">
+                Drag collections onto canvas and connect them to define relationships
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button
+              onClick={saveSchema}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            >
+              <Save className="w-4 h-4" />
+              Save Schema
+            </button>
+            <button
+              onClick={loadSchema}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              <Upload className="w-4 h-4" />
+              Load Schema
+            </button>
+            <button
+              onClick={exportSchema}
+              className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              <Download className="w-4 h-4" />
+              Export JSON
+            </button>
+            <button
+              onClick={clearCanvas}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+            >
+              <Trash2 className="w-4 h-4" />
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 flex">
+        {/* Collections Sidebar */}
+        <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">
+                Collections ({allCollections.length})
+              </h2>
+              <button
+                onClick={loadCollections}
+                disabled={loading}
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
+                {loading ? 'Loading...' : 'Refresh'}
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              {allCollections.map((collection) => {
+                const isOnCanvas = nodes.some((node) => node.id === collection.id);
+                return (
+                  <div
+                    key={collection.id}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      isOnCanvas
+                        ? 'border-green-300 bg-green-50'
+                        : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-mono text-sm font-medium text-gray-900 truncate">
+                          {collection.id}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {collection.countNote} documents
+                        </div>
+                      </div>
+                      {!isOnCanvas && (
+                        <button
+                          onClick={() => addCollectionToCanvas(collection)}
+                          className="ml-2 p-1 text-indigo-600 hover:bg-indigo-100 rounded"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* React Flow Canvas */}
+        <div className="flex-1 relative">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            fitView
+            attributionPosition="bottom-left"
+          >
+            <Background />
+            <Controls />
+            
+            <Panel position="top-right" className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-900">Legend</h3>
+                <div className="space-y-1 text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-1 bg-green-500"></div>
+                    <span>1:1 Relationship</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-1 bg-indigo-500"></div>
+                    <span>1:Many Relationship</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-1 bg-orange-500"></div>
+                    <span>Many:Many Relationship</span>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-gray-200 mt-2">
+                  <p className="text-xs text-gray-600">
+                    <strong>Tip:</strong> Drag collections from the sidebar, then drag from one node&apos;s edge to another to create relationships.
+                  </p>
+                </div>
+              </div>
+            </Panel>
+          </ReactFlow>
+
+          {/* Stats Panel */}
+          <div className="absolute bottom-4 left-4 bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Database className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-900">
+                  {nodes.length} Collections
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <GitBranch className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-900">
+                  {edges.length} Relationships
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Relationship Modal */}
+      {showRelationshipModal && selectedEdge && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Define Relationship
+            </h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Relationship Type
+                </label>
+                <div className="space-y-2">
+                  {(['1:1', '1:many', 'many:many'] as const).map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => {
+                        updateRelationshipType(selectedEdge.id, type);
+                        setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, type } });
+                      }}
+                      className={`w-full p-3 text-left rounded-lg border-2 transition-colors ${
+                        selectedEdge.data?.type === type
+                          ? 'border-indigo-500 bg-indigo-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="font-medium text-gray-900">{type}</div>
+                      <div className="text-xs text-gray-500">
+                        {type === '1:1' && 'One-to-one relationship'}
+                        {type === '1:many' && 'One-to-many relationship'}
+                        {type === 'many:many' && 'Many-to-many relationship (requires junction table)'}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowRelationshipModal(false)}
+                  className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                >
+                  Done
+                </button>
+                <button
+                  onClick={() => {
+                    setEdges((eds) => eds.filter((e) => e.id !== selectedEdge.id));
+                    setShowRelationshipModal(false);
+                  }}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -9,7 +9,8 @@ import {
   Users,
   ArrowRightLeft,
   FileSpreadsheet,
-  Map
+  Map,
+  GitBranch
 } from 'lucide-react';
 
 const tools = [
@@ -68,6 +69,13 @@ const tools = [
     href: '/admin/tools/firebase-db-mapper',
     icon: Map,
     color: 'bg-indigo-100 text-indigo-600'
+  },
+  {
+    name: 'Visual Schema Mapper',
+    description: 'Visual drag-and-drop tool to map relationships and generate code',
+    href: '/admin/tools/schema-mapper',
+    icon: GitBranch,
+    color: 'bg-purple-100 text-purple-600'
   }
 ];
 
