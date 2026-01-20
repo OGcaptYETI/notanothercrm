@@ -264,6 +264,44 @@ export class JustCallClient {
     startDate?: string,
     endDate?: string
   ): Promise<JustCallCallRecord[]> {
+    // First get the user to find their agent_id
+    const user = await this.getUserByEmail(email);
+    
+    if (!user) {
+      console.log(`[JustCall] User not found: ${email}`);
+      return [];
+    }
+
+    return this.getCalls({
+      agent_id: user.id,
+      start_date: startDate,
+      end_date: endDate,
+    });
+  }
+
+  /**
+   * Get calls for a specific user by agent_id (avoids extra API call)
+   */
+  async getCallsByAgentId(
+    agentId: number,
+    startDate?: string,
+    endDate?: string
+  ): Promise<JustCallCallRecord[]> {
+    return this.getCalls({
+      agent_id: agentId,
+      start_date: startDate,
+      end_date: endDate,
+    });
+  }
+
+  /**
+   * Get calls for a specific user by email with pagination
+   */
+  async getCallsByUserEmailWithPagination(
+    email: string,
+    startDate?: string,
+    endDate?: string
+  ): Promise<JustCallCallRecord[]> {
     const user = await this.getUserByEmail(email);
     
     if (!user) {

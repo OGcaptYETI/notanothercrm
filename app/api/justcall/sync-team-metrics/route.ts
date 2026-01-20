@@ -54,9 +54,22 @@ export async function POST(request: NextRequest) {
       }
     ];
 
-    // Get all users
+    // Fetch JustCall users list ONCE to avoid rate limiting
+    console.log('[Sync Team] Fetching JustCall users list...');
+    const justCallUsers = await justCallClient.getUsers();
+    console.log(`[Sync Team] Found ${justCallUsers.length} JustCall users`);
+    
+    // Create email to agent_id map
+    const emailToAgentId = new Map<string, number>();
+    justCallUsers.forEach(jcUser => {
+      if (jcUser.email && jcUser.id) {
+        emailToAgentId.set(jcUser.email.toLowerCase(), jcUser.id);
+      }
+    });
+
+    // Get all users from Firestore
     const usersSnapshot = await adminDb.collection('users').get();
-    console.log(`[Sync Team] Found ${usersSnapshot.size} users to sync`);
+    console.log(`[Sync Team] Found ${usersSnapshot.size} Firestore users to sync`);
 
     const userResults = [];
 
@@ -70,22 +83,29 @@ export async function POST(request: NextRequest) {
         continue;
       }
 
-      console.log(`[Sync Team] Syncing metrics for ${userEmail}`);
+      // Get agent_id from cached map
+      const agentId = emailToAgentId.get(userEmail.toLowerCase());
+      if (!agentId) {
+        console.log(`[Sync Team] Skipping ${userEmail} - not found in JustCall`);
+        continue;
+      }
+
+      console.log(`[Sync Team] Syncing metrics for ${userEmail} (Agent ID: ${agentId})`);
       const periodResults = [];
 
       // Sync each period for this user
       for (const period of periods) {
         try {
-          // Fetch current period calls
-          const calls = await justCallClient.getCallsByUserEmail(
-            userEmail,
+          // Fetch current period calls using agent_id directly
+          const calls = await justCallClient.getCallsByAgentId(
+            agentId,
             period.start.toISOString().split('T')[0],
             period.end.toISOString().split('T')[0]
           );
 
           // Fetch previous period calls for trend
-          const prevCalls = await justCallClient.getCallsByUserEmail(
-            userEmail,
+          const prevCalls = await justCallClient.getCallsByAgentId(
+            agentId,
             period.prevStart.toISOString().split('T')[0],
             period.prevEnd.toISOString().split('T')[0]
           );
