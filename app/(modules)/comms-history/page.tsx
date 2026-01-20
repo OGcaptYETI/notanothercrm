@@ -32,6 +32,7 @@ interface TeamMemberMetrics {
   previousPeriodCalls: number;
   change: number;
   changePercent: number;
+  callsByDay?: Record<string, number>;
 }
 
 interface TeamTotals {
@@ -305,6 +306,17 @@ export default function CommsHistoryPage() {
       {/* My Metrics */}
       {myMetrics && (
         <>
+          {/* Section Header */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border-l-4 border-blue-500">
+            <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <div className="p-2 bg-blue-500 rounded-lg">
+                <Phone className="w-5 h-5 text-white" />
+              </div>
+              My Performance
+            </h2>
+            <p className="text-sm text-gray-600 mt-1 ml-11">Your personal call metrics for this {selectedPeriod}</p>
+          </div>
+
           {/* Key Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Total Calls */}
@@ -381,7 +393,7 @@ export default function CommsHistoryPage() {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-kanva-green" />
-              Call Performance
+              My Call Performance
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
