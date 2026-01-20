@@ -8,7 +8,8 @@ import {
   Upload,
   Users,
   ArrowRightLeft,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Map
 } from 'lucide-react';
 
 const tools = [
@@ -60,6 +61,13 @@ const tools = [
     href: '/admin/tools/copper-create-missing',
     icon: RefreshCw,
     color: 'bg-yellow-100 text-yellow-600'
+  },
+  {
+    name: 'Firebase DB Mapper',
+    description: 'Map Firestore collections to understand data structure and relationships',
+    href: '/admin/tools/firebase-db-mapper',
+    icon: Map,
+    color: 'bg-indigo-100 text-indigo-600'
   }
 ];
 
