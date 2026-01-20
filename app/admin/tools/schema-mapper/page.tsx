@@ -77,10 +77,16 @@ function SchemaMapperContent() {
             collectionsWithRelationships.add(edge.target);
           });
           
-          // Filter nodes to only those with relationships
-          const filteredNodes = config.nodes?.filter((node: any) => 
+          // Filter nodes to only those with relationships and attach field data
+          const filteredNodes = (config.nodes?.filter((node: any) => 
             collectionsWithRelationships.has(node.id)
-          ) || [];
+          ) || []).map((node: any) => ({
+            ...node,
+            data: {
+              ...node.data,
+              fields: fieldsMap[node.id] || node.data.fields || [],
+            }
+          }));
           
           setNodes(filteredNodes);
           console.log(`✅ Loaded ${filteredNodes.length} collections with relationships`);
@@ -200,6 +206,7 @@ function SchemaMapperContent() {
       }))
     );
   }, [edges]);
+
 
   // Handle field drag-and-drop to create relationships
   const handleFieldDrop = useCallback((targetField: string, dragData: any) => {
