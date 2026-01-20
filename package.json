@@ -13,7 +13,9 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "deploy": "npm run build && firebase deploy",
-    "init-db": "node scripts/init-firestore-web.js"
+    "init-db": "node scripts/init-firestore-web.js",
+    "discover-relationships": "ts-node scripts/discover-relationships.ts",
+    "analyze-data-access": "ts-node scripts/analyze-data-access.ts"
   },
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
