@@ -5649,6 +5649,49 @@
       "subcollections": []
     },
     {
+      "id": "system_schema_config",
+      "name": "system_schema_config",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "collections",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"activities\",\"name\":\"activities\",\"documentCount\":4,\"fields\":[{\"name\":\"activity\",\"type\":\"strin"
+        },
+        {
+          "name": "relationships",
+          "type": "array",
+          "sampleValue": "[{\"source\":\"users\",\"sourceField\":\"email\",\"target\":\"users\",\"targetField\":\"email\",\"confidence\":\"high\","
+        },
+        {
+          "name": "nodes",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"activities\",\"type\":\"collectionNode\",\"position\":{\"x\":100,\"y\":100},\"data\":{\"label\":\"activities"
+        },
+        {
+          "name": "edges",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"edge-0\",\"source\":\"users\",\"target\":\"users\",\"type\":\"default\",\"animated\":true,\"label\":\"email → "
+        },
+        {
+          "name": "lastUpdated",
+          "type": "string",
+          "sampleValue": "2026-01-20T22:25:25.265Z"
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "initialized",
+          "type": "boolean",
+          "sampleValue": true
+        }
+      ],
+      "subcollections": []
+    },
+    {
       "id": "templates",
       "name": "templates",
       "documentCount": 1,

@@ -66,14 +66,29 @@ function SchemaMapperContent() {
         setCollectionFields(fieldsMap);
         
         // Auto-load nodes and edges from saved schema
-        if (config.nodes && config.nodes.length > 0) {
-          setNodes(config.nodes);
-          console.log(`✅ Loaded ${config.nodes.length} nodes on canvas`);
-        }
-        
+        // Only show collections that have relationships
         if (config.edges && config.edges.length > 0) {
           setEdges(config.edges);
+          
+          // Get unique collection IDs that are part of relationships
+          const collectionsWithRelationships = new Set<string>();
+          config.edges.forEach((edge: any) => {
+            collectionsWithRelationships.add(edge.source);
+            collectionsWithRelationships.add(edge.target);
+          });
+          
+          // Filter nodes to only those with relationships
+          const filteredNodes = config.nodes?.filter((node: any) => 
+            collectionsWithRelationships.has(node.id)
+          ) || [];
+          
+          setNodes(filteredNodes);
+          console.log(`✅ Loaded ${filteredNodes.length} collections with relationships`);
           console.log(`✅ Loaded ${config.edges.length} relationships`);
+        } else if (config.nodes && config.nodes.length > 0) {
+          // Fallback: if no edges but nodes exist, show first 10 collections
+          setNodes(config.nodes.slice(0, 10));
+          console.log(`⚠️ No relationships found. Showing first 10 collections.`);
         }
         
         console.log(`✅ Loaded ${collections.length} collections from Firestore DB`);
@@ -129,8 +144,74 @@ function SchemaMapperContent() {
     }
   };
 
+  // Track connected fields for highlighting
+  const getConnectedFields = useCallback(() => {
+    const connected: Record<string, string[]> = {};
+    edges.forEach(edge => {
+      const sourceField = edge.data?.sourceField || edge.data?.fromField;
+      const targetField = edge.data?.targetField || edge.data?.toField;
+      
+      if (sourceField) {
+        if (!connected[edge.source]) connected[edge.source] = [];
+        if (!connected[edge.source].includes(sourceField)) {
+          connected[edge.source].push(sourceField);
+        }
+      }
+      
+      if (targetField) {
+        if (!connected[edge.target]) connected[edge.target] = [];
+        if (!connected[edge.target].includes(targetField)) {
+          connected[edge.target].push(targetField);
+        }
+      }
+    });
+    return connected;
+  }, [edges]);
+
+  // Handle field drag-and-drop to create relationships
+  const handleFieldDrop = useCallback((targetField: string, dragData: any) => {
+    const sourceCollectionId = dragData.collectionId;
+    const sourceField = dragData.fieldName;
+    const targetCollectionId = nodes.find(n => 
+      n.data.fields?.some((f: any) => f.fieldName === targetField)
+    )?.id;
+    
+    if (!targetCollectionId || sourceCollectionId === targetCollectionId) return;
+    
+    // Create new edge
+    const newEdge: Edge = {
+      id: `${sourceCollectionId}-${targetCollectionId}-${Date.now()}`,
+      source: sourceCollectionId,
+      target: targetCollectionId,
+      type: 'smoothstep',
+      animated: true,
+      label: `${sourceField} → ${targetField}`,
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+        width: 20,
+        height: 20,
+      },
+      data: {
+        sourceField,
+        targetField,
+        fromField: sourceField,
+        toField: targetField,
+        type: '1:many',
+      },
+      style: {
+        stroke: '#4F46E5',
+        strokeWidth: 2,
+      },
+    };
+    
+    setEdges((eds) => [...eds, newEdge]);
+    console.log(`✅ Created relationship: ${sourceCollectionId}.${sourceField} → ${targetCollectionId}.${targetField}`);
+  }, [nodes, setEdges]);
+
   // Add collection to canvas
   const addCollectionToCanvas = async (collection: any) => {
+    const connectedFields = getConnectedFields();
+    
     const newNode: Node = {
       id: collection.id,
       type: 'collectionNode',
@@ -143,7 +224,9 @@ function SchemaMapperContent() {
         collectionName: collection.id,
         documentCount: collection.countNote,
         fields: [],
-        expanded: false,
+        expanded: true,
+        connectedFields: connectedFields[collection.id] || [],
+        onFieldDrop: handleFieldDrop,
       },
     };
 
@@ -154,6 +237,21 @@ function SchemaMapperContent() {
     
     setNodes((nds) => [...nds, newNode]);
   };
+
+  // Update nodes with connected fields whenever edges change
+  React.useEffect(() => {
+    const connectedFields = getConnectedFields();
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          connectedFields: connectedFields[node.id] || [],
+          onFieldDrop: handleFieldDrop,
+        },
+      }))
+    );
+  }, [edges, getConnectedFields, handleFieldDrop, setNodes]);
 
   // Define custom node types
   const nodeTypes: NodeTypes = useMemo(
@@ -304,9 +402,9 @@ function SchemaMapperContent() {
           <div className="flex items-center gap-3">
             <GitBranch className="w-8 h-8 text-indigo-600" />
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Visual Schema Mapper - Phase 3</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Schema Editor</h1>
               <p className="text-sm text-gray-500">
-                Drag collections, connect them, and map field-level relationships
+                Drag fields to create relationships between collections
               </p>
             </div>
           </div>
@@ -314,17 +412,11 @@ function SchemaMapperContent() {
           <div className="flex items-center gap-2">
             <button
               onClick={saveSchema}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              disabled={loading}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="w-4 h-4" />
-              Save
-            </button>
-            <button
-              onClick={loadSchema}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              <Upload className="w-4 h-4" />
-              Load
+              {loading ? 'Saving...' : 'Save'}
             </button>
             <button
               onClick={exportSchema}
@@ -332,13 +424,6 @@ function SchemaMapperContent() {
             >
               <Download className="w-4 h-4" />
               Export
-            </button>
-            <button
-              onClick={clearCanvas}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-            >
-              <Trash2 className="w-4 h-4" />
-              Clear
             </button>
           </div>
         </div>

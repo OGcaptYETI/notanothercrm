@@ -14,16 +14,65 @@ interface CollectionNodeData {
     sampleValue?: any;
   }>;
   expanded?: boolean;
+  connectedFields?: string[]; // Fields that are part of relationships
+  onFieldDragStart?: (collectionId: string, fieldName: string) => void;
+  onFieldDrop?: (collectionId: string, fieldName: string) => void;
 }
 
-export function CollectionNode({ data, selected }: NodeProps<CollectionNodeData>) {
+export function CollectionNode({ data, selected, id }: NodeProps<CollectionNodeData>) {
   const [isExpanded, setIsExpanded] = React.useState(data.expanded || false);
+  const [dragOverField, setDragOverField] = React.useState<string | null>(null);
   
   const getFieldIcon = (type: string) => {
     if (type.includes('number')) return <Hash className="w-3 h-3" />;
     if (type.includes('date') || type.includes('timestamp')) return <Calendar className="w-3 h-3" />;
     if (type.includes('boolean')) return <CheckSquare className="w-3 h-3" />;
     return <Type className="w-3 h-3" />;
+  };
+
+  const handleFieldDragStart = (e: React.DragEvent, fieldName: string) => {
+    e.stopPropagation();
+    const dragData = {
+      collectionId: id,
+      fieldName: fieldName,
+    };
+    e.dataTransfer.setData('application/json', JSON.stringify(dragData));
+    e.dataTransfer.effectAllowed = 'link';
+    if (data.onFieldDragStart) {
+      data.onFieldDragStart(id as string, fieldName);
+    }
+  };
+
+  const handleFieldDragOver = (e: React.DragEvent, fieldName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'link';
+    setDragOverField(fieldName);
+  };
+
+  const handleFieldDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragOverField(null);
+  };
+
+  const handleFieldDrop = (e: React.DragEvent, fieldName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragOverField(null);
+    
+    try {
+      const dragData = JSON.parse(e.dataTransfer.getData('application/json'));
+      if (dragData.collectionId !== id && data.onFieldDrop) {
+        data.onFieldDrop(fieldName, dragData);
+      }
+    } catch (err) {
+      console.error('Error handling field drop:', err);
+    }
+  };
+
+  const isFieldConnected = (fieldName: string) => {
+    return data.connectedFields?.includes(fieldName) || false;
   };
 
   const lookupFields = data.fields?.filter(f => f.isLookup) || [];
@@ -65,27 +114,41 @@ export function CollectionNode({ data, selected }: NodeProps<CollectionNodeData>
                 <Link2 className="w-3 h-3" />
                 Lookup Fields ({lookupFields.length})
               </div>
-              {lookupFields.map((field, idx) => (
-                <div
-                  key={idx}
-                  className="px-3 py-2 border-b border-amber-100 hover:bg-amber-50 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                      <Key className="w-3 h-3 text-amber-600 flex-shrink-0" />
-                      <span className="text-xs font-mono font-medium text-gray-900 truncate">
-                        {field.fieldName}
-                      </span>
+              {lookupFields.map((field, idx) => {
+                const isConnected = isFieldConnected(field.fieldName);
+                const isDragOver = dragOverField === field.fieldName;
+                return (
+                  <div
+                    key={idx}
+                    draggable
+                    onDragStart={(e) => handleFieldDragStart(e, field.fieldName)}
+                    onDragOver={(e) => handleFieldDragOver(e, field.fieldName)}
+                    onDragLeave={handleFieldDragLeave}
+                    onDrop={(e) => handleFieldDrop(e, field.fieldName)}
+                    className={`px-3 py-2 border-b border-amber-100 hover:bg-amber-50 transition-all cursor-move ${
+                      isConnected ? 'bg-green-50 border-l-4 border-l-green-500' : ''
+                    } ${isDragOver ? 'bg-indigo-100 border-2 border-indigo-400' : ''}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Key className={`w-3 h-3 flex-shrink-0 ${isConnected ? 'text-green-600' : 'text-amber-600'}`} />
+                        <span className={`text-xs font-mono font-medium truncate ${isConnected ? 'text-green-900 font-bold' : 'text-gray-900'}`}>
+                          {field.fieldName}
+                        </span>
+                        {isConnected && (
+                          <Link2 className="w-3 h-3 text-green-600 flex-shrink-0" />
+                        )}
+                      </div>
+                      <span className="text-xs text-gray-500 ml-2">{field.type}</span>
                     </div>
-                    <span className="text-xs text-gray-500 ml-2">{field.type}</span>
+                    {field.lookupTarget && (
+                      <div className="text-xs text-amber-700 mt-1 ml-5">
+                        → {field.lookupTarget}
+                      </div>
+                    )}
                   </div>
-                  {field.lookupTarget && (
-                    <div className="text-xs text-amber-700 mt-1 ml-5">
-                      → {field.lookupTarget}
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -95,22 +158,36 @@ export function CollectionNode({ data, selected }: NodeProps<CollectionNodeData>
               <div className="bg-gray-50 px-3 py-2 text-xs font-semibold text-gray-700">
                 Fields ({regularFields.length})
               </div>
-              {regularFields.slice(0, 20).map((field, idx) => (
-                <div
-                  key={idx}
-                  className="px-3 py-2 border-b border-gray-100 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                      <span className="text-gray-400">{getFieldIcon(field.type)}</span>
-                      <span className="text-xs font-mono text-gray-700 truncate">
-                        {field.fieldName}
-                      </span>
+              {regularFields.slice(0, 20).map((field, idx) => {
+                const isConnected = isFieldConnected(field.fieldName);
+                const isDragOver = dragOverField === field.fieldName;
+                return (
+                  <div
+                    key={idx}
+                    draggable
+                    onDragStart={(e) => handleFieldDragStart(e, field.fieldName)}
+                    onDragOver={(e) => handleFieldDragOver(e, field.fieldName)}
+                    onDragLeave={handleFieldDragLeave}
+                    onDrop={(e) => handleFieldDrop(e, field.fieldName)}
+                    className={`px-3 py-2 border-b border-gray-100 hover:bg-gray-50 transition-all cursor-move ${
+                      isConnected ? 'bg-green-50 border-l-4 border-l-green-500' : ''
+                    } ${isDragOver ? 'bg-indigo-100 border-2 border-indigo-400' : ''}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <span className={isConnected ? 'text-green-600' : 'text-gray-400'}>{getFieldIcon(field.type)}</span>
+                        <span className={`text-xs font-mono truncate ${isConnected ? 'text-green-900 font-bold' : 'text-gray-700'}`}>
+                          {field.fieldName}
+                        </span>
+                        {isConnected && (
+                          <Link2 className="w-3 h-3 text-green-600 flex-shrink-0" />
+                        )}
+                      </div>
+                      <span className="text-xs text-gray-500 ml-2">{field.type}</span>
                     </div>
-                    <span className="text-xs text-gray-500 ml-2">{field.type}</span>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               {regularFields.length > 20 && (
                 <div className="px-3 py-2 text-xs text-gray-500 text-center">
                   + {regularFields.length - 20} more fields

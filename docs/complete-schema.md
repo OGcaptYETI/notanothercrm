@@ -1,6 +1,6 @@
 # Complete Firestore Schema Report
 
-**Generated:** 2026-01-20T22:06:58.747Z
+**Generated:** 2026-01-20T22:27:36.099Z
 
 **This shows REAL Firestore document fields from your database**
 
@@ -8,8 +8,8 @@
 
 ## Summary
 
-- **Collections:** 53
-- **Total Documents:** 398256
+- **Collections:** 54
+- **Total Documents:** 398257
 - **Relationships Found:** 6
 
 ---
@@ -1587,6 +1587,23 @@ IN STORE |
 |-------|------|-------------|-------------|
 | `mappings` | array | 1 | [{"copperField":"id","ourField":"copperId","enable |
 | `updatedAt` | timestamp | 1 | 2026-01-14T22:33:53.869Z |
+
+### system_schema_config
+
+**Documents:** 1
+**Fields:** 7
+
+#### Fields
+
+| Field | Type | Occurrences | Sample Value |
+|-------|------|-------------|-------------|
+| `collections` | array | 1 | [{"id":"activities","name":"activities","documentC |
+| `relationships` | array | 1 | [{"source":"users","sourceField":"email","target": |
+| `nodes` | array | 1 | [{"id":"activities","type":"collectionNode","posit |
+| `edges` | array | 1 | [{"id":"edge-0","source":"users","target":"users", |
+| `lastUpdated` | string | 1 | 2026-01-20T22:25:25.265Z |
+| `version` | number | 1 | 1 |
+| `initialized` | boolean | 1 | true |
 
 ### templates
 
