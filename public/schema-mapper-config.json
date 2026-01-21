@@ -5654,31 +5654,6 @@
       "documentCount": 1,
       "fields": [
         {
-          "name": "collections",
-          "type": "array",
-          "sampleValue": "[{\"id\":\"activities\",\"name\":\"activities\",\"documentCount\":4,\"fields\":[{\"name\":\"activity\",\"type\":\"strin"
-        },
-        {
-          "name": "relationships",
-          "type": "array",
-          "sampleValue": "[{\"source\":\"users\",\"sourceField\":\"email\",\"target\":\"users\",\"targetField\":\"email\",\"confidence\":\"high\","
-        },
-        {
-          "name": "nodes",
-          "type": "array",
-          "sampleValue": "[{\"id\":\"activities\",\"type\":\"collectionNode\",\"position\":{\"x\":100,\"y\":100},\"data\":{\"label\":\"activities"
-        },
-        {
-          "name": "edges",
-          "type": "array",
-          "sampleValue": "[{\"id\":\"edge-0\",\"source\":\"users\",\"target\":\"users\",\"type\":\"default\",\"animated\":true,\"label\":\"email → "
-        },
-        {
-          "name": "lastUpdated",
-          "type": "string",
-          "sampleValue": "2026-01-20T22:25:25.265Z"
-        },
-        {
           "name": "version",
           "type": "number",
           "sampleValue": 1
@@ -5687,6 +5662,31 @@
           "name": "initialized",
           "type": "boolean",
           "sampleValue": true
+        },
+        {
+          "name": "relationships",
+          "type": "array",
+          "sampleValue": "[{\"source\":\"users\",\"target\":\"users\",\"sourceField\":\"email\",\"targetField\":\"email\",\"relationshipType\":\""
+        },
+        {
+          "name": "collections",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"activities\",\"name\":\"activities\",\"countNote\":\"0 docs\",\"fieldCount\":6,\"fields\":[{\"name\":\"activ"
+        },
+        {
+          "name": "edges",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"edge-0\",\"source\":\"users\",\"target\":\"users\",\"type\":\"default\",\"animated\":true,\"label\":\"email → "
+        },
+        {
+          "name": "nodes",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"copper_companies\",\"type\":\"collectionNode\",\"position\":{\"x\":1069.223303379777,\"y\":219.10678648"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "string",
+          "sampleValue": "2026-01-20T23:53:03.687Z"
         }
       ],
       "subcollections": []

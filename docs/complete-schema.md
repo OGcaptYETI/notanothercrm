@@ -1,6 +1,6 @@
 # Complete Firestore Schema Report
 
-**Generated:** 2026-01-20T22:27:36.099Z
+**Generated:** 2026-01-20T23:56:32.301Z
 
 **This shows REAL Firestore document fields from your database**
 
@@ -1597,13 +1597,13 @@ IN STORE |
 
 | Field | Type | Occurrences | Sample Value |
 |-------|------|-------------|-------------|
-| `collections` | array | 1 | [{"id":"activities","name":"activities","documentC |
-| `relationships` | array | 1 | [{"source":"users","sourceField":"email","target": |
-| `nodes` | array | 1 | [{"id":"activities","type":"collectionNode","posit |
-| `edges` | array | 1 | [{"id":"edge-0","source":"users","target":"users", |
-| `lastUpdated` | string | 1 | 2026-01-20T22:25:25.265Z |
 | `version` | number | 1 | 1 |
 | `initialized` | boolean | 1 | true |
+| `relationships` | array | 1 | [{"source":"users","target":"users","sourceField": |
+| `collections` | array | 1 | [{"id":"activities","name":"activities","countNote |
+| `edges` | array | 1 | [{"id":"edge-0","source":"users","target":"users", |
+| `nodes` | array | 1 | [{"id":"copper_companies","type":"collectionNode", |
+| `lastUpdated` | string | 1 | 2026-01-20T23:53:03.687Z |
 
 ### templates
 

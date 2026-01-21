@@ -44,17 +44,31 @@ function SchemaMapperContent() {
         const result = await response.json();
         const config = result.schema;
         
+        console.log('📊 Schema loaded from Firestore:', {
+          collections: config.collections?.length,
+          nodes: config.nodes?.length,
+          edges: config.edges?.length,
+          relationships: config.relationships?.length,
+        });
+        console.log('🔍 Raw first collection from API:', config.collections[0]);
+        
         // Transform to collection list format
         const collections = config.collections.map((col: any) => ({
           id: col.id,
-          name: col.name,
-          countNote: `${col.documentCount} docs`,
+          name: col.name || col.id,
+          countNote: `${col.documentCount || 0} docs`,
           fieldCount: col.fields?.length || 0,
           fields: col.fields || [],
           subcollections: col.subcollections || [],
         }));
         
         setAllCollections(collections);
+        console.log('✅ Collections loaded for sidebar:', collections.length);
+        console.log('📋 First 3 collections data:', collections.slice(0, 3).map(c => ({
+          id: c.id,
+          name: c.name,
+          countNote: c.countNote,
+        })));
         
         // Pre-load field data for all collections
         const fieldsMap: Record<string, any[]> = {};
@@ -72,9 +86,20 @@ function SchemaMapperContent() {
         setCollectionFields(fieldsMap);
         
         // Auto-load nodes and edges from saved schema
-        // Only show collections that have relationships
         if (config.edges && config.edges.length > 0) {
-          setEdges(config.edges);
+          // Load edges with proper data structure
+          const loadedEdges = config.edges.map((edge: any) => ({
+            ...edge,
+            type: edge.type || 'smoothstep',
+            animated: edge.animated !== false,
+            markerEnd: edge.markerEnd || {
+              type: MarkerType.ArrowClosed,
+              width: 20,
+              height: 20,
+            },
+          }));
+          setEdges(loadedEdges);
+          console.log(`✅ Loaded ${loadedEdges.length} relationship edges`);
           
           // Get unique collection IDs that are part of relationships
           const collectionsWithRelationships = new Set<string>();
@@ -83,34 +108,50 @@ function SchemaMapperContent() {
             collectionsWithRelationships.add(edge.target);
           });
           
-          // Filter nodes to only those with relationships and attach field data
-          const filteredNodes = (config.nodes?.filter((node: any) => 
-            collectionsWithRelationships.has(node.id)
-          ) || []).map((node: any) => ({
-            ...node,
-            data: {
-              ...node.data,
-              fields: fieldsMap[node.id] || node.data.fields || [],
-            }
-          }));
-          
-          setNodes(filteredNodes);
-          console.log(`✅ Loaded ${filteredNodes.length} collections with relationships`);
-          console.log(`✅ Loaded ${config.edges.length} relationships`);
-        } else if (config.nodes && config.nodes.length > 0) {
-          // Fallback: if no edges but nodes exist, show first 10 collections
-          setNodes(config.nodes.slice(0, 10));
-          console.log(`⚠️ No relationships found. Showing first 10 collections.`);
+          // Load nodes with relationships and attach field data
+          if (config.nodes && config.nodes.length > 0) {
+            const filteredNodes = config.nodes
+              .filter((node: any) => collectionsWithRelationships.has(node.id))
+              .map((node: any) => {
+                // Find the collection data to get correct doc count
+                const collectionData = collections.find(c => c.id === node.id);
+                return {
+                  ...node,
+                  data: {
+                    ...node.data,
+                    label: node.id,
+                    collectionName: node.id,
+                    documentCount: collectionData?.countNote || node.data.documentCount || '0 docs',
+                    fields: fieldsMap[node.id] || node.data.fields || [],
+                    expanded: false, // Always start collapsed
+                    connectedFields: node.data.connectedFields || [],
+                    selectedFields: [],
+                  },
+                };
+              });
+            
+            setNodes(filteredNodes);
+            console.log(`✅ Loaded ${filteredNodes.length} collection nodes with relationships`);
+          }
+        } else {
+          console.log('⚠️ No relationships found in schema. Canvas will be empty.');
+          console.log('   Add collections to canvas and create relationships to get started.');
         }
         
-        console.log(`✅ Loaded ${collections.length} collections from Firestore DB`);
-        console.log(`   Last updated: ${result.lastUpdated || 'Never'}`);
+        console.log(`✅ Schema load complete. Last updated: ${result.lastUpdated || 'Never'}`);
+        
+        // Auto-detect if schema needs re-initialization (all collections have 0 docs)
+        const needsRefresh = collections.every((c: any) => c.countNote === '0 docs');
+        if (needsRefresh && collections.length > 0) {
+          console.warn('⚠️ Schema has invalid data (all 0 docs). Run: npm run inspect-schema');
+        }
       } else {
-        console.error('Schema not found in DB. Run: npm run inspect-schema');
+        console.error('❌ Schema not found in Firestore DB');
+        console.error('   Run: npm run inspect-schema to initialize');
       }
     } catch (err) {
-      console.error('Error loading schema:', err);
-      console.error('Make sure dev server is running and schema is initialized');
+      console.error('❌ Error loading schema:', err);
+      console.error('   Make sure dev server is running');
     } finally {
       setLoading(false);
     }
@@ -336,7 +377,7 @@ function SchemaMapperContent() {
         collectionName: collection.id,
         documentCount: collection.countNote,
         fields: [],
-        expanded: true,
+        expanded: false,
         connectedFields: connectedFields[collection.id] || [],
         onFieldClick: handleFieldClick,
         selectedFields: selectedFields,
@@ -638,7 +679,7 @@ function SchemaMapperContent() {
 
           {!sidebarCollapsed && (
             <div className="flex-1 overflow-y-auto p-3">
-              <div className="space-y-1.5">
+              <div className="space-y-1.5" key={`collections-${allCollections.length}`}>
               {allCollections.map((collection) => {
                 const isOnCanvas = nodes.some((node) => node.id === collection.id);
                 return (
@@ -652,11 +693,11 @@ function SchemaMapperContent() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1 min-w-0">
-                        <div className="font-mono text-sm font-medium text-gray-900 truncate">
-                          {collection.id}
+                        <div className="font-mono text-xs font-medium text-gray-900 truncate">
+                          {collection.name}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {collection.countNote} documents
+                          {collection.countNote}
                         </div>
                       </div>
                       {!isOnCanvas && (

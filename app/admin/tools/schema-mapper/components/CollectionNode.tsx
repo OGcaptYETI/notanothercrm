@@ -45,12 +45,6 @@ export function CollectionNode({ data, selected, id }: NodeProps<CollectionNodeD
 
   const lookupFields = data.fields?.filter(f => f.isLookup) || [];
   const regularFields = data.fields?.filter(f => !f.isLookup) || [];
-  
-  // Limit to 25 fields max
-  const maxFields = 25;
-  const displayLookupFields = lookupFields.slice(0, maxFields);
-  const displayRegularFields = regularFields.slice(0, Math.max(0, maxFields - displayLookupFields.length));
-  const totalHidden = (lookupFields.length + regularFields.length) - (displayLookupFields.length + displayRegularFields.length);
 
   return (
     <div
@@ -96,7 +90,7 @@ export function CollectionNode({ data, selected, id }: NodeProps<CollectionNodeD
                 <Link2 className="w-3 h-3" />
                 Lookup Fields ({lookupFields.length})
               </div>
-              {displayLookupFields.map((field, idx) => {
+              {lookupFields.map((field, idx) => {
                 const isConnected = isFieldConnected(field.fieldName);
                 const isSelected = isFieldSelected(field.fieldName);
                 return (
@@ -138,7 +132,7 @@ export function CollectionNode({ data, selected, id }: NodeProps<CollectionNodeD
               <div className="bg-gray-50 px-3 py-2 text-xs font-semibold text-gray-700">
                 Fields ({regularFields.length})
               </div>
-              {displayRegularFields.map((field, idx) => {
+              {regularFields.map((field, idx) => {
                 const isConnected = isFieldConnected(field.fieldName);
                 const isSelected = isFieldSelected(field.fieldName);
                 return (
@@ -166,11 +160,6 @@ export function CollectionNode({ data, selected, id }: NodeProps<CollectionNodeD
                   </div>
                 );
               })}
-              {totalHidden > 0 && (
-                <div className="px-3 py-2 text-xs text-gray-500 text-center bg-gray-50">
-                  + {totalHidden} more fields (resize node to see more)
-                </div>
-              )}
             </div>
           )}
         </div>
