@@ -61,7 +61,7 @@ export function SavedFiltersPanel({
       </button>
 
       {/* Header */}
-      <div className="p-2.5 border-b border-gray-200">
+      <div className="px-2.5 pt-4 pb-2.5 border-b border-gray-200">
         {isCollapsed ? (
           <div className="flex flex-col items-center gap-2 w-full">
             <button
