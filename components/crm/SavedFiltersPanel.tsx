@@ -61,7 +61,7 @@ export function SavedFiltersPanel({
       </button>
 
       {/* Header */}
-      <div className="px-2.5 pt-4 pb-2.5 border-b border-gray-200">
+      <div className="px-4 pt-4 pb-2.5 border-b border-gray-200">
         {isCollapsed ? (
           <div className="flex flex-col items-center gap-2 w-full">
             <button
@@ -104,7 +104,7 @@ export function SavedFiltersPanel({
       {!isCollapsed && (
       <div className="flex-1 overflow-y-auto">
         {/* All Accounts - Default */}
-        <div className="px-2.5 py-1.5">
+        <div className="px-4 py-1.5">
           <button
             onClick={() => onFilterSelect('all')}
             className={`w-full px-2.5 py-1.5 text-left text-xs rounded-md transition-colors ${
@@ -121,7 +121,7 @@ export function SavedFiltersPanel({
         <div className="border-t border-gray-200">
           <button
             onClick={() => setPublicExpanded(!publicExpanded)}
-            className="w-full px-2.5 py-1.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            className="w-full px-4 py-1.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
           >
             <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
               Public
@@ -134,12 +134,12 @@ export function SavedFiltersPanel({
           </button>
 
           {publicExpanded && (
-            <div className="px-2.5 pb-1.5 space-y-0.5">
+            <div className="px-4 pb-1.5 space-y-0.5">
               {filterBySearch(publicFilters).map((filter) => (
                 <button
                   key={filter.id}
                   onClick={() => onFilterSelect(filter.id)}
-                  className={`w-full px-2.5 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between group ${
+                  className={`w-full px-4 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between group ${
                     activeFilterId === filter.id
                       ? 'bg-[#93D500]/10 text-[#93D500] font-medium'
                       : 'text-gray-700 hover:bg-gray-50'
@@ -159,7 +159,7 @@ export function SavedFiltersPanel({
         <div className="border-t border-gray-200">
           <button
             onClick={() => setPrivateExpanded(!privateExpanded)}
-            className="w-full px-2.5 py-1.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            className="w-full px-4 py-1.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
           >
             <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
               Private
@@ -172,7 +172,7 @@ export function SavedFiltersPanel({
           </button>
 
           {privateExpanded && (
-            <div className="px-2.5 pb-1.5 space-y-0.5">
+            <div className="px-4 pb-1.5 space-y-0.5">
               {filterBySearch(privateFilters).map((filter) => (
                 <button
                   key={filter.id}
