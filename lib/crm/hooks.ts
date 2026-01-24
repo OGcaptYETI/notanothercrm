@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import {
   loadUnifiedAccounts,
   loadUnifiedProspects,
@@ -41,6 +41,18 @@ export function useAccounts(options?: PaginationOptions) {
   });
 }
 
+// Hook for infinite scroll accounts loading
+export function useInfiniteAccounts(options?: Omit<PaginationOptions, 'offset'>) {
+  return useInfiniteQuery({
+    queryKey: [...queryKeys.accounts, 'infinite', options],
+    queryFn: ({ pageParam }) => loadUnifiedAccounts({ ...options, cursor: pageParam }),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+}
+
 // Hook for getting total account counts
 export function useAccountCounts() {
   return useQuery({
@@ -51,10 +63,10 @@ export function useAccountCounts() {
 }
 
 // Hook for loading all prospects with caching
-export function useProspects() {
-  return useQuery<UnifiedProspect[]>({
-    queryKey: queryKeys.prospects,
-    queryFn: loadUnifiedProspects,
+export function useProspects(options: PaginationOptions = {}) {
+  return useQuery({
+    queryKey: [...queryKeys.prospects, options],
+    queryFn: () => loadUnifiedProspects(options),
     staleTime: 5 * 60 * 1000,
   });
 }
@@ -124,7 +136,18 @@ export function useAccountContacts(accountId: string | null) {
   
   if (!accountId || !contactsData?.data) return [];
   
-  const accountContacts = contactsData.data.filter((c: UnifiedContact) => c.accountId === accountId);
+  // Match contacts by either:
+  // 1. accountId matches the Firestore document ID (accountId)
+  // 2. copperId_company matches the account's copperId (for Copper accounts)
+  const accountContacts = contactsData.data.filter((c: UnifiedContact) => {
+    // Direct match by Firestore document ID
+    if (c.accountId === accountId) return true;
+    
+    // Match by Copper company ID if account is from Copper
+    if (account?.copperId && c.copperId_company === account.copperId) return true;
+    
+    return false;
+  });
   
   // Mark primary contact
   return accountContacts.map((c: UnifiedContact) => ({
@@ -147,7 +170,7 @@ export function usePrefetchCRMData() {
       }),
       queryClient.prefetchQuery({
         queryKey: queryKeys.prospects,
-        queryFn: loadUnifiedProspects,
+        queryFn: () => loadUnifiedProspects({ pageSize: 50 }),
         staleTime: 5 * 60 * 1000,
       }),
       queryClient.prefetchQuery({

@@ -12,7 +12,8 @@ import {
   ChevronRight,
   BookOpen,
   Users,
-  Phone
+  Phone,
+  Milk,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -21,14 +22,17 @@ interface SidebarProps {
 
 export default function Sidebar({ query = '' }: SidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Update main content margin when sidebar collapses
-  React.useEffect(() => {
-    const mainElement = document.querySelector('main');
-    if (mainElement) {
-      mainElement.style.marginLeft = isCollapsed ? '4rem' : '16rem';
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('sidebar-collapsed') === 'true';
     }
+    return false;
+  });
+
+  // Save collapse state to localStorage
+  React.useEffect(() => {
+    localStorage.setItem('sidebar-collapsed', String(isCollapsed));
+    window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { isCollapsed } }));
   }, [isCollapsed]);
 
   const sidebarItems = [
@@ -65,7 +69,7 @@ export default function Sidebar({ query = '' }: SidebarProps) {
     {
       name: 'Products',
       href: `/products${query}`,
-      icon: Package,
+      icon: Milk,
       active: pathname?.startsWith('/products') && !pathname?.startsWith('/admin/products')
     },
     {

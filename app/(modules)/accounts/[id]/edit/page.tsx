@@ -19,7 +19,7 @@ export default function AccountEditPage() {
   const { user, loading: authLoading } = useAuth();
   const accountId = params.id as string;
   
-  const account = useAccount(accountId);
+  const { data: account, isLoading: loadingAccount } = useAccount(accountId);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -77,7 +77,7 @@ export default function AccountEditPage() {
     }
   }, [account]);
 
-  if (authLoading) {
+  if (authLoading || loadingAccount) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#93D500]"></div>
@@ -133,31 +133,66 @@ export default function AccountEditPage() {
     setError(null);
 
     try {
-      const accountRef = doc(db, 'fishbowl_customers', accountId);
+      // Determine which collection to update based on account source
+      const collection = account.source === 'copper' ? 'copper_companies' : 'fishbowl_customers';
+      const accountRef = doc(db, collection, accountId);
       
-      await updateDoc(accountRef, {
-        name: formData.name,
-        accountNumber: formData.accountNumber,
-        phone: formData.phone,
-        email: formData.email,
-        website: formData.website,
-        shippingAddress: formData.shippingStreet,
-        shippingCity: formData.shippingCity,
-        shippingState: formData.shippingState,
-        shippingZip: formData.shippingZip,
-        region: formData.region,
-        segment: formData.segment,
-        customerPriority: formData.customerPriority,
-        accountType: formData.accountType,
-        businessModel: formData.businessModel,
-        organizationLevel: formData.organizationLevel,
-        paymentTerms: formData.paymentTerms,
-        shippingTerms: formData.shippingTerms,
-        carrierName: formData.carrierName,
-        salesPerson: formData.salesPerson,
-        notes: formData.notes,
+      // Prepare update data based on collection type
+      let updateData: any = {
         updatedAt: new Date(),
-      });
+      };
+      
+      if (account.source === 'copper') {
+        // Update Copper fields
+        updateData = {
+          ...updateData,
+          name: formData.name,
+          phone_numbers: formData.phone ? [{ number: formData.phone, category: 'work' }] : [],
+          email: formData.email,
+          websites: formData.website ? [{ url: formData.website, category: 'work' }] : [],
+          address: {
+            street: formData.shippingStreet,
+            city: formData.shippingCity,
+            state: formData.shippingState,
+            postal_code: formData.shippingZip,
+          },
+          // Custom fields - store as both raw ID and readable value
+          'Region cf_680701': formData.region,
+          'Segment cf_680704': formData.segment,
+          'Account Type cf_675914': formData.accountType,
+          'Payment Terms cf_680706': formData.paymentTerms,
+          'Shipping Terms cf_680707': formData.shippingTerms,
+          'Carrier cf_680708': formData.carrierName,
+          'Sales Person cf_680709': formData.salesPerson,
+        };
+      } else {
+        // Update Fishbowl fields
+        updateData = {
+          ...updateData,
+          name: formData.name,
+          accountNumber: formData.accountNumber,
+          phone: formData.phone,
+          email: formData.email,
+          website: formData.website,
+          shippingAddress: formData.shippingStreet,
+          shippingCity: formData.shippingCity,
+          shippingState: formData.shippingState,
+          shippingZip: formData.shippingZip,
+          region: formData.region,
+          segment: formData.segment,
+          customerPriority: formData.customerPriority,
+          accountType: formData.accountType,
+          businessModel: formData.businessModel,
+          organizationLevel: formData.organizationLevel,
+          paymentTerms: formData.paymentTerms,
+          shippingTerms: formData.shippingTerms,
+          carrierName: formData.carrierName,
+          salesPerson: formData.salesPerson,
+          notes: formData.notes,
+        };
+      }
+      
+      await updateDoc(accountRef, updateData);
 
       // Navigate back to account details
       router.push(`/accounts/${accountId}`);

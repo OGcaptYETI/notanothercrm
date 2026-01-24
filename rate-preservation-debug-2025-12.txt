@@ -1,0 +1,225 @@
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9809 (Aryana Wholesale):
+   Document ID: BenW_2025-12_order_24262
+   Exists: true
+   rateModified: true
+   commissionRate: 8%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9912 (Allegria Novelties):
+   Document ID: BenW_2025-12_order_24555
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9926 (Metro wholesale inc):
+   Document ID: BenW_2025-12_order_24635
+   Exists: true
+   rateModified: undefined
+   commissionRate: 2%
+   hasManualRateEdit: false
+   Calculated rate from rules: 2%
+   ❌ NO RATE EDIT FLAG
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9720 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24095
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9809 (Aryana Wholesale):
+   Document ID: BenW_2025-12_order_24262
+   Exists: true
+   rateModified: true
+   commissionRate: 8%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9912 (Allegria Novelties):
+   Document ID: BenW_2025-12_order_24555
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9926 (Metro wholesale inc):
+   Document ID: BenW_2025-12_order_24635
+   Exists: true
+   rateModified: undefined
+   commissionRate: 2%
+   hasManualRateEdit: false
+   Calculated rate from rules: 2%
+   ❌ NO RATE EDIT FLAG
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9720 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24095
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9809 (Aryana Wholesale):
+   Document ID: BenW_2025-12_order_24262
+   Exists: true
+   rateModified: true
+   commissionRate: 8%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9912 (Allegria Novelties):
+   Document ID: BenW_2025-12_order_24555
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9926 (Metro wholesale inc):
+   Document ID: BenW_2025-12_order_24635
+   Exists: true
+   rateModified: undefined
+   commissionRate: 2%
+   hasManualRateEdit: false
+   Calculated rate from rules: 2%
+   ❌ NO RATE EDIT FLAG
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9720 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24095
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9809 (Aryana Wholesale):
+   Document ID: BenW_2025-12_order_24262
+   Exists: true
+   rateModified: true
+   commissionRate: 8%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9912 (Allegria Novelties):
+   Document ID: BenW_2025-12_order_24555
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9926 (Metro wholesale inc):
+   Document ID: BenW_2025-12_order_24635
+   Exists: true
+   rateModified: undefined
+   commissionRate: 2%
+   hasManualRateEdit: false
+   Calculated rate from rules: 2%
+   ❌ NO RATE EDIT FLAG
+
+🔍 Order 10010 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24966
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9720 (Oregon Distro):
+   Document ID: BenW_2025-12_order_24095
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9809 (Aryana Wholesale):
+   Document ID: BenW_2025-12_order_24262
+   Exists: true
+   rateModified: true
+   commissionRate: 8%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9912 (Allegria Novelties):
+   Document ID: BenW_2025-12_order_24555
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 2%
+   ✏️ PRESERVING RATE EDIT
+
+🔍 Order 9926 (Metro wholesale inc):
+   Document ID: BenW_2025-12_order_24635
+   Exists: true
+   rateModified: undefined
+   commissionRate: 2%
+   hasManualRateEdit: false
+   Calculated rate from rules: 2%
+   ❌ NO RATE EDIT FLAG

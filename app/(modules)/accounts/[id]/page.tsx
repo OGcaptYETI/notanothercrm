@@ -48,7 +48,12 @@ export default function AccountDetailPage() {
   
   // Customer sales summary data
   const [customerSummary, setCustomerSummary] = useState<any>(null);
-  const [loadingSummary, setLoadingSummary] = useState(false);
+  const [loadingCustomerSummary, setLoadingCustomerSummary] = useState(false);
+  
+  // Handle order click - navigate to order detail page
+  const handleOrderClick = (orderNumber: string) => {
+    router.push(`/orders/${orderNumber}`);
+  };
   
   // Collapsible sections state
   const [sectionsOpen, setSectionsOpen] = useState({
@@ -71,21 +76,31 @@ export default function AccountDetailPage() {
   }, [activeTab, user]);
   
   const loadCustomerSummary = async () => {
-    setLoadingSummary(true);
+    // Try multiple ID fields to find the Fishbowl customer ID
+    const customerId = account?.accountOrderId || account?.accountNumber;
+    
+    if (!customerId) {
+      console.log('No customerId available for customer summary');
+      return;
+    }
+    
+    setLoadingCustomerSummary(true);
     try {
-      const token = await user?.getIdToken();
-      const response = await fetch(`/api/customers/${accountId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setCustomerSummary(data.customer);
+      console.log('Loading customer summary for customerId:', customerId);
+      const response = await fetch(`/api/customer-summary?customerId=${customerId}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Customer summary API error:', response.status, errorText);
+        throw new Error(`Failed to load customer summary: ${response.status}`);
       }
+      const data = await response.json();
+      console.log('Customer summary loaded:', data);
+      setCustomerSummary(data);
     } catch (error) {
       console.error('Error loading customer summary:', error);
+      setCustomerSummary(null);
     } finally {
-      setLoadingSummary(false);
+      setLoadingCustomerSummary(false);
     }
   };
   
@@ -109,6 +124,14 @@ export default function AccountDetailPage() {
   if (!user) {
     router.push('/login');
     return null;
+  }
+
+  if (loadingAccount) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#93D500]"></div>
+      </div>
+    );
   }
 
   if (!account) {
@@ -338,13 +361,20 @@ export default function AccountDetailPage() {
                   </div>
                 ) : (
                   orders.slice(0, 5).map((order) => (
-                    <div key={order.orderId} className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
+                    <div 
+                      key={order.orderId} 
+                      onClick={() => handleOrderClick(order.orderNumber)}
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition-colors"
+                    >
                       <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">{order.orderNumber}</p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(order.orderDate).toLocaleDateString()}
-                          </p>
+                        <div className="flex items-center gap-2">
+                          <Package className="w-4 h-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm font-medium text-blue-600 hover:text-blue-700">{order.orderNumber}</p>
+                            <p className="text-xs text-gray-500">
+                              {new Date(order.orderDate).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
                         <div className="text-sm font-medium text-gray-900">
                           ${order.total.toLocaleString()}
@@ -495,7 +525,7 @@ export default function AccountDetailPage() {
             
             {activeTab === 'insights' && (
               <>
-                {loadingSummary ? (
+                {loadingCustomerSummary ? (
                   <div className="flex items-center justify-center py-12">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#93D500]"></div>
                   </div>

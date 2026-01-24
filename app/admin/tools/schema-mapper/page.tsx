@@ -17,8 +17,18 @@ import ReactFlow, {
   addEdge,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { GitBranch, Save, Upload, Download, Trash2, Maximize2, Link2, Plus, Database } from 'lucide-react';
+import { GitBranch, Save, Upload, Download, Trash2, Maximize2, Link2, Plus, Database, Code, FileCode } from 'lucide-react';
 import { CollectionNode } from './components/CollectionNode';
+import { CustomOffsetEdge } from './components/CustomEdge';
+
+// Define node and edge types outside component to prevent React Flow warnings
+const nodeTypes: NodeTypes = {
+  collectionNode: CollectionNode,
+};
+
+const edgeTypes = {
+  customOffset: CustomOffsetEdge,
+};
 
 function SchemaMapperContent() {
   const { fitView } = useReactFlow();
@@ -34,6 +44,43 @@ function SchemaMapperContent() {
   const [autoSaving, setAutoSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [selectedFields, setSelectedFields] = useState<Array<{collectionId: string, fieldName: string, collectionName: string}>>([]);
+  
+  // Right panel state for collection properties (Salesforce-style schema builder)
+  const [selectedCollection, setSelectedCollection] = useState<any>(null);
+  const [collectionMetadata, setCollectionMetadata] = useState<Record<string, {
+    primaryKey?: string;
+    description?: string;
+    fieldMetadata?: Record<string, {
+      type: 'string' | 'number' | 'boolean' | 'timestamp' | 'reference' | 'array' | 'map' | 'geopoint';
+      required?: boolean;
+      unique?: boolean;
+      referenceTarget?: { collection: string; field: string };
+      validation?: { min?: number; max?: number; regex?: string };
+    }>;
+  }>>({});
+
+  // Handle field click for selection - MUST BE DEFINED BEFORE loadCompleteSchema
+  const handleFieldClick = useCallback((collectionId: string, fieldName: string, collectionName: string) => {
+    console.log('✅ handleFieldClick called:', { collectionId, fieldName, collectionName });
+    setSelectedFields(prev => {
+      // If clicking same field, deselect it
+      const existing = prev.find(f => f.collectionId === collectionId && f.fieldName === fieldName);
+      if (existing) {
+        console.log('🔄 Deselecting field');
+        return prev.filter(f => !(f.collectionId === collectionId && f.fieldName === fieldName));
+      }
+      
+      // If already have 2 fields selected, replace the oldest
+      if (prev.length >= 2) {
+        console.log('🔄 Replacing oldest selection (max 2 fields)');
+        return [prev[1], { collectionId, fieldName, collectionName }];
+      }
+      
+      // Add new selection
+      console.log('➕ Adding field to selection. Total selected:', prev.length + 1);
+      return [...prev, { collectionId, fieldName, collectionName }];
+    });
+  }, []);
 
   const loadCompleteSchema = useCallback(async () => {
     setLoading(true);
@@ -85,21 +132,67 @@ function SchemaMapperContent() {
         });
         setCollectionFields(fieldsMap);
         
-        // Auto-load nodes and edges from saved schema
+        // Auto-load nodes and edges from saved schema - EACH RELATIONSHIP GETS ITS OWN EDGE WITH VISUAL OFFSET
         if (config.edges && config.edges.length > 0) {
-          // Load edges with proper data structure
-          const loadedEdges = config.edges.map((edge: any) => ({
-            ...edge,
-            type: edge.type || 'smoothstep',
-            animated: edge.animated !== false,
-            markerEnd: edge.markerEnd || {
-              type: MarkerType.ArrowClosed,
-              width: 20,
-              height: 20,
-            },
-          }));
+          // Group edges by source-target pair to calculate offsets
+          const edgeGroups = new Map<string, number>();
+          const edgeCounters = new Map<string, number>();
+          
+          // First pass: count how many edges between each pair
+          config.edges.forEach((edge: any) => {
+            const key = `${edge.source}-${edge.target}`;
+            edgeGroups.set(key, (edgeGroups.get(key) || 0) + 1);
+            edgeCounters.set(key, 0);
+          });
+          
+          // Color palette for multiple relationships
+          const edgeColors = ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
+          
+          // Load edges with labels, colors, and offsets for visual separation
+          const loadedEdges = config.edges.map((edge: any, index: number) => {
+            const key = `${edge.source}-${edge.target}`;
+            const totalEdges = edgeGroups.get(key) || 1;
+            const edgeIndex = edgeCounters.get(key) || 0;
+            edgeCounters.set(key, edgeIndex + 1);
+            
+            // Calculate offset for multiple edges between same nodes
+            const offset = totalEdges > 1 ? (edgeIndex - (totalEdges - 1) / 2) * 50 : 0;
+            const color = edgeColors[edgeIndex % edgeColors.length];
+            
+            // Use different stroke patterns to visually distinguish edges
+            const strokePatterns = ['', '5,5', '10,5', '15,5', '5,10', '3,3'];
+            const strokeDasharray = strokePatterns[edgeIndex % strokePatterns.length];
+            
+            return {
+              ...edge,
+              id: edge.id || `edge-${index}-${edge.source}-${edge.target}`, // Unique ID for each relationship
+              type: 'customOffset', // Use custom edge for offset support
+              animated: edgeIndex % 2 === 0, // Alternate animation for visual distinction
+              label: edge.data?.label || `${edge.data?.sourceField || '?'} → ${edge.data?.targetField || '?'}`,
+              labelStyle: { fill: color, fontWeight: 600, fontSize: 12 },
+              labelBgStyle: { fill: '#FFFFFF', fillOpacity: 0.95 },
+              labelBgPadding: [6, 3] as [number, number],
+              labelBgBorderRadius: 3,
+              markerEnd: {
+                type: MarkerType.ArrowClosed,
+                width: 20,
+                height: 20,
+                color: color,
+              },
+              style: {
+                strokeWidth: 3,
+                stroke: color,
+                strokeDasharray: strokeDasharray,
+              },
+              // Add path offset for visual separation when multiple edges exist
+              data: {
+                ...edge.data,
+                offset: offset,
+              },
+            };
+          });
           setEdges(loadedEdges);
-          console.log(`✅ Loaded ${loadedEdges.length} relationship edges`);
+          console.log(`✅ Loaded ${loadedEdges.length} relationship edges (each relationship is a separate line with unique color)`);
           
           // Get unique collection IDs that are part of relationships
           const collectionsWithRelationships = new Set<string>();
@@ -108,13 +201,13 @@ function SchemaMapperContent() {
             collectionsWithRelationships.add(edge.target);
           });
           
-          // Load nodes with relationships and attach field data
+          // Load nodes with relationships and attach field data AND HANDLERS
           if (config.nodes && config.nodes.length > 0) {
             const filteredNodes = config.nodes
               .filter((node: any) => collectionsWithRelationships.has(node.id))
               .map((node: any) => {
                 // Find the collection data to get correct doc count
-                const collectionData = collections.find(c => c.id === node.id);
+                const collectionData = collections.find((c: any) => c.id === node.id);
                 return {
                   ...node,
                   data: {
@@ -126,12 +219,14 @@ function SchemaMapperContent() {
                     expanded: false, // Always start collapsed
                     connectedFields: node.data.connectedFields || [],
                     selectedFields: [],
+                    onFieldClick: handleFieldClick, // ADD HANDLER HERE
                   },
                 };
               });
             
             setNodes(filteredNodes);
             console.log(`✅ Loaded ${filteredNodes.length} collection nodes with relationships`);
+            console.log(`✅ All nodes now have onFieldClick handler attached`);
           }
         } else {
           console.log('⚠️ No relationships found in schema. Canvas will be empty.');
@@ -300,25 +395,6 @@ function SchemaMapperContent() {
     console.log(`✅ Created relationship: ${sourceCollectionId}.${sourceField} → ${targetCollectionId}.${targetField}`);
   }, [nodes, setEdges, updateConnectedFieldsForNodes]);
 
-  // Handle field click for selection
-  const handleFieldClick = useCallback((collectionId: string, fieldName: string, collectionName: string) => {
-    setSelectedFields(prev => {
-      // If clicking same field, deselect it
-      const existing = prev.find(f => f.collectionId === collectionId && f.fieldName === fieldName);
-      if (existing) {
-        return prev.filter(f => !(f.collectionId === collectionId && f.fieldName === fieldName));
-      }
-      
-      // If already have 2 fields selected, replace the oldest
-      if (prev.length >= 2) {
-        return [prev[1], { collectionId, fieldName, collectionName }];
-      }
-      
-      // Add new selection
-      return [...prev, { collectionId, fieldName, collectionName }];
-    });
-  }, []);
-
   // Create relationship from selected fields
   const createRelationshipFromSelection = useCallback(() => {
     if (selectedFields.length !== 2) return;
@@ -396,27 +472,51 @@ function SchemaMapperContent() {
     setNodes((nds) => [...nds, newNode]);
   };
 
-  // Update nodes when selectedFields changes
+  // Handle edge click to edit relationship
+  const handleEdgeClick = useCallback((event: React.MouseEvent, edge: Edge) => {
+    console.log('📌 Edge clicked:', edge);
+    setSelectedEdge(edge);
+    setShowRelationshipModal(true);
+  }, []);
+
+  // Add onFieldClick handler to nodes when they're first loaded
+  const [handlersAdded, setHandlersAdded] = useState(false);
+  
   useEffect(() => {
+    if (nodes.length === 0 || handlersAdded) return;
+    
+    console.log('🔄 Adding onFieldClick handler to', nodes.length, 'nodes');
+    
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          onFieldClick: handleFieldClick,
+          selectedFields: [],
+        },
+      }))
+    );
+    
+    setHandlersAdded(true);
+  }, [nodes.length, handlersAdded, handleFieldClick, setNodes]);
+  
+  // Update selectedFields in all nodes when selection changes
+  useEffect(() => {
+    if (!handlersAdded || nodes.length === 0) return;
+    
+    console.log('🔄 Updating selectedFields in nodes:', selectedFields.length);
+    
     setNodes((nds) =>
       nds.map((node) => ({
         ...node,
         data: {
           ...node.data,
           selectedFields: selectedFields,
-          onFieldClick: handleFieldClick,
         },
       }))
     );
-  }, [selectedFields, handleFieldClick, setNodes]);
-
-  // Define custom node types
-  const nodeTypes: NodeTypes = useMemo(
-    () => ({
-      collectionNode: CollectionNode,
-    }),
-    []
-  );
+  }, [selectedFields, handlersAdded, nodes.length, setNodes]);
 
   // Handle connection between nodes
   const onConnect = useCallback(
@@ -477,6 +577,162 @@ function SchemaMapperContent() {
     );
   };
 
+  // Update collection metadata (Salesforce-style)
+  const updateCollectionMetadata = (collectionId: string, updates: Partial<typeof collectionMetadata[string]>) => {
+    setCollectionMetadata(prev => ({
+      ...prev,
+      [collectionId]: {
+        primaryKey: updates.primaryKey !== undefined ? updates.primaryKey : prev[collectionId]?.primaryKey,
+        description: updates.description !== undefined ? updates.description : prev[collectionId]?.description,
+        fieldMetadata: updates.fieldMetadata || prev[collectionId]?.fieldMetadata || {},
+      }
+    }));
+  };
+
+  // Update field metadata
+  const updateFieldMetadata = (collectionId: string, fieldName: string, updates: Partial<NonNullable<typeof collectionMetadata[string]['fieldMetadata']>[string]>) => {
+    const metadata = collectionMetadata[collectionId] || { fieldMetadata: {} };
+    const fieldMetadata = metadata.fieldMetadata || {};
+    
+    setCollectionMetadata(prev => ({
+      ...prev,
+      [collectionId]: {
+        ...prev[collectionId],
+        fieldMetadata: {
+          ...fieldMetadata,
+          [fieldName]: {
+            ...fieldMetadata[fieldName],
+            ...updates,
+          }
+        }
+      }
+    }));
+  };
+
+  // Code Generation Functions
+  const generateTypeScriptInterfaces = () => {
+    let code = `// 🤖 AUTO-GENERATED - DO NOT EDIT\n// Generated from Firebase Schema Builder on ${new Date().toISOString()}\n\n`;
+    
+    // Generate interface for each collection
+    allCollections.forEach((collection: any) => {
+      const fields = collectionFields[collection.id] || [];
+      const metadata = collectionMetadata[collection.id];
+      const description = metadata?.description || `${collection.name} collection`;
+      
+      code += `/**\n * ${description}\n */\n`;
+      code += `export interface ${toPascalCase(collection.name)} {\n`;
+      
+      fields.forEach((field: any) => {
+        const fieldMeta = metadata?.fieldMetadata?.[field.fieldName];
+        const type = fieldMeta?.type || field.type || 'string';
+        const required = fieldMeta?.required ? '' : '?';
+        const tsType = mapFirestoreTypeToTS(type);
+        
+        code += `  ${field.fieldName}${required}: ${tsType};\n`;
+      });
+      
+      code += `}\n\n`;
+    });
+    
+    return code;
+  };
+  
+  const generateRelationshipHelpers = () => {
+    let code = `// 🤖 AUTO-GENERATED - DO NOT EDIT\n// Generated from Firebase Schema Builder on ${new Date().toISOString()}\n\n`;
+    code += `import { db } from '@/lib/firebase';\n`;
+    code += `import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';\n`;
+    
+    // Import all interfaces
+    const interfaceNames = allCollections.map((col: any) => toPascalCase(col.name)).join(', ');
+    code += `import type { ${interfaceNames} } from './types';\n\n`;
+    
+    code += `export class SchemaHelper {\n`;
+    
+    // Generate helper methods for each relationship
+    edges.forEach((edge: any) => {
+      const sourceCollection = allCollections.find((c: any) => c.id === edge.source);
+      const targetCollection = allCollections.find((c: any) => c.id === edge.target);
+      
+      if (!sourceCollection || !targetCollection) return;
+      
+      const sourceType = toPascalCase(edge.source);
+      const targetType = toPascalCase(edge.target);
+      const fromField = edge.data?.fromField || edge.data?.sourceField || '';
+      const toField = edge.data?.toField || edge.data?.targetField || 'id';
+      const relType = edge.data?.type || '1:many';
+      
+      if (!fromField) return;
+      
+      // Generate getter method
+      const methodName = `get${targetType}For${sourceType}`;
+      
+      if (relType === '1:1' || relType === '1:many') {
+        code += `\n  /**\n   * Get related ${edge.target} for ${edge.source}\n   * Relationship: ${edge.source}.${fromField} → ${edge.target}.${toField}\n   */\n`;
+        code += `  static async ${methodName}(${toCamelCase(edge.source)}Id: string) {\n`;
+        code += `    const ${toCamelCase(edge.source)}Doc = await getDoc(doc(db, '${edge.source}', ${toCamelCase(edge.source)}Id));\n`;
+        code += `    if (!${toCamelCase(edge.source)}Doc.exists()) return null;\n`;
+        code += `    const ${toCamelCase(edge.source)} = ${toCamelCase(edge.source)}Doc.data() as ${sourceType};\n`;
+        code += `    const ${fromField} = ${toCamelCase(edge.source)}.${fromField};\n`;
+        code += `    if (!${fromField}) return null;\n`;
+        code += `    const ${toCamelCase(edge.target)}Doc = await getDoc(doc(db, '${edge.target}', ${fromField} as string));\n`;
+        code += `    return ${toCamelCase(edge.target)}Doc.exists() ? ${toCamelCase(edge.target)}Doc.data() as ${targetType} : null;\n`;
+        code += `  }\n`;
+      }
+    });
+    
+    code += `}\n`;
+    
+    return code;
+  };
+  
+  const downloadFile = (filename: string, content: string) => {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+  
+  const generateAllCode = () => {
+    // Generate types.ts
+    const typesCode = generateTypeScriptInterfaces();
+    downloadFile('schema-types.ts', typesCode);
+    
+    // Generate helpers.ts
+    const helpersCode = generateRelationshipHelpers();
+    downloadFile('schema-helpers.ts', helpersCode);
+    
+    alert('✅ Code generated! Check your downloads folder for:\n\n• schema-types.ts\n• schema-helpers.ts\n\nImport these files into your project to use the generated schema.');
+  };
+  
+  // Helper functions for code generation
+  const toPascalCase = (str: string) => {
+    return str.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  };
+  
+  const toCamelCase = (str: string) => {
+    const pascal = toPascalCase(str);
+    return pascal.charAt(0).toLowerCase() + pascal.slice(1);
+  };
+  
+  const mapFirestoreTypeToTS = (type: string): string => {
+    const typeMap: Record<string, string> = {
+      'string': 'string',
+      'number': 'number',
+      'boolean': 'boolean',
+      'timestamp': 'Date',
+      'reference': 'string',
+      'array': 'any[]',
+      'map': 'Record<string, any>',
+      'geopoint': '{ latitude: number; longitude: number }',
+    };
+    return typeMap[type] || 'any';
+  };
+
   // Autosave function (silent save without alerts)
   const autoSave = useCallback(async () => {
     if (nodes.length === 0 && edges.length === 0) return; // Don't save empty schema
@@ -494,6 +750,7 @@ function SchemaMapperContent() {
         })),
         nodes,
         edges,
+        collectionMetadata, // Include field metadata for code generation
       };
       
       const response = await fetch('/api/schema-config', {
@@ -511,7 +768,7 @@ function SchemaMapperContent() {
     } finally {
       setAutoSaving(false);
     }
-  }, [nodes, edges, allCollections]);
+  }, [nodes, edges, allCollections, collectionMetadata]);
 
   // Autosave on changes (debounced)
   useEffect(() => {
@@ -629,6 +886,15 @@ function SchemaMapperContent() {
             
             <div className="flex items-center gap-2">
             <button
+              onClick={generateAllCode}
+              disabled={allCollections.length === 0}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Generate TypeScript code from schema"
+            >
+              <Code className="w-4 h-4" />
+              Generate Code
+            </button>
+            <button
               onClick={saveSchema}
               disabled={loading}
               className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -685,8 +951,11 @@ function SchemaMapperContent() {
                 return (
                   <div
                     key={collection.id}
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                      isOnCanvas
+                    onClick={() => setSelectedCollection(collection)}
+                    className={`p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                      selectedCollection?.id === collection.id
+                        ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200'
+                        : isOnCanvas
                         ? 'border-green-300 bg-green-50'
                         : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50'
                     }`}
@@ -696,13 +965,22 @@ function SchemaMapperContent() {
                         <div className="font-mono text-xs font-medium text-gray-900 truncate">
                           {collection.name}
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-gray-500 flex items-center gap-2">
                           {collection.countNote}
+                          {collectionMetadata[collection.id]?.type === 'fact' && (
+                            <span className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs">📊 Fact</span>
+                          )}
+                          {collectionMetadata[collection.id]?.type === 'dimension' && (
+                            <span className="bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded text-xs">📁 Dim</span>
+                          )}
                         </div>
                       </div>
                       {!isOnCanvas && (
                         <button
-                          onClick={() => addCollectionToCanvas(collection)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addCollectionToCanvas(collection);
+                          }}
                           className="ml-2 p-1 text-indigo-600 hover:bg-indigo-100 rounded"
                         >
                           <Plus className="w-4 h-4" />
@@ -725,29 +1003,50 @@ function SchemaMapperContent() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            onEdgeClick={handleEdgeClick}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             fitView
             attributionPosition="bottom-left"
           >
             <Background />
             <Controls />
             
-            <Panel position="top-right" className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
-              <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-gray-900">Legend</h3>
-                <div className="space-y-1 text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-1 bg-green-500"></div>
-                    <span>1:1 Relationship</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-1 bg-indigo-500"></div>
-                    <span>1:Many Relationship</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-1 bg-orange-500"></div>
-                    <span>Many:Many Relationship</span>
-                  </div>
+            <Panel position="top-right" className="bg-white p-4 rounded-lg shadow-lg border border-gray-200 max-w-md">
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <Link2 className="w-4 h-4" />
+                  Relationships ({edges.length})
+                </h3>
+                <div className="space-y-2 max-h-96 overflow-y-auto">
+                  {edges.map((edge, idx) => {
+                    const color = edge.style?.stroke || '#4F46E5';
+                    return (
+                      <div
+                        key={edge.id}
+                        onClick={() => handleEdgeClick({} as React.MouseEvent, edge)}
+                        className="p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer transition-colors"
+                        style={{ borderLeftColor: color, borderLeftWidth: 4 }}
+                      >
+                        <div className="text-xs font-medium text-gray-900">
+                          {edge.label || `${edge.source} → ${edge.target}`}
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {edge.source} → {edge.target}
+                        </div>
+                        {edge.data?.type && (
+                          <div className="text-xs text-gray-400 mt-1">
+                            Type: {edge.data.type}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {edges.length === 0 && (
+                    <div className="text-xs text-gray-400 text-center py-4">
+                      No relationships yet. Click fields to create one.
+                    </div>
+                  )}
                 </div>
               </div>
             </Panel>
@@ -814,6 +1113,198 @@ function SchemaMapperContent() {
             </div>
           </div>
         </div>
+
+        {/* Right Panel - Field Type Editor (Salesforce Schema Builder Style) */}
+        {selectedCollection && (
+          <div className="w-96 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
+            <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-indigo-50 to-blue-50">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <Database className="w-4 h-4" />
+                  Schema Definition
+                </h2>
+                <button
+                  onClick={() => setSelectedCollection(null)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="font-mono text-xs font-medium text-indigo-600">
+                {selectedCollection.name}
+              </div>
+              <div className="text-xs text-gray-500 mt-1">
+                {selectedCollection.countNote}
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              {/* Collection Description */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  📝 Description
+                </label>
+                <textarea
+                  value={collectionMetadata[selectedCollection.id]?.description || ''}
+                  onChange={(e) => updateCollectionMetadata(selectedCollection.id, { description: e.target.value })}
+                  placeholder="What is this collection for?"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  rows={2}
+                />
+              </div>
+
+              {/* Primary Key */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  🔑 Primary Key Field
+                </label>
+                <select
+                  value={collectionMetadata[selectedCollection.id]?.primaryKey || ''}
+                  onChange={(e) => updateCollectionMetadata(selectedCollection.id, { primaryKey: e.target.value })}
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="">Select primary key...</option>
+                  {(collectionFields[selectedCollection.id] || []).map((field: any) => (
+                    <option key={field.fieldName} value={field.fieldName}>
+                      {field.fieldName}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  Unique identifier for documents in this collection
+                </p>
+              </div>
+
+              {/* Fields List with Type Editor */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <label className="block text-sm font-semibold text-gray-900">
+                    � Fields ({(collectionFields[selectedCollection.id] || []).length})
+                  </label>
+                </div>
+                <div className="space-y-2 max-h-96 overflow-y-auto">
+                  {(collectionFields[selectedCollection.id] || []).map((field: any) => {
+                    const fieldMeta = collectionMetadata[selectedCollection.id]?.fieldMetadata?.[field.fieldName] || {};
+                    const isReference = fieldMeta.type === 'reference';
+                    
+                    return (
+                      <div key={field.fieldName} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="font-mono text-xs font-semibold text-gray-900 flex-1">
+                            {field.fieldName}
+                          </span>
+                          <label className="flex items-center gap-1 text-xs">
+                            <input
+                              type="checkbox"
+                              checked={fieldMeta.required || false}
+                              onChange={(e) => updateFieldMetadata(selectedCollection.id, field.fieldName, { required: e.target.checked })}
+                              className="rounded border-gray-300"
+                            />
+                            <span className="text-gray-600">Required</span>
+                          </label>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <select
+                            value={fieldMeta.type || field.type || 'string'}
+                            onChange={(e) => updateFieldMetadata(selectedCollection.id, field.fieldName, { type: e.target.value as any })}
+                            className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
+                          >
+                            <option value="string">String</option>
+                            <option value="number">Number</option>
+                            <option value="boolean">Boolean</option>
+                            <option value="timestamp">Timestamp</option>
+                            <option value="reference">Reference (Lookup)</option>
+                            <option value="array">Array</option>
+                            <option value="map">Map (Object)</option>
+                            <option value="geopoint">GeoPoint</option>
+                          </select>
+                          
+                          {isReference && (
+                            <div className="p-2 bg-white border border-indigo-200 rounded space-y-1">
+                              <label className="text-xs text-gray-700 font-medium">References:</label>
+                              <select
+                                value={fieldMeta.referenceTarget?.collection || ''}
+                                onChange={(e) => updateFieldMetadata(selectedCollection.id, field.fieldName, {
+                                  referenceTarget: { collection: e.target.value, field: 'id' }
+                                })}
+                                className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
+                              >
+                                <option value="">Select collection...</option>
+                                {allCollections.map((col: any) => (
+                                  <option key={col.id} value={col.id}>
+                                    {col.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          )}
+                          
+                          <div className="text-xs text-gray-500">
+                            Sample: {JSON.stringify(field.sampleValues?.[0] || null)?.slice(0, 40)}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {(collectionFields[selectedCollection.id] || []).length === 0 && (
+                    <div className="text-xs text-gray-400 text-center py-4">
+                      No fields detected. Add collection to canvas to analyze.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Relationships */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  🔗 Relationships ({edges.filter(e => e.source === selectedCollection.id || e.target === selectedCollection.id).length})
+                </label>
+                <div className="space-y-1">
+                  {edges
+                    .filter(e => e.source === selectedCollection.id || e.target === selectedCollection.id)
+                    .map((edge, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setSelectedEdge(edge);
+                          setShowRelationshipModal(true);
+                        }}
+                        className="p-2 bg-gray-50 rounded border border-gray-200 hover:bg-indigo-50 cursor-pointer text-xs"
+                      >
+                        <div className="font-medium text-gray-900">
+                          {edge.source === selectedCollection.id ? '→' : '←'} {edge.source === selectedCollection.id ? edge.target : edge.source}
+                        </div>
+                        <div className="text-gray-500">
+                          {edge.label || edge.data?.type || '1:many'}
+                        </div>
+                      </div>
+                    ))}
+                  {edges.filter(e => e.source === selectedCollection.id || e.target === selectedCollection.id).length === 0 && (
+                    <div className="text-xs text-gray-400 text-center py-3">
+                      No relationships defined
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="p-4 border-t border-gray-200 bg-gray-50 space-y-2">
+              <button
+                onClick={() => {
+                  if (!nodes.some(n => n.id === selectedCollection.id)) {
+                    addCollectionToCanvas(selectedCollection);
+                  }
+                }}
+                disabled={nodes.some(n => n.id === selectedCollection.id)}
+                className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+              >
+                {nodes.some(n => n.id === selectedCollection.id) ? '✓ On Canvas' : 'Add to Canvas'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Relationship Modal - PHASE 3 */}
@@ -850,7 +1341,28 @@ function SchemaMapperContent() {
                 </div>
               </div>
 
-              {/* Field Mapping - PHASE 3 FEATURE */}
+              {/* Relationship Name */}
+              <div className="border-t border-gray-200 pt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Relationship Name (for generated code)
+                </label>
+                <input
+                  type="text"
+                  value={selectedEdge.data?.relationshipName || ''}
+                  onChange={(e) => {
+                    const relationshipName = e.target.value;
+                    updateRelationship(selectedEdge.id, { relationshipName });
+                    setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, relationshipName } });
+                  }}
+                  placeholder="e.g., customer, salesRep, orders"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Example: &quot;customer&quot; becomes getCustomerFor{selectedEdge.source}()
+                </p>
+              </div>
+
+              {/* Field Mapping - FIXED TO PRE-POPULATE */}
               <div className="border-t border-gray-200 pt-4">
                 <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <Link2 className="w-4 h-4" />
@@ -867,11 +1379,11 @@ function SchemaMapperContent() {
                       <div className="text-xs text-gray-500">Loading fields...</div>
                     ) : (
                       <select
-                        value={selectedEdge.data?.fromField || ''}
+                        value={selectedEdge.data?.fromField || selectedEdge.data?.sourceField || ''}
                         onChange={(e) => {
                           const fromField = e.target.value;
-                          updateRelationship(selectedEdge.id, { fromField });
-                          setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, fromField } });
+                          updateRelationship(selectedEdge.id, { fromField, sourceField: fromField });
+                          setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, fromField, sourceField: fromField } });
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                       >
@@ -906,11 +1418,11 @@ function SchemaMapperContent() {
                       <div className="text-xs text-gray-500">Loading fields...</div>
                     ) : (
                       <select
-                        value={selectedEdge.data?.toField || ''}
+                        value={selectedEdge.data?.toField || selectedEdge.data?.targetField || ''}
                         onChange={(e) => {
                           const toField = e.target.value;
-                          updateRelationship(selectedEdge.id, { toField });
-                          setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, toField } });
+                          updateRelationship(selectedEdge.id, { toField, targetField: toField });
+                          setSelectedEdge({ ...selectedEdge, data: { ...selectedEdge.data, toField, targetField: toField } });
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                       >

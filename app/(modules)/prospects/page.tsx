@@ -22,7 +22,8 @@ import {
 export default function ProspectsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const { data: prospects = [], isLoading, isFetching } = useProspects();
+  const { data: prospectsData, isLoading, isFetching } = useProspects();
+  const prospects = prospectsData?.data || [];
   const { refreshProspects } = useRefreshCRMData();
 
   // Define table columns

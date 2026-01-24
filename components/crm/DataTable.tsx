@@ -43,6 +43,7 @@ import {
   X,
   Eye,
   EyeOff,
+  Columns3,
 } from 'lucide-react';
 
 interface DataTableProps<T> {
@@ -50,13 +51,15 @@ interface DataTableProps<T> {
   columns: ColumnDef<T, any>[];
   loading?: boolean;
   onRowClick?: (row: T) => void;
-  pageSize?: number;
-  tableId: string; // For saving preferences
+  tableId: string;
   searchPlaceholder?: string;
+  toolbarActions?: React.ReactNode;
+  leftToolbarActions?: React.ReactNode; // Icons on left side of toolbar
+  rightToolbarActions?: React.ReactNode; // Actions on right side (e.g., Add button)
 }
 
 // Sortable header cell component
-function SortableHeaderCell({ id, children }: { id: string; children: React.ReactNode }) {
+function SortableHeaderCell({ id, children, isNonDraggable }: { id: string; children: React.ReactNode; isNonDraggable?: boolean }) {
   const {
     attributes,
     listeners,
@@ -64,7 +67,7 @@ function SortableHeaderCell({ id, children }: { id: string; children: React.Reac
     transform,
     transition,
     isDragging,
-  } = useSortable({ id });
+  } = useSortable({ id, disabled: isNonDraggable });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -76,12 +79,14 @@ function SortableHeaderCell({ id, children }: { id: string; children: React.Reac
     <th
       ref={setNodeRef}
       style={style}
-      className="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-gray-50 border-b border-gray-200 cursor-move whitespace-nowrap"
-      {...attributes}
-      {...listeners}
+      className={`px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-gray-50 border-b border-gray-200 whitespace-nowrap ${
+        isNonDraggable ? '' : 'cursor-move'
+      }`}
+      {...(isNonDraggable ? {} : attributes)}
+      {...(isNonDraggable ? {} : listeners)}
     >
       <div className="flex items-center gap-1">
-        <GripVertical className="w-3 h-3 text-gray-400" />
+        {!isNonDraggable && <GripVertical className="w-3 h-3 text-gray-400" />}
         {children}
       </div>
     </th>
@@ -93,30 +98,49 @@ export function DataTable<T extends { id: string }>({
   columns,
   loading = false,
   onRowClick,
-  pageSize = 50,
   tableId,
   searchPlaceholder = 'Search...',
+  toolbarActions,
+  leftToolbarActions,
+  rightToolbarActions,
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
   const [showColumnSettings, setShowColumnSettings] = useState(false);
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   // Load saved preferences
   useEffect(() => {
+    const currentColumnIds = columns.map((col) => (col as any).id || (col as any).accessorKey);
+    
     const savedPrefs = localStorage.getItem(`table-prefs-${tableId}`);
     if (savedPrefs) {
       try {
         const prefs = JSON.parse(savedPrefs);
         if (prefs.columnVisibility) setColumnVisibility(prefs.columnVisibility);
-        if (prefs.columnOrder) setColumnOrder(prefs.columnOrder);
+        
+        if (prefs.columnOrder) {
+          // Ensure 'select' column is always first if it exists
+          const hasSelectColumn = currentColumnIds.includes('select');
+          if (hasSelectColumn) {
+            const savedOrderWithoutSelect = prefs.columnOrder.filter((id: string) => id !== 'select');
+            const newOrder = ['select', ...savedOrderWithoutSelect.filter((id: string) => currentColumnIds.includes(id))];
+            setColumnOrder(newOrder);
+          } else {
+            setColumnOrder(prefs.columnOrder.filter((id: string) => currentColumnIds.includes(id)));
+          }
+        } else {
+          setColumnOrder(currentColumnIds);
+        }
       } catch (e) {
         console.error('Error loading table preferences:', e);
+        setColumnOrder(currentColumnIds);
       }
     } else {
       // Initialize column order from columns
-      setColumnOrder(columns.map((col) => (col as any).id || (col as any).accessorKey));
+      setColumnOrder(currentColumnIds);
     }
   }, [tableId, columns]);
 
@@ -146,10 +170,7 @@ export function DataTable<T extends { id: string }>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: { pageSize },
-    },
+    // No pagination model - we use infinite scroll
   });
 
   const sensors = useSensors(
@@ -187,41 +208,69 @@ export function DataTable<T extends { id: string }>({
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      {/* Toolbar */}
-      <div className="p-4 border-b border-gray-200 flex items-center justify-between gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input
-            type="text"
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#93D500] focus:border-transparent outline-none text-sm"
-          />
-          {globalFilter && (
-            <button
-              onClick={() => setGlobalFilter('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
-            >
-              <X className="w-4 h-4 text-gray-400 hover:text-gray-600" />
-            </button>
-          )}
+    <div className="bg-white overflow-hidden">
+      {/* Toolbar - Integrated with Table */}
+      <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between gap-4">
+        {/* Left: Tool Icons */}
+        <div className="flex items-center gap-2">
+          {leftToolbarActions}
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">
+        {/* Center: Selection or Search */}
+        {toolbarActions ? (
+          <div className="flex-1 flex justify-center">
+            {toolbarActions}
+          </div>
+        ) : searchExpanded ? (
+          <div className="relative flex-1 max-w-xl">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              placeholder={searchPlaceholder}
+              className="w-full pl-10 pr-10 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#93D500] focus:border-transparent outline-none text-sm"
+              autoFocus
+              onBlur={() => {
+                if (!globalFilter) setSearchExpanded(false);
+              }}
+            />
+            {globalFilter && (
+              <button
+                onClick={() => {
+                  setGlobalFilter('');
+                  setSearchExpanded(false);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2"
+              >
+                <X className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        {/* Right: Search Icon + Record Count + Column Settings + Add Button */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSearchExpanded(true)}
+            className="p-2 hover:bg-gray-100 rounded-md transition-colors text-gray-600"
+            title="Search"
+          >
+            <Search className="w-4 h-4" />
+          </button>
+          <span className="text-xs text-gray-500">
             {table.getFilteredRowModel().rows.length} records
           </span>
           <button
             onClick={() => setShowColumnSettings(!showColumnSettings)}
-            className={`p-2 rounded-lg transition-colors ${
-              showColumnSettings ? 'bg-[#93D500] text-white' : 'hover:bg-gray-100'
-            }`}
+            className="p-2 hover:bg-gray-100 rounded-md transition-colors"
             title="Column settings"
           >
-            <Settings2 className="w-5 h-5" />
+            <Columns3 className="w-4 h-4 text-gray-600" />
           </button>
+          {rightToolbarActions}
         </div>
       </div>
 
@@ -286,25 +335,33 @@ export function DataTable<T extends { id: string }>({
                   strategy={horizontalListSortingStrategy}
                 >
                   {table.getHeaderGroups().map((headerGroup) =>
-                    headerGroup.headers.map((header) => (
-                      <SortableHeaderCell key={header.id} id={header.id}>
-                        <button
-                          onClick={header.column.getToggleSortingHandler()}
-                          className="flex items-center gap-1 hover:text-gray-900"
+                    headerGroup.headers.map((header) => {
+                      const isSelect = header.id === 'select';
+                      
+                      return (
+                        <SortableHeaderCell 
+                          key={header.id} 
+                          id={header.id}
+                          isNonDraggable={isSelect}
                         >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {header.column.getIsSorted() === 'asc' && (
-                            <ChevronUp className="w-4 h-4" />
-                          )}
-                          {header.column.getIsSorted() === 'desc' && (
-                            <ChevronDown className="w-4 h-4" />
-                          )}
-                        </button>
-                      </SortableHeaderCell>
-                    ))
+                          <button
+                            onClick={header.column.getToggleSortingHandler()}
+                            className="flex items-center gap-1 hover:text-gray-900"
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {header.column.getIsSorted() === 'asc' && (
+                              <ChevronUp className="w-4 h-4" />
+                            )}
+                            {header.column.getIsSorted() === 'desc' && (
+                              <ChevronDown className="w-4 h-4" />
+                            )}
+                          </button>
+                        </SortableHeaderCell>
+                      );
+                    })
                   )}
                 </SortableContext>
               </tr>
@@ -319,7 +376,10 @@ export function DataTable<T extends { id: string }>({
                   }`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-3 py-2 text-xs text-gray-700 whitespace-nowrap">
+                    <td 
+                      key={cell.id} 
+                      className="px-3 py-2 text-xs text-gray-700 whitespace-nowrap"
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -330,59 +390,6 @@ export function DataTable<T extends { id: string }>({
         </DndContext>
       </div>
 
-      {/* Pagination */}
-      <div className="p-4 border-t border-gray-200 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => table.setPageSize(Number(e.target.value))}
-            className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#93D500] focus:border-transparent outline-none"
-          >
-            {[25, 50, 100, 200].map((size) => (
-              <option key={size} value={size}>
-                {size} per page
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount()}
-          </span>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => table.setPageIndex(0)}
-              disabled={!table.getCanPreviousPage()}
-              className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ChevronsLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              disabled={!table.getCanNextPage()}
-              className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ChevronsRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

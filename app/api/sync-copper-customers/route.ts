@@ -387,7 +387,8 @@ export async function POST(request: NextRequest) {
         // Only update if Copper has a value (don't overwrite with empty strings)
         if (copperName) newCustomerData.name = copperName;
         if (copperAccountOrderId) newCustomerData.accountNumber = copperAccountOrderId;
-        if (copperAccountId) newCustomerData.accountId = copperAccountId;
+        // CRITICAL: Convert to string and strip commas - Copper may store as number with formatting
+        if (copperAccountId) newCustomerData.accountId = String(copperAccountId).replace(/,/g, '');
         if (copperRegion) newCustomerData.region = copperRegion;
         
         // Account Type: Always set if Copper has data, or if creating new customer

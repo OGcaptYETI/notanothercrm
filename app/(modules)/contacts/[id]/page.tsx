@@ -23,9 +23,9 @@ export default function ContactDetailPage() {
   const { user, loading: authLoading } = useAuth();
   const contactId = params.id as string;
   
-  const { data: contacts = [] } = useContacts();
-  const contact = contacts.find(c => c.id === contactId);
-  const account = useAccount(contact?.accountId || null);
+  const { data: contactsData } = useContacts();
+  const contact = contactsData?.data?.find((c: any) => c.id === contactId);
+  const { data: account } = useAccount(contact?.accountId || null);
 
   if (authLoading) {
     return (
@@ -140,61 +140,56 @@ export default function ContactDetailPage() {
             </div>
           </div>
 
-          {/* Associated Account */}
-          {account && (
+          {/* Associated Account(s) */}
+          {(account || contact.accountId) && (
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-[#93D500]" />
                 Associated Account
               </h2>
-              <div
-                onClick={() => router.push(`/accounts/${account.id}`)}
-                className="p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center border border-gray-200">
-                      <Building2 className="w-6 h-6 text-gray-500" />
+              {account ? (
+                <div
+                  onClick={() => router.push(`/accounts/${account.id}`)}
+                  className="p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center border border-gray-200">
+                        <Building2 className="w-6 h-6 text-gray-500" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">{account.name || 'Unknown Account'}</p>
+                        {account.accountNumber && (
+                          <p className="text-sm text-gray-500">Account #{account.accountNumber}</p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-gray-900">{account.name}</p>
-                      {account.accountNumber && (
-                        <p className="text-sm text-gray-500">Account #{account.accountNumber}</p>
-                      )}
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <p className="text-sm text-gray-500">Total Orders</p>
+                        <p className="font-semibold text-gray-900">{account.totalOrders || 0}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-500">Total Spent</p>
+                        <p className="font-semibold text-gray-900">
+                          ${(account.totalSpent || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </p>
+                      </div>
+                      <ExternalLink className="w-5 h-5 text-gray-400" />
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-sm text-gray-500">Total Orders</p>
-                      <p className="font-semibold text-gray-900">{account.totalOrders || 0}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-500">Total Spent</p>
-                      <p className="font-semibold text-gray-900">
-                        ${(account.totalSpent || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                      </p>
-                    </div>
-                    <ExternalLink className="w-5 h-5 text-gray-400" />
-                  </div>
+                  {(account.shippingCity || account.shippingState) && (
+                    <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {account.shippingCity && `${account.shippingCity}, `}{account.shippingState}
+                    </p>
+                  )}
                 </div>
-                {(account.shippingCity || account.shippingState) && (
-                  <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {account.shippingCity && `${account.shippingCity}, `}{account.shippingState}
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* No Account Associated */}
-          {!account && contact.accountId && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-[#93D500]" />
-                Associated Account
-              </h2>
-              <p className="text-gray-500">Account data not found or still loading...</p>
+              ) : (
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-gray-500 text-sm">Loading account data...</p>
+                </div>
+              )}
             </div>
           )}
         </div>

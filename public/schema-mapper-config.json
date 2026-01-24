@@ -1,0 +1,5934 @@
+{
+  "collections": [
+    {
+      "id": "activities",
+      "name": "activities",
+      "documentCount": 4,
+      "fields": [
+        {
+          "name": "activity",
+          "type": "string",
+          "sampleValue": "Phone Calls"
+        },
+        {
+          "name": "goal",
+          "type": "number",
+          "sampleValue": 1200
+        },
+        {
+          "name": "subWeight",
+          "type": "number",
+          "sampleValue": 0.3
+        },
+        {
+          "name": "dataSource",
+          "type": "string",
+          "sampleValue": "JustCall"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": "Outbound"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "admin",
+      "name": "admin",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "0",
+          "type": "string",
+          "sampleValue": "ben@kanvabotanicals.com"
+        },
+        {
+          "name": "2",
+          "type": "string",
+          "sampleValue": "rob@cwlbrands.com"
+        },
+        {
+          "name": "migratedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.788Z"
+        },
+        {
+          "name": "emails",
+          "type": "array",
+          "sampleValue": "[\"ben@kanvabotanicals.com\",\"admin@kanvabotanicals.com\"]"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T20:10:20.688Z"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "string",
+          "sampleValue": "2025-07-20T20:10:20.688Z"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Admin notification email addresses for Kanva Quotes system"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T20:10:20.688Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "cache_reprally",
+      "name": "cache_reprally",
+      "documentCount": 11,
+      "fields": [
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-30T00:55:16.955Z"
+        },
+        {
+          "name": "customers",
+          "type": "array",
+          "sampleValue": "[{\"reprallyOrders\":21,\"businessName\":\"SACRAMENTO CASH & CARRY\",\"billingAddress\":\"1160 Tara Ct\\nSuite"
+        },
+        {
+          "name": "totalChunks",
+          "type": "number",
+          "sampleValue": 6
+        },
+        {
+          "name": "chunkIndex",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "switcherCount",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "totalRevenue",
+          "type": "number",
+          "sampleValue": 3518898.3999999855
+        },
+        {
+          "name": "reprallyCustomers",
+          "type": "number",
+          "sampleValue": 1502
+        },
+        {
+          "name": "avgOrderValue",
+          "type": "number",
+          "sampleValue": 355.5161042634861
+        },
+        {
+          "name": "totalCustomers",
+          "type": "number",
+          "sampleValue": 2876
+        },
+        {
+          "name": "retailRevenue",
+          "type": "number",
+          "sampleValue": 813908.759999993
+        },
+        {
+          "name": "retailCustomers",
+          "type": "number",
+          "sampleValue": 1374
+        },
+        {
+          "name": "retailOrders",
+          "type": "number",
+          "sampleValue": 4524
+        },
+        {
+          "name": "reprallyRevenue",
+          "type": "number",
+          "sampleValue": 2704989.6399999615
+        },
+        {
+          "name": "buildDurationMs",
+          "type": "number",
+          "sampleValue": 30775
+        },
+        {
+          "name": "topSkus",
+          "type": "array",
+          "sampleValue": "[{\"productName\":\"BX12 Focus + Flow\",\"revenue\":2045652,\"sku\":\"FG- BX12 Focus+Flow\",\"qty\":34475},{\"qty"
+        },
+        {
+          "name": "topStates",
+          "type": "array",
+          "sampleValue": "[{\"count\":463,\"state\":\"California\",\"revenue\":986714.0100000016},{\"count\":298,\"revenue\":444341.740000"
+        },
+        {
+          "name": "reprallyOrders",
+          "type": "number",
+          "sampleValue": 5374
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "switchers",
+          "type": "array",
+          "sampleValue": "[]"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "commission_audit_log",
+      "name": "commission_audit_log",
+      "documentCount": 98,
+      "fields": [
+        {
+          "name": "action",
+          "type": "string",
+          "sampleValue": "customer_correction"
+        },
+        {
+          "name": "orderNumber",
+          "type": "string",
+          "sampleValue": "10017"
+        },
+        {
+          "name": "oldCustomerId",
+          "type": "string",
+          "sampleValue": "2026"
+        },
+        {
+          "name": "newCustomerId",
+          "type": "string",
+          "sampleValue": "2026"
+        },
+        {
+          "name": "newCustomerName",
+          "type": "string",
+          "sampleValue": "Numia Healing"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Wholesale"
+        },
+        {
+          "name": "rememberCorrection",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "sampleValue": "Manual correction via validation UI"
+        },
+        {
+          "name": "correctedBy",
+          "type": "string",
+          "sampleValue": "admin"
+        },
+        {
+          "name": "timestamp",
+          "type": "timestamp",
+          "sampleValue": "2026-01-15T22:23:00.755Z"
+        },
+        {
+          "name": "accountTypeOverride",
+          "type": "boolean",
+          "sampleValue": true
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "commission_calc_progress",
+      "name": "commission_calc_progress",
+      "documentCount": 29,
+      "fields": [
+        {
+          "name": "totalOrders",
+          "type": "number",
+          "sampleValue": 194
+        },
+        {
+          "name": "currentRep",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "currentCustomer",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "currentOrderNum",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "stats",
+          "type": "object",
+          "sampleValue": "{\"commissionsCalculated\":0,\"totalCommission\":0,\"adminSkipped\":0,\"shopifySkipped\":0,\"retailSkipped\":0"
+        },
+        {
+          "name": "startedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T01:27:17.088Z"
+        },
+        {
+          "name": "percentage",
+          "type": "number",
+          "sampleValue": 100
+        },
+        {
+          "name": "currentOrder",
+          "type": "number",
+          "sampleValue": 194
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "complete"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T01:27:35.682Z"
+        },
+        {
+          "name": "completedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T01:27:35.682Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "commission_calculation_logs",
+      "name": "commission_calculation_logs",
+      "documentCount": 1701,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "log_10031_1768845259342"
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2025-01"
+        },
+        {
+          "name": "orderNum",
+          "type": "string",
+          "sampleValue": "5575"
+        },
+        {
+          "name": "orderId",
+          "type": "string",
+          "sampleValue": "10031"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "Aimrok Nashville"
+        },
+        {
+          "name": "repName",
+          "type": "string",
+          "sampleValue": "Jared Leuzinger"
+        },
+        {
+          "name": "repTitle",
+          "type": "string",
+          "sampleValue": "Account Executive"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "Jared"
+        },
+        {
+          "name": "customerSegment",
+          "type": "string",
+          "sampleValue": "Wholesale"
+        },
+        {
+          "name": "customerStatus",
+          "type": "string",
+          "sampleValue": "6month"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Wholesale"
+        },
+        {
+          "name": "orderAmount",
+          "type": "number",
+          "sampleValue": 32172
+        },
+        {
+          "name": "commissionRate",
+          "type": "number",
+          "sampleValue": 8
+        },
+        {
+          "name": "commissionAmount",
+          "type": "number",
+          "sampleValue": 2573.76
+        },
+        {
+          "name": "rateSource",
+          "type": "string",
+          "sampleValue": "configured"
+        },
+        {
+          "name": "calculatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:54:19.342Z"
+        },
+        {
+          "name": "orderDate",
+          "type": "timestamp",
+          "sampleValue": "2025-01-06T07:00:00.000Z"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": "Wholesale - 6month - Wholesale"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copperLogs",
+      "name": "copperLogs",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "payload",
+          "type": "object",
+          "sampleValue": "{}"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-09-18T21:52:14.233Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copperSummaries",
+      "name": "copperSummaries",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "payload",
+          "type": "object",
+          "sampleValue": "{}"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-09-18T21:52:14.833Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copper_companies",
+      "name": "copper_companies",
+      "documentCount": 269872,
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "sampleValue": 70899031
+        },
+        {
+          "name": "importedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-09T15:46:07.809Z"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_export"
+        },
+        {
+          "name": "copperUrl",
+          "type": "string",
+          "sampleValue": "https://app.copper.com/auth/auto_login?redirect_url=https%3A%2F%2Fapp.copper.com%2Fcompanies%2F562111%2Fapp%23%2Forganization%2F70899031&use_active_session=1"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "sampleValue": "Budsglassjoint"
+        },
+        {
+          "name": "Owned By",
+          "type": "string",
+          "sampleValue": "Joe Simmons"
+        },
+        {
+          "name": "Owner Id",
+          "type": "number",
+          "sampleValue": 1168901
+        },
+        {
+          "name": "Interaction Count",
+          "type": "string | number",
+          "sampleValue": ""
+        },
+        {
+          "name": "Created At",
+          "type": "number",
+          "sampleValue": 45657
+        },
+        {
+          "name": "Updated At",
+          "type": "number",
+          "sampleValue": 45937
+        },
+        {
+          "name": "Active Customer cf_712751",
+          "type": "string | boolean",
+          "sampleValue": "unchecked"
+        },
+        {
+          "name": "Account ID cf_713477",
+          "type": "number | string",
+          "sampleValue": 70899031
+        },
+        {
+          "name": "Copper ID",
+          "type": "number",
+          "sampleValue": 70899031
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Budsglassjoint"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "street",
+          "type": "string",
+          "sampleValue": "47 Nubb Rainey Rd"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "sampleValue": "Hattiesburg"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "sampleValue": "Mississippi"
+        },
+        {
+          "name": "zip",
+          "type": "string | number",
+          "sampleValue": "39401-9711"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "sampleValue": "United States"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp | string",
+          "sampleValue": "2025-10-09T15:46:07.809Z"
+        },
+        {
+          "name": "Primary Contact",
+          "type": "string",
+          "sampleValue": "Hello"
+        },
+        {
+          "name": "Primary Contact ID",
+          "type": "number",
+          "sampleValue": 169871120
+        },
+        {
+          "name": "Last Contacted",
+          "type": "number",
+          "sampleValue": 45660
+        },
+        {
+          "name": "Inactive Days",
+          "type": "number | string",
+          "sampleValue": 278
+        },
+        {
+          "name": "Credit Limit cf_712752",
+          "type": "string",
+          "sampleValue": "USD"
+        },
+        {
+          "name": "Value cf_712752",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Last Modified Date cf_712754",
+          "type": "number",
+          "sampleValue": 45937
+        },
+        {
+          "name": "Tags",
+          "type": "string",
+          "sampleValue": "derek current accts import-1736196854038"
+        },
+        {
+          "name": "State",
+          "type": "string",
+          "sampleValue": "Mississippi"
+        },
+        {
+          "name": "Street",
+          "type": "string",
+          "sampleValue": "47 Nubb Rainey Rd"
+        },
+        {
+          "name": "Postal Code",
+          "type": "string",
+          "sampleValue": "39401-9711"
+        },
+        {
+          "name": "Account Order ID cf_698467",
+          "type": "string",
+          "sampleValue": "1160"
+        },
+        {
+          "name": "cf_675914",
+          "type": "array",
+          "sampleValue": "[2063862]"
+        },
+        {
+          "name": "cf_726552",
+          "type": "null | number",
+          "sampleValue": 2142924
+        },
+        {
+          "name": "cf_675910",
+          "type": "null"
+        },
+        {
+          "name": "cf_712751",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "cf_680701",
+          "type": "number | null",
+          "sampleValue": 2017104
+        },
+        {
+          "name": "cf_698121",
+          "type": "null | number",
+          "sampleValue": 2063750
+        },
+        {
+          "name": "cf_698362",
+          "type": "null | number",
+          "sampleValue": 2065275
+        },
+        {
+          "name": "cf_699010",
+          "type": "null"
+        },
+        {
+          "name": "cf_712755",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_712754",
+          "type": "number | null",
+          "sampleValue": 1759816800
+        },
+        {
+          "name": "cf_698367",
+          "type": "null"
+        },
+        {
+          "name": "cf_712753",
+          "type": "null"
+        },
+        {
+          "name": "details",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "cf_698366",
+          "type": "null"
+        },
+        {
+          "name": "cf_712752",
+          "type": "number | null",
+          "sampleValue": 0
+        },
+        {
+          "name": "cf_698402",
+          "type": "null | number",
+          "sampleValue": 2066205
+        },
+        {
+          "name": "cf_699977",
+          "type": "null"
+        },
+        {
+          "name": "cf_724370",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_698404",
+          "type": "null | number",
+          "sampleValue": 700432.2
+        },
+        {
+          "name": "cf_699413",
+          "type": "null"
+        },
+        {
+          "name": "cf_713846",
+          "type": "null | number",
+          "sampleValue": 21
+        },
+        {
+          "name": "cf_698403",
+          "type": "null | number",
+          "sampleValue": 25
+        },
+        {
+          "name": "cf_699414",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_713845",
+          "type": "null | string",
+          "sampleValue": "FG- MC12 Focus+ Flow, FG- MC12 Focus+ Flow, KB-4000"
+        },
+        {
+          "name": "custom_fields_raw",
+          "type": "array",
+          "sampleValue": "[{\"id\":675914,\"value\":[2063862]},{\"id\":680701,\"value\":2017104},{\"id\":698130,\"value\":2063797},{\"id\":6"
+        },
+        {
+          "name": "cf_698406",
+          "type": "null | number",
+          "sampleValue": 1761721200
+        },
+        {
+          "name": "cf_698405",
+          "type": "null | number",
+          "sampleValue": 1678777200
+        },
+        {
+          "name": "cf_711949",
+          "type": "null"
+        },
+        {
+          "name": "cf_698407",
+          "type": "null | number",
+          "sampleValue": 28017.29
+        },
+        {
+          "name": "cf_724388",
+          "type": "null"
+        },
+        {
+          "name": "cf_698409",
+          "type": "null"
+        },
+        {
+          "name": "cf_724387",
+          "type": "null"
+        },
+        {
+          "name": "copper_raw_data",
+          "type": "object",
+          "sampleValue": "{\"id\":70961188,\"name\":\"Smoekshop LLC\",\"address\":{\"street\":\"446 Market St\",\"city\":\"Saddle Brook\",\"sta"
+        },
+        {
+          "name": "cf_700318",
+          "type": "null"
+        },
+        {
+          "name": "interaction_count",
+          "type": "number",
+          "sampleValue": 56
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "sampleValue": "[\"derek current accts import-1736196854038\",\"fishbowl account number match-1762550848102\"]"
+        },
+        {
+          "name": "cf_698130",
+          "type": "number | null",
+          "sampleValue": 2063797
+        },
+        {
+          "name": "cf_698257",
+          "type": "null"
+        },
+        {
+          "name": "cf_698256",
+          "type": "null"
+        },
+        {
+          "name": "cf_698259",
+          "type": "null | number",
+          "sampleValue": 2064435
+        },
+        {
+          "name": "cf_715755",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "cf_698219",
+          "type": "null | string",
+          "sampleValue": "."
+        },
+        {
+          "name": "cf_706523",
+          "type": "null"
+        },
+        {
+          "name": "cf_706522",
+          "type": "null"
+        },
+        {
+          "name": "cf_706521",
+          "type": "null"
+        },
+        {
+          "name": "cf_698460",
+          "type": "null"
+        },
+        {
+          "name": "cf_698462",
+          "type": "null | number",
+          "sampleValue": 2066264
+        },
+        {
+          "name": "cf_698464",
+          "type": "null | number",
+          "sampleValue": 2066266
+        },
+        {
+          "name": "cf_698149",
+          "type": "null | number",
+          "sampleValue": 2063875
+        },
+        {
+          "name": "socials",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_698148",
+          "type": "null"
+        },
+        {
+          "name": "cf_698467",
+          "type": "string",
+          "sampleValue": "1160"
+        },
+        {
+          "name": "cf_698503",
+          "type": "null"
+        },
+        {
+          "name": "assignee_id",
+          "type": "number",
+          "sampleValue": 1168894
+        },
+        {
+          "name": "cf_702078",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_697979",
+          "type": "null | string",
+          "sampleValue": "SANTA BARBARA"
+        },
+        {
+          "name": "address",
+          "type": "object",
+          "sampleValue": "{\"street\":\"446 Market St\",\"city\":\"Saddle Brook\",\"state\":null,\"postal_code\":\"7663\",\"country\":null}"
+        },
+        {
+          "name": "cf_724366",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_702077",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "date_created",
+          "type": "number",
+          "sampleValue": 1736196903
+        },
+        {
+          "name": "cf_700535",
+          "type": "null"
+        },
+        {
+          "name": "cf_724368",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_700533",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_700534",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_706515",
+          "type": "null"
+        },
+        {
+          "name": "phone_numbers",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_698471",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_713477",
+          "type": "string",
+          "sampleValue": "74820832"
+        },
+        {
+          "name": "date_modified",
+          "type": "number",
+          "sampleValue": 1768342372
+        },
+        {
+          "name": "cf_698472",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_697980",
+          "type": "null | string",
+          "sampleValue": "RANA S AND T ENTERPRISES CORP"
+        },
+        {
+          "name": "cf_698475",
+          "type": "null | string",
+          "sampleValue": "Independent"
+        },
+        {
+          "name": "email_domain",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "cf_698356",
+          "type": "null | number",
+          "sampleValue": 2065272
+        },
+        {
+          "name": "websites",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_702072",
+          "type": "null"
+        },
+        {
+          "name": "cf_698434",
+          "type": "null | number",
+          "sampleValue": 2066218
+        },
+        {
+          "name": "cf_717639",
+          "type": "string | null",
+          "sampleValue": "Unassigned"
+        },
+        {
+          "name": "syncedFromCopperApiAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-14T22:29:18.012Z"
+        },
+        {
+          "name": "Region cf_680701",
+          "type": "string | number | null",
+          "sampleValue": "Midwest"
+        },
+        {
+          "name": "Contact Type",
+          "type": "string",
+          "sampleValue": "Potential Customer"
+        },
+        {
+          "name": "Account Type cf_675914",
+          "type": "array",
+          "sampleValue": "[1981470]"
+        },
+        {
+          "name": "cf_724385",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "State cf_698130",
+          "type": "string",
+          "sampleValue": "OH"
+        },
+        {
+          "name": "Email Domain",
+          "type": "string",
+          "sampleValue": "budsglassjoint.com"
+        },
+        {
+          "name": "City",
+          "type": "string",
+          "sampleValue": "Hattiesburg"
+        },
+        {
+          "name": "Details",
+          "type": "string",
+          "sampleValue": "Overview: The Roosevelt Row Head Shop.\n\nApprox. Number of Employees: 5\n\n"
+        },
+        {
+          "name": "Website",
+          "type": "string",
+          "sampleValue": "http://www.budsglassjoint.com"
+        },
+        {
+          "name": "Website Type",
+          "type": "string",
+          "sampleValue": "work"
+        },
+        {
+          "name": "Social",
+          "type": "string",
+          "sampleValue": "https://www.linkedin.com/company/buds-glass-co"
+        },
+        {
+          "name": "Social Type",
+          "type": "string",
+          "sampleValue": "linkedin"
+        },
+        {
+          "name": "Segment cf_698149",
+          "type": "string",
+          "sampleValue": "Smoke & Vape"
+        },
+        {
+          "name": "Country",
+          "type": "string",
+          "sampleValue": "United States"
+        },
+        {
+          "name": "Account Opportunity cf_698259",
+          "type": "string",
+          "sampleValue": "High-Value"
+        },
+        {
+          "name": "Business Model cf_698356",
+          "type": "string",
+          "sampleValue": "Wholesale Only"
+        },
+        {
+          "name": "Phone Number",
+          "type": "number | string",
+          "sampleValue": 9526527227
+        },
+        {
+          "name": "Phone Number Type",
+          "type": "string",
+          "sampleValue": "work"
+        },
+        {
+          "name": "Social 2",
+          "type": "string",
+          "sampleValue": "https://twitter.com/BudsGlassJoint"
+        },
+        {
+          "name": "Social 2 Type",
+          "type": "string",
+          "sampleValue": "twitter"
+        },
+        {
+          "name": "Social 3",
+          "type": "string",
+          "sampleValue": "http://www.crunchbase.com/organization/buds-glass-joint"
+        },
+        {
+          "name": "Social 3 Type",
+          "type": "string",
+          "sampleValue": "other"
+        },
+        {
+          "name": "Website 2",
+          "type": "string",
+          "sampleValue": "https://www.buddhasbazaar.com/blog-feed.xml"
+        },
+        {
+          "name": "Website 2 Type",
+          "type": "string",
+          "sampleValue": "work"
+        },
+        {
+          "name": "Customer Priority cf_698121",
+          "type": "number",
+          "sampleValue": 3
+        },
+        {
+          "name": "Organization Level cf_698362",
+          "type": "string",
+          "sampleValue": "Corp HQ"
+        },
+        {
+          "name": "Reseller Permit cf_698402",
+          "type": "string",
+          "sampleValue": "YES"
+        },
+        {
+          "name": "Total Orders cf_698403",
+          "type": "number",
+          "sampleValue": 22
+        },
+        {
+          "name": "Payment Terms cf_698434",
+          "type": "string",
+          "sampleValue": "ACH"
+        },
+        {
+          "name": "Shipping Terms cf_698462",
+          "type": "string",
+          "sampleValue": "Prepaid"
+        },
+        {
+          "name": "Carrier Name cf_698464",
+          "type": "string",
+          "sampleValue": "LTL Freight Carrier"
+        },
+        {
+          "name": "County cf_697979",
+          "type": "string",
+          "sampleValue": "SAN FRANCISCO"
+        },
+        {
+          "name": "Tax Entity cf_697980",
+          "type": "string",
+          "sampleValue": "SHARIFI BROTHERS INVESTMENTS"
+        },
+        {
+          "name": "Parent Account cf_698475",
+          "type": "string",
+          "sampleValue": "Independent"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copper_leads",
+      "name": "copper_leads",
+      "documentCount": 4328,
+      "fields": [
+        {
+          "name": "Account",
+          "type": "string",
+          "sampleValue": "Discontent Lifestyle Stores"
+        },
+        {
+          "name": "Account Number cf_698260",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Converted Contact Id",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Converted Currency",
+          "type": "string",
+          "sampleValue": "USD"
+        },
+        {
+          "name": "Email",
+          "type": "string",
+          "sampleValue": "wtmanagerteam@gmail.com"
+        },
+        {
+          "name": "End Time cf_698257",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Follow-Up Date cf_683961",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Owned By",
+          "type": "string",
+          "sampleValue": "Joe Simmons"
+        },
+        {
+          "name": "Customer Priority cf_698121",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "First Name",
+          "type": "string",
+          "sampleValue": "Aaron"
+        },
+        {
+          "name": "Organization Level cf_698362",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Phone Number 2",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_export"
+        },
+        {
+          "name": "Secondary Contact cf_699414 people ids",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Converted At",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Last Status At",
+          "type": "string",
+          "sampleValue": "6/18/2025"
+        },
+        {
+          "name": "Owner Id",
+          "type": "string",
+          "sampleValue": "1168901"
+        },
+        {
+          "name": "Inactive Days",
+          "type": "string",
+          "sampleValue": "0"
+        },
+        {
+          "name": "Currency",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Street",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Email Type",
+          "type": "string",
+          "sampleValue": "work"
+        },
+        {
+          "name": "id",
+          "type": "number",
+          "sampleValue": 91461853
+        },
+        {
+          "name": "Tags",
+          "type": "string",
+          "sampleValue": "prospect reload-1750285540722"
+        },
+        {
+          "name": "Work Email cf_698503",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "sampleValue": "New"
+        },
+        {
+          "name": "copperUrl",
+          "type": "string",
+          "sampleValue": "https://app.copper.com/auth/auto_login?redirect_url=https%3A%2F%2Fapp.copper.com%2Fcompanies%2F562111%2Fapp%23%2Flead%2F91461853&use_active_session=1"
+        },
+        {
+          "name": "Converted Value",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Social 3 Type",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Postal Code",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Trade Show Name cf_699977",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Notes cf_698219",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "City",
+          "type": "string",
+          "sampleValue": "St Cloud"
+        },
+        {
+          "name": "Converted Opportunity Id",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "sampleValue": "Aaron"
+        },
+        {
+          "name": "Details",
+          "type": "string",
+          "sampleValue": "Sent email"
+        },
+        {
+          "name": "Suffix",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Business Model cf_698356",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "sampleValue": "(320) 253-7473"
+        },
+        {
+          "name": "State",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Website Type",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Aaron LASTname"
+        },
+        {
+          "name": "Country",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Last Name",
+          "type": "string",
+          "sampleValue": "LASTname"
+        },
+        {
+          "name": "Segment cf_698149",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Last Contacted",
+          "type": "string",
+          "sampleValue": "10/1/2025"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "New"
+        },
+        {
+          "name": "2nd Contanct cf_699413",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "sampleValue": "LASTname"
+        },
+        {
+          "name": "Lead Temperature cf_698148",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Copper ID",
+          "type": "string",
+          "sampleValue": "91461853"
+        },
+        {
+          "name": "Phone Number 2 Type",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Product Categories of Interest cf_698447",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Website",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Middle Name",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Start Time cf_698256",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Prefix",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Exchange Rate",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Updated At",
+          "type": "string",
+          "sampleValue": "10/1/2025"
+        },
+        {
+          "name": "Interaction Count",
+          "type": "string",
+          "sampleValue": "11"
+        },
+        {
+          "name": "Social Type",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Source",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Phone Number Type",
+          "type": "string",
+          "sampleValue": "work"
+        },
+        {
+          "name": "Sale Type cf_710692",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Prospect Notes cf_698137",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Social 3",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Order ID cf_698467",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "sampleValue": "wtmanagerteam@gmail.com"
+        },
+        {
+          "name": "Created At",
+          "type": "string",
+          "sampleValue": "6/18/2025"
+        },
+        {
+          "name": "Social",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "importedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-03T00:05:16.517Z"
+        },
+        {
+          "name": "Social 2",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Secondary Contact cf_699414 people names",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Title",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Type cf_675914",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "County cf_697979",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Parent Account cf_698475",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tax Entity cf_697980",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Parent Account Number cf_698367",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Region cf_680701",
+          "type": "string",
+          "sampleValue": "Midwest"
+        },
+        {
+          "name": "State cf_698130",
+          "type": "string",
+          "sampleValue": "MN"
+        },
+        {
+          "name": "Social 2 Type",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Main Phone cf_699010",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Opportunity cf_698259",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Phone Number",
+          "type": "string",
+          "sampleValue": "(320) 253-7473"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copper_opportunities",
+      "name": "copper_opportunities",
+      "documentCount": 357,
+      "fields": [
+        {
+          "name": "Account Number cf_698260",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Owner",
+          "type": "string",
+          "sampleValue": "Brandon Good"
+        },
+        {
+          "name": "Customer Priority cf_698121",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Ship To Address cf_712768",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Location cf_712765",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Owner Id",
+          "type": "string",
+          "sampleValue": "1168899"
+        },
+        {
+          "name": "Currency",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Stage",
+          "type": "string",
+          "sampleValue": "Payment Received"
+        },
+        {
+          "name": "Products Involved cf_705070",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "id",
+          "type": "number",
+          "sampleValue": 33569890
+        },
+        {
+          "name": "Last Modified cf_712761",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tags",
+          "type": "string",
+          "sampleValue": "brandon leads-1736199730257"
+        },
+        {
+          "name": "Work Email cf_698503",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Primary Person Contact",
+          "type": "string",
+          "sampleValue": "Sarah Mcdaniel"
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "sampleValue": "Won"
+        },
+        {
+          "name": "copperUrl",
+          "type": "string",
+          "sampleValue": "https://app.copper.com/auth/auto_login?redirect_url=https%3A%2F%2Fapp.copper.com%2Fcompanies%2F562111%2Fapp%23%2Fdeal%2F33569890&use_active_session=1"
+        },
+        {
+          "name": "Converted Value",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Trade Show Name cf_699977",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Free Samples Included cf_698431",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Acrylic Displays White (Acrylic-007) cf_698424",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_712758",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "ShipStation Order # cf_706512",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Details",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Special Bundles/Kits cf_698430",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Business Model cf_698356",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Delivery Date cf_706517",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_706520",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Win Probability",
+          "type": "string",
+          "sampleValue": "100%"
+        },
+        {
+          "name": "Processing Fees cf_698428",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Segment cf_698149",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "Won"
+        },
+        {
+          "name": "Order Notes cf_698401",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Copper ID",
+          "type": "string",
+          "sampleValue": "33569890"
+        },
+        {
+          "name": "Special Offers cf_698400",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Salesman ID cf_712763",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Target Completion Date cf_705066",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Acrylic Displays Black (Acrylic-008) cf_698423",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Completed Date",
+          "type": "string",
+          "sampleValue": "1/28/2025"
+        },
+        {
+          "name": "Date Created cf_712760",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_698438",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_698439",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Project Category cf_705064",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Primary Products Ordered cf_698446",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Sale Type cf_710692",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Payment Status cf_698399",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Ship To Zip cf_712770",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Shipping Status cf_706518",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "FOB Point cf_712772",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Order Status cf_698397",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Order ID cf_698467",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Customer PO cf_712764",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Executive Approval Required cf_705075",
+          "type": "string",
+          "sampleValue": "unchecked"
+        },
+        {
+          "name": "Priority Level cf_705065",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Secondary Contact cf_699414 people names",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Pipeline",
+          "type": "string",
+          "sampleValue": "Sales Pipeline"
+        },
+        {
+          "name": "Salesman cf_712762",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_698427",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "pipeline",
+          "type": "string",
+          "sampleValue": "Sales Pipeline"
+        },
+        {
+          "name": "Value cf_698428",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Date Completed cf_712759",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "stage",
+          "type": "string",
+          "sampleValue": "Payment Received"
+        },
+        {
+          "name": "Close Date",
+          "type": "string",
+          "sampleValue": "2/21/2025"
+        },
+        {
+          "name": "Lead Created At",
+          "type": "string",
+          "sampleValue": "1/21/2025"
+        },
+        {
+          "name": "Shipping Amount cf_698427",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Executive Approval Status cf_705076",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Reseller Permit cf_698402",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Sync Status cf_698445",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Special Instructions cf_698432",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Company",
+          "type": "string",
+          "sampleValue": "Mountain High Wellness"
+        },
+        {
+          "name": "Converted Currency",
+          "type": "string",
+          "sampleValue": "USD"
+        },
+        {
+          "name": "Last Stage At",
+          "type": "string",
+          "sampleValue": "3/21/2025"
+        },
+        {
+          "name": "Organization Level cf_698362",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_export"
+        },
+        {
+          "name": "Estimated Budget cf_705067",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Secondary Contact cf_699414 people ids",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "sampleValue": "Mountain High Wellness"
+        },
+        {
+          "name": "Actual Delivery Date cf_698437",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Company Id",
+          "type": "string",
+          "sampleValue": "71094766"
+        },
+        {
+          "name": "Ship Date cf_698436",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Focus+Flow 12PM (KB-3000) cf_698412",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Inactive Days",
+          "type": "string",
+          "sampleValue": "2"
+        },
+        {
+          "name": "Residential Delivery cf_712771",
+          "type": "string",
+          "sampleValue": "unchecked"
+        },
+        {
+          "name": "Value cf_705067",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tracking # cf_706515",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Project Owner cf_705068 user names",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tax Amount cf_698439",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "sampleValue": "None"
+        },
+        {
+          "name": "Lifetime Shipping Spend cf_706520",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_698441",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Value cf_698440",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Service cf_706514",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Payment Terms cf_698434",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "SO Number cf_698395",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Ship To Name cf_712767",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Subtotal cf_698438",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "companyId",
+          "type": "string",
+          "sampleValue": "71094766"
+        },
+        {
+          "name": "Mango Extract 12PK (KB-3003) cf_698421",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Mango Extract Single (KB-2003) cf_698420",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tax Included cf_712757",
+          "type": "string",
+          "sampleValue": "unchecked"
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Mountain High Wellness"
+        },
+        {
+          "name": "Discount Amount cf_698440",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Focus+Flow Single Bottles (KB-2000) cf_698411",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Last Contacted",
+          "type": "string",
+          "sampleValue": "9/29/2025"
+        },
+        {
+          "name": "Last Sync Date cf_698444",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Days in Stage",
+          "type": "string",
+          "sampleValue": "194"
+        },
+        {
+          "name": "Lead Temperature cf_698148",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tracking Number cf_698433",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Mango Extract MC12 (KB-4003) cf_698422",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Carrier cf_706513",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Exchange Rate",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Updated At",
+          "type": "string",
+          "sampleValue": "9/29/2025"
+        },
+        {
+          "name": "Focus+Flow MC12 (KB-4000) cf_698413",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Interaction Count",
+          "type": "string",
+          "sampleValue": "72"
+        },
+        {
+          "name": "Date Issued cf_698396",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Source",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Cost cf_712758",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Company Mission Statement cf_710030",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Prospect Notes cf_698137",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "sampleValue": "Mountain High Wellness"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Created At",
+          "type": "string",
+          "sampleValue": "1/21/2025"
+        },
+        {
+          "name": "Lifetime Shipments cf_706519",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "importedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-03T00:02:50.944Z"
+        },
+        {
+          "name": "Project Owner cf_705068 user ids",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Ship To City cf_712769",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Notes cf_675910",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "QB Class cf_712766",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Type cf_675914",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Order Total cf_698441",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Parent Account cf_698475",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Loss Reason",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Fishbowl Status cf_698443",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Region cf_680701",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "State cf_698130",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "primaryContact",
+          "type": "string",
+          "sampleValue": "Sarah Mcdaniel"
+        },
+        {
+          "name": "Main Phone cf_699010",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Account Opportunity cf_698259",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Shipping Method cf_698435",
+          "type": "string",
+          "sampleValue": ""
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copper_people",
+      "name": "copper_people",
+      "documentCount": 75716,
+      "fields": [
+        {
+          "name": "cf_675914",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "sampleValue": "US"
+        },
+        {
+          "name": "cf_675910",
+          "type": "null | string",
+          "sampleValue": "reseller permit"
+        },
+        {
+          "name": "cf_675913",
+          "type": "null"
+        },
+        {
+          "name": "companyName",
+          "type": "string",
+          "sampleValue": "Bud's Glass Joint"
+        },
+        {
+          "name": "postalCode",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_api_direct"
+        },
+        {
+          "name": "cf_680701",
+          "type": "number | null",
+          "sampleValue": 2024067
+        },
+        {
+          "name": "cf_698362",
+          "type": "null"
+        },
+        {
+          "name": "cf_699010",
+          "type": "null"
+        },
+        {
+          "name": "cf_698367",
+          "type": "null"
+        },
+        {
+          "name": "id",
+          "type": "number",
+          "sampleValue": 169871118
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "cf_699415",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_698404",
+          "type": "null"
+        },
+        {
+          "name": "cf_699413",
+          "type": "null"
+        },
+        {
+          "name": "cf_698447",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_699414",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_712756",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_675906",
+          "type": "null | string",
+          "sampleValue": "Michelle Kruger"
+        },
+        {
+          "name": "cf_675909",
+          "type": "null"
+        },
+        {
+          "name": "companyId",
+          "type": "number | null",
+          "sampleValue": 71520784
+        },
+        {
+          "name": "cf_698130",
+          "type": "null | number",
+          "sampleValue": 2063804
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "cf_698257",
+          "type": "null"
+        },
+        {
+          "name": "cf_698256",
+          "type": "null"
+        },
+        {
+          "name": "cf_698259",
+          "type": "null"
+        },
+        {
+          "name": "cf_698137",
+          "type": "null"
+        },
+        {
+          "name": "cf_698219",
+          "type": "null"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "phoneNumbers",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "emails",
+          "type": "array",
+          "sampleValue": "[{\"category\":\"work\",\"email\":\"budsglassjoint@gmail.com\"}]"
+        },
+        {
+          "name": "dateCreated",
+          "type": "timestamp",
+          "sampleValue": "2024-12-31T20:25:27.000Z"
+        },
+        {
+          "name": "cf_698460",
+          "type": "null"
+        },
+        {
+          "name": "street",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "cf_698149",
+          "type": "null"
+        },
+        {
+          "name": "interactionCount",
+          "type": "number",
+          "sampleValue": 20
+        },
+        {
+          "name": "socials",
+          "type": "array",
+          "sampleValue": "[{\"category\":\"linkedin\",\"url\":\"https://www.linkedin.com/in/bud-s-joint-12b03284\"}]"
+        },
+        {
+          "name": "cf_698148",
+          "type": "null"
+        },
+        {
+          "name": "cf_698467",
+          "type": "null"
+        },
+        {
+          "name": "cf_698503",
+          "type": "null"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "sampleValue": "budsglassjoint@gmail.com"
+        },
+        {
+          "name": "cf_697979",
+          "type": "null | string",
+          "sampleValue": "Douglas County"
+        },
+        {
+          "name": "website",
+          "type": "string",
+          "sampleValue": "http://budsglassjoint.com/"
+        },
+        {
+          "name": "importedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-22T20:33:33.370Z"
+        },
+        {
+          "name": "address",
+          "type": "object",
+          "sampleValue": "{\"country\":\"US\",\"city\":null,\"street\":null,\"state\":null,\"postal_code\":null}"
+        },
+        {
+          "name": "cf_705066",
+          "type": "null"
+        },
+        {
+          "name": "assigneeId",
+          "type": "number | null",
+          "sampleValue": 1206092
+        },
+        {
+          "name": "cf_698471",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_698475",
+          "type": "null"
+        },
+        {
+          "name": "websites",
+          "type": "array",
+          "sampleValue": "[{\"category\":\"work\",\"url\":\"http://budsglassjoint.com/\"}]"
+        },
+        {
+          "name": "contactTypeId",
+          "type": "number",
+          "sampleValue": 2480265
+        },
+        {
+          "name": "cf_724385",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "cf_724389",
+          "type": "null | string",
+          "sampleValue": "TIGER/LineÃ‚Â® dataset from the US Census Bureau"
+        },
+        {
+          "name": "cf_724367",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_724365",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "cf_724369",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "sampleValue": "GREG AND FRANK"
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "sampleValue": "LASTNAME"
+        },
+        {
+          "name": "cf_724388",
+          "type": "string | null",
+          "sampleValue": "0"
+        },
+        {
+          "name": "cf_713477",
+          "type": "string | null",
+          "sampleValue": "71520784"
+        },
+        {
+          "name": "cf_724387",
+          "type": "string | null",
+          "sampleValue": "0"
+        },
+        {
+          "name": "syncedFromCopperApiAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-12T20:37:59.460Z"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "GREG AND FRANK LASTNAME"
+        },
+        {
+          "name": "dateModified",
+          "type": "timestamp",
+          "sampleValue": "2026-01-08T02:39:52.000Z"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "sampleValue": "PURCHASING MANAGERS"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-12T20:37:59.460Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "copper_tasks",
+      "name": "copper_tasks",
+      "documentCount": 1328,
+      "fields": [
+        {
+          "name": "Account Number cf_698260",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Owner",
+          "type": "string",
+          "sampleValue": "Derek Whitworth"
+        },
+        {
+          "name": "Copper ID",
+          "type": "string",
+          "sampleValue": "52070028"
+        },
+        {
+          "name": "dueDate",
+          "type": "string",
+          "sampleValue": "1/7/2025"
+        },
+        {
+          "name": "Completed At",
+          "type": "string",
+          "sampleValue": "1/7/2025"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_export"
+        },
+        {
+          "name": "Updated At",
+          "type": "string",
+          "sampleValue": "7/7/2025"
+        },
+        {
+          "name": "ownerId",
+          "type": "string",
+          "sampleValue": "1168894"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "sampleValue": "Smoekshop - Ali"
+        },
+        {
+          "name": "Owner Id",
+          "type": "string",
+          "sampleValue": "1168894"
+        },
+        {
+          "name": "id",
+          "type": "number",
+          "sampleValue": 52070028
+        },
+        {
+          "name": "Account Order ID cf_698467",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "Tags",
+          "type": "string",
+          "sampleValue": "reassigned"
+        },
+        {
+          "name": "Created At",
+          "type": "string",
+          "sampleValue": "1/6/2025"
+        },
+        {
+          "name": "Due Date",
+          "type": "string",
+          "sampleValue": "1/7/2025"
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "sampleValue": "Completed"
+        },
+        {
+          "name": "copperUrl",
+          "type": "string",
+          "sampleValue": "https://app.copper.com/auth/auto_login?redirect_url=https%3A%2F%2Fapp.copper.com%2Fcompanies%2F562111%2Fapp%23%2Ftasks%2Fdefault%2Ftask%2F52070028&use_active_session=1"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "sampleValue": "Derek Whitworth"
+        },
+        {
+          "name": "Trade Show Name cf_699977",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "importedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-03T00:05:49.322Z"
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "sampleValue": "High"
+        },
+        {
+          "name": "Account Type cf_675914",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "sampleValue": "High"
+        },
+        {
+          "name": "Reminder At",
+          "type": "string",
+          "sampleValue": "1/6/2025"
+        },
+        {
+          "name": "Details",
+          "type": "string",
+          "sampleValue": "'-"
+        },
+        {
+          "name": "Region cf_680701",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "State cf_698130",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Smoekshop - Ali"
+        },
+        {
+          "name": "activityType",
+          "type": "string",
+          "sampleValue": "To Do"
+        },
+        {
+          "name": "Activity Type",
+          "type": "string",
+          "sampleValue": "To Do"
+        },
+        {
+          "name": "Segment cf_698149",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "% Complete",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "Completed"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "customer_sales_summary",
+      "name": "customer_sales_summary",
+      "documentCount": 1825,
+      "fields": [
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "BTG Distro | TCC LLC"
+        },
+        {
+          "name": "totalSales",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "totalSalesYTD",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "orderCount",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "orderCountYTD",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "sales_30d",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "sales_90d",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "sales_12m",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "orders_30d",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "orders_90d",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "orders_12m",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "firstOrderDate",
+          "type": "null | string",
+          "sampleValue": "2024-04-09"
+        },
+        {
+          "name": "lastOrderDate",
+          "type": "null | string",
+          "sampleValue": "2025-12-31"
+        },
+        {
+          "name": "lastOrderAmount",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "avgOrderValue",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPersonName",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPersonId",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPersonRegion",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPersonTerritory",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "regionColor",
+          "type": "string",
+          "sampleValue": "#808080"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Wholesale"
+        },
+        {
+          "name": "shippingAddress",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "shippingCity",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "shippingState",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "shippingZip",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "lat",
+          "type": "null"
+        },
+        {
+          "name": "lng",
+          "type": "null"
+        },
+        {
+          "name": "lastUpdatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T00:06:31.604Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "fishbowl_customers",
+      "name": "fishbowl_customers",
+      "documentCount": 1621,
+      "fields": [
+        {
+          "name": "copperId",
+          "type": "number",
+          "sampleValue": 72775545
+        },
+        {
+          "name": "accountTypeSource",
+          "type": "string",
+          "sampleValue": "copper_companies"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "PURPLE HAZE HERMOSA BEACH-HM (CA)"
+        },
+        {
+          "name": "accountNumber",
+          "type": "string",
+          "sampleValue": "1000"
+        },
+        {
+          "name": "accountId",
+          "type": "string",
+          "sampleValue": "72775545"
+        },
+        {
+          "name": "region",
+          "type": "number",
+          "sampleValue": 2063731
+        },
+        {
+          "name": "billingCity",
+          "type": "string",
+          "sampleValue": "Hermosa Beach"
+        },
+        {
+          "name": "shippingCity",
+          "type": "string",
+          "sampleValue": "Hermosa Beach"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "copper_sync"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-14T21:43:18.018Z"
+        },
+        {
+          "name": "syncedFromCopperAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-14T21:59:00.697Z"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Retail"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T18:11:16.481Z"
+        },
+        {
+          "name": "billingState",
+          "type": "string",
+          "sampleValue": "CA"
+        },
+        {
+          "name": "shippingState",
+          "type": "string",
+          "sampleValue": "CA"
+        },
+        {
+          "name": "shippingCountry",
+          "type": "string",
+          "sampleValue": "US"
+        },
+        {
+          "name": "billingAddress",
+          "type": "string",
+          "sampleValue": "504 Pacific Coast Highway"
+        },
+        {
+          "name": "shippingAddress",
+          "type": "string",
+          "sampleValue": "504 Pacific Coast Highway"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "1000"
+        },
+        {
+          "name": "lastSalesPerson",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "lastOrderDate",
+          "type": "timestamp",
+          "sampleValue": "2025-03-28T06:00:00.000Z"
+        },
+        {
+          "name": "lastOrderNum",
+          "type": "string",
+          "sampleValue": "6827"
+        },
+        {
+          "name": "metrics",
+          "type": "object",
+          "sampleValue": "{\"totalOrders\":27,\"totalSpent\":67530,\"firstOrderDate\":\"2024-04-09T06:00:00.000Z\",\"lastOrderDate\":\"20"
+        },
+        {
+          "name": "metricsCalculatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-19T19:36:07.945Z"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "BenW"
+        },
+        {
+          "name": "salesRepName",
+          "type": "string",
+          "sampleValue": "Ben Wallner"
+        },
+        {
+          "name": "salesRepEmail",
+          "type": "string",
+          "sampleValue": "ben@kanvabotanicals.com"
+        },
+        {
+          "name": "salesRepRegion",
+          "type": "string",
+          "sampleValue": "Pacific Northwest"
+        },
+        {
+          "name": "billingZip",
+          "type": "string",
+          "sampleValue": "90254"
+        },
+        {
+          "name": "shipToZip",
+          "type": "string",
+          "sampleValue": "90254"
+        },
+        {
+          "name": "syncedToCopperAt",
+          "type": "string",
+          "sampleValue": "2026-01-19T19:04:49.748Z"
+        }
+      ],
+      "subcollections": [
+        "sales_order_history"
+      ]
+    },
+    {
+      "id": "fishbowl_metrics_staging",
+      "name": "fishbowl_metrics_staging",
+      "documentCount": 982,
+      "fields": [
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "115"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "Honest Inc"
+        },
+        {
+          "name": "copperCompanyId",
+          "type": "string",
+          "sampleValue": "70961189"
+        },
+        {
+          "name": "copperCompanyName",
+          "type": "string",
+          "sampleValue": "Honest Inc"
+        },
+        {
+          "name": "accountId",
+          "type": "string",
+          "sampleValue": "70961189"
+        },
+        {
+          "name": "metrics",
+          "type": "object",
+          "sampleValue": "{\"totalOrders\":22,\"totalSpent\":596647,\"firstOrderDate\":\"2024-01-06T07:00:00.000Z\",\"lastOrderDate\":\"2"
+        },
+        {
+          "name": "sampleKitSent",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "sampleKitDate",
+          "type": "null | string",
+          "sampleValue": "2024-11-14T07:00:00.000Z"
+        },
+        {
+          "name": "calculatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-19T19:35:30.177Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "syncedAt",
+          "type": "null"
+        },
+        {
+          "name": "syncError",
+          "type": "null"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "fishbowl_sales_orders",
+      "name": "fishbowl_sales_orders",
+      "documentCount": 7162,
+      "fields": [
+        {
+          "name": "salesOrderId",
+          "type": "string",
+          "sampleValue": "25111"
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2026-01"
+        },
+        {
+          "name": "commissionYear",
+          "type": "number",
+          "sampleValue": 2026
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Retail"
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1743"
+        },
+        {
+          "name": "commissionDate",
+          "type": "timestamp",
+          "sampleValue": "2026-01-01T07:00:00.000Z"
+        },
+        {
+          "name": "postingDate",
+          "type": "timestamp",
+          "sampleValue": "2026-01-01T07:00:00.000Z"
+        },
+        {
+          "name": "soNumber",
+          "type": "string",
+          "sampleValue": "#0A5PI616B625OB"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "7 LUCKY FOOD MART"
+        },
+        {
+          "name": "salesRep",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T18:49:33.271Z"
+        },
+        {
+          "name": "manuallyLinked",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "linkedBy",
+          "type": "string",
+          "sampleValue": "admin"
+        },
+        {
+          "name": "linkedReason",
+          "type": "string",
+          "sampleValue": "Manual correction via validation UI"
+        },
+        {
+          "name": "originalCustomerId",
+          "type": "string",
+          "sampleValue": "2026"
+        },
+        {
+          "name": "linkedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-15T22:47:14.971Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "fishbowl_soitems",
+      "name": "fishbowl_soitems",
+      "documentCount": 24452,
+      "fields": [
+        {
+          "name": "salesOrderId",
+          "type": "string",
+          "sampleValue": "10000"
+        },
+        {
+          "name": "unitPrice",
+          "type": "number",
+          "sampleValue": 648
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "sampleValue": "FG- MC12 Focus+ Flow"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "sampleValue": 2
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2024-12"
+        },
+        {
+          "name": "commissionYear",
+          "type": "number",
+          "sampleValue": 2024
+        },
+        {
+          "name": "totalPrice",
+          "type": "number",
+          "sampleValue": 1296
+        },
+        {
+          "name": "postingDate",
+          "type": "timestamp",
+          "sampleValue": "2024-12-10T07:00:00.000Z"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "Rehbar Ehmar LLC | Williston"
+        },
+        {
+          "name": "soItemId",
+          "type": "string",
+          "sampleValue": "30890"
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1406"
+        },
+        {
+          "name": "commissionDate",
+          "type": "timestamp",
+          "sampleValue": "2024-12-10T07:00:00.000Z"
+        },
+        {
+          "name": "soNumber",
+          "type": "string",
+          "sampleValue": "5552"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "MC12 Focus + Flow"
+        },
+        {
+          "name": "partNumber",
+          "type": "string",
+          "sampleValue": "FG- MC12 Focus+ Flow"
+        },
+        {
+          "name": "productNum",
+          "type": "string",
+          "sampleValue": "FG- MC12 Focus+ Flow"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "DerekW"
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "sampleValue": "MC12 Focus + Flow"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T18:09:38.139Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "gmail_connections",
+      "name": "gmail_connections",
+      "documentCount": 2,
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string",
+          "sampleValue": "iV3us7cyr6drTZv5z15NUX5uYJr1"
+        },
+        {
+          "name": "userEmail",
+          "type": "string",
+          "sampleValue": "derek@kanvabotanicals.com"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T17:58:28.802Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-13T17:58:28.802Z"
+        },
+        {
+          "name": "lastRefreshed",
+          "type": "timestamp",
+          "sampleValue": "2025-12-22T23:46:14.439Z"
+        },
+        {
+          "name": "needsReauth",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "connectedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-22T23:46:14.439Z"
+        },
+        {
+          "name": "tokenExpiry",
+          "type": "timestamp",
+          "sampleValue": "2025-12-23T00:46:13.439Z"
+        },
+        {
+          "name": "accessToken",
+          "type": "string",
+          "sampleValue": "ya29.a0Aa7pCA_yKwvHCFS35sJYgBACvi42f8UXuwJllFnjuKlaFX1aurCW_qXPNy2z15UKkMkTJfynW3vqsWRinggSL1ukO4LL6SaPKFfGD_yGVppK2kCMspgO46WmACojMGczVIoy5VPvakHq1kPGXN9wEUS-F2ZCkez7ZtWuKFSXQN2bXGVnnzCWO9Vmhw59WrbOU9oCfXUaCgYKAUcSARQSFQHGX2MiMzhxsPUEuIkcACfe2KlLnQ0206"
+        },
+        {
+          "name": "refreshToken",
+          "type": "string",
+          "sampleValue": "1//04rtziIcoiCqGCgYIARAAGAQSNwF-L9IrWQDXF3sMTkblJcwy106MxFAsutk_b_CorstzsOiZNx5Jx6Fwn4SqHie69-0NENLnOVY"
+        },
+        {
+          "name": "lastSyncAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-22T23:46:23.604Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "goals",
+      "name": "goals",
+      "documentCount": 200,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "2NZ8OQu0zeYpZimp6YhMVK8GFkt2_email_quantity_daily"
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "sampleValue": "2NZ8OQu0zeYpZimp6YhMVK8GFkt2"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "sampleValue": "email_quantity"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "sampleValue": "daily"
+        },
+        {
+          "name": "target",
+          "type": "number",
+          "sampleValue": 20
+        },
+        {
+          "name": "current",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "startDate",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T07:00:00.000Z"
+        },
+        {
+          "name": "endDate",
+          "type": "timestamp",
+          "sampleValue": "2026-01-20T06:59:59.999Z"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:09:21.335Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:09:21.335Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "import_pending",
+      "name": "import_pending",
+      "documentCount": 6,
+      "fields": [
+        {
+          "name": "fileId",
+          "type": "string",
+          "sampleValue": "file_1766004658554"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "sampleValue": "12.17_YTD.csv"
+        },
+        {
+          "name": "totalChunks",
+          "type": "number",
+          "sampleValue": 21
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-17T20:51:21.390Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "import_progress",
+      "name": "import_progress",
+      "documentCount": 105,
+      "fields": [
+        {
+          "name": "totalRows",
+          "type": "number",
+          "sampleValue": 28591
+        },
+        {
+          "name": "startedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-20T23:05:17.725Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "processing"
+        },
+        {
+          "name": "stats",
+          "type": "object",
+          "sampleValue": "{\"processed\":2750,\"customersCreated\":0,\"customersUpdated\":220,\"ordersCreated\":0,\"ordersUpdated\":1023"
+        },
+        {
+          "name": "currentRow",
+          "type": "number",
+          "sampleValue": 2750
+        },
+        {
+          "name": "percentage",
+          "type": "number",
+          "sampleValue": 9.6
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-20T23:07:40.418Z"
+        },
+        {
+          "name": "completedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-21T00:09:40.208Z"
+        },
+        {
+          "name": "currentCustomer",
+          "type": "string",
+          "sampleValue": "SMOKE RINGS WINSTON SALEM-WS (NC)"
+        },
+        {
+          "name": "currentOrder",
+          "type": "number | string",
+          "sampleValue": 6173
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "integrations",
+      "name": "integrations",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "github",
+          "type": "object",
+          "sampleValue": "{\"enabled\":false}"
+        },
+        {
+          "name": "fishbowl",
+          "type": "object",
+          "sampleValue": "{\"enabled\":false}"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "string",
+          "sampleValue": "2025-07-20T15:57:02.624Z"
+        },
+        {
+          "name": "createdAt",
+          "type": "object",
+          "sampleValue": "{\"seconds\":1753027023,\"nanoseconds\":41000000}"
+        },
+        {
+          "name": "migratedAt",
+          "type": "object",
+          "sampleValue": "{\"seconds\":1753027023,\"nanoseconds\":41000000}"
+        },
+        {
+          "name": "updatedAt",
+          "type": "object",
+          "sampleValue": "{}"
+        },
+        {
+          "name": "copper",
+          "type": "object",
+          "sampleValue": "{\"environment\":\"production\",\"apiKey\":\"6187c1b571e219a060285bf66fcaf8ae\",\"email\":\"ben@kanvabotanicals"
+        },
+        {
+          "name": "shipstation",
+          "type": "object",
+          "sampleValue": "{\"environment\":\"production\",\"apiKey\":\"3030832aab044579a5c3be2eff940516\",\"apiSecret\":\"71bf030eb7ba489"
+        },
+        {
+          "name": "ringcentral",
+          "type": "object",
+          "sampleValue": "{\"environment\":\"production\",\"clientId\":\"2nFqvUT38Sjctdhqtrhnbn\",\"enabled\":true,\"redirectUri\":\"https:"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "metrics_calculation_progress",
+      "name": "metrics_calculation_progress",
+      "documentCount": 19,
+      "fields": [
+        {
+          "name": "currentRow",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "totalRows",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "startedAt",
+          "type": "string",
+          "sampleValue": "2025-10-30T00:31:12.712Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "loading"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "sampleValue": "Loading line items..."
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2025-10-30T00:31:12.841Z"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "sampleValue": "Bad Request"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "monthly_commission_summary",
+      "name": "monthly_commission_summary",
+      "documentCount": 60,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "BenW_2025-06"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "BenW"
+        },
+        {
+          "name": "repName",
+          "type": "string",
+          "sampleValue": "Ben Wallner"
+        },
+        {
+          "name": "month",
+          "type": "string",
+          "sampleValue": "2025-06"
+        },
+        {
+          "name": "year",
+          "type": "number",
+          "sampleValue": 2025
+        },
+        {
+          "name": "totalOrders",
+          "type": "number",
+          "sampleValue": 2
+        },
+        {
+          "name": "totalRevenue",
+          "type": "number",
+          "sampleValue": 69455
+        },
+        {
+          "name": "totalCommission",
+          "type": "number",
+          "sampleValue": 1407.3200000000002
+        },
+        {
+          "name": "totalSpiffs",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "totalEarnings",
+          "type": "number",
+          "sampleValue": 1407.3200000000002
+        },
+        {
+          "name": "paidStatus",
+          "type": "string",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "calculatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:35:03.670Z"
+        },
+        {
+          "name": "totalExcluded",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "excludedRevenue",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2025-12"
+        },
+        {
+          "name": "lastRecalculated",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T22:07:00.087Z"
+        },
+        {
+          "name": "excludedCommission",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T22:07:00.087Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "monthly_commissions",
+      "name": "monthly_commissions",
+      "documentCount": 1700,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "BenW_2025-06_order_17546"
+        },
+        {
+          "name": "repId",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "BenW"
+        },
+        {
+          "name": "repName",
+          "type": "string",
+          "sampleValue": "Ben Wallner"
+        },
+        {
+          "name": "repTitle",
+          "type": "string",
+          "sampleValue": "Account Executive"
+        },
+        {
+          "name": "orderId",
+          "type": "string",
+          "sampleValue": "17546"
+        },
+        {
+          "name": "orderNum",
+          "type": "string",
+          "sampleValue": "7882"
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1040"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "Blueberry Trading"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Distributor"
+        },
+        {
+          "name": "customerSegment",
+          "type": "string",
+          "sampleValue": "Distributor"
+        },
+        {
+          "name": "customerStatus",
+          "type": "string",
+          "sampleValue": "transferred"
+        },
+        {
+          "name": "orderRevenue",
+          "type": "number",
+          "sampleValue": 68544
+        },
+        {
+          "name": "orderValue",
+          "type": "number",
+          "sampleValue": 68544
+        },
+        {
+          "name": "commissionRate",
+          "type": "number",
+          "sampleValue": 2
+        },
+        {
+          "name": "commissionAmount",
+          "type": "number",
+          "sampleValue": 1370.88
+        },
+        {
+          "name": "orderDate",
+          "type": "timestamp",
+          "sampleValue": "2025-06-30T06:00:00.000Z"
+        },
+        {
+          "name": "postingDate",
+          "type": "timestamp",
+          "sampleValue": "2025-06-30T06:00:00.000Z"
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2025-06"
+        },
+        {
+          "name": "commissionYear",
+          "type": "number",
+          "sampleValue": 2025
+        },
+        {
+          "name": "calculatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:34:55.601Z"
+        },
+        {
+          "name": "paidStatus",
+          "type": "string",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": "Distributor - transferred - Distributor"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "payment",
+      "name": "payment",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "creditCardThreshold",
+          "type": "number",
+          "sampleValue": 10000
+        },
+        {
+          "name": "paymentMethods",
+          "type": "object",
+          "sampleValue": "{\"creditCard\":{\"label\":\"Credit Card\",\"availableBelow\":10000,\"fee\":0.03,\"feeDescription\":\"3% processi"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Payment thresholds and accepted methods"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.663Z"
+        },
+        {
+          "name": "migratedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.663Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.663Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "pipelines",
+      "name": "pipelines",
+      "documentCount": 2,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Sales Pipeline"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Main sales pipeline for tracking deals"
+        },
+        {
+          "name": "stages",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"lead\",\"name\":\"Lead\",\"order\":0,\"color\":\"#6B7280\",\"probability\":10},{\"id\":\"qualified\",\"name\":\""
+        },
+        {
+          "name": "isDefault",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "isShared",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-19T21:12:31.957Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-19T21:12:31.957Z"
+        },
+        {
+          "name": "createdBy",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "pricing",
+      "name": "pricing",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "1",
+          "type": "object",
+          "sampleValue": "{\"tierId\":1,\"threshold\":0,\"name\":\"Tier 1\",\"description\":\"Standard pricing for 0-55 master cases\",\"pr"
+        },
+        {
+          "name": "2",
+          "type": "object",
+          "sampleValue": "{\"tierId\":2,\"threshold\":56,\"name\":\"Tier 2\",\"description\":\"Volume discount for 56-111 master cases\",\""
+        },
+        {
+          "name": "3",
+          "type": "object",
+          "sampleValue": "{\"tierId\":3,\"threshold\":112,\"description\":\"Best pricing for 112+ master cases\",\"margin\":\"15.00%\",\"pr"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-22T01:49:34.671Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "pricing_tiers",
+      "name": "pricing_tiers",
+      "documentCount": 3,
+      "fields": [
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:32.810Z"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Standard pricing for 0-55 master cases"
+        },
+        {
+          "name": "tierId",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Tier 1"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:32.810Z"
+        },
+        {
+          "name": "prices",
+          "type": "object",
+          "sampleValue": "{\"1\":4.5,\"2\":4.5,\"3\":3.2,\"4\":4.25,\"5\":4.5}"
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "margin",
+          "type": "string",
+          "sampleValue": "10%"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "products",
+      "name": "products",
+      "documentCount": 60,
+      "fields": [
+        {
+          "name": "productNum",
+          "type": "string",
+          "sampleValue": "KB-4005"
+        },
+        {
+          "name": "productDescription",
+          "type": "string",
+          "sampleValue": "RAW Master Case MC12"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "sampleValue": "RAW"
+        },
+        {
+          "name": "productType",
+          "type": "string",
+          "sampleValue": "Master Case"
+        },
+        {
+          "name": "quarterlyBonusEligible",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": "12 boxes case"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "sampleValue": "2025-12-29T21:46:59.871Z"
+        },
+        {
+          "name": "imageUrl",
+          "type": "string",
+          "sampleValue": "https://firebasestorage.googleapis.com/v0/b/kanvaportal.firebasestorage.app/o/product-images%2F04eJUk5eFMuaIZtpNwyc_1767048071653_0.png?alt=media&token=a70a3084-3998-4953-90c3-846ef8e4ff6b"
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-09T17:24:08.936Z"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "sampleValue": "MC12"
+        },
+        {
+          "name": "uom",
+          "type": "string",
+          "sampleValue": "MC"
+        },
+        {
+          "name": "imagePath",
+          "type": "null | string",
+          "sampleValue": "product-images/FG- 1kg Green Powder.png"
+        },
+        {
+          "name": "familyId",
+          "type": "string",
+          "sampleValue": "raw-relief"
+        },
+        {
+          "name": "imageMetadata",
+          "type": "object",
+          "sampleValue": "{\"fileName\":\"FG- 1kg Green Powder.png\",\"originalName\":\"Kanva_Pouch_Caps_Set_Green copy.png\",\"content"
+        },
+        {
+          "name": "images",
+          "type": "array",
+          "sampleValue": "[\"https://firebasestorage.googleapis.com/v0/b/kanvaportal.firebasestorage.app/o/product-images%2F04e"
+        },
+        {
+          "name": "showInQuoteTool",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "casesPerPallet",
+          "type": "number",
+          "sampleValue": 56
+        },
+        {
+          "name": "unitsPerDisplayBox",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "unitsPerCase",
+          "type": "number",
+          "sampleValue": 144
+        },
+        {
+          "name": "displayBoxesPerCase",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "masterCaseDimensions",
+          "type": "object",
+          "sampleValue": "{\"length\":14,\"width\":10,\"height\":12,\"weight\":42}"
+        },
+        {
+          "name": "upc",
+          "type": "object",
+          "sampleValue": "{\"unit\":\"850041279343\",\"displayBox\":\"850041279350\",\"masterCase\":\"850041279404\"}"
+        },
+        {
+          "name": "displayBoxDimensions",
+          "type": "object",
+          "sampleValue": "{\"length\":4,\"width\":5,\"height\":7,\"weight\":3.5}"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "sampleValue": "{\"parentSku\":\"\",\"variantType\":\"unit\"}"
+        },
+        {
+          "name": "familyName",
+          "type": "string",
+          "sampleValue": "Focus Flow"
+        },
+        {
+          "name": "isFamilyParent",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "brand",
+          "type": "string",
+          "sampleValue": "Kanva Botanicals"
+        },
+        {
+          "name": "mainImage",
+          "type": "string",
+          "sampleValue": "https://firebasestorage.googleapis.com/v0/b/kanvaportal.firebasestorage.app/o/product-images%2Ffamily_focus-flow_1767920769957_1.png?alt=media&token=58cd8f6c-0e36-4087-81b1-d11be96cb763"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Focus+Flow™ by  Kanva™ Botanicals a Kava + Kratom Experience\n\nThe ultimate choice for a natural boost when you need it. With a clean and pure formulation, it delivers the benefits of Kava and Kratom extracts in a convenient, great tasting form. \n\n75 Mit – 80 Mit of Kratom extract sourced from top quality Kratom leaves\n350 – 400 mg of total Kavalactones (1300+ mg of kava extract) \nExperience the following potential benefits: \n\nUplifting and sustained Energy\nClarity and Calm Focus \nElevated Mood \nCognitive Enhancement\nEvery Bottle of Focus + Flow™ is lab tested to ensure purity and potency!"
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "sampleValue": 5
+        },
+        {
+          "name": "msrp",
+          "type": "number",
+          "sampleValue": 9.99
+        },
+        {
+          "name": "retailPrice",
+          "type": "number",
+          "sampleValue": 9.99
+        },
+        {
+          "name": "variantType",
+          "type": "string",
+          "sampleValue": "unit"
+        },
+        {
+          "name": "pricing",
+          "type": "object",
+          "sampleValue": "{\"wholesale\":{\"margin\":\"49.95\",\"tier1\":{\"unit\":5,\"mastercase\":720,\"margin\":\"49.95\"},\"tier2\":{\"unit\":"
+        },
+        {
+          "name": "parentSku",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "3a1YOnRkdAz3jUZwi99X"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "quarters",
+      "name": "quarters",
+      "documentCount": 5,
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "sampleValue": "Q1 2025"
+        },
+        {
+          "name": "startDate",
+          "type": "timestamp",
+          "sampleValue": "2025-01-01T00:00:00.000Z"
+        },
+        {
+          "name": "endDate",
+          "type": "timestamp",
+          "sampleValue": "2025-03-31T00:00:00.000Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "quote_activities",
+      "name": "quote_activities",
+      "documentCount": 2,
+      "fields": [
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-07T20:58:06.065Z"
+        },
+        {
+          "name": "quoteId",
+          "type": "string",
+          "sampleValue": "wCJnvPcwDR5AOGSS43CP"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "sampleValue": "created"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Quote Q-2026-001 created"
+        },
+        {
+          "name": "userEmail",
+          "type": "string",
+          "sampleValue": "ben@kanvabotanicals.com"
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "quotes",
+      "name": "quotes",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "selectedTier",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "sampleValue": "wire"
+        },
+        {
+          "name": "customer",
+          "type": "object",
+          "sampleValue": "{\"state\":\"CA\",\"country\":\"\",\"fishbowlId\":\"1040\",\"matchScore\":90,\"city\":\"Sacramento\",\"accountNumber\":\""
+        },
+        {
+          "name": "lineItems",
+          "type": "array",
+          "sampleValue": "[{\"unitPrice\":0,\"masterCases\":1,\"displayBoxes\":144,\"id\":\"1767834441665-0.9364366956094373\",\"product\""
+        },
+        {
+          "name": "quoteName",
+          "type": "string",
+          "sampleValue": "Test Quote"
+        },
+        {
+          "name": "pricingMode",
+          "type": "string",
+          "sampleValue": "distribution"
+        },
+        {
+          "name": "customerNotes",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "createdByEmail",
+          "type": "string",
+          "sampleValue": "ben@kanvabotanicals.com"
+        },
+        {
+          "name": "quoteNumber",
+          "type": "string",
+          "sampleValue": "Q-2026-001"
+        },
+        {
+          "name": "createdBy",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        },
+        {
+          "name": "shipping",
+          "type": "object",
+          "sampleValue": "{\"zoneName\":\"\",\"zone\":\"\",\"calculatedAmount\":0,\"ltlPercent\":0,\"state\":\"CA\"}"
+        },
+        {
+          "name": "internalNotes",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-08T01:08:02.512Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "draft"
+        },
+        {
+          "name": "calculation",
+          "type": "object",
+          "sampleValue": "{\"total\":0,\"shipping\":0,\"subtotal\":0,\"creditCardFee\":0,\"totalCases\":2,\"tierDiscount\":0}"
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "sampleValue": 2
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-08T01:18:07.937Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "regions",
+      "name": "regions",
+      "documentCount": 7,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Sales Team"
+        },
+        {
+          "name": "states",
+          "type": "array",
+          "sampleValue": "[\"ID\"]"
+        },
+        {
+          "name": "managerId",
+          "type": "null | string",
+          "sampleValue": "mFhxPEAw8QgTCmEJFpl8v7jh2zh1"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-10T16:57:56.262Z"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "sampleValue": "#14B8A6"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-10T19:20:36.951Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "reprally_customers",
+      "name": "reprally_customers",
+      "documentCount": 2597,
+      "fields": [
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "22"
+        },
+        {
+          "name": "businessName",
+          "type": "string",
+          "sampleValue": "Shopify Customer"
+        },
+        {
+          "name": "billingAddress",
+          "type": "string",
+          "sampleValue": "614 W MAIN ST\nIN STORE"
+        },
+        {
+          "name": "billingCity",
+          "type": "string",
+          "sampleValue": "Folsom"
+        },
+        {
+          "name": "billingState",
+          "type": "string",
+          "sampleValue": "New York"
+        },
+        {
+          "name": "billingZip",
+          "type": "number | string",
+          "sampleValue": 98532
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-16T21:16:21.003Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-16T21:16:21.003Z"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "sampleValue": "reprally_builder"
+        },
+        {
+          "name": "totalOrders",
+          "type": "number",
+          "sampleValue": 2
+        },
+        {
+          "name": "lifetimeValue",
+          "type": "number",
+          "sampleValue": 1856.4
+        },
+        {
+          "name": "firstOrderDate",
+          "type": "timestamp",
+          "sampleValue": "2024-08-26T07:00:00.000Z"
+        },
+        {
+          "name": "lastOrderDate",
+          "type": "timestamp",
+          "sampleValue": "2024-09-30T07:00:00.000Z"
+        },
+        {
+          "name": "extractedFrom",
+          "type": "string",
+          "sampleValue": "order_number_pattern"
+        },
+        {
+          "name": "lng",
+          "type": "number",
+          "sampleValue": -121.8523248
+        },
+        {
+          "name": "geocodedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-12-16T22:05:14.825Z"
+        },
+        {
+          "name": "lat",
+          "type": "number",
+          "sampleValue": 39.7263768
+        },
+        {
+          "name": "match",
+          "type": "object",
+          "sampleValue": "{\"matchScore\":11,\"fbBusinessName\":\"2nd Street Market\",\"fbCustomerId\":\"786\",\"alternatives\":0,\"matchMo"
+        },
+        {
+          "name": "switcher",
+          "type": "object",
+          "sampleValue": "{\"reprally\":{\"repRallyOrders\":9,\"repRallyRevenue\":4680,\"firstRepRallyOrder\":\"2024-05-17T07:00:00.000"
+        },
+        {
+          "name": "accountNumber",
+          "type": "string",
+          "sampleValue": "22"
+        },
+        {
+          "name": "accountType",
+          "type": "string",
+          "sampleValue": "Retail"
+        },
+        {
+          "name": "copperId",
+          "type": "number",
+          "sampleValue": 74820941
+        },
+        {
+          "name": "originalOwner",
+          "type": "string",
+          "sampleValue": "SHOPIFY"
+        },
+        {
+          "name": "originalSalesRep",
+          "type": "string",
+          "sampleValue": "SHOPIFY"
+        },
+        {
+          "name": "totalRepRallyOrders",
+          "type": "number",
+          "sampleValue": 14726
+        },
+        {
+          "name": "firstRepRallyOrder",
+          "type": "timestamp",
+          "sampleValue": "2024-12-10T07:00:00.000Z"
+        },
+        {
+          "name": "lastRepRallyOrder",
+          "type": "timestamp",
+          "sampleValue": "2024-12-10T07:00:00.000Z"
+        },
+        {
+          "name": "totalRepRallyRevenue",
+          "type": "number",
+          "sampleValue": 5006815.800000176
+        }
+      ],
+      "subcollections": [
+        "sales_orders"
+      ]
+    },
+    {
+      "id": "reps",
+      "name": "reps",
+      "documentCount": 4,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Jared"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "sampleValue": "Account Executive"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "sampleValue": "jared@kanvabotanicals.com"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "startDate",
+          "type": "timestamp",
+          "sampleValue": "2025-10-06T00:00:00.000Z"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "fishbowlUsername",
+          "type": "string",
+          "sampleValue": "Jared"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "Jared"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "sales_insights_metrics",
+      "name": "sales_insights_metrics",
+      "documentCount": 1486,
+      "fields": [
+        {
+          "name": "firstOrderDate",
+          "type": "string",
+          "sampleValue": "2024-04-10T06:00:00.000Z"
+        },
+        {
+          "name": "salesRep",
+          "type": "string",
+          "sampleValue": "admin"
+        },
+        {
+          "name": "monthlyBuckets",
+          "type": "array",
+          "sampleValue": "[{\"month\":\"2024-04\",\"orders\":6,\"revenue\":3264},{\"month\":\"2024-05\",\"orders\":4,\"revenue\":6120},{\"month"
+        },
+        {
+          "name": "salesRepName",
+          "type": "string",
+          "sampleValue": "Ben Wallner"
+        },
+        {
+          "name": "totalRevenueAllTime",
+          "type": "number",
+          "sampleValue": 97141.2
+        },
+        {
+          "name": "totalOrdersAllTime",
+          "type": "number",
+          "sampleValue": 38
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1000"
+        },
+        {
+          "name": "lastOrderDate",
+          "type": "string",
+          "sampleValue": "2025-10-06T07:00:00.000Z"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "admin"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "PURPLE HAZE HERMOSA BEACH-HM (CA)"
+        },
+        {
+          "name": "salesRepRegion",
+          "type": "string",
+          "sampleValue": "West"
+        },
+        {
+          "name": "rebuiltAt",
+          "type": "string",
+          "sampleValue": "2025-11-21T00:33:07.918Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "settings",
+      "name": "settings",
+      "documentCount": 24,
+      "fields": [
+        {
+          "name": "lastSyncAt",
+          "type": "string",
+          "sampleValue": "2025-10-17T00:59:42.276Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp | string",
+          "sampleValue": "2025-10-09T01:45:59.889Z"
+        },
+        {
+          "name": "lastJustCallSyncAt",
+          "type": "string",
+          "sampleValue": "2025-10-17T17:38:36.035Z"
+        },
+        {
+          "name": "rates",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "specialRules",
+          "type": "object",
+          "sampleValue": "{\"inactivityThreshold\":12,\"repTransfer\":{\"enabled\":true,\"percentFallback\":2,\"useGreater\":true,\"flatF"
+        },
+        {
+          "name": "titles",
+          "type": "array",
+          "sampleValue": "[\"Account Executive\",\"Jr. Account Executive\",\"Account Manager\",\"Sr. Account Executive\"]"
+        },
+        {
+          "name": "segments",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"distributor\",\"name\":\"Distributor\"},{\"name\":\"Wholesale\",\"id\":\"wholesale\"}]"
+        },
+        {
+          "name": "maxBonusPerRep",
+          "type": "number",
+          "sampleValue": 25000
+        },
+        {
+          "name": "updatedBy",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        },
+        {
+          "name": "overPerfCap",
+          "type": "number",
+          "sampleValue": 1.25
+        },
+        {
+          "name": "minAttainment",
+          "type": "number",
+          "sampleValue": 0.75
+        },
+        {
+          "name": "buckets",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"A\",\"code\":\"A\",\"name\":\"New Business\",\"weight\":0.5,\"hasSubGoals\":false,\"active\":true},{\"id\":\"B"
+        },
+        {
+          "name": "scales",
+          "type": "array",
+          "sampleValue": "[{\"role\":\"Sr. Account Executive\",\"percentage\":1,\"maxBonus\":25000},{\"role\":\"Account Executive\",\"perce"
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "sampleValue": "America/Denver"
+        },
+        {
+          "name": "workStartHour",
+          "type": "number",
+          "sampleValue": 8
+        },
+        {
+          "name": "workEndHour",
+          "type": "number",
+          "sampleValue": 17
+        },
+        {
+          "name": "workDays",
+          "type": "array",
+          "sampleValue": "[1,2,3,4,5]"
+        },
+        {
+          "name": "quarter",
+          "type": "string",
+          "sampleValue": "Q4 2025"
+        },
+        {
+          "name": "roleScales",
+          "type": "array",
+          "sampleValue": "[{\"role\":\"Sr. Account Executive\",\"percentage\":1},{\"role\":\"Account Executive\",\"percentage\":0.85},{\"ro"
+        },
+        {
+          "name": "budgets",
+          "type": "array",
+          "sampleValue": "[{\"title\":\"Sr. Account Executive\",\"bucketA\":500000,\"bucketB\":100000,\"bucketC\":300000,\"bucketD\":50},{"
+        },
+        {
+          "name": "excludeShipping",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "excludeCCProcessing",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "useOrderValue",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "applyReorgRule",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "reorgDate",
+          "type": "string",
+          "sampleValue": "2025-07-01"
+        },
+        {
+          "name": "activityTypeSummary",
+          "type": "object",
+          "sampleValue": "{\"unknown\":1000}"
+        },
+        {
+          "name": "sampleActivitiesCount",
+          "type": "number",
+          "sampleValue": 1000
+        },
+        {
+          "name": "user",
+          "type": "object",
+          "sampleValue": "{\"name\":\"Ben Wallner\",\"groups\":[{\"id\":51265,\"name\":\"Sales Team\"}],\"id\":1198774,\"email\":\"ben@kanvabot"
+        },
+        {
+          "name": "suggestedDefaults",
+          "type": "object",
+          "sampleValue": "{\"phoneCallActivityId\":null,\"emailActivityId\":null}"
+        },
+        {
+          "name": "customFieldDefinitions",
+          "type": "array",
+          "sampleValue": "[{\"id\":675906,\"name\":\"PM Name\",\"data_type\":\"String\",\"available_on\":[\"person\"],\"is_filterable\":true},"
+        },
+        {
+          "name": "fetchedAt",
+          "type": "string",
+          "sampleValue": "2025-09-30T22:57:01.019Z"
+        },
+        {
+          "name": "activityTypes",
+          "type": "object",
+          "sampleValue": "{\"system\":[{\"id\":1,\"category\":\"system\",\"name\":\"Property Changed\",\"is_disabled\":false,\"count_as_inter"
+        },
+        {
+          "name": "defaults",
+          "type": "object",
+          "sampleValue": "{\"SALE_TYPE_FIELD_ID\":710692,\"PRODUCT_FIELD_ID\":\"\",\"phoneCallActivityId\":\"2160510\",\"SALES_PIPELINE_I"
+        },
+        {
+          "name": "byEmail",
+          "type": "object",
+          "sampleValue": "{\"cori@cwlbrands.com\":1190942,\"joe@kanvabotanicals.com\":1168901,\"rob@papershield.xyz\":1187188,\"brand"
+        },
+        {
+          "name": "mappedCount",
+          "type": "number",
+          "sampleValue": 5
+        },
+        {
+          "name": "skippedCount",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "bySalesman",
+          "type": "object",
+          "sampleValue": "{\"JSimmons\":\"2NZ8OQu0zeYpZimp6YhMVK8GFkt2\",\"DerekW\":\"iV3us7cyr6drTZv5z15NUX5uYJr1\",\"BrandonG\":\"mFhxP"
+        },
+        {
+          "name": "byUserId",
+          "type": "object",
+          "sampleValue": "{\"2NZ8OQu0zeYpZimp6YhMVK8GFkt2\":\"JSimmons\",\"iV3us7cyr6drTZv5z15NUX5uYJr1\":\"DerekW\",\"mFhxPEAw8QgTCmEJ"
+        },
+        {
+          "name": "saw",
+          "type": "object",
+          "sampleValue": "{\"reading\":\"Four Agreements\"}"
+        },
+        {
+          "name": "teamGoals",
+          "type": "object",
+          "sampleValue": "{\"monthly\":{\"new_sales_wholesale\":100000,\"lead_progression_a\":300,\"lead_progression_b\":200,\"sms_quan"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipping",
+      "name": "shipping",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Shipping rates based on display boxes and LTL percentages by zone"
+        },
+        {
+          "name": "displayBoxesPerMasterCase",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "masterCasesPerLayer",
+          "type": "number",
+          "sampleValue": 11
+        },
+        {
+          "name": "halfPallet",
+          "type": "number",
+          "sampleValue": 22
+        },
+        {
+          "name": "fullPallet",
+          "type": "number",
+          "sampleValue": 56
+        },
+        {
+          "name": "ltlThreshold",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "freightClass",
+          "type": "number",
+          "sampleValue": 70
+        },
+        {
+          "name": "palletDimensions",
+          "type": "object",
+          "sampleValue": "{\"length\":48,\"width\":40,\"description\":\"Standard pallet dimensions in inches\"}"
+        },
+        {
+          "name": "displayBoxShipping",
+          "type": "object",
+          "sampleValue": "{\"description\":\"Fixed shipping rates by display box quantity ranges (applies to orders with 1-11 mas"
+        },
+        {
+          "name": "creditCardFee",
+          "type": "number",
+          "sampleValue": 0.03
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.504Z"
+        },
+        {
+          "name": "migratedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.504Z"
+        },
+        {
+          "name": "zones",
+          "type": "object",
+          "sampleValue": "{\"zone4\":{\"shippingId\":4,\"name\":\"Zone 4\",\"states\":[\"WV\",\"VA\",\"NC\",\"SC\",\"GA\",\"FL\",\"DC\",\"PA\",\"DE\",\"MD\""
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-22T01:49:04.850Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipping_config",
+      "name": "shipping_config",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "freightClass",
+          "type": "number",
+          "sampleValue": 70
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:33.264Z"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "sampleValue": "Shipping rates based on display boxes and LTL percentages by zone"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:33.264Z"
+        },
+        {
+          "name": "displayBoxShipping",
+          "type": "object",
+          "sampleValue": "{\"description\":\"Fixed shipping rates by display box quantity ranges (applies to orders with 1-11 mas"
+        },
+        {
+          "name": "zones",
+          "type": "object",
+          "sampleValue": "{\"zone3\":{\"color\":\"#3b82f6\",\"name\":\"Zone 3\",\"zoneNumber\":3,\"ltlPercentage\":1.5,\"states\":[\"TX\",\"OK\",\""
+        },
+        {
+          "name": "creditCardFee",
+          "type": "number",
+          "sampleValue": 0.03
+        },
+        {
+          "name": "fullPallet",
+          "type": "number",
+          "sampleValue": 56
+        },
+        {
+          "name": "halfPallet",
+          "type": "number",
+          "sampleValue": 22
+        },
+        {
+          "name": "ltlThreshold",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "masterCasesPerLayer",
+          "type": "number",
+          "sampleValue": 11
+        },
+        {
+          "name": "displayBoxesPerMasterCase",
+          "type": "number",
+          "sampleValue": 12
+        },
+        {
+          "name": "palletDimensions",
+          "type": "object",
+          "sampleValue": "{\"length\":48,\"description\":\"Standard pallet dimensions in inches\",\"width\":40}"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipping_zones",
+      "name": "shipping_zones",
+      "documentCount": 5,
+      "fields": [
+        {
+          "name": "createdAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:33.928Z"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Remote"
+        },
+        {
+          "name": "shippingId",
+          "type": "number",
+          "sampleValue": 5
+        },
+        {
+          "name": "zoneId",
+          "type": "string",
+          "sampleValue": "remote"
+        },
+        {
+          "name": "zoneNumber",
+          "type": "number",
+          "sampleValue": 5
+        },
+        {
+          "name": "states",
+          "type": "array",
+          "sampleValue": "[\"AK\",\"HI\"]"
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2026-01-08T01:20:33.928Z"
+        },
+        {
+          "name": "ltlPercentage",
+          "type": "number",
+          "sampleValue": 2.5
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "sampleValue": "#6b7280"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipstationRequests",
+      "name": "shipstationRequests",
+      "documentCount": 51,
+      "fields": [
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-08-14T19:20:32.689Z"
+        },
+        {
+          "name": "op",
+          "type": "string",
+          "sampleValue": "listOrders"
+        },
+        {
+          "name": "requestedBy",
+          "type": "string",
+          "sampleValue": "anonymous"
+        },
+        {
+          "name": "params",
+          "type": "object",
+          "sampleValue": "{\"start\":\"2025-08-14T06:00:00.000Z\",\"pageSize\":100,\"end\":\"2025-08-15T05:59:59.000Z\",\"page\":1}"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "done"
+        },
+        {
+          "name": "finishedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-08-14T19:20:34.531Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipstationResponses",
+      "name": "shipstationResponses",
+      "documentCount": 40,
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "ok"
+        },
+        {
+          "name": "finishedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-08-14T19:20:34.442Z"
+        },
+        {
+          "name": "data",
+          "type": "object | array",
+          "sampleValue": "{\"total\":26,\"pages\":1,\"orders\":[{\"orderId\":615675844,\"orderNumber\":\"#P9TGY9QYCFQN9S\",\"orderKey\":\"S#P"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "sampleValue": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"request.carrierCode\":[\"The carrierCode field is required.\"],\"request.toCountry\":[\"The toCountry field is required.\"],\"request.weight\":[\"The weight field is required.\"]}}"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipstation_orders",
+      "name": "shipstation_orders",
+      "documentCount": 955,
+      "fields": [
+        {
+          "name": "orderNumber",
+          "type": "string",
+          "sampleValue": "Sh117487"
+        },
+        {
+          "name": "orderId",
+          "type": "number",
+          "sampleValue": 678628920
+        },
+        {
+          "name": "customerNotes",
+          "type": "null"
+        },
+        {
+          "name": "internalNotes",
+          "type": "null"
+        },
+        {
+          "name": "shipments",
+          "type": "array",
+          "sampleValue": "[]"
+        },
+        {
+          "name": "orderTotal",
+          "type": "number",
+          "sampleValue": 138.96
+        },
+        {
+          "name": "webhookUpdated",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "amountPaid",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "customerEmail",
+          "type": "null | string",
+          "sampleValue": "hawkdistro7@gmail.com"
+        },
+        {
+          "name": "billTo",
+          "type": "object",
+          "sampleValue": "{\"country\":\"US\",\"residential\":null,\"street3\":\"\",\"city\":\"Englewood\",\"phone\":\"\",\"postalCode\":\"45322\",\""
+        },
+        {
+          "name": "shippingAmount",
+          "type": "number",
+          "sampleValue": 10.99
+        },
+        {
+          "name": "taxAmount",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "items",
+          "type": "array",
+          "sampleValue": "[{\"weight\":null,\"quantity\":1,\"lineItemKey\":null,\"fulfillmentSku\":null,\"orderItemId\":1167626035,\"upc\""
+        },
+        {
+          "name": "shipTo",
+          "type": "object",
+          "sampleValue": "{\"country\":\"US\",\"residential\":true,\"street3\":\"\",\"city\":\"Englewood\",\"phone\":\"\",\"postalCode\":\"45322\",\""
+        },
+        {
+          "name": "lastSyncedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-07T18:05:53.491Z"
+        },
+        {
+          "name": "orderStatus",
+          "type": "string",
+          "sampleValue": "shipped"
+        },
+        {
+          "name": "displayStatus",
+          "type": "string",
+          "sampleValue": "shipped"
+        },
+        {
+          "name": "orderDate",
+          "type": "timestamp",
+          "sampleValue": "2025-12-23T07:00:00.000Z"
+        },
+        {
+          "name": "expiresAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-22T18:05:53.491Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipstation_sync_meta",
+      "name": "shipstation_sync_meta",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "success"
+        },
+        {
+          "name": "lastRunAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-08T19:28:39.776Z"
+        },
+        {
+          "name": "deletedCount",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "ordersProcessed",
+          "type": "number",
+          "sampleValue": 536
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "shipstation_webhook_logs",
+      "name": "shipstation_webhook_logs",
+      "documentCount": 1292,
+      "fields": [
+        {
+          "name": "payload",
+          "type": "object",
+          "sampleValue": "{\"resource_type\":\"SHIP_NOTIFY\",\"resource_url\":\"https://ssapi.shipstation.com/shipments?storeID=77241"
+        },
+        {
+          "name": "details",
+          "type": "string",
+          "sampleValue": "Updated 1 orders"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "processed"
+        },
+        {
+          "name": "receivedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-06T17:45:31.960Z"
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "sampleValue": "unknown"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "spiff_earnings",
+      "name": "spiff_earnings",
+      "documentCount": 115,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "BenW_2025-07_spiff_18981_56042"
+        },
+        {
+          "name": "repId",
+          "type": "string",
+          "sampleValue": "mtjr4VgVIDcMWl9liox2oM3SI4B3"
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "BenW"
+        },
+        {
+          "name": "repName",
+          "type": "string",
+          "sampleValue": "Ben Wallner"
+        },
+        {
+          "name": "spiffId",
+          "type": "string",
+          "sampleValue": "QW5HYfaMO1s7ofxeQSAU"
+        },
+        {
+          "name": "spiffName",
+          "type": "string",
+          "sampleValue": "Acrylic BLK/WHT Full Assortment Kit"
+        },
+        {
+          "name": "productNum",
+          "type": "string",
+          "sampleValue": "KB-038"
+        },
+        {
+          "name": "productDescription",
+          "type": "string",
+          "sampleValue": "Acrylic Kit- Black( 4 FF, 2 Zoom, 1 Mango, 1 RR)"
+        },
+        {
+          "name": "orderId",
+          "type": "string",
+          "sampleValue": "18981"
+        },
+        {
+          "name": "orderNum",
+          "type": "string",
+          "sampleValue": "8227"
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "sampleValue": "1798"
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "sampleValue": "KushKlub Munchies & More"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "lineRevenue",
+          "type": "number",
+          "sampleValue": 299
+        },
+        {
+          "name": "incentiveType",
+          "type": "string",
+          "sampleValue": "flat"
+        },
+        {
+          "name": "incentiveValue",
+          "type": "number",
+          "sampleValue": 50
+        },
+        {
+          "name": "spiffAmount",
+          "type": "number",
+          "sampleValue": 50
+        },
+        {
+          "name": "orderDate",
+          "type": "timestamp",
+          "sampleValue": "2025-07-28T06:00:00.000Z"
+        },
+        {
+          "name": "commissionMonth",
+          "type": "string",
+          "sampleValue": "2025-07"
+        },
+        {
+          "name": "commissionYear",
+          "type": "number",
+          "sampleValue": 2025
+        },
+        {
+          "name": "calculatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-19T17:26:14.134Z"
+        },
+        {
+          "name": "paidStatus",
+          "type": "string",
+          "sampleValue": "pending"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "spiffs",
+      "name": "spiffs",
+      "documentCount": 4,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Acrylic Focus + Flow WHT/BLK"
+        },
+        {
+          "name": "incentiveType",
+          "type": "string",
+          "sampleValue": "flat"
+        },
+        {
+          "name": "incentiveValue",
+          "type": "number",
+          "sampleValue": 30
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "sampleValue": "2025-07-01"
+        },
+        {
+          "name": "endDate",
+          "type": "null"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2025-10-14T23:16:46.333Z"
+        },
+        {
+          "name": "productNum",
+          "type": "string",
+          "sampleValue": "KB-041"
+        },
+        {
+          "name": "productDescription",
+          "type": "string",
+          "sampleValue": "Acrylic kit- White(4 FF/acrylic)"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "sampleValue": "2025-10-14T23:16:46.333Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "sync_log",
+      "name": "sync_log",
+      "documentCount": 7,
+      "fields": [
+        {
+          "name": "syncType",
+          "type": "string",
+          "sampleValue": "fishbowl_to_firestore"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "sampleValue": "completed"
+        },
+        {
+          "name": "recordsProcessed",
+          "type": "number",
+          "sampleValue": 21913
+        },
+        {
+          "name": "recordsCreated",
+          "type": "number",
+          "sampleValue": 21910
+        },
+        {
+          "name": "recordsUpdated",
+          "type": "number",
+          "sampleValue": 0
+        },
+        {
+          "name": "recordsFailed",
+          "type": "number",
+          "sampleValue": 3
+        },
+        {
+          "name": "errors",
+          "type": "array",
+          "sampleValue": "[{\"recordId\":\"Cost: $5.00/$60\",\"error\":\"Value for argument \\\"documentPath\\\" must point to a document"
+        },
+        {
+          "name": "startedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-03T22:02:01.850Z"
+        },
+        {
+          "name": "completedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-10-03T22:09:07.753Z"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "sampleValue": 425903
+        },
+        {
+          "name": "triggeredBy",
+          "type": "string",
+          "sampleValue": "api"
+        },
+        {
+          "name": "metadata",
+          "type": "object",
+          "sampleValue": "{\"customersProcessed\":1686,\"customersCreated\":1683,\"customersUpdated\":0,\"ordersProcessed\":20227,\"ord"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "system_config",
+      "name": "system_config",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "mappings",
+          "type": "array",
+          "sampleValue": "[{\"copperField\":\"id\",\"ourField\":\"copperId\",\"enabled\":true},{\"copperField\":\"name\",\"ourField\":\"custome"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2026-01-14T22:33:53.869Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "system_schema_config",
+      "name": "system_schema_config",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "version",
+          "type": "number",
+          "sampleValue": 1
+        },
+        {
+          "name": "initialized",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "relationships",
+          "type": "array",
+          "sampleValue": "[{\"source\":\"users\",\"target\":\"users\",\"sourceField\":\"email\",\"targetField\":\"email\",\"relationshipType\":\""
+        },
+        {
+          "name": "collections",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"activities\",\"name\":\"activities\",\"countNote\":\"0 docs\",\"fieldCount\":6,\"fields\":[{\"name\":\"activ"
+        },
+        {
+          "name": "edges",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"edge-0\",\"source\":\"users\",\"target\":\"users\",\"type\":\"default\",\"animated\":true,\"label\":\"email → "
+        },
+        {
+          "name": "nodes",
+          "type": "array",
+          "sampleValue": "[{\"id\":\"copper_companies\",\"type\":\"collectionNode\",\"position\":{\"x\":1069.223303379777,\"y\":219.10678648"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "string",
+          "sampleValue": "2026-01-20T23:53:03.687Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "templates",
+      "name": "templates",
+      "documentCount": 1,
+      "fields": [
+        {
+          "name": "quote",
+          "type": "object",
+          "sampleValue": "{\"subject\":\"{{quoteName}} - Partnership Proposal\",\"body\":\"Hi there,\\n\\nThank you for your interest i"
+        },
+        {
+          "name": "followUp",
+          "type": "object",
+          "sampleValue": "{\"subject\":\"Following Up - {{companyName}} Partnership Opportunity\",\"body\":\"Hi there,\\n\\nI wanted to"
+        },
+        {
+          "name": "negotiation",
+          "type": "object",
+          "sampleValue": "{\"subject\":\"Re: {{companyName}} - Partnership Terms Discussion\",\"body\":\"Hi there,\\n\\nThank you for y"
+        },
+        {
+          "name": "closing",
+          "type": "object",
+          "sampleValue": "{\"subject\":\"Ready to Move Forward - {{companyName}} Partnership\",\"body\":\"Hi there,\\n\\nI'm excited to"
+        },
+        {
+          "name": "payment",
+          "type": "object",
+          "sampleValue": "{\"ach_required\":\"Since this order exceeds ${{achThreshold}}, payment will need to be processed via *"
+        },
+        {
+          "name": "product_templates",
+          "type": "object",
+          "sampleValue": "{\"single_product\":\"**{{productName}}**\\n- Quantity: {{masterCases}} Master Cases\\n- Display Boxes: {"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.915Z"
+        },
+        {
+          "name": "migratedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.915Z"
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "sampleValue": "2025-07-20T15:57:02.915Z"
+        }
+      ],
+      "subcollections": []
+    },
+    {
+      "id": "users",
+      "name": "users",
+      "documentCount": 7,
+      "fields": [
+        {
+          "name": "createdAt",
+          "type": "timestamp | string",
+          "sampleValue": "2025-09-18T19:51:34.298Z"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "sampleValue": "sales"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "sampleValue": "joe@kanvabotanicals.com"
+        },
+        {
+          "name": "division",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "isCommissioned",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "orgRole",
+          "type": "string",
+          "sampleValue": "regional"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "sampleValue": "Joe Simmons"
+        },
+        {
+          "name": "regionalTerritory",
+          "type": "string",
+          "sampleValue": "Central"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "sampleValue": "Account Executive"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "sampleValue": "Central"
+        },
+        {
+          "name": "territory",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "salesPerson",
+          "type": "string",
+          "sampleValue": "JSimmons"
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "sampleValue": "2025-12-30T20:18:14.502Z"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "sampleValue": "2NZ8OQu0zeYpZimp6YhMVK8GFkt2"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "sampleValue": ""
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "sampleValue": "2025-12-30"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "photoUrl",
+          "type": "null"
+        },
+        {
+          "name": "passwordChanged",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "copperUserEmail",
+          "type": "string",
+          "sampleValue": "joe@kanvabotanicals.com"
+        },
+        {
+          "name": "copperUserId",
+          "type": "number",
+          "sampleValue": 1168901
+        },
+        {
+          "name": "photoURL",
+          "type": "string",
+          "sampleValue": "https://lh3.googleusercontent.com/a/ACg8ocKwmmR-Y3Xp7vmJWXGRtFCdtHaY1Z1s-QwC_qYcBAVAPpzuLCA=s96-c"
+        }
+      ],
+      "subcollections": [
+        "metrics"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "users",
+      "sourceField": "email",
+      "target": "users",
+      "targetField": "email",
+      "confidence": "high",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\app\\(modules)\\commissions\\page.tsx:74"
+      ]
+    },
+    {
+      "source": "fishbowl_sales_orders",
+      "sourceField": "accountType",
+      "target": "copper_companies",
+      "targetField": "accountType",
+      "confidence": "medium",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\app\\api\\fix-order-account-types\\route.ts:64"
+      ]
+    },
+    {
+      "source": "fishbowl_sales_orders",
+      "sourceField": "accountTypeSource",
+      "target": "copper_companies",
+      "targetField": "accountTypeSource",
+      "confidence": "medium",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\app\\api\\fix-order-account-types\\route.ts:65"
+      ]
+    },
+    {
+      "source": "fishbowl_sales_order_items",
+      "sourceField": "accountType",
+      "target": "copper_companies",
+      "targetField": "accountType",
+      "confidence": "medium",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\app\\api\\fix-order-account-types\\route.ts:120"
+      ]
+    },
+    {
+      "source": "fishbowl_sales_order_items",
+      "sourceField": "accountTypeSource",
+      "target": "copper_companies",
+      "targetField": "accountTypeSource",
+      "confidence": "medium",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\app\\api\\fix-order-account-types\\route.ts:121"
+      ]
+    },
+    {
+      "source": "users",
+      "sourceField": "email",
+      "target": "notifications",
+      "targetField": "userEmail",
+      "confidence": "high",
+      "locations": [
+        "C:\\Projects\\KanvaPortal\\hooks\\useNotifications.ts:44"
+      ]
+    }
+  ]
+}

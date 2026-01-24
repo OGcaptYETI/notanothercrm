@@ -234,3 +234,121 @@ export const FAVORITE_PRODUCT_OPTIONS: CustomFieldOption[] = [
   { id: 2071537, name: 'Mango Extract', rank: 3 },
   { id: 2071538, name: 'Raw+Releaf', rank: 4 },
 ];
+
+// ============== Decoder Functions ==============
+
+/**
+ * Generic function to decode a Copper custom field ID to its display name
+ */
+function decodeCustomFieldId(id: any, options: CustomFieldOption[]): string | null {
+  if (!id) return null;
+  
+  // Handle numeric IDs
+  const numericId = typeof id === 'number' ? id : parseInt(String(id), 10);
+  if (isNaN(numericId)) return null;
+  
+  const option = options.find(opt => opt.id === numericId);
+  return option ? option.name : null;
+}
+
+/**
+ * Decode multiple IDs (for multi-select fields like Account Type)
+ */
+function decodeCustomFieldIds(ids: any, options: CustomFieldOption[]): string[] {
+  if (!ids) return [];
+  
+  // Handle array of IDs
+  if (Array.isArray(ids)) {
+    return ids
+      .map(id => decodeCustomFieldId(id, options))
+      .filter((name): name is string => name !== null);
+  }
+  
+  // Handle single ID
+  const decoded = decodeCustomFieldId(ids, options);
+  return decoded ? [decoded] : [];
+}
+
+/**
+ * Decode Region ID to name
+ */
+export function decodeRegion(regionId: any): string | null {
+  return decodeCustomFieldId(regionId, REGION_OPTIONS);
+}
+
+/**
+ * Decode Account Type ID(s) to name(s)
+ */
+export function decodeAccountType(typeIds: any): string[] {
+  return decodeCustomFieldIds(typeIds, ACCOUNT_TYPE_OPTIONS);
+}
+
+/**
+ * Decode Segment ID to name
+ */
+export function decodeSegment(segmentId: any): string | null {
+  return decodeCustomFieldId(segmentId, SEGMENT_OPTIONS);
+}
+
+/**
+ * Decode Customer Priority ID to name
+ */
+export function decodeCustomerPriority(priorityId: any): string | null {
+  return decodeCustomFieldId(priorityId, CUSTOMER_PRIORITY_OPTIONS);
+}
+
+/**
+ * Decode Payment Terms ID to name
+ */
+export function decodePaymentTerms(termsId: any): string | null {
+  return decodeCustomFieldId(termsId, PAYMENT_TERMS_OPTIONS);
+}
+
+/**
+ * Decode Shipping Terms ID to name
+ */
+export function decodeShippingTerms(termsId: any): string | null {
+  return decodeCustomFieldId(termsId, SHIPPING_TERMS_OPTIONS);
+}
+
+/**
+ * Decode Carrier ID to name
+ */
+export function decodeCarrier(carrierId: any): string | null {
+  return decodeCustomFieldId(carrierId, CARRIER_OPTIONS);
+}
+
+/**
+ * Decode Business Model ID to name
+ */
+export function decodeBusinessModel(modelId: any): string | null {
+  return decodeCustomFieldId(modelId, BUSINESS_MODEL_OPTIONS);
+}
+
+/**
+ * Decode Organization Level ID to name
+ */
+export function decodeOrganizationLevel(levelId: any): string | null {
+  return decodeCustomFieldId(levelId, ORGANIZATION_LEVEL_OPTIONS);
+}
+
+/**
+ * Decode Lead Temperature ID to name
+ */
+export function decodeLeadTemperature(tempId: any): string | null {
+  return decodeCustomFieldId(tempId, LEAD_TEMPERATURE_OPTIONS);
+}
+
+/**
+ * Decode Account Opportunity ID to name
+ */
+export function decodeAccountOpportunity(oppId: any): string | null {
+  return decodeCustomFieldId(oppId, ACCOUNT_OPPORTUNITY_OPTIONS);
+}
+
+/**
+ * Decode Order Frequency ID to name
+ */
+export function decodeOrderFrequency(freqId: any): string | null {
+  return decodeCustomFieldId(freqId, ORDER_FREQUENCY_OPTIONS);
+}

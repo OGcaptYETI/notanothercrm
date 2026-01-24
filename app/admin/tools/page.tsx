@@ -10,7 +10,9 @@ import {
   ArrowRightLeft,
   FileSpreadsheet,
   Map,
-  GitBranch
+  GitBranch,
+  Archive,
+  Truck
 } from 'lucide-react';
 
 const tools = [
@@ -19,20 +21,6 @@ const tools = [
     description: 'Import customer data from Copper CRM into KanvaPortal',
     href: '/admin/tools/copper-import',
     icon: Building2,
-    color: 'bg-orange-100 text-orange-600'
-  },
-  {
-    name: 'Copper Import All',
-    description: 'Bulk import all Copper CRM data at once',
-    href: '/admin/tools/copper-import-all',
-    icon: Upload,
-    color: 'bg-orange-100 text-orange-600'
-  },
-  {
-    name: 'Copper Import Simple',
-    description: 'Simplified Copper import for basic data sync',
-    href: '/admin/tools/copper-import-simple',
-    icon: FileSpreadsheet,
     color: 'bg-orange-100 text-orange-600'
   },
   {
@@ -50,18 +38,11 @@ const tools = [
     color: 'bg-green-100 text-green-600'
   },
   {
-    name: 'Copper-Fishbowl Match',
-    description: 'Match and link records between Copper and Fishbowl',
-    href: '/admin/tools/copper-fishbowl-match',
-    icon: Users,
-    color: 'bg-purple-100 text-purple-600'
-  },
-  {
-    name: 'Create Missing in Copper',
-    description: 'Create missing Copper records from Fishbowl data',
-    href: '/admin/tools/copper-create-missing',
-    icon: RefreshCw,
-    color: 'bg-yellow-100 text-yellow-600'
+    name: 'Archived Accounts',
+    description: 'View and restore archived or merged customer accounts',
+    href: '/admin/archived-accounts',
+    icon: Archive,
+    color: 'bg-gray-100 text-gray-600'
   },
   {
     name: 'Firebase DB Mapper',
@@ -76,6 +57,13 @@ const tools = [
     href: '/admin/tools/schema-mapper',
     icon: GitBranch,
     color: 'bg-purple-100 text-purple-600'
+  },
+  {
+    name: 'Shipping Sync',
+    description: 'Sync ShipStation orders and tracking data to customer records',
+    href: '/admin/tools/shipping-sync',
+    icon: Truck,
+    color: 'bg-teal-100 text-teal-600'
   }
 ];
 

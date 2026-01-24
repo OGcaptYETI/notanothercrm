@@ -20,11 +20,26 @@ import {
   where,
   orderBy,
   limit,
+  startAfter,
   Timestamp,
   addDoc,
   updateDoc,
   DocumentData
 } from 'firebase/firestore';
+import {
+  decodeRegion,
+  decodeAccountType,
+  decodeSegment,
+  decodeCustomerPriority,
+  decodePaymentTerms,
+  decodeShippingTerms,
+  decodeCarrier,
+  decodeBusinessModel,
+  decodeOrganizationLevel,
+  decodeLeadTemperature,
+  decodeAccountOpportunity,
+  decodeOrderFrequency,
+} from './customFields';
 
 // ============== ID Generation ==============
 // Generates IDs in the same format as Copper (numeric)
@@ -86,6 +101,17 @@ export interface UnifiedAccount {
   primaryContactName?: string;
   primaryContactEmail?: string;
   primaryContactPhone?: string;
+  
+  // Secondary Contacts (manual additions in Kanva Portal)
+  secondaryContactIds?: string[];
+  secondaryContacts?: Array<{
+    id: string;
+    name: string;
+    email?: string;
+    phone?: string;
+    title?: string;
+    role?: string;
+  }>;
   
   // Copper custom fields
   accountOrderId?: string; // cf_698467 - links to fishbowl_sales_orders.customerId
@@ -158,11 +184,21 @@ export interface UnifiedContact {
   phone?: string;
   title?: string;
   
-  // Related account
+  // Related account (single - from Copper sync)
   accountId?: string;
   accountName?: string;
   copperId_company?: number;
   isPrimaryContact?: boolean;
+  
+  // Multiple accounts (manual additions in Kanva Portal)
+  accountIds?: string[];
+  accounts?: Array<{
+    id: string;
+    name: string;
+    copperId?: number;
+    isPrimary: boolean;
+    role?: string;
+  }>;
   
   // Address
   street?: string;
@@ -210,6 +246,7 @@ export interface OrderSummary {
   orderDate: Date;
   total: number;
   status: string;
+  salesOrderId?: string;
   items?: OrderItem[];
 }
 
@@ -235,6 +272,7 @@ export interface SalesSummary {
 export interface PaginationOptions {
   pageSize?: number;
   offset?: number;
+  cursor?: string; // Document ID for cursor-based pagination
   searchTerm?: string;
   filters?: {
     status?: string;
@@ -247,6 +285,7 @@ export interface PaginatedResult<T> {
   data: T[];
   total: number;
   hasMore: boolean;
+  nextCursor?: string; // Next document ID for cursor pagination
 }
 
 /**
@@ -282,29 +321,31 @@ export async function getTotalAccountsCount(): Promise<{
 }
 
 /**
- * Load accounts with pagination and filtering from copper_companies
- * Uses indexed queries for efficient search
+ * Load accounts with cursor-based pagination from copper_companies
+ * Supports infinite scroll and full-database search
  */
 export async function loadUnifiedAccounts(
   options: PaginationOptions = {}
 ): Promise<PaginatedResult<UnifiedAccount>> {
-  const { pageSize = 50, offset = 0, searchTerm, filters } = options;
+  const { pageSize = 50, cursor, searchTerm, filters } = options;
   const accounts: UnifiedAccount[] = [];
-  let totalCount = 0;
+  let nextCursor: string | undefined = undefined;
   
   try {
-    // If searching, use indexed queries
+    // If searching, query entire database (no active filter)
     if (searchTerm && searchTerm.trim()) {
       const term = searchTerm.toLowerCase().trim();
-      console.log(`Searching accounts in copper_companies for: "${term}"`);
+      console.log(`🔍 Searching ALL copper_companies for: "${term}"`);
       
-      const searchLimit = 100;
+      // Search entire database - no limit for comprehensive results
+      const searchLimit = 500; // Higher limit for search
       
-      // Search by name (prefix match)
+      // Search by name (case-insensitive prefix match)
       const nameQuery = query(
         collection(db, 'copper_companies'),
         where('name', '>=', term),
         where('name', '<=', term + '\uf8ff'),
+        orderBy('name'),
         limit(searchLimit)
       );
       
@@ -316,19 +357,57 @@ export async function loadUnifiedAccounts(
         accounts.push(account);
       });
       
-      totalCount = accounts.length;
+      console.log(`✅ Found ${accounts.length} accounts across entire database`);
       
-      console.log(`Found ${accounts.length} accounts using indexed queries`);
-    } else {
-      // Build query for copper_companies - ACTIVE CUSTOMERS ONLY
-      let copperQuery = query(
-        collection(db, 'copper_companies'),
-        where('cf_712751', '==', true),
-        orderBy('name'),
-        limit(pageSize)
+      return {
+        data: accounts,
+        total: accounts.length,
+        hasMore: false, // Search returns all results
+      };
+    }
+    
+    // Normal browsing - cursor-based pagination for infinite scroll
+    let copperQuery;
+    
+    if (cursor) {
+      // Get the cursor document to use as startAfter
+      const cursorDoc = await getDocs(
+        query(collection(db, 'copper_companies'), where('__name__', '==', cursor), limit(1))
       );
       
-      // Apply filters if provided
+      if (!cursorDoc.empty) {
+        const cursorSnapshot = cursorDoc.docs[0];
+        
+        // Build query starting after cursor
+        if (filters?.salesPerson) {
+          copperQuery = query(
+            collection(db, 'copper_companies'),
+            where('cf_712751', '==', true),
+            where('Owned By', '==', filters.salesPerson),
+            orderBy('name'),
+            startAfter(cursorSnapshot),
+            limit(pageSize)
+          );
+        } else {
+          copperQuery = query(
+            collection(db, 'copper_companies'),
+            where('cf_712751', '==', true),
+            orderBy('name'),
+            startAfter(cursorSnapshot),
+            limit(pageSize)
+          );
+        }
+      } else {
+        // Cursor not found, start from beginning
+        copperQuery = query(
+          collection(db, 'copper_companies'),
+          where('cf_712751', '==', true),
+          orderBy('name'),
+          limit(pageSize)
+        );
+      }
+    } else {
+      // First page - no cursor
       if (filters?.salesPerson) {
         copperQuery = query(
           collection(db, 'copper_companies'),
@@ -337,29 +416,48 @@ export async function loadUnifiedAccounts(
           orderBy('name'),
           limit(pageSize)
         );
+      } else {
+        copperQuery = query(
+          collection(db, 'copper_companies'),
+          where('cf_712751', '==', true),
+          orderBy('name'),
+          limit(pageSize)
+        );
       }
-  
-      // Load copper_companies with pagination
-      const copperSnapshot = await getDocs(copperQuery);
-      totalCount = copperSnapshot.size;
-      
-      copperSnapshot.forEach((doc) => {
-        const data = doc.data();
-        const account = buildAccountFromCopper(doc.id, data);
-        accounts.push(account);
-      });
-      
-      console.log(`Loaded ${accounts.length} accounts from copper_companies`);
     }
+    
+    // Execute query
+    const copperSnapshot = await getDocs(copperQuery);
+    
+    // Build accounts array
+    copperSnapshot.forEach((doc) => {
+      const data = doc.data();
+      const account = buildAccountFromCopper(doc.id, data);
+      accounts.push(account);
+    });
+    
+    // Set next cursor to last document ID
+    if (accounts.length >= pageSize && copperSnapshot.docs.length > 0) {
+      nextCursor = copperSnapshot.docs[copperSnapshot.docs.length - 1].id;
+    }
+    
+    console.log(`📄 Loaded ${accounts.length} accounts (cursor: ${cursor || 'start'}, next: ${nextCursor || 'end'})`);
+    
+    return {
+      data: accounts,
+      total: accounts.length,
+      hasMore: !!nextCursor,
+      nextCursor,
+    };
+    
   } catch (error) {
-    console.error('Error loading accounts from copper_companies:', error);
+    console.error('❌ Error loading accounts:', error);
+    return {
+      data: [],
+      total: 0,
+      hasMore: false,
+    };
   }
-  
-  return {
-    data: accounts,
-    total: totalCount,
-    hasMore: !searchTerm && accounts.length >= pageSize
-  };
 }
 
 // Helper function to build account from copper_companies data
@@ -387,9 +485,25 @@ function buildAccountFromCopper(docId: string, data: DocumentData): UnifiedAccou
     shippingState: state,
     shippingZip: zip,
     
-    // Classification
+    // Classification - DECODE Copper IDs to names
     accountType: parseAccountType(data.cf_675914 || data['Account Type cf_675914']),
-    region: data.cf_680701 || data['Region cf_680701'],
+    region: decodeRegion(data.cf_680701 || data['Region cf_680701']) || undefined,
+    segment: decodeSegment(data.cf_698149 || data['Segment cf_698149']) || undefined,
+    customerPriority: decodeCustomerPriority(data.cf_698121 || data['Customer Priority cf_698121']) || undefined,
+    organizationLevel: decodeOrganizationLevel(data.cf_698362 || data['Organization Level cf_698362']) || undefined,
+    businessModel: decodeBusinessModel(data.cf_698356 || data['Business Model cf_698356']) || undefined,
+    
+    // Terms - DECODE Copper IDs to names
+    paymentTerms: decodePaymentTerms(data.cf_698434 || data['Payment Terms cf_698434']) || undefined,
+    shippingTerms: decodeShippingTerms(data.cf_698462 || data['Shipping Terms cf_698462']) || undefined,
+    carrierName: decodeCarrier(data.cf_698464 || data['Carrier cf_698464']) || undefined,
+    
+    // Sales data
+    salesPerson: data['Owned By'] || data.ownedBy,
+    totalOrders: data.cf_698403 || data['Total Orders cf_698403'],
+    totalSpent: data.cf_698404 || data['Total Spent cf_698404'],
+    lastOrderDate: data.cf_698406 ? new Date(data.cf_698406) : (data['Last Order Date cf_698406'] ? new Date(data['Last Order Date cf_698406']) : undefined),
+    firstOrderDate: data.cf_698405 ? new Date(data.cf_698405) : (data['First Order Date cf_698405'] ? new Date(data['First Order Date cf_698405']) : undefined),
     
     // Copper custom fields
     accountOrderId: data.cf_698467 || data['Account Order ID cf_698467'],
@@ -419,58 +533,107 @@ function buildAccountFromCopper(docId: string, data: DocumentData): UnifiedAccou
 }
 
 /**
- * Load prospects from copper_leads
+ * Load prospects from copper_leads with pagination
  */
-export async function loadUnifiedProspects(): Promise<UnifiedProspect[]> {
+export async function loadUnifiedProspects(
+  options: PaginationOptions = {}
+): Promise<PaginatedResult<UnifiedProspect>> {
+  const { pageSize = 50, offset = 0, searchTerm } = options;
   const prospects: UnifiedProspect[] = [];
+  let totalCount = 0;
   
   try {
-    const snapshot = await getDocs(collection(db, 'copper_leads'));
-    
-    snapshot.forEach((doc) => {
-      const data = doc.data();
+    // If searching, use indexed queries
+    if (searchTerm && searchTerm.trim()) {
+      const term = searchTerm.toLowerCase().trim();
+      console.log(`Searching prospects in copper_leads for: "${term}"`);
       
-      const prospect: UnifiedProspect = {
-        id: doc.id,
-        source: 'copper_lead',
-        copperId: data.id || Number(doc.id),
-        
-        name: data.Name || data['Lead Name'] || 'Unknown',
-        companyName: data['Company Name'] || data.Company,
-        title: data.Title,
-        email: data.Email || data['Email Address'],
-        phone: data.Phone || data['Phone Number'],
-        
-        street: data['Street Address'],
-        city: data.City,
-        state: data.State,
-        postalCode: data['Postal Code'],
-        
-        accountType: parseAccountType(data['Account Type cf_698259']),
-        region: data['Region cf_698278'],
-        segment: data['Segment cf_698498'],
-        leadTemperature: data['Lead Temperature cf_698273'] || 'Warm',
-        accountOpportunity: data['Account Opportunity cf_698257'],
-        
-        status: mapLeadStatus(data.Status),
-        assigneeId: data['Assignee Id'],
-        assigneeName: data.Assignee,
-        
-        createdAt: data.importedAt?.toDate?.() || data['Date Created'] ? new Date(data['Date Created']) : undefined,
-        updatedAt: data['Date Modified'] ? new Date(data['Date Modified']) : undefined,
-        notes: data['Prospect Notes cf_698281'] || data.Details,
-        tradeShowName: data['Trade Show Name cf_698295'],
-      };
+      const searchLimit = 100;
       
-      prospects.push(prospect);
-    });
-    
-    console.log(`Loaded ${prospects.length} prospects from copper_leads`);
+      // Search by name (prefix match)
+      const nameQuery = query(
+        collection(db, 'copper_leads'),
+        where('Name', '>=', term),
+        where('Name', '<=', term + '\uf8ff'),
+        limit(searchLimit)
+      );
+      
+      const nameResults = await getDocs(nameQuery);
+      
+      nameResults.forEach((doc) => {
+        const data = doc.data();
+        const prospect = buildProspectFromLead(doc.id, data);
+        prospects.push(prospect);
+      });
+      
+      totalCount = prospects.length;
+      console.log(`Found ${prospects.length} prospects using indexed queries`);
+    } else {
+      // No search - return paginated results
+      const prospectsQuery = query(
+        collection(db, 'copper_leads'),
+        orderBy('Name'),
+        limit(pageSize)
+      );
+      
+      const snapshot = await getDocs(prospectsQuery);
+      totalCount = snapshot.size;
+      
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const prospect = buildProspectFromLead(doc.id, data);
+        prospects.push(prospect);
+      });
+      
+      console.log(`Loaded ${prospects.length} prospects from copper_leads`);
+    }
   } catch (error) {
-    console.error('Error loading copper_leads:', error);
+    console.error('Error loading prospects:', error);
   }
   
-  return prospects.sort((a, b) => a.name.localeCompare(b.name));
+  return {
+    data: prospects,
+    total: totalCount,
+    hasMore: !searchTerm && prospects.length >= pageSize
+  };
+}
+
+/**
+ * Helper function to build prospect from lead data
+ */
+function buildProspectFromLead(docId: string, data: DocumentData): UnifiedProspect {
+  return {
+    id: docId,
+    source: 'copper_lead',
+    copperId: data.id || Number(docId),
+    
+    name: data.Name || data['Lead Name'] || 'Unknown',
+    companyName: data['Company Name'] || data.Company,
+    title: data.Title,
+    email: data.Email || data['Email Address'],
+    phone: data.Phone || data['Phone Number'],
+    
+    street: data['Street Address'],
+    city: data.City,
+    state: data.State,
+    postalCode: data['Postal Code'],
+    
+    // DECODE Copper IDs to names
+    accountType: parseAccountType(data['Account Type cf_698259']),
+    region: decodeRegion(data['Region cf_698278']) || undefined,
+    segment: decodeSegment(data['Segment cf_698498']) || undefined,
+    leadTemperature: decodeLeadTemperature(data['Lead Temperature cf_698273']) || 'Warm',
+    accountOpportunity: decodeAccountOpportunity(data['Account Opportunity cf_698257']) || undefined,
+    
+    status: mapLeadStatus(data.Status),
+    assigneeId: data['Assignee Id'],
+    assigneeName: data.Assignee,
+    
+    createdAt: data.importedAt?.toDate?.() || data['Date Created'] ? new Date(data['Date Created']) : undefined,
+    updatedAt: data['Date Modified'] ? new Date(data['Date Modified']) : undefined,
+    notes: data['Prospect Notes cf_698281'] || data.Details,
+    tradeShowName: data['Trade Show Name cf_698295'],
+  };
 }
 
 /**
@@ -715,43 +878,117 @@ export async function loadAccountOrders(accountId: string): Promise<OrderSummary
     // First get the copper_companies account to find the Account Order ID
     const accountDoc = await getDoc(doc(db, 'copper_companies', accountId));
     if (!accountDoc.exists()) {
-      console.log(`Account ${accountId} not found in copper_companies`);
+      console.log(`Account ${accountId} not found`);
       return orders;
     }
     
     const accountData = accountDoc.data();
-    const customerId = accountData.cf_698467 || accountData['Account Order ID cf_698467'];
+    
+    // Try multiple ID fields to find the Fishbowl customer ID
+    let customerId = accountData.cf_698467 || accountData['Account Order ID cf_698467'];
+    
+    // Fallback: try using the Copper account number or other IDs
+    if (!customerId) {
+      customerId = accountData.cf_713477 || accountData['Account ID cf_713477'];
+    }
     
     if (!customerId) {
-      console.log(`No Account Order ID (cf_698467) found for account ${accountId}`);
+      console.log(`No Account Order ID found for account ${accountId}. Available fields:`, {
+        cf_698467: accountData.cf_698467,
+        cf_713477: accountData.cf_713477,
+        accountNumber: accountData.accountNumber
+      });
       return orders;
     }
     
-    console.log(`Loading orders for account ${accountId} with customerId: ${customerId}`);
+    // Convert to string for comparison (Firestore may store as string or number)
+    const customerIdStr = String(customerId);
     
-    // Query orders by customerId
+    console.log(`Loading orders for account ${accountId} with customerId: ${customerIdStr}`);
+    
+    // Query orders by customerId - try both string and numeric comparison
     const ordersQuery = query(
       collection(db, 'fishbowl_sales_orders'),
-      where('customerId', '==', customerId),
-      orderBy('dateCreated', 'desc'),
+      where('customerId', '==', customerIdStr),
+      orderBy('postingDate', 'desc'),
       limit(100)
     );
     
     const snapshot = await getDocs(ordersQuery);
     
-    snapshot.forEach((doc) => {
+    console.log(`Query returned ${snapshot.size} orders for customerId: ${customerIdStr}`);
+    
+    // Process orders and calculate totals from line items
+    for (const doc of snapshot.docs) {
       const data = doc.data();
+      
+      // Get line items to calculate total
+      const lineItemsQuery = query(
+        collection(db, 'fishbowl_soitems'),
+        where('salesOrderId', '==', data.salesOrderId)
+      );
+      
+      const lineItemsSnapshot = await getDocs(lineItemsQuery);
+      let orderTotal = 0;
+      
+      lineItemsSnapshot.forEach((itemDoc) => {
+        const item = itemDoc.data();
+        orderTotal += item.totalPrice || 0;
+      });
       
       orders.push({
         orderId: doc.id,
-        orderNumber: data.orderNum || data.soNum || doc.id,
-        orderDate: data.dateCreated?.toDate?.() || new Date(),
-        total: parseFloat(data.totalAmount) || parseFloat(data.total) || parseFloat(data.revenue) || 0,
-        status: data.status || data.statusName || 'Unknown',
+        orderNumber: data.soNumber || data.orderNum || data.num || doc.id,
+        orderDate: data.postingDate?.toDate?.() || data.dateCreated?.toDate?.() || new Date(),
+        total: orderTotal,
+        status: data.status || data.statusName || 'Completed',
+        salesOrderId: data.salesOrderId, // Store for order detail page
       });
-    });
+    }
     
     console.log(`Loaded ${orders.length} orders for account ${accountId}`);
+    
+    // If no orders found, try querying with numeric customerId
+    if (orders.length === 0 && !isNaN(Number(customerIdStr))) {
+      console.log(`No orders found with string customerId, trying numeric: ${Number(customerIdStr)}`);
+      const numericQuery = query(
+        collection(db, 'fishbowl_sales_orders'),
+        where('customerId', '==', Number(customerIdStr)),
+        orderBy('postingDate', 'desc'),
+        limit(100)
+      );
+      
+      const numericSnapshot = await getDocs(numericQuery);
+      console.log(`Numeric query returned ${numericSnapshot.size} orders`);
+      
+      // Process orders and calculate totals from line items
+      for (const doc of numericSnapshot.docs) {
+        const data = doc.data();
+        
+        // Get line items to calculate total
+        const lineItemsQuery = query(
+          collection(db, 'fishbowl_soitems'),
+          where('salesOrderId', '==', data.salesOrderId)
+        );
+        
+        const lineItemsSnapshot = await getDocs(lineItemsQuery);
+        let orderTotal = 0;
+        
+        lineItemsSnapshot.forEach((itemDoc) => {
+          const item = itemDoc.data();
+          orderTotal += item.totalPrice || 0;
+        });
+        
+        orders.push({
+          orderId: doc.id,
+          orderNumber: data.soNumber || data.orderNum || data.num || doc.id,
+          orderDate: data.postingDate?.toDate?.() || data.dateCreated?.toDate?.() || new Date(),
+          total: orderTotal,
+          status: data.status || data.statusName || 'Completed',
+          salesOrderId: data.salesOrderId,
+        });
+      }
+    }
   } catch (error) {
     console.error('Error loading orders:', error);
   }
@@ -800,9 +1037,25 @@ export async function loadAccountFromCopper(copperId: string): Promise<UnifiedAc
       shippingState: state,
       shippingZip: zip,
       
-      // Classification
+      // Classification - DECODE Copper IDs to names
       accountType: parseAccountType(data.cf_675914 || data['Account Type cf_675914']),
-      region: data.cf_680701 || data['Region cf_680701'],
+      region: decodeRegion(data.cf_680701 || data['Region cf_680701']) || undefined,
+      segment: decodeSegment(data.cf_698149 || data['Segment cf_698149']) || undefined,
+      customerPriority: decodeCustomerPriority(data.cf_698121 || data['Customer Priority cf_698121']) || undefined,
+      organizationLevel: decodeOrganizationLevel(data.cf_698362 || data['Organization Level cf_698362']) || undefined,
+      businessModel: decodeBusinessModel(data.cf_698356 || data['Business Model cf_698356']) || undefined,
+      
+      // Terms - DECODE Copper IDs to names
+      paymentTerms: decodePaymentTerms(data.cf_698434 || data['Payment Terms cf_698434']) || undefined,
+      shippingTerms: decodeShippingTerms(data.cf_698462 || data['Shipping Terms cf_698462']) || undefined,
+      carrierName: decodeCarrier(data.cf_698464 || data['Carrier cf_698464']) || undefined,
+      
+      // Sales data
+      salesPerson: data['Owned By'] || data.ownedBy,
+      totalOrders: data.cf_698403 || data['Total Orders cf_698403'],
+      totalSpent: data.cf_698404 || data['Total Spent cf_698404'],
+      lastOrderDate: data.cf_698406 ? new Date(data.cf_698406) : (data['Last Order Date cf_698406'] ? new Date(data['Last Order Date cf_698406']) : undefined),
+      firstOrderDate: data.cf_698405 ? new Date(data.cf_698405) : (data['First Order Date cf_698405'] ? new Date(data['First Order Date cf_698405']) : undefined),
       
       // Copper custom fields
       accountOrderId: data.cf_698467 || data['Account Order ID cf_698467'],
@@ -850,33 +1103,68 @@ export async function loadAccountSalesSummary(accountId: string): Promise<any | 
     }
     
     const accountData = accountDoc.data();
-    const customerId = accountData.cf_698467 || accountData['Account Order ID cf_698467'];
+    
+    // Try multiple ID fields to find the Fishbowl customer ID
+    let customerId = accountData.cf_698467 || accountData['Account Order ID cf_698467'];
+    
+    // Fallback: try using the Copper account number
+    if (!customerId) {
+      customerId = accountData.cf_713477 || accountData['Account ID cf_713477'];
+    }
     
     if (!customerId) {
       console.log(`No Account Order ID for ${accountId}`);
       return null;
     }
     
-    // Query orders
+    // Convert to string for comparison
+    const customerIdStr = String(customerId);
+    
+    // Query orders with string customerId
     const ordersQuery = query(
       collection(db, 'fishbowl_sales_orders'),
-      where('customerId', '==', customerId),
-      orderBy('dateCreated', 'desc')
+      where('customerId', '==', customerIdStr),
+      orderBy('postingDate', 'desc')
     );
     
-    const ordersSnapshot = await getDocs(ordersQuery);
+    let ordersSnapshot = await getDocs(ordersQuery);
+    
+    // If no results, try numeric customerId
+    if (ordersSnapshot.size === 0 && !isNaN(Number(customerIdStr))) {
+      const numericQuery = query(
+        collection(db, 'fishbowl_sales_orders'),
+        where('customerId', '==', Number(customerIdStr)),
+        orderBy('postingDate', 'desc')
+      );
+      ordersSnapshot = await getDocs(numericQuery);
+    }
     
     let totalRevenue = 0;
     let totalOrders = ordersSnapshot.size;
     let lastOrderDate: Date | undefined;
     let firstOrderDate: Date | undefined;
     
-    ordersSnapshot.forEach((doc) => {
-      const order = doc.data();
-      const revenue = parseFloat(order.totalAmount) || parseFloat(order.total) || parseFloat(order.revenue) || 0;
-      totalRevenue += revenue;
+    // Process orders and calculate totals from line items
+    for (const orderDoc of ordersSnapshot.docs) {
+      const order = orderDoc.data();
       
-      const orderDate = order.dateCreated?.toDate?.();
+      // Get line items to calculate total
+      const lineItemsQuery = query(
+        collection(db, 'fishbowl_soitems'),
+        where('salesOrderId', '==', order.salesOrderId)
+      );
+      
+      const lineItemsSnapshot = await getDocs(lineItemsQuery);
+      let orderTotal = 0;
+      
+      lineItemsSnapshot.forEach((itemDoc) => {
+        const item = itemDoc.data();
+        orderTotal += item.totalPrice || 0;
+      });
+      
+      totalRevenue += orderTotal;
+      
+      const orderDate = order.postingDate?.toDate?.() || order.dateCreated?.toDate?.();
       if (orderDate) {
         if (!lastOrderDate || orderDate > lastOrderDate) {
           lastOrderDate = orderDate;
@@ -885,7 +1173,7 @@ export async function loadAccountSalesSummary(accountId: string): Promise<any | 
           firstOrderDate = orderDate;
         }
       }
-    });
+    }
     
     const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
     
@@ -906,13 +1194,8 @@ export async function loadAccountSalesSummary(accountId: string): Promise<any | 
 // ============== Helper Functions ==============
 
 function parseAccountType(value: any): string[] {
-  if (!value) return [];
-  if (Array.isArray(value)) return value;
-  if (typeof value === 'string') {
-    // Handle comma-separated values
-    return value.split(',').map(v => v.trim()).filter(Boolean);
-  }
-  return [];
+  // Use decoder to convert Copper IDs to names
+  return decodeAccountType(value);
 }
 
 function determineAccountStatus(fishbowlData: any, copperData: any): UnifiedAccount['status'] {

@@ -130,24 +130,33 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Fetch labels for tracking status
+    // 3. Fetch labels for tracking status (paginate through all)
     let trackingStatusMap: Record<string, any> = {};
     try {
-      const labelsParams = new URLSearchParams({
-        created_at_start: fifteenDaysAgo.toISOString(),
-        created_at_end: now.toISOString(),
-        page_size: '200'
-      });
-      const labelsData = await fetchShipStationV2('/v2/labels', labelsParams);
+      let labelsPage = 1;
+      let hasMoreLabels = true;
       
-      for (const label of labelsData.labels || []) {
-        if (label.tracking_number && label.tracking_status) {
-          trackingStatusMap[label.tracking_number] = {
-            status: label.tracking_status,
-            shipDate: label.ship_date,
-            labelId: label.label_id
-          };
+      while (hasMoreLabels && labelsPage <= 10) {
+        const labelsParams = new URLSearchParams({
+          ship_date_start: fifteenDaysAgo.toISOString(),
+          ship_date_end: now.toISOString(),
+          page: String(labelsPage),
+          page_size: '200'
+        });
+        const labelsData = await fetchShipStationV2('/v2/labels', labelsParams);
+        
+        for (const label of labelsData.labels || []) {
+          if (label.tracking_number && label.tracking_status) {
+            trackingStatusMap[label.tracking_number] = {
+              status: label.tracking_status,
+              shipDate: label.ship_date,
+              labelId: label.label_id
+            };
+          }
         }
+        
+        hasMoreLabels = labelsData.has_next_page || false;
+        labelsPage++;
       }
     } catch (err) {
       console.warn('Could not fetch labels:', err);
@@ -175,10 +184,13 @@ export async function POST(request: NextRequest) {
         };
       });
 
-      // Determine display status
+      // Determine display status - check all shipments for best status
       let displayStatus = order.orderStatus;
-      if (enrichedShipments.length > 0 && enrichedShipments[0].carrierStatus) {
-        displayStatus = enrichedShipments[0].carrierStatus;
+      for (const shipment of enrichedShipments) {
+        if (shipment.carrierStatus) {
+          displayStatus = shipment.carrierStatus;
+          break; // Use first non-null carrierStatus
+        }
       }
 
       batch.set(orderRef, {

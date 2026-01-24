@@ -87,6 +87,7 @@ export interface ShipStationOrder {
   };
   // Computed/enriched fields
   _displayStatus?: string;
+  _customerId?: string; // Enriched Copper/Fishbowl customer ID for linking
   _v2Status?: {
     status: string;
     shipmentId?: string;

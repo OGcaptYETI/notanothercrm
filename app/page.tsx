@@ -17,10 +17,13 @@ export default function Home() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setLoading(false);
       
       if (user) {
+        // Keep loading true while redirecting
         router.push('/dashboard');
+      } else {
+        // Only set loading false if no user (show login page)
+        setLoading(false);
       }
     });
 

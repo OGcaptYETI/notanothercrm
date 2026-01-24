@@ -70,15 +70,15 @@ async function fetchShipStationV2(path, params) {
 
 exports.syncShipStationOrders = onSchedule(
     {
-      schedule: "every 1 hours",
+      schedule: "every 30 minutes",
       timeoutSeconds: 540,
       memory: "1GiB",
     },
     async () => {
       const db = admin.firestore();
       const now = new Date();
-      const fifteenDaysAgo = new Date(
-          now.getTime() - 15 * 24 * 60 * 60 * 1000,
+      const fourteenDaysAgo = new Date(
+          now.getTime() - 14 * 24 * 60 * 60 * 1000,
       );
       const expiresAt = new Date(
           now.getTime() + 15 * 24 * 60 * 60 * 1000,
@@ -92,7 +92,7 @@ exports.syncShipStationOrders = onSchedule(
         }, {merge: true});
 
         const ordersParams = new URLSearchParams({
-          createDateStart: fifteenDaysAgo.toISOString(),
+          createDateStart: fourteenDaysAgo.toISOString(),
           createDateEnd: now.toISOString(),
           pageSize: "500",
           page: "1",
@@ -117,7 +117,7 @@ exports.syncShipStationOrders = onSchedule(
         }
 
         const shipmentsParams = new URLSearchParams({
-          shipDateStart: fifteenDaysAgo.toISOString(),
+          shipDateStart: fourteenDaysAgo.toISOString(),
           shipDateEnd: now.toISOString(),
           pageSize: "500",
         });
@@ -145,24 +145,33 @@ exports.syncShipStationOrders = onSchedule(
 
         const trackingStatusMap = {};
         try {
-          const labelsParams = new URLSearchParams({
-            created_at_start: fifteenDaysAgo.toISOString(),
-            created_at_end: now.toISOString(),
-            page_size: "200",
-          });
-          const labelsData = await fetchShipStationV2(
-              "/v2/labels",
-              labelsParams,
-          );
+          let labelsPage = 1;
+          let hasMoreLabels = true;
 
-          for (const label of labelsData.labels || []) {
-            if (label.tracking_number && label.tracking_status) {
-              trackingStatusMap[label.tracking_number] = {
-                status: label.tracking_status,
-                shipDate: label.ship_date,
-                labelId: label.label_id,
-              };
+          while (hasMoreLabels && labelsPage <= 10) {
+            const labelsParams = new URLSearchParams({
+              ship_date_start: fourteenDaysAgo.toISOString(),
+              ship_date_end: now.toISOString(),
+              page: String(labelsPage),
+              page_size: "200",
+            });
+            const labelsData = await fetchShipStationV2(
+                "/v2/labels",
+                labelsParams,
+            );
+
+            for (const label of labelsData.labels || []) {
+              if (label.tracking_number && label.tracking_status) {
+                trackingStatusMap[label.tracking_number] = {
+                  status: label.tracking_status,
+                  shipDate: label.ship_date,
+                  labelId: label.label_id,
+                };
+              }
             }
+
+            hasMoreLabels = labelsData.has_next_page || false;
+            labelsPage++;
           }
         } catch (err) {
           console.warn("Could not fetch labels:", err);
@@ -191,9 +200,11 @@ exports.syncShipStationOrders = onSchedule(
           });
 
           let displayStatus = order.orderStatus;
-          if (enrichedShipments.length > 0 &&
-                    enrichedShipments[0].carrierStatus) {
-            displayStatus = enrichedShipments[0].carrierStatus;
+          for (const shipment of enrichedShipments) {
+            if (shipment.carrierStatus) {
+              displayStatus = shipment.carrierStatus;
+              break;
+            }
           }
 
           batch.set(orderRef, {

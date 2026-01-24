@@ -61,6 +61,9 @@ interface MonthlyCommissionDetail {
   overrideReason?: string; // Reason for manual override
   excludeFromCommission?: boolean; // Flag to indicate if order is excluded by admin
   commissionNote?: string; // Admin note for exclusion/modification
+  rateModified?: boolean; // Flag to indicate if rate was manually changed
+  rateComment?: string; // Comment explaining rate change
+  originalRate?: number; // Original rate before modification
 }
 
 interface OrderLineItem {
@@ -1139,7 +1142,14 @@ export default function ReportsPage() {
                                   </span>
                                 </td>
                                 <td className="text-right">{formatCurrency(detail.orderRevenue)}</td>
-                                <td className="text-right text-gray-600">{detail.commissionRate.toFixed(2)}%</td>
+                                <td className="text-right">
+                                  <span className={detail.rateModified ? 'text-red-600 font-semibold' : 'text-gray-600'}>
+                                    {detail.commissionRate.toFixed(2)}%
+                                  </span>
+                                  {detail.rateModified && (
+                                    <span className="ml-1 text-red-600" title={`Modified: ${detail.rateComment || 'No comment'}`}>✏️</span>
+                                  )}
+                                </td>
                                 <td className="text-right font-bold text-green-600">{formatCurrency(detail.commissionAmount)}</td>
                               </tr>
                             ))
@@ -1204,8 +1214,9 @@ export default function ReportsPage() {
                                           ⚠️ Override
                                         </span>
                                       )}
-                                      <span className="text-xs text-gray-600">
+                                      <span className={`text-xs ${customer.orders[0]?.rateModified ? 'text-red-600 font-semibold' : 'text-gray-600'}`}>
                                         {customer.commissionRate.toFixed(1)}% rate
+                                        {customer.orders[0]?.rateModified && ' ✏️'}
                                       </span>
                                     </div>
                                   </div>
@@ -1267,7 +1278,14 @@ export default function ReportsPage() {
         {order.orderDate?.toDate?.().toLocaleDateString() || '-'}
       </td>
       <td className="px-4 py-3 text-sm text-right">{formatCurrency(order.orderRevenue)}</td>
-      <td className="px-4 py-3 text-sm text-right text-gray-600">{order.commissionRate.toFixed(2)}%</td>
+      <td className="px-4 py-3 text-sm text-right">
+        <span className={order.rateModified ? 'text-red-600 font-semibold' : 'text-gray-600'}>
+          {order.commissionRate.toFixed(2)}%
+        </span>
+        {order.rateModified && (
+          <span className="ml-1 text-red-600" title={`Modified: ${order.rateComment || 'No comment'}`}>✏️</span>
+        )}
+      </td>
       <td className={`px-4 py-3 text-sm text-right font-semibold ${order.excludeFromCommission ? 'text-red-600 line-through' : 'text-green-600'}`}>
         {formatCurrency(order.commissionAmount)}
       </td>
@@ -1323,6 +1341,23 @@ export default function ReportsPage() {
                 <div className="flex items-start gap-2">
                   <span className="text-orange-600 font-semibold text-sm">⚠️ Override Reason:</span>
                   <span className="text-orange-900 text-sm">{order.overrideReason}</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Rate Change Comment Display */}
+            {order.rateModified && order.rateComment && (
+              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <span className="text-red-600 font-semibold text-sm">✏️ Rate Modified:</span>
+                  <div className="flex-1">
+                    <div className="text-red-900 text-sm">{order.rateComment}</div>
+                    {order.originalRate && (
+                      <div className="text-xs text-red-700 mt-1">
+                        Original rate: {order.originalRate.toFixed(2)}% → New rate: {order.commissionRate.toFixed(2)}%
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
@@ -1415,7 +1450,14 @@ export default function ReportsPage() {
                                   </span>
                                 </td>
                                 <td className="text-right">{formatCurrency(log.orderAmount)}</td>
-                                <td className="text-right text-gray-600">{log.commissionRate.toFixed(2)}%</td>
+                                <td className="text-right">
+                                  <span className={log.rateModified ? 'text-red-600 font-semibold' : 'text-gray-600'}>
+                                    {log.commissionRate.toFixed(2)}%
+                                  </span>
+                                  {log.rateModified && (
+                                    <span className="ml-1 text-red-600" title={`Modified: ${log.rateComment || 'No comment'}`}>✏️</span>
+                                  )}
+                                </td>
                                 <td className={`text-right font-bold ${log.excludeFromCommission ? 'text-red-600 line-through' : 'text-green-600'}`}>
                                   {formatCurrency(log.commissionAmount)}
                                 </td>
