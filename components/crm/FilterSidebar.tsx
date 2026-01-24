@@ -119,17 +119,17 @@ export function FilterSidebar({ isOpen, onClose, onSave, fields = DEFAULT_FIELDS
   if (!isOpen) return null;
 
   return (
-    <div className={`absolute right-0 top-0 h-full w-96 bg-white shadow-2xl z-10 flex flex-col transform transition-transform duration-300 ${
+    <div className={`absolute right-0 top-0 h-full w-80 bg-white shadow-2xl z-10 flex flex-col transform transition-transform duration-300 ${
       isOpen ? 'translate-x-0' : 'translate-x-full'
     }`}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Filter Accounts</h2>
+        <div className="flex items-center justify-between p-2.5 border-b border-gray-200">
+          <h2 className="text-xs font-semibold text-gray-900">Filter Accounts</h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1 hover:bg-gray-100 rounded-md transition-colors"
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="w-4 h-4 text-gray-500" />
           </button>
         </div>
 
@@ -163,25 +163,25 @@ export function FilterSidebar({ isOpen, onClose, onSave, fields = DEFAULT_FIELDS
             <div key={section} className="border-b border-gray-200">
               <button
                 onClick={() => toggleSection(section)}
-                className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full px-2.5 py-1.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
-                <span className="text-sm font-medium text-gray-700 capitalize">
+                <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
                   {section}
                 </span>
                 {expandedSections.has(section) ? (
-                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                  <ChevronDown className="w-3 h-3 text-gray-400" />
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                  <ChevronRight className="w-3 h-3 text-gray-400" />
                 )}
               </button>
               
               {expandedSections.has(section) && (
-                <div className="px-4 pb-3 space-y-1">
+                <div className="px-2.5 pb-1.5 space-y-0.5">
                   {fieldNames.map((fieldName) => (
                     <button
                       key={fieldName}
                       onClick={() => addCondition()}
-                      className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-[#93D500]/10 hover:text-[#93D500] rounded transition-colors"
+                      className="w-full text-left px-2.5 py-1 text-xs text-gray-600 hover:bg-[#93D500]/10 hover:text-[#93D500] rounded transition-colors"
                     >
                       {fieldName}
                     </button>
@@ -193,14 +193,14 @@ export function FilterSidebar({ isOpen, onClose, onSave, fields = DEFAULT_FIELDS
         </div>
 
         {/* Filter Conditions */}
-        <div className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-3">
+        <div className="flex-1 overflow-y-auto p-2.5">
+          <div className="space-y-2">
             {conditions.map((condition, index) => {
               const field = fields.find(f => f.id === condition.field);
               const operators = getOperatorsForField(condition.field);
               
               return (
-                <div key={index} className="border border-gray-200 rounded-lg p-3 space-y-2">
+                <div key={index} className="border border-gray-200 rounded-md p-2 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-gray-700">Condition {index + 1}</span>
                     <button
@@ -270,40 +270,40 @@ export function FilterSidebar({ isOpen, onClose, onSave, fields = DEFAULT_FIELDS
             
             <button
               onClick={addCondition}
-              className="w-full px-3 py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-600 hover:border-[#93D500] hover:text-[#93D500] transition-colors flex items-center justify-center gap-2"
+              className="w-full px-2.5 py-1.5 border-2 border-dashed border-gray-300 rounded-md text-xs text-gray-600 hover:border-[#93D500] hover:text-[#93D500] transition-colors flex items-center justify-center gap-1.5"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5" />
               Add Condition
             </button>
           </div>
         </div>
 
         {/* Save Section */}
-        <div className="p-4 border-t border-gray-200 space-y-3 bg-gray-50">
+        <div className="p-2.5 border-t border-gray-200 space-y-2 bg-gray-50">
           <input
             type="text"
             value={filterName}
             onChange={(e) => setFilterName(e.target.value)}
             placeholder="Filter name..."
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#93D500] focus:border-transparent outline-none text-sm"
+            className="w-full px-2.5 py-1.5 border border-gray-200 rounded-md focus:ring-1 focus:ring-[#93D500] focus:border-transparent outline-none text-xs"
           />
           
-          <label className="flex items-center gap-2 cursor-pointer">
+          <label className="flex items-center gap-1.5 cursor-pointer">
             <input
               type="checkbox"
               checked={isPublic}
               onChange={(e) => setIsPublic(e.target.checked)}
-              className="w-4 h-4 text-[#93D500] border-gray-300 rounded focus:ring-[#93D500]"
+              className="w-3.5 h-3.5 text-[#93D500] border-gray-300 rounded focus:ring-[#93D500]"
             />
-            <span className="text-sm text-gray-700">Make this filter public</span>
+            <span className="text-xs text-gray-700">Make this filter public</span>
           </label>
 
           <button
             onClick={handleSave}
             disabled={!filterName.trim() || conditions.length === 0}
-            className="w-full px-4 py-2 bg-[#93D500] text-white rounded-lg hover:bg-[#84c000] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors"
+            className="w-full px-3 py-1.5 bg-[#93D500] text-white rounded-md hover:bg-[#84c000] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-colors text-xs font-medium"
           >
-            <Save className="w-4 h-4" />
+            <Save className="w-3.5 h-3.5" />
             Save Filter
           </button>
         </div>

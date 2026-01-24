@@ -46,6 +46,23 @@ export default function AccountDetailPage() {
   // Tab state
   const [activeTab, setActiveTab] = useState<'activity' | 'insights'>('activity');
   
+  // Main sidebar state
+  const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('sidebar-collapsed') === 'true';
+    }
+    return false;
+  });
+
+  // Listen for main sidebar toggle events
+  useEffect(() => {
+    const handleSidebarToggle = (e: CustomEvent) => {
+      setMainSidebarCollapsed(e.detail.isCollapsed);
+    };
+    window.addEventListener('sidebar-toggle', handleSidebarToggle as EventListener);
+    return () => window.removeEventListener('sidebar-toggle', handleSidebarToggle as EventListener);
+  }, []);
+  
   // Customer sales summary data
   const [customerSummary, setCustomerSummary] = useState<any>(null);
   const [loadingCustomerSummary, setLoadingCustomerSummary] = useState(false);
@@ -167,9 +184,14 @@ export default function AccountDetailPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div 
+      className="min-h-screen bg-gray-50 transition-all duration-300"
+      style={{ 
+        marginLeft: mainSidebarCollapsed ? '64px' : '256px'
+      }}
+    >
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
