@@ -89,7 +89,7 @@ export default function AccountsPage() {
     const fetchFilters = async () => {
       try {
         setLoadingFilters(true);
-        const filters = await loadFilters(user.uid);
+        const filters = await loadFilters(user.id);
         setSavedFilters(filters);
       } catch (error) {
         console.error('Error loading filters:', error);
@@ -138,11 +138,11 @@ export default function AccountsPage() {
         name: filter.name,
         isPublic: filter.isPublic,
         conditions: filter.conditions,
-        createdBy: user.uid,
-      }, user.uid);
+        createdBy: user.id,
+      }, user.id);
       
       // Reload filters
-      const filters = await loadFilters(user.uid);
+      const filters = await loadFilters(user.id);
       setSavedFilters(filters);
       
       // Apply the new filter
@@ -610,7 +610,7 @@ export default function AccountsPage() {
           accounts={selectedAccounts}
           onClose={() => setShowMergeDialog(false)}
           onMergeComplete={handleMergeComplete}
-          userId={user.uid}
+          userId={user.id}
         />
       )}
     </div>

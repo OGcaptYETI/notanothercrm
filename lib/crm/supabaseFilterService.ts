@@ -34,7 +34,7 @@ export async function saveFilter(
       name: filter.name,
       is_public: filter.isPublic,
       conditions: filter.conditions,
-      created_by: userId,
+      user_id: userId,
       created_at: now,
       updated_at: now,
       count: filter.count,
@@ -97,11 +97,16 @@ export async function deleteFilter(filterId: string): Promise<void> {
  * RLS automatically filters by company_id from JWT
  */
 export async function loadFilters(userId: string): Promise<SavedFilter[]> {
+  if (!userId) {
+    console.warn('No userId provided to loadFilters');
+    return [];
+  }
+
   // Get public filters and user's private filters in one query
   const { data, error } = await supabase
     .from('saved_filters')
     .select('*')
-    .or(`is_public.eq.true,and(is_public.eq.false,created_by.eq.${userId})`)
+    .or(`is_public.eq.true,and(is_public.eq.false,user_id.eq.${userId})`)
     .order('name');
 
   if (error) {
@@ -140,7 +145,7 @@ function mapSupabaseToFilter(data: any): SavedFilter {
     name: data.name,
     isPublic: data.is_public,
     conditions: data.conditions || [],
-    createdBy: data.created_by,
+    createdBy: data.user_id,
     createdAt: new Date(data.created_at),
     updatedAt: new Date(data.updated_at),
     count: data.count,
