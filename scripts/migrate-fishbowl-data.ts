@@ -44,6 +44,29 @@ const accountNameToId = new Map<string, string>();
 const orderNumberToId = new Map<string, string>();
 
 /**
+ * Convert Firestore Timestamp to ISO string
+ * Handles both Timestamp objects and already-converted strings
+ */
+function convertTimestamp(timestamp: any): string | null {
+  if (!timestamp) return null;
+  
+  // Already a string
+  if (typeof timestamp === 'string') return timestamp;
+  
+  // Firestore Timestamp object with toDate() method
+  if (timestamp.toDate && typeof timestamp.toDate === 'function') {
+    return timestamp.toDate().toISOString();
+  }
+  
+  // Firestore Timestamp with seconds property
+  if (timestamp.seconds) {
+    return new Date(timestamp.seconds * 1000).toISOString();
+  }
+  
+  return null;
+}
+
+/**
  * Step 1: Load existing accounts and create name mapping
  */
 async function loadAccountMapping() {
@@ -159,7 +182,7 @@ async function migrateFishbowlSalesOrders() {
       account_id: accountId || null,
       customer_name: customerName || null,
       customer_id: data.customerId || null,
-      order_date: data.commissionDate || data.postingDate || null,
+      order_date: convertTimestamp(data.commissionDate || data.postingDate),
       ship_date: null, // Not in Firebase schema
       status: null, // Not in Firebase schema
       total_amount: 0, // Will be calculated from items
@@ -173,8 +196,8 @@ async function migrateFishbowlSalesOrders() {
       carrier: null,
       tracking_number: null,
       notes: null,
-      created_at: data.postingDate || new Date().toISOString(),
-      updated_at: data.updatedAt || new Date().toISOString(),
+      created_at: convertTimestamp(data.postingDate) || new Date().toISOString(),
+      updated_at: convertTimestamp(data.updatedAt) || new Date().toISOString(),
     };
     
     // Track mapping of salesOrderId (internal ID) to document ID for order items
@@ -253,7 +276,7 @@ async function migrateFishbowlSOItems() {
       quantity: Math.round(parseFloat(data.quantity || 0)),
       unit_price: parseFloat(data.unitPrice || 0),
       line_total: parseFloat(data.totalPrice || 0),
-      created_at: data.postingDate || new Date().toISOString(),
+      created_at: convertTimestamp(data.postingDate) || new Date().toISOString(),
     };
     
     itemsToInsert.push(item);
