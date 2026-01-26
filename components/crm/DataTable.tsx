@@ -122,14 +122,19 @@ export function DataTable<T extends { id: string }>({
         if (prefs.columnVisibility) setColumnVisibility(prefs.columnVisibility);
         
         if (prefs.columnOrder) {
+          // Merge saved order with new columns
+          const savedOrder = prefs.columnOrder.filter((id: string) => currentColumnIds.includes(id));
+          const newColumns = currentColumnIds.filter((id: string) => !prefs.columnOrder.includes(id));
+          
           // Ensure 'select' column is always first if it exists
           const hasSelectColumn = currentColumnIds.includes('select');
           if (hasSelectColumn) {
-            const savedOrderWithoutSelect = prefs.columnOrder.filter((id: string) => id !== 'select');
-            const newOrder = ['select', ...savedOrderWithoutSelect.filter((id: string) => currentColumnIds.includes(id))];
+            const savedOrderWithoutSelect = savedOrder.filter((id: string) => id !== 'select');
+            const newColumnsWithoutSelect = newColumns.filter((id: string) => id !== 'select');
+            const newOrder = ['select', ...savedOrderWithoutSelect, ...newColumnsWithoutSelect];
             setColumnOrder(newOrder);
           } else {
-            setColumnOrder(prefs.columnOrder.filter((id: string) => currentColumnIds.includes(id)));
+            setColumnOrder([...savedOrder, ...newColumns]);
           }
         } else {
           setColumnOrder(currentColumnIds);

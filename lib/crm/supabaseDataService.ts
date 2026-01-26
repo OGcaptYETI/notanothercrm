@@ -57,36 +57,85 @@ function applyFilters(query: any, filters?: PaginationOptions) {
   // Advanced filter conditions
   if (filters?.filterConditions && filters.filterConditions.length > 0) {
     filters.filterConditions.forEach((condition: FilterCondition) => {
-      const { field, operator, value } = condition;
+      let { field, operator, value } = condition;
+
+      // Convert camelCase field names to snake_case for Supabase
+      const fieldMap: Record<string, string> = {
+        isActiveCustomer: 'is_active_customer',
+        fishbowlId: 'fishbowl_id',
+        copperId: 'copper_id',
+        accountNumber: 'account_number',
+        accountType: 'account_type',
+        customerPriority: 'customer_priority',
+        organizationLevel: 'organization_level',
+        businessModel: 'business_model',
+        paymentTerms: 'payment_terms',
+        shippingTerms: 'shipping_terms',
+        carrierName: 'carrier_name',
+        salesPerson: 'sales_person',
+        totalOrders: 'total_orders',
+        totalSpent: 'total_spent',
+        lastOrderDate: 'last_order_date',
+        firstOrderDate: 'first_order_date',
+        primaryContactId: 'primary_contact_id',
+        primaryContactName: 'primary_contact_name',
+        primaryContactEmail: 'primary_contact_email',
+        primaryContactPhone: 'primary_contact_phone',
+        accountOrderId: 'account_order_id',
+        copperUrl: 'copper_url',
+        contactType: 'contact_type',
+        inactiveDays: 'inactive_days',
+        interactionCount: 'interaction_count',
+        lastContacted: 'last_contacted',
+        ownedBy: 'owned_by',
+        ownerId: 'owner_id',
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        shippingStreet: 'shipping_street',
+        shippingCity: 'shipping_city',
+        shippingState: 'shipping_state',
+        shippingZip: 'shipping_zip',
+        billingStreet: 'billing_street',
+        billingCity: 'billing_city',
+        billingState: 'billing_state',
+        billingZip: 'billing_zip',
+      };
+      
+      const dbField = fieldMap[field] || field;
+      
+      // Convert boolean display values to actual booleans
+      let dbValue = value;
+      if (value === 'Yes' || value === 'yes') dbValue = true;
+      if (value === 'No' || value === 'no') dbValue = false;
 
       switch (operator) {
         case 'equals':
-          q = q.eq(field, value);
+          q = q.eq(dbField, dbValue);
           break;
         case 'not_equals':
-          q = q.neq(field, value);
+          q = q.neq(dbField, dbValue);
           break;
         case 'contains':
-          q = q.ilike(field, `%${value}%`);
+          q = q.ilike(dbField, `%${dbValue}%`);
           break;
         case 'starts_with':
-          q = q.ilike(field, `${value}%`);
+          q = q.ilike(dbField, `${dbValue}%`);
           break;
         case 'greater_than':
-          q = q.gt(field, value);
+          q = q.gt(dbField, dbValue);
           break;
         case 'less_than':
-          q = q.lt(field, value);
+          q = q.lt(dbField, dbValue);
           break;
         case 'is_empty':
-          q = q.is(field, null);
+          q = q.is(dbField, null);
           break;
         case 'is_not_empty':
-          q = q.not(field, 'is', null);
+          q = q.not(dbField, 'is', null);
           break;
         case 'in':
-          if (Array.isArray(value)) {
-            q = q.in(field, value);
+          if (Array.isArray(dbValue)) {
+            q = q.in(dbField, dbValue);
           }
           break;
       }
