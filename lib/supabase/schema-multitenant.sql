@@ -425,13 +425,13 @@ ALTER TABLE order_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE saved_filters ENABLE ROW LEVEL SECURITY;
 
 -- Helper function to get user's company_id from JWT
-CREATE OR REPLACE FUNCTION auth.user_company_id()
+CREATE OR REPLACE FUNCTION public.user_company_id()
 RETURNS TEXT AS $$
   SELECT COALESCE(
-    auth.jwt() -> 'user_metadata' ->> 'company_id',
-    auth.jwt() -> 'app_metadata' ->> 'company_id'
+    current_setting('request.jwt.claims', true)::json -> 'user_metadata' ->> 'company_id',
+    current_setting('request.jwt.claims', true)::json -> 'app_metadata' ->> 'company_id'
   )::TEXT;
-$$ LANGUAGE SQL STABLE;
+$$ LANGUAGE SQL STABLE SECURITY DEFINER;
 
 -- ============================================
 -- COMPANIES POLICIES
@@ -440,12 +440,12 @@ $$ LANGUAGE SQL STABLE;
 -- Users can only see their own company
 CREATE POLICY "Users see only their company"
 ON companies FOR SELECT
-USING (id = auth.user_company_id());
+USING (id = public.user_company_id());
 
 -- Users can update their own company (admins only - will add role check later)
 CREATE POLICY "Admins can update their company"
 ON companies FOR UPDATE
-USING (id = auth.user_company_id());
+USING (id = public.user_company_id());
 
 -- ============================================
 -- ACCOUNTS POLICIES
@@ -453,19 +453,19 @@ USING (id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company accounts"
 ON accounts FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON accounts FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 CREATE POLICY "Users update only their company accounts"
 ON accounts FOR UPDATE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users delete only their company accounts"
 ON accounts FOR DELETE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 -- ============================================
 -- CONTACTS POLICIES
@@ -473,19 +473,19 @@ USING (company_id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company contacts"
 ON contacts FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON contacts FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 CREATE POLICY "Users update only their company contacts"
 ON contacts FOR UPDATE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users delete only their company contacts"
 ON contacts FOR DELETE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 -- ============================================
 -- PROSPECTS POLICIES
@@ -493,19 +493,19 @@ USING (company_id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company prospects"
 ON prospects FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON prospects FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 CREATE POLICY "Users update only their company prospects"
 ON prospects FOR UPDATE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users delete only their company prospects"
 ON prospects FOR DELETE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 -- ============================================
 -- DEALS POLICIES
@@ -513,19 +513,19 @@ USING (company_id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company deals"
 ON deals FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON deals FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 CREATE POLICY "Users update only their company deals"
 ON deals FOR UPDATE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users delete only their company deals"
 ON deals FOR DELETE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 -- ============================================
 -- ORDERS POLICIES
@@ -533,15 +533,15 @@ USING (company_id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company orders"
 ON orders FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON orders FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 CREATE POLICY "Users update only their company orders"
 ON orders FOR UPDATE
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 -- ============================================
 -- ORDER ITEMS POLICIES
@@ -549,11 +549,11 @@ USING (company_id = auth.user_company_id());
 
 CREATE POLICY "Users see only their company order items"
 ON order_items FOR SELECT
-USING (company_id = auth.user_company_id());
+USING (company_id = public.user_company_id());
 
 CREATE POLICY "Users insert only to their company"
 ON order_items FOR INSERT
-WITH CHECK (company_id = auth.user_company_id());
+WITH CHECK (company_id = public.user_company_id());
 
 -- ============================================
 -- SAVED FILTERS POLICIES
@@ -562,28 +562,28 @@ WITH CHECK (company_id = auth.user_company_id());
 CREATE POLICY "Users see their own and public filters"
 ON saved_filters FOR SELECT
 USING (
-  company_id = auth.user_company_id() AND 
+  company_id = public.user_company_id() AND 
   (user_id = auth.uid()::TEXT OR is_public = true)
 );
 
 CREATE POLICY "Users insert only to their company"
 ON saved_filters FOR INSERT
 WITH CHECK (
-  company_id = auth.user_company_id() AND 
+  company_id = public.user_company_id() AND 
   user_id = auth.uid()::TEXT
 );
 
 CREATE POLICY "Users update only their own filters"
 ON saved_filters FOR UPDATE
 USING (
-  company_id = auth.user_company_id() AND 
+  company_id = public.user_company_id() AND 
   user_id = auth.uid()::TEXT
 );
 
 CREATE POLICY "Users delete only their own filters"
 ON saved_filters FOR DELETE
 USING (
-  company_id = auth.user_company_id() AND 
+  company_id = public.user_company_id() AND 
   user_id = auth.uid()::TEXT
 );
 
