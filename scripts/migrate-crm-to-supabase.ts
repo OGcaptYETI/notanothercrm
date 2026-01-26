@@ -3,9 +3,14 @@
  * Migrates people, tasks, opportunities, and leads
  */
 
+import { config } from 'dotenv';
+import { resolve } from 'path';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { createClient } from '@supabase/supabase-js';
+
+// Load environment variables from .env.local
+config({ path: resolve(process.cwd(), '.env.local') });
 
 // Firebase config (use your actual config)
 const firebaseConfig = {
@@ -18,6 +23,23 @@ const firebaseConfig = {
 // Supabase config
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+// Verify environment variables
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ Missing Supabase environment variables!');
+  console.error('Make sure .env.local contains:');
+  console.error('  NEXT_PUBLIC_SUPABASE_URL=...');
+  console.error('  NEXT_PUBLIC_SUPABASE_ANON_KEY=...');
+  process.exit(1);
+}
+
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  console.error('❌ Missing Firebase environment variables!');
+  console.error('Make sure .env.local contains:');
+  console.error('  NEXT_PUBLIC_FIREBASE_API_KEY=...');
+  console.error('  NEXT_PUBLIC_FIREBASE_PROJECT_ID=...');
+  process.exit(1);
+}
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
