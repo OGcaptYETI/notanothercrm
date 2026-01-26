@@ -4,9 +4,9 @@ export const dynamic = 'force-dynamic';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase/client';
 import { db } from '@/lib/firebase/config';
 import { collection, query, getDocs, orderBy, limit, where } from 'firebase/firestore';
-import { useAuth } from '@/lib/contexts/AuthContext';
 import { 
   Phone,
   Mail,
@@ -48,7 +48,8 @@ interface QuickStat {
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { user, userProfile, loading: authLoading, isAdmin } = useAuth();
+  const [user, setUser] = useState<any>(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [gmailConnected, setGmailConnected] = useState(false);
@@ -62,17 +63,39 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
-    if (authLoading) return;
-    
-    if (!user) {
-      router.push('/login');
-      return;
-    }
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        router.replace('/login');
+        return;
+      }
+      
+      setUser(session.user);
+      setAuthLoading(false);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        router.replace('/login');
+      } else {
+        setUser(session.user);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
+
+  useEffect(() => {
+    if (authLoading || !user) return;
 
     const loadDashboardData = async () => {
       try {
         // Load real activities from API
-        const idToken = await user.getIdToken(true);
+        const { data: { session } } = await supabase.auth.getSession();
+        const idToken = session?.access_token;
         
         // Fetch activities
         const activitiesResponse = await fetch('/api/dashboard/activities', {
@@ -115,7 +138,7 @@ export default function DashboardPage() {
     };
 
     loadDashboardData();
-  }, [authLoading, user, router, userProfile]);
+  }, [authLoading, user, router]);
 
   const getActivityIcon = (type: string) => {
     switch (type) {
@@ -268,7 +291,7 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
-            Welcome to your Feed, {userProfile?.name?.split(' ')[0] || 'there'} 👋
+            Welcome to your Feed, {user?.user_metadata?.full_name?.split(' ')[0] || 'there'} 👋
           </h1>
           <p className="text-gray-500 mt-1">
             Your relationships, your activities, the heartbeat of your business. All in one place.
@@ -447,8 +470,8 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Team Members (Admin only) */}
-          {isAdmin && (
+          {/* Team Members */}
+          {user?.user_metadata?.role === 'admin' && (
             <div className="bg-white rounded-xl border border-gray-200 p-4">
               <h3 className="font-semibold text-gray-900 mb-4">Invite Team Members</h3>
               <p className="text-xs text-gray-500 mb-3">Add team members to collaborate with them on Copper.</p>
