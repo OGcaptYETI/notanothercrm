@@ -454,6 +454,16 @@ service cloud.firestore {
       allow write: if true;
     }
     
+    // Saved filters (for accounts, contacts, etc.)
+    match /saved_filters/{filterId} {
+      allow read: if true; // All authenticated users can read public filters
+      allow create: if isAuthenticated(); // Any authenticated user can create filters
+      allow update: if isAuthenticated() && 
+                       (resource.data.createdBy == request.auth.uid || isAdmin());
+      allow delete: if isAuthenticated() && 
+                       (resource.data.createdBy == request.auth.uid || isAdmin());
+    }
+    
     // ========== SPIFFS & KICKERS ==========
     
     // Spiffs/Kickers - internal app - permissive for admin access
