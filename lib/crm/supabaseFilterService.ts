@@ -36,9 +36,13 @@ export async function saveFilter(
     throw new Error('User does not have a company_id. Please contact support.');
   }
   
+  // Generate a UUID for the filter ID
+  const filterId = crypto.randomUUID();
+  
   const { data, error } = await supabase
     .from('saved_filters')
     .insert({
+      id: filterId,
       name: filter.name,
       is_public: filter.isPublic,
       conditions: filter.conditions,
