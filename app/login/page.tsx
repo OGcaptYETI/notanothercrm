@@ -59,6 +59,8 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = async () => {
     setError('');
+    setLoading(true);
+    
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -67,16 +69,25 @@ export default function LoginPage() {
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
-            hd: 'kanvabotanicals.com', // Restrict to your domain
+            hd: 'kanvabotanicals.com',
           },
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        // Check if it's a configuration error
+        if (error.message.includes('Provider') || error.message.includes('not enabled')) {
+          throw new Error('Google sign-in is not configured yet. Please use email/password login or contact your administrator.');
+        }
+        throw error;
+      }
     } catch (err: any) {
       console.error('Google sign-in error:', err);
-      setError(err.message || 'Failed to sign in with Google');
-      toast.error(err.message || 'Failed to sign in with Google');
+      const errorMessage = err.message || 'Failed to sign in with Google. Please try email/password login.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,14 +96,8 @@ export default function LoginPage() {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-            <Image
-              src="/kanva_logo_rotate.gif"
-              alt="Kanva Botanicals"
-              width={60}
-              height={60}
-              className="rounded-full"
-            />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full mb-4">
+            <span className="text-3xl font-bold text-white">K</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             KanvaPortal
@@ -114,7 +119,8 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition-colors duration-200 flex items-center justify-center gap-3 shadow-sm"
+          disabled={loading}
+          className="w-full bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed border border-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition-colors duration-200 flex items-center justify-center gap-3 shadow-sm"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
