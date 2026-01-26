@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, ChevronRight, ChevronDown, Search, Star } from 'lucide-react';
+import { Plus, ChevronRight, ChevronDown, Search, Star, MoreVertical, Trash2, Copy } from 'lucide-react';
 
 interface SavedFilter {
   id: string;
@@ -16,6 +16,9 @@ interface SavedFiltersPanelProps {
   onToggle: () => void;
   onFilterSelect: (filterId: string) => void;
   onNewFilter: () => void;
+  onEditFilter: (filterId: string) => void;
+  onDeleteFilter: (filterId: string) => void;
+  onCopyFilter: (filterId: string) => void;
   activeFilterId: string | null;
   publicFilters: SavedFilter[];
   privateFilters: SavedFilter[];
@@ -26,6 +29,9 @@ export function SavedFiltersPanel({
   onToggle,
   onFilterSelect,
   onNewFilter,
+  onEditFilter,
+  onDeleteFilter,
+  onCopyFilter,
   activeFilterId,
   publicFilters,
   privateFilters
@@ -33,6 +39,7 @@ export function SavedFiltersPanel({
   const [searchTerm, setSearchTerm] = useState('');
   const [publicExpanded, setPublicExpanded] = useState(true);
   const [privateExpanded, setPrivateExpanded] = useState(true);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const filterBySearch = (filters: SavedFilter[]) => {
     if (!searchTerm) return filters;
@@ -136,20 +143,70 @@ export function SavedFiltersPanel({
           {publicExpanded && (
             <div className="px-4 pb-1.5 space-y-0.5">
               {filterBySearch(publicFilters).map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => onFilterSelect(filter.id)}
-                  className={`w-full px-4 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between group ${
-                    activeFilterId === filter.id
-                      ? 'bg-[#93D500]/10 text-[#93D500] font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <span className="truncate">{filter.name}</span>
-                  {filter.count !== undefined && (
-                    <span className="text-[10px] text-gray-400 ml-2">{filter.count}</span>
+                <div key={filter.id} className="relative group">
+                  <button
+                    onClick={() => onFilterSelect(filter.id)}
+                    onDoubleClick={() => onEditFilter(filter.id)}
+                    className={`w-full px-2.5 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between ${
+                      activeFilterId === filter.id
+                        ? 'bg-[#93D500]/10 text-[#93D500] font-medium'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className="truncate flex-1">{filter.name}</span>
+                    <div className="flex items-center gap-1">
+                      {filter.count !== undefined && (
+                        <span className="text-[10px] text-gray-400">{filter.count}</span>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveMenu(activeMenu === filter.id ? null : filter.id);
+                        }}
+                        className="p-0.5 hover:bg-gray-200 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <MoreVertical className="w-3 h-3 text-gray-500" />
+                      </button>
+                    </div>
+                  </button>
+                  {activeMenu === filter.id && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)} />
+                      <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                        <button
+                          onClick={() => {
+                            onEditFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <ChevronRight className="w-3 h-3" />
+                          Edit Filter
+                        </button>
+                        <button
+                          onClick={() => {
+                            onCopyFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <Copy className="w-3 h-3" />
+                          Duplicate
+                        </button>
+                        <button
+                          onClick={() => {
+                            onDeleteFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-red-50 text-red-600 flex items-center gap-2 border-t border-gray-100"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                          Delete
+                        </button>
+                      </div>
+                    </>
                   )}
-                </button>
+                </div>
               ))}
             </div>
           )}
@@ -174,23 +231,71 @@ export function SavedFiltersPanel({
           {privateExpanded && (
             <div className="px-4 pb-1.5 space-y-0.5">
               {filterBySearch(privateFilters).map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => onFilterSelect(filter.id)}
-                  className={`w-full px-2.5 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between group ${
-                    activeFilterId === filter.id
-                      ? 'bg-blue-50 text-blue-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <span className="truncate">{filter.name}</span>
-                  <div className="flex items-center gap-1.5">
-                    {filter.isFavorite && <Star className="w-2.5 h-2.5 text-yellow-500 fill-current" />}
-                    {filter.count !== undefined && (
-                      <span className="text-[10px] text-gray-400">{filter.count}</span>
-                    )}
-                  </div>
-                </button>
+                <div key={filter.id} className="relative group">
+                  <button
+                    onClick={() => onFilterSelect(filter.id)}
+                    onDoubleClick={() => onEditFilter(filter.id)}
+                    className={`w-full px-2.5 py-1 text-left text-xs rounded-md transition-colors flex items-center justify-between ${
+                      activeFilterId === filter.id
+                        ? 'bg-blue-50 text-blue-700 font-medium'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className="truncate flex-1">{filter.name}</span>
+                    <div className="flex items-center gap-1">
+                      {filter.isFavorite && <Star className="w-2.5 h-2.5 text-yellow-500 fill-current" />}
+                      {filter.count !== undefined && (
+                        <span className="text-[10px] text-gray-400">{filter.count}</span>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveMenu(activeMenu === filter.id ? null : filter.id);
+                        }}
+                        className="p-0.5 hover:bg-gray-200 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <MoreVertical className="w-3 h-3 text-gray-500" />
+                      </button>
+                    </div>
+                  </button>
+                  {activeMenu === filter.id && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)} />
+                      <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                        <button
+                          onClick={() => {
+                            onEditFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <ChevronRight className="w-3 h-3" />
+                          Edit Filter
+                        </button>
+                        <button
+                          onClick={() => {
+                            onCopyFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <Copy className="w-3 h-3" />
+                          Duplicate
+                        </button>
+                        <button
+                          onClick={() => {
+                            onDeleteFilter(filter.id);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full px-3 py-2 text-left text-xs hover:bg-red-50 text-red-600 flex items-center gap-2 border-t border-gray-100"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                          Delete
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               ))}
             </div>
           )}

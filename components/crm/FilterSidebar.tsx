@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { X, Save, Plus, ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { ACCOUNT_FILTER_FIELDS, getFieldsByCategory, searchFilterFields, type FilterField } from '@/lib/crm/filterFields';
 
@@ -14,14 +14,28 @@ interface FilterSidebarProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (filter: { name: string; isPublic: boolean; conditions: FilterCondition[] }) => void;
+  editingFilter?: { id: string; name: string; isPublic: boolean; conditions: FilterCondition[] } | null;
 }
 
-export function FilterSidebar({ isOpen, onClose, onSave }: FilterSidebarProps) {
+export function FilterSidebar({ isOpen, onClose, onSave, editingFilter }: FilterSidebarProps) {
   const [filterName, setFilterName] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [conditions, setConditions] = useState<FilterCondition[]>([]);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['details']));
   const [fieldSearchTerm, setFieldSearchTerm] = useState('');
+
+  // Load editing filter when it changes
+  React.useEffect(() => {
+    if (editingFilter) {
+      setFilterName(editingFilter.name);
+      setIsPublic(editingFilter.isPublic);
+      setConditions(editingFilter.conditions || []);
+    } else {
+      setFilterName('');
+      setIsPublic(false);
+      setConditions([]);
+    }
+  }, [editingFilter]);
 
   // Get fields by category
   const fieldsByCategory = {
@@ -122,7 +136,7 @@ export function FilterSidebar({ isOpen, onClose, onSave }: FilterSidebarProps) {
     }`}>
         {/* Header */}
         <div className="flex items-center justify-between p-2.5 border-b border-gray-200">
-          <h2 className="text-xs font-semibold text-gray-900">Filter Accounts</h2>
+          <h2 className="text-xs font-semibold text-gray-900">{editingFilter ? 'Edit Filter' : 'Filter Accounts'}</h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-md transition-colors"
@@ -342,7 +356,7 @@ export function FilterSidebar({ isOpen, onClose, onSave }: FilterSidebarProps) {
             className="w-full px-3 py-1.5 bg-[#93D500] text-white rounded-md hover:bg-[#84c000] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-colors text-xs font-medium"
           >
             <Save className="w-3.5 h-3.5" />
-            Save Filter
+            {editingFilter ? 'Update Filter' : 'Save Filter'}
           </button>
         </div>
     </div>

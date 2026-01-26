@@ -10,7 +10,7 @@ import { MergeAccountsDialog } from '@/components/crm/MergeAccountsDialog';
 import { SavedFiltersPanel } from '@/components/crm/SavedFiltersPanel';
 import { FilterSidebar, type FilterCondition } from '@/components/crm/FilterSidebar';
 import type { UnifiedAccount } from '@/lib/crm/dataService';
-import { saveFilter, loadFilters, type SavedFilter } from '@/lib/crm/supabaseFilterService';
+import { saveFilter, loadFilters, deleteFilter, updateFilter, type SavedFilter } from '@/lib/crm/supabaseFilterService';
 import { 
   Plus,
   Search,
@@ -38,6 +38,7 @@ export default function AccountsPage() {
   const [activeFilterConditions, setActiveFilterConditions] = useState<FilterCondition[]>([]);
   const [savedFilters, setSavedFilters] = useState<SavedFilter[]>([]);
   const [loadingFilters, setLoadingFilters] = useState(true);
+  const [editingFilter, setEditingFilter] = useState<{ id: string; name: string; isPublic: boolean; conditions: FilterCondition[] } | null>(null);
   const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('sidebar-collapsed') === 'true';
@@ -134,9 +135,93 @@ export default function AccountsPage() {
     if (!user) return;
     
     try {
-      const filterId = await saveFilter({
+      if (editingFilter) {
+        // Update existing filter
+        await updateFilter(editingFilter.id, {
+          name: filter.name,
+          isPublic: filter.isPublic,
+          conditions: filter.conditions,
+        });
+        
+        // Reload filters
+        const filters = await loadFilters(user.id);
+        setSavedFilters(filters);
+        
+        // Keep the filter active if it was already active
+        if (activeFilterId === editingFilter.id) {
+          setActiveFilterConditions(filter.conditions);
+        }
+        
+        setEditingFilter(null);
+      } else {
+        // Create new filter
+        const filterId = await saveFilter({
+          name: filter.name,
+          isPublic: filter.isPublic,
+          conditions: filter.conditions,
+          createdBy: user.id,
+        }, user.id);
+        
+        // Reload filters
+        const filters = await loadFilters(user.id);
+        setSavedFilters(filters);
+        
+        // Apply the new filter
+        setActiveFilterId(filterId);
+        setActiveFilterConditions(filter.conditions);
+      }
+      
+      setFilterSidebarOpen(false);
+    } catch (error) {
+      console.error('Error saving filter:', error);
+      alert('Failed to save filter. Please try again.');
+    }
+  };
+  
+  const handleFilterEdit = (filterId: string) => {
+    const filter = savedFilters.find(f => f.id === filterId);
+    if (filter) {
+      setEditingFilter({
+        id: filter.id,
         name: filter.name,
         isPublic: filter.isPublic,
+        conditions: filter.conditions,
+      });
+      setFilterSidebarOpen(true);
+    }
+  };
+  
+  const handleFilterDelete = async (filterId: string) => {
+    if (!confirm('Are you sure you want to delete this filter?')) return;
+    
+    try {
+      await deleteFilter(filterId);
+      
+      // Reload filters
+      const filters = await loadFilters(user!.id);
+      setSavedFilters(filters);
+      
+      // If deleted filter was active, reset to "All Accounts"
+      if (activeFilterId === filterId) {
+        setActiveFilterId('all');
+        setActiveFilterConditions([]);
+      }
+    } catch (error) {
+      console.error('Error deleting filter:', error);
+      alert('Failed to delete filter. Please try again.');
+    }
+  };
+  
+  const handleFilterCopy = async (filterId: string) => {
+    if (!user) return;
+    
+    const filter = savedFilters.find(f => f.id === filterId);
+    if (!filter) return;
+    
+    try {
+      const newFilterId = await saveFilter({
+        name: `${filter.name} (Copy)`,
+        isPublic: false, // Copies are always private
         conditions: filter.conditions,
         createdBy: user.id,
       }, user.id);
@@ -145,13 +230,12 @@ export default function AccountsPage() {
       const filters = await loadFilters(user.id);
       setSavedFilters(filters);
       
-      // Apply the new filter
-      setActiveFilterId(filterId);
+      // Optionally switch to the copied filter
+      setActiveFilterId(newFilterId);
       setActiveFilterConditions(filter.conditions);
-      setFilterSidebarOpen(false);
     } catch (error) {
-      console.error('Error saving filter:', error);
-      alert('Failed to save filter. Please try again.');
+      console.error('Error copying filter:', error);
+      alert('Failed to copy filter. Please try again.');
     }
   };
   
@@ -464,7 +548,13 @@ export default function AccountsPage() {
         isCollapsed={filtersCollapsed}
         onToggle={() => setFiltersCollapsed(!filtersCollapsed)}
         onFilterSelect={handleFilterSelect}
-        onNewFilter={() => setFilterSidebarOpen(true)}
+        onNewFilter={() => {
+          setEditingFilter(null);
+          setFilterSidebarOpen(true);
+        }}
+        onEditFilter={handleFilterEdit}
+        onDeleteFilter={handleFilterDelete}
+        onCopyFilter={handleFilterCopy}
         activeFilterId={activeFilterId}
         publicFilters={publicFilters}
         privateFilters={privateFilters}
@@ -493,8 +583,12 @@ export default function AccountsPage() {
           {/* Filter Sidebar */}
           <FilterSidebar
             isOpen={filterSidebarOpen}
-            onClose={() => setFilterSidebarOpen(false)}
+            onClose={() => {
+              setFilterSidebarOpen(false);
+              setEditingFilter(null);
+            }}
             onSave={handleFilterSave}
+            editingFilter={editingFilter}
           />
           
           <div className="h-full overflow-auto bg-white">

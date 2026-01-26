@@ -128,10 +128,60 @@ export const ACCOUNT_FILTER_FIELDS: FilterField[] = [
   },
   {
     id: 'shippingStreet',
-    label: 'Street Address',
+    label: 'Shipping Street',
     type: 'text',
     category: 'details',
     firestoreField: 'shippingStreet'
+  },
+  {
+    id: 'billingStreet',
+    label: 'Billing Street',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'billingStreet'
+  },
+  {
+    id: 'billingCity',
+    label: 'Billing City',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'billingCity'
+  },
+  {
+    id: 'billingState',
+    label: 'Billing State',
+    type: 'select',
+    category: 'details',
+    options: toFilterOptions(STATE_OPTIONS),
+    firestoreField: 'billingState'
+  },
+  {
+    id: 'billingZip',
+    label: 'Billing Zip',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'billingZip'
+  },
+  {
+    id: 'primaryContactName',
+    label: 'Primary Contact Name',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'primaryContactName'
+  },
+  {
+    id: 'primaryContactEmail',
+    label: 'Primary Contact Email',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'primaryContactEmail'
+  },
+  {
+    id: 'primaryContactPhone',
+    label: 'Primary Contact Phone',
+    type: 'text',
+    category: 'details',
+    firestoreField: 'primaryContactPhone'
   },
   {
     id: 'notes',
@@ -150,6 +200,13 @@ export const ACCOUNT_FILTER_FIELDS: FilterField[] = [
     firestoreField: 'accountNumber'
   },
   {
+    id: 'fishbowlId',
+    label: 'Fishbowl ID',
+    type: 'text',
+    category: 'identifiers',
+    firestoreField: 'fishbowlId'
+  },
+  {
     id: 'copperId',
     label: 'Copper ID',
     type: 'number',
@@ -162,6 +219,13 @@ export const ACCOUNT_FILTER_FIELDS: FilterField[] = [
     type: 'text',
     category: 'identifiers',
     firestoreField: 'accountOrderId'
+  },
+  {
+    id: 'isActiveCustomer',
+    label: 'Is Active Customer',
+    type: 'boolean',
+    category: 'identifiers',
+    firestoreField: 'isActiveCustomer'
   },
   {
     id: 'accountType',
@@ -305,6 +369,62 @@ export const ACCOUNT_FILTER_FIELDS: FilterField[] = [
       { value: 'manual', label: 'Manual' },
     ],
     firestoreField: 'source'
+  },
+  {
+    id: 'copperUrl',
+    label: 'Copper URL',
+    type: 'text',
+    category: 'system',
+    firestoreField: 'copperUrl'
+  },
+  {
+    id: 'contactType',
+    label: 'Contact Type',
+    type: 'text',
+    category: 'system',
+    firestoreField: 'contactType'
+  },
+  {
+    id: 'inactiveDays',
+    label: 'Inactive Days',
+    type: 'number',
+    category: 'system',
+    firestoreField: 'inactiveDays'
+  },
+  {
+    id: 'interactionCount',
+    label: 'Interaction Count',
+    type: 'number',
+    category: 'system',
+    firestoreField: 'interactionCount'
+  },
+  {
+    id: 'lastContacted',
+    label: 'Last Contacted',
+    type: 'date',
+    category: 'system',
+    firestoreField: 'lastContacted'
+  },
+  {
+    id: 'ownedBy',
+    label: 'Owned By',
+    type: 'text',
+    category: 'system',
+    firestoreField: 'ownedBy'
+  },
+  {
+    id: 'createdAt',
+    label: 'Created At',
+    type: 'date',
+    category: 'system',
+    firestoreField: 'createdAt'
+  },
+  {
+    id: 'updatedAt',
+    label: 'Updated At',
+    type: 'date',
+    category: 'system',
+    firestoreField: 'updatedAt'
   },
 ];
 
