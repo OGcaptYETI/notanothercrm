@@ -156,7 +156,7 @@ function mapSupabaseToUnified(account: any): UnifiedAccount {
 
 /**
  * Load accounts with pagination and filters
- * RLS automatically filters by company_id
+ * RLS automatically filters by company_id from JWT
  */
 export async function loadUnifiedAccountsFromSupabase(
   options: PaginationOptions = {}
@@ -164,7 +164,7 @@ export async function loadUnifiedAccountsFromSupabase(
   try {
     const pageSize = options.pageSize || 50;
     
-    // Start with base query - RLS automatically adds company_id filter
+    // Start with base query - RLS automatically adds company_id filter from JWT
     let query = supabase
       .from('accounts')
       .select('*', { count: 'exact' })
@@ -207,6 +207,7 @@ export async function loadUnifiedAccountsFromSupabase(
 
 /**
  * Get account counts by status
+ * RLS automatically filters by company_id from JWT
  */
 export async function getAccountCountsFromSupabase() {
   try {
@@ -229,6 +230,7 @@ export async function getAccountCountsFromSupabase() {
 
 /**
  * Get single account by ID
+ * RLS automatically filters by company_id from JWT
  */
 export async function loadAccountFromSupabase(accountId: string): Promise<UnifiedAccount | null> {
   try {
