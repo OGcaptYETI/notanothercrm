@@ -21,7 +21,7 @@ export default function LoginPage() {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        router.push('/accounts');
+        router.push('/dashboard');
       }
     };
     checkSession();
@@ -47,7 +47,7 @@ export default function LoginPage() {
       }
 
       toast.success(`Welcome back!`);
-      router.push('/accounts');
+      router.push('/dashboard');
     } catch (err: any) {
       console.error('Login error:', err);
       setError(err.message || 'Failed to sign in');
@@ -62,7 +62,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/accounts`,
+          redirectTo: `${window.location.origin}/dashboard`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
