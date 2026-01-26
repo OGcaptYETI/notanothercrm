@@ -8,8 +8,9 @@ import { useInfiniteAccounts, useRefreshCRMData, useAccountCounts } from '@/lib/
 import { DataTable } from '@/components/crm/DataTable';
 import { MergeAccountsDialog } from '@/components/crm/MergeAccountsDialog';
 import { SavedFiltersPanel } from '@/components/crm/SavedFiltersPanel';
-import { FilterSidebar } from '@/components/crm/FilterSidebar';
+import { FilterSidebar, type FilterCondition } from '@/components/crm/FilterSidebar';
 import type { UnifiedAccount } from '@/lib/crm/dataService';
+import { saveFilter, loadFilters, type SavedFilter } from '@/lib/crm/filterService';
 import { 
   Plus,
   Search,
@@ -34,6 +35,9 @@ export default function AccountsPage() {
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
   const [activeFilterId, setActiveFilterId] = useState<string | null>('all');
+  const [activeFilterConditions, setActiveFilterConditions] = useState<FilterCondition[]>([]);
+  const [savedFilters, setSavedFilters] = useState<SavedFilter[]>([]);
+  const [loadingFilters, setLoadingFilters] = useState(true);
   const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('sidebar-collapsed') === 'true';
@@ -75,23 +79,28 @@ export default function AccountsPage() {
   const [showMergeDialog, setShowMergeDialog] = useState(false);
   const [showActionsMenu, setShowActionsMenu] = useState(false);
   
-  // Mock saved filters - will be loaded from API
-  const publicFilters = [
-    { id: 'accounts-following', name: 'Accounts I\'m Following', isPublic: true, count: 12 },
-    { id: 'current-customers', name: 'Current Customers', isPublic: true, count: 842 },
-    { id: 'my-accounts', name: 'My Accounts', isPublic: true, count: 156 },
-    { id: 'potential-customers', name: 'Potential Customers', isPublic: true, count: 234 },
-    { id: 'fishbowl-audit', name: 'Account Type Audit - Fishbowl', isPublic: true, count: 89 },
-    { id: 'fishbowl-customers', name: 'All Fishbowl Customers', isPublic: true, count: 1621 },
-    { id: 'fishbowl-active', name: 'FISHBOWL - Active (Order wi...', isPublic: true, count: 456 },
-    { id: 'pacific-northwest', name: 'Pacific Northwest', isPublic: true, count: 432 },
-  ];
+  // Load saved filters from Firestore
+  useEffect(() => {
+    if (!user) return;
+    
+    const fetchFilters = async () => {
+      try {
+        setLoadingFilters(true);
+        const filters = await loadFilters(user.uid);
+        setSavedFilters(filters);
+      } catch (error) {
+        console.error('Error loading filters:', error);
+      } finally {
+        setLoadingFilters(false);
+      }
+    };
+    
+    fetchFilters();
+  }, [user]);
   
-  const privateFilters = [
-    { id: 'active-accounts', name: 'ACTIVE ACCOUNTS', isPublic: false, count: 1245 },
-    { id: 'pacnw-chain', name: 'PacNW - Chain', isPublic: false, count: 87 },
-    { id: 'pacnw-distributors', name: 'PacNW - Distributors', isPublic: false, count: 45 },
-  ];
+  // Separate public and private filters
+  const publicFilters = savedFilters.filter(f => f.isPublic);
+  const privateFilters = savedFilters.filter(f => !f.isPublic);
   
   const selectedAccounts = accounts.filter(a => selectedAccountIds.includes(a.id));
   const allSelected = accounts.length > 0 && selectedAccountIds.length === accounts.length;
@@ -118,16 +127,44 @@ export default function AccountsPage() {
     refreshAccounts();
   };
   
-  const handleFilterSave = (filter: { name: string; filters: any[]; isPublic: boolean }) => {
-    console.log('Saving filter:', filter);
-    // TODO: Save to API
-    setFilterSidebarOpen(false);
+  const handleFilterSave = async (filter: { name: string; isPublic: boolean; conditions: FilterCondition[] }) => {
+    if (!user) return;
+    
+    try {
+      const filterId = await saveFilter({
+        name: filter.name,
+        isPublic: filter.isPublic,
+        conditions: filter.conditions,
+        createdBy: user.uid,
+      }, user.uid);
+      
+      // Reload filters
+      const filters = await loadFilters(user.uid);
+      setSavedFilters(filters);
+      
+      // Apply the new filter
+      setActiveFilterId(filterId);
+      setActiveFilterConditions(filter.conditions);
+      setFilterSidebarOpen(false);
+    } catch (error) {
+      console.error('Error saving filter:', error);
+      alert('Failed to save filter. Please try again.');
+    }
   };
   
   const handleFilterSelect = (filterId: string) => {
-    console.log('Selected filter:', filterId);
     setActiveFilterId(filterId);
-    // TODO: Apply filter to query
+    
+    if (filterId === 'all') {
+      setActiveFilterConditions([]);
+      return;
+    }
+    
+    // Find the filter and apply its conditions
+    const filter = savedFilters.find(f => f.id === filterId);
+    if (filter) {
+      setActiveFilterConditions(filter.conditions);
+    }
   };
 
   // Define table columns
@@ -455,7 +492,6 @@ export default function AccountsPage() {
             isOpen={filterSidebarOpen}
             onClose={() => setFilterSidebarOpen(false)}
             onSave={handleFilterSave}
-            fields={[]}
           />
           
           <div className="h-full overflow-auto bg-white">
