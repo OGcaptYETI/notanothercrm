@@ -85,8 +85,9 @@ async function migrateFishbowlCustomers() {
   
   for (const doc of snapshot.docs) {
     const data = doc.data();
-    const customerName = data.Name || data.name;
-    const fishbowlId = data.CustomerNum || data.customerNum || doc.id;
+    // Use actual Firebase schema field names
+    const customerName = data.name;
+    const fishbowlId = data.accountNumber || doc.id;
     
     if (!customerName) {
       console.log(`⚠️  Skipping customer ${doc.id} - no name`);
@@ -141,41 +142,45 @@ async function migrateFishbowlSalesOrders() {
   for (const doc of snapshot.docs) {
     const data = doc.data();
     
-    // Find matching account by customer name
-    const customerName = data.customerName || data.CustomerName;
+    // Find matching account by customer name (using Firebase schema field names)
+    const customerName = data.customerName;
     const normalizedName = customerName ? customerName.toLowerCase().trim().replace(/[^a-z0-9]/g, '') : null;
     const accountId = normalizedName ? accountNameToId.get(normalizedName) : null;
     
-    const orderNumber = data.num || data.orderNumber || doc.id;
+    // salesOrderId is the internal Fishbowl ID, soNumber is the actual SO number
+    const salesOrderId = data.salesOrderId;
+    const soNumber = data.soNumber;
     
     const order = {
       id: doc.id,
       company_id: COMPANY_ID,
       source: 'fishbowl',
-      fishbowl_order_number: orderNumber,
+      fishbowl_order_number: soNumber || salesOrderId || doc.id,
       account_id: accountId || null,
       customer_name: customerName || null,
       customer_id: data.customerId || null,
-      order_date: data.dateIssued || data.orderDate || null,
-      ship_date: data.dateCompleted || data.shipDate || null,
-      status: data.status || null,
-      total_amount: parseFloat(data.totalIncludesTax || data.total || 0),
-      total_tax: parseFloat(data.totalTax || 0),
-      shipping_cost: parseFloat(data.shippingCost || 0),
-      sales_person: data.salesman || data.salesPerson || null,
-      shipping_street: data.shipToAddress?.street || null,
-      shipping_city: data.shipToAddress?.city || null,
-      shipping_state: data.shipToAddress?.state || null,
-      shipping_zip: data.shipToAddress?.zip || null,
-      carrier: data.carrier || null,
-      tracking_number: data.trackingNumber || null,
-      notes: data.note || data.notes || null,
-      created_at: data.dateCreated || new Date().toISOString(),
-      updated_at: new Date().toISOString(),
+      order_date: data.commissionDate || data.postingDate || null,
+      ship_date: null, // Not in Firebase schema
+      status: null, // Not in Firebase schema
+      total_amount: 0, // Will be calculated from items
+      total_tax: 0,
+      shipping_cost: 0,
+      sales_person: data.salesPerson || null,
+      shipping_street: null,
+      shipping_city: null,
+      shipping_state: null,
+      shipping_zip: null,
+      carrier: null,
+      tracking_number: null,
+      notes: null,
+      created_at: data.postingDate || new Date().toISOString(),
+      updated_at: data.updatedAt || new Date().toISOString(),
     };
     
-    // Track mapping of order number to document ID for order items
-    orderNumberToId.set(String(orderNumber), doc.id);
+    // Track mapping of salesOrderId (internal ID) to document ID for order items
+    if (salesOrderId) {
+      orderNumberToId.set(String(salesOrderId), doc.id);
+    }
     
     ordersToInsert.push(order);
     
@@ -221,16 +226,16 @@ async function migrateFishbowlSOItems() {
   for (const doc of snapshot.docs) {
     const data = doc.data();
     
-    // Get order NUMBER from the item data (this is the fishbowl order number, not doc ID)
-    const orderNumber = data.soNum || data.salesOrderNumber || data.salesOrderId || data.soId;
+    // Get salesOrderId from item (this links to fishbowl_sales_orders.salesOrderId)
+    const salesOrderId = data.salesOrderId;
     
-    if (!orderNumber) {
+    if (!salesOrderId) {
       skipped++;
       continue;
     }
     
-    // Map order number to the actual order document ID
-    const actualOrderId = orderNumberToId.get(String(orderNumber));
+    // Map salesOrderId to the actual order document ID
+    const actualOrderId = orderNumberToId.get(String(salesOrderId));
     
     if (!actualOrderId) {
       // Order doesn't exist in our orders table, skip this item
@@ -241,14 +246,14 @@ async function migrateFishbowlSOItems() {
     const item = {
       id: doc.id,
       company_id: COMPANY_ID,
-      order_id: actualOrderId,  // Use the mapped document ID, not the order number
-      product_id: data.productId || null,
-      product_name: data.productName || data.description || null,
-      product_number: data.productNum || data.sku || null,
-      quantity: Math.round(parseFloat(data.qtyToFulfill || data.quantity || 0)),
-      unit_price: parseFloat(data.unitPrice || data.price || 0),
+      order_id: actualOrderId,  // Use the mapped document ID
+      product_id: null, // Not in Firebase schema
+      product_name: data.product || null,
+      product_number: data.partNumber || null,
+      quantity: Math.round(parseFloat(data.quantity || 0)),
+      unit_price: parseFloat(data.unitPrice || 0),
       line_total: parseFloat(data.totalPrice || 0),
-      created_at: new Date().toISOString(),
+      created_at: data.postingDate || new Date().toISOString(),
     };
     
     itemsToInsert.push(item);
