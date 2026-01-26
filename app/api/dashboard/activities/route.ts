@@ -1,26 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyIdToken, adminDb } from '@/lib/firebase/admin';
+import { createClient } from '@supabase/supabase-js';
+import { adminDb } from '@/lib/firebase/admin';
 
 export const dynamic = 'force-dynamic';
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
 export async function GET(request: NextRequest) {
   try {
-    // Authentication
+    // Authentication with Supabase
     const authHeader = request.headers.get('authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const token = authHeader.split(' ')[1];
-    const decodedToken = await verifyIdToken(token);
     
-    if (!decodedToken) {
+    // Verify Supabase JWT token
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    
+    if (error || !user) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
     // Get user's email to filter activities
-    const userEmail = decodedToken.email;
-    const userId = decodedToken.uid;
+    const userEmail = user.email;
+    const userId = user.id;
 
     console.log(`Fetching activities for user: ${userEmail}`);
 
