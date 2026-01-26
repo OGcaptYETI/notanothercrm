@@ -2,27 +2,50 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
-  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
+    let redirected = false;
+    
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session) {
-        router.replace('/dashboard');
-      } else {
-        router.replace('/login');
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!redirected) {
+          redirected = true;
+          if (session) {
+            router.replace('/dashboard');
+          } else {
+            router.replace('/login');
+          }
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+        if (!redirected) {
+          redirected = true;
+          router.replace('/login');
+        }
       }
     };
 
+    // Fallback timeout - if auth check takes too long, redirect to login
+    const timeout = setTimeout(() => {
+      if (!redirected) {
+        console.warn('Auth check timeout - redirecting to login');
+        redirected = true;
+        router.replace('/login');
+      }
+    }, 3000);
+
     checkAuth();
+
+    return () => clearTimeout(timeout);
   }, [router]);
 
   return (
