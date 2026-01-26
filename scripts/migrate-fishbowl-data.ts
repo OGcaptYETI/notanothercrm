@@ -72,23 +72,38 @@ function convertTimestamp(timestamp: any): string | null {
 async function loadAccountMapping() {
   console.log('📋 Loading account mapping...');
   
-  const { data: accounts, error } = await supabase
-    .from('accounts')
-    .select('id, name, fishbowl_id')
-    .eq('company_id', COMPANY_ID);
+  let allAccounts: any[] = [];
+  let from = 0;
+  const pageSize = 1000;
+  
+  while (true) {
+    const { data: accounts, error } = await supabase
+      .from('accounts')
+      .select('id, name, fishbowl_id')
+      .eq('company_id', COMPANY_ID)
+      .range(from, from + pageSize - 1);
 
-  if (error) {
-    console.error('❌ Error loading accounts:', error);
-    throw error;
+    if (error) {
+      console.error('❌ Error loading accounts:', error);
+      throw error;
+    }
+
+    if (!accounts || accounts.length === 0) break;
+    
+    allAccounts = allAccounts.concat(accounts);
+    console.log(`   Loaded ${allAccounts.length} accounts so far...`);
+    
+    if (accounts.length < pageSize) break;
+    from += pageSize;
   }
 
-  accounts?.forEach((account) => {
+  allAccounts.forEach((account) => {
     // Map by name (case-insensitive, normalized)
     const normalizedName = account.name.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
     accountNameToId.set(normalizedName, account.id);
   });
 
-  console.log(`✅ Loaded ${accountNameToId.size} account mappings`);
+  console.log(`✅ Loaded ${accountNameToId.size} account mappings from ${allAccounts.length} total accounts`);
 }
 
 /**
