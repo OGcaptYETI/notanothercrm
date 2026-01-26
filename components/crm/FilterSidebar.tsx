@@ -280,15 +280,21 @@ export function FilterSidebar({ isOpen, onClose, onSave, editingFilter }: Filter
                   
                   {/* Value Input */}
                   {(condition.operator === 'is_empty' || condition.operator === 'is_not_empty') ? null : (
-                    field?.type === 'select' || field?.type === 'multiselect' ? (
+                    field?.type === 'select' || field?.type === 'multiselect' || field?.type === 'boolean' ? (
                       <select
                         value={condition.value}
-                        onChange={(e) => updateCondition(index, { value: e.target.value })}
+                        onChange={(e) => {
+                          // For boolean fields, convert string to actual boolean
+                          const val = field.type === 'boolean' 
+                            ? e.target.value === 'true' 
+                            : e.target.value;
+                          updateCondition(index, { value: val });
+                        }}
                         className="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-md focus:ring-1 focus:ring-[#93D500] focus:border-transparent outline-none"
                       >
                         <option value="">Select...</option>
                         {field.options?.map(opt => (
-                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                          <option key={String(opt.value)} value={String(opt.value)}>{opt.label}</option>
                         ))}
                       </select>
                     ) : field?.type === 'number' ? (
