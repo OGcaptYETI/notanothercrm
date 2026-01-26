@@ -42,6 +42,8 @@ export default function AccountsPage() {
   const [editingFilter, setEditingFilter] = useState<{ id: string; name: string; isPublic: boolean; conditions: FilterCondition[] } | null>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [filterToDelete, setFilterToDelete] = useState<{ id: string; name: string } | null>(null);
+  const [sortMenuOpen, setSortMenuOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<{ field: string; direction: 'asc' | 'desc' }>({ field: 'name', direction: 'asc' });
   const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('sidebar-collapsed') === 'true';
@@ -69,14 +71,37 @@ export default function AccountsPage() {
     pageSize: 50,
     filterConditions: activeFilterConditions 
   });
-  const { data: counts } = useAccountCounts();
+  const { data: counts } = useAccountCounts(activeFilterConditions);
   const { refreshAccounts } = useRefreshCRMData();
   
-  // Flatten all pages into single array (memoized to prevent callback deps changes)
-  const accounts = useMemo(() => 
-    data?.pages.flatMap(page => page.data) || [], 
-    [data]
-  );
+  // Flatten all pages into single array and apply sorting
+  const accounts = useMemo(() => {
+    const flatAccounts = data?.pages.flatMap(page => page.data) || [];
+    
+    // Apply client-side sorting
+    return flatAccounts.sort((a, b) => {
+      const aValue = a[sortBy.field as keyof UnifiedAccount];
+      const bValue = b[sortBy.field as keyof UnifiedAccount];
+      
+      // Handle null/undefined values
+      if (aValue == null && bValue == null) return 0;
+      if (aValue == null) return 1;
+      if (bValue == null) return -1;
+      
+      // Compare values
+      let comparison = 0;
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        comparison = aValue.localeCompare(bValue);
+      } else if (typeof aValue === 'number' && typeof bValue === 'number') {
+        comparison = aValue - bValue;
+      } else {
+        // Date or other types - convert to string for comparison
+        comparison = String(aValue).localeCompare(String(bValue));
+      }
+      
+      return sortBy.direction === 'asc' ? comparison : -comparison;
+    });
+  }, [data, sortBy]);
   const totalAccounts = counts?.total || 0;
   const activeAccounts = counts?.active || 0;
   const fishbowlAccounts = counts?.fishbowl || 0;
@@ -641,13 +666,50 @@ export default function AccountsPage() {
                   <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#93D500] rounded-full"></span>
                 )}
               </button>
-              <button
-                onClick={() => console.log('Sort')}
-                className="p-2 hover:bg-gray-100 rounded-md transition-colors text-gray-600"
-                title="Sort"
-              >
-                <SortDesc className="w-4 h-4" />
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setSortMenuOpen(!sortMenuOpen)}
+                  className="p-2 hover:bg-gray-100 rounded-md transition-colors text-gray-600"
+                  title="Sort"
+                >
+                  <SortDesc className="w-4 h-4" />
+                </button>
+                {sortMenuOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setSortMenuOpen(false)} />
+                    <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                      <div className="px-3 py-2 border-b border-gray-100">
+                        <p className="text-xs font-semibold text-gray-500 uppercase">Sort By</p>
+                      </div>
+                      {[
+                        { field: 'name', label: 'Account Name (A-Z)', direction: 'asc' as const },
+                        { field: 'name', label: 'Account Name (Z-A)', direction: 'desc' as const },
+                        { field: 'created_at', label: 'Date Added (Newest)', direction: 'desc' as const },
+                        { field: 'created_at', label: 'Date Added (Oldest)', direction: 'asc' as const },
+                        { field: 'last_order_date', label: 'Last Order (Recent)', direction: 'desc' as const },
+                        { field: 'last_order_date', label: 'Last Order (Oldest)', direction: 'asc' as const },
+                        { field: 'total_spent', label: 'Total Spent (High-Low)', direction: 'desc' as const },
+                        { field: 'total_spent', label: 'Total Spent (Low-High)', direction: 'asc' as const },
+                      ].map((option) => (
+                        <button
+                          key={`${option.field}-${option.direction}`}
+                          onClick={() => {
+                            setSortBy({ field: option.field, direction: option.direction });
+                            setSortMenuOpen(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors ${
+                            sortBy.field === option.field && sortBy.direction === option.direction
+                              ? 'bg-[#93D500]/10 text-[#93D500] font-medium'
+                              : 'text-gray-700'
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
               <button
                 onClick={() => console.log('Automation')}
                 className="p-2 hover:bg-gray-100 rounded-md transition-colors text-gray-600"

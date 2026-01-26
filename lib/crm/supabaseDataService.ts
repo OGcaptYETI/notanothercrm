@@ -209,12 +209,18 @@ export async function loadUnifiedAccountsFromSupabase(
  * Get account counts by status
  * RLS automatically filters by company_id from JWT
  */
-export async function getAccountCountsFromSupabase() {
+export async function getAccountCountsFromSupabase(filterConditions?: FilterCondition[]) {
   try {
+    // Base query for total with optional filters
+    let totalQuery = supabase.from('accounts').select('*', { count: 'exact', head: true });
+    if (filterConditions && filterConditions.length > 0) {
+      totalQuery = applyFilters(totalQuery, { filterConditions });
+    }
+    
     const [totalResult, activeResult, fishbowlResult] = await Promise.all([
-      supabase.from('accounts').select('*', { count: 'exact', head: true }),
+      totalQuery,
       supabase.from('accounts').select('*', { count: 'exact', head: true }).eq('is_active_customer', true),
-      supabase.from('accounts').select('*', { count: 'exact', head: true }).eq('source', 'fishbowl'),
+      supabase.from('accounts').select('*', { count: 'exact', head: true }).not('fishbowl_id', 'is', null),
     ]);
 
     return {

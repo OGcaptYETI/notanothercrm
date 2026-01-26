@@ -61,11 +61,11 @@ export function useInfiniteAccounts(options?: Omit<PaginationOptions, 'offset'>)
 }
 
 // Hook for getting total account counts (using Supabase)
-export function useAccountCounts() {
+export function useAccountCounts(filterConditions?: any[]) {
   return useQuery({
-    queryKey: ['crm', 'accounts', 'counts', 'supabase'],
-    queryFn: getAccountCountsFromSupabase,
-    staleTime: 10 * 60 * 1000, // 10 minutes
+    queryKey: ['crm', 'accounts', 'counts', 'supabase', filterConditions],
+    queryFn: () => getAccountCountsFromSupabase(filterConditions),
+    staleTime: 5 * 60 * 1000, // 5 minutes - shorter for filtered counts
   });
 }
 
