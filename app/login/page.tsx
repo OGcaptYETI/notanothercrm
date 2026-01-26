@@ -89,20 +89,20 @@ export default function LoginPage() {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+          <div className="inline-flex items-center justify-center mb-4">
             <Image
-              src="/images/kanva_logo_rotate.gif"
+              src="/images/kanva-logo.png"
               alt="Kanva Botanicals"
-              width={60}
-              height={60}
-              className="rounded-full"
+              width={200}
+              height={80}
+              className="object-contain"
             />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             KanvaPortal
           </h1>
           <p className="text-gray-600">
-            Kanva Botanicals
+            Sign in to access your portal
           </p>
         </div>
 
