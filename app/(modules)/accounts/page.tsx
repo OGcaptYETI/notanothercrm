@@ -9,6 +9,7 @@ import { DataTable } from '@/components/crm/DataTable';
 import { MergeAccountsDialog } from '@/components/crm/MergeAccountsDialog';
 import { SavedFiltersPanel } from '@/components/crm/SavedFiltersPanel';
 import { FilterSidebar, type FilterCondition } from '@/components/crm/FilterSidebar';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import type { UnifiedAccount } from '@/lib/crm/dataService';
 import { saveFilter, loadFilters, deleteFilter, updateFilter, type SavedFilter } from '@/lib/crm/supabaseFilterService';
 import { 
@@ -39,6 +40,8 @@ export default function AccountsPage() {
   const [savedFilters, setSavedFilters] = useState<SavedFilter[]>([]);
   const [loadingFilters, setLoadingFilters] = useState(true);
   const [editingFilter, setEditingFilter] = useState<{ id: string; name: string; isPublic: boolean; conditions: FilterCondition[] } | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [filterToDelete, setFilterToDelete] = useState<{ id: string; name: string } | null>(null);
   const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('sidebar-collapsed') === 'true';
@@ -191,21 +194,31 @@ export default function AccountsPage() {
     }
   };
   
-  const handleFilterDelete = async (filterId: string) => {
-    if (!confirm('Are you sure you want to delete this filter?')) return;
+  const handleFilterDelete = (filterId: string) => {
+    const filter = savedFilters.find(f => f.id === filterId);
+    if (filter) {
+      setFilterToDelete({ id: filter.id, name: filter.name });
+      setDeleteConfirmOpen(true);
+    }
+  };
+  
+  const confirmDeleteFilter = async () => {
+    if (!filterToDelete) return;
     
     try {
-      await deleteFilter(filterId);
+      await deleteFilter(filterToDelete.id);
       
       // Reload filters
       const filters = await loadFilters(user!.id);
       setSavedFilters(filters);
       
       // If deleted filter was active, reset to "All Accounts"
-      if (activeFilterId === filterId) {
+      if (activeFilterId === filterToDelete.id) {
         setActiveFilterId('all');
         setActiveFilterConditions([]);
       }
+      
+      setFilterToDelete(null);
     } catch (error) {
       console.error('Error deleting filter:', error);
       alert('Failed to delete filter. Please try again.');
@@ -543,6 +556,21 @@ export default function AccountsPage() {
         left: mainSidebarCollapsed ? '64px' : '256px'
       }}
     >
+      {/* Delete Filter Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteConfirmOpen}
+        onClose={() => {
+          setDeleteConfirmOpen(false);
+          setFilterToDelete(null);
+        }}
+        onConfirm={confirmDeleteFilter}
+        title="Delete Filter"
+        message={filterToDelete ? `Are you sure you want to delete "${filterToDelete.name}"? This action cannot be undone.` : ''}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+      />
+
       {/* Saved Filters Panel */}
       <SavedFiltersPanel
         isCollapsed={filtersCollapsed}
