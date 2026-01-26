@@ -96,6 +96,8 @@ export default function LoginPage() {
               width={200}
               height={80}
               className="object-contain"
+              priority
+              style={{ width: 'auto', height: 'auto' }}
             />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
