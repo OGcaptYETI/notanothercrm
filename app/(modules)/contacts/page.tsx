@@ -562,6 +562,7 @@ export default function ContactsPage() {
         isCollapsed={filtersCollapsed}
         onToggle={() => setFiltersCollapsed(!filtersCollapsed)}
         onFilterSelect={handleFilterSelect}
+        entityName="Contacts"
         onNewFilter={() => {
           setEditingFilter(null);
           setFilterSidebarOpen(true);

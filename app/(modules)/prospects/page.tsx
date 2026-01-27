@@ -723,6 +723,7 @@ export default function ProspectsPage() {
         isCollapsed={filtersCollapsed}
         onToggle={() => setFiltersCollapsed(!filtersCollapsed)}
         onFilterSelect={handleFilterSelect}
+        entityName="Prospects"
         onNewFilter={() => {
           setEditingFilter(null);
           setFilterSidebarOpen(true);

@@ -22,6 +22,7 @@ interface SavedFiltersPanelProps {
   activeFilterId: string | null;
   publicFilters: SavedFilter[];
   privateFilters: SavedFilter[];
+  entityName?: string; // e.g., "Accounts", "Contacts", "Prospects", "Tasks"
 }
 
 export function SavedFiltersPanel({
@@ -34,7 +35,8 @@ export function SavedFiltersPanel({
   onCopyFilter,
   activeFilterId,
   publicFilters,
-  privateFilters
+  privateFilters,
+  entityName = 'Accounts'
 }: SavedFiltersPanelProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [publicExpanded, setPublicExpanded] = useState(true);
@@ -110,7 +112,7 @@ export function SavedFiltersPanel({
       {/* Filter Lists */}
       {!isCollapsed && (
       <div className="flex-1 overflow-y-auto">
-        {/* All Accounts - Default */}
+        {/* All {EntityName} - Default */}
         <div className="px-4 py-1.5">
           <button
             onClick={() => onFilterSelect('all')}
@@ -120,7 +122,7 @@ export function SavedFiltersPanel({
                 : 'text-gray-700 hover:bg-gray-50'
             }`}
           >
-            All Accounts
+            All {entityName}
           </button>
         </div>
 

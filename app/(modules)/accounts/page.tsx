@@ -878,6 +878,7 @@ export default function AccountsPage() {
         isCollapsed={filtersCollapsed}
         onToggle={() => setFiltersCollapsed(!filtersCollapsed)}
         onFilterSelect={handleFilterSelect}
+        entityName="Accounts"
         onNewFilter={() => {
           setEditingFilter(null);
           setFilterSidebarOpen(true);

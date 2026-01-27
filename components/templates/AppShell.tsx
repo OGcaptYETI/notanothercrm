@@ -11,7 +11,8 @@ import {
   Building2,
   UserPlus,
   Kanban,
-  MapPin
+  MapPin,
+  CheckSquare
 } from 'lucide-react';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Sidebar from '@/components/layout/Sidebar';
@@ -119,6 +120,17 @@ export default function AppShell({ children }: AppShellProps) {
                   }`}
                 >
                   <UserPlus className="w-4 h-4" /> Prospects
+                </Link>
+
+                <Link
+                  href={`/tasks${query}`}
+                  className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    pathname?.startsWith('/tasks')
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <CheckSquare className="w-4 h-4" /> Tasks
                 </Link>
 
                 <Link
