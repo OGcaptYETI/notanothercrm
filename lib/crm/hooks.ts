@@ -28,6 +28,19 @@ import {
   loadAccountFromSupabase,
 } from './supabaseDataService';
 
+// Import new Supabase CRM hooks
+import {
+  usePeople as useSupabasePeople,
+  usePeopleCounts as useSupabasePeopleCounts,
+  useLeads as useSupabaseLeads,
+  useLeadCounts as useSupabaseLeadCounts,
+  useOpportunities as useSupabaseOpportunities,
+  useOpportunityCounts as useSupabaseOpportunityCounts,
+  useTasks as useSupabaseTasks,
+  useTaskCounts as useSupabaseTaskCounts,
+} from './hooks-crm';
+import type { Person, Lead, Opportunity, Task } from './types-crm';
+
 // Query keys for cache management
 export const queryKeys = {
   accounts: ['crm', 'accounts'] as const,
@@ -208,3 +221,95 @@ export function useRefreshCRMData() {
     refreshAll: () => queryClient.invalidateQueries({ queryKey: ['crm'] }),
   };
 }
+
+// ============================================
+// SUPABASE-POWERED HOOKS (Mapped to existing interfaces)
+// ============================================
+
+// Map Supabase Person to UnifiedContact
+function mapPersonToContact(person: Person): UnifiedContact {
+  const firstName = person.first_name || '';
+  const lastName = person.last_name || '';
+  return {
+    id: person.id,
+    source: (person.source === 'copper' ? 'copper_person' : 'manual') as 'copper_person' | 'manual',
+    firstName,
+    lastName,
+    fullName: `${firstName} ${lastName}`.trim() || person.name,
+    email: person.email || '',
+    phone: person.phone || '',
+    title: person.title || '',
+    accountId: person.account_id || '',
+    accountName: person.company_name || '',
+    copperId: person.copper_id || 0,
+    copperId_company: person.company_id ? parseInt(person.company_id) : 0,
+    city: person.city || '',
+    state: person.state || '',
+    createdAt: new Date(person.created_at),
+    updatedAt: new Date(person.updated_at),
+    isPrimaryContact: false,
+  };
+}
+
+// Map Supabase Lead to UnifiedProspect
+function mapLeadToProspect(lead: Lead): UnifiedProspect {
+  return {
+    id: lead.id,
+    source: (lead.source === 'copper' ? 'copper_lead' : 'manual') as 'copper_lead' | 'manual',
+    name: lead.name,
+    companyName: lead.company || '',
+    title: lead.title || '',
+    email: lead.email || '',
+    phone: lead.phone || '',
+    status: lead.status || 'new',
+    leadTemperature: lead.lead_temperature || '',
+    city: lead.city || '',
+    state: lead.state || '',
+    region: lead.region || '',
+    segment: lead.segment || '',
+    accountType: lead.account_type ? [lead.account_type] : [],
+    followUpDate: lead.follow_up_date ? new Date(lead.follow_up_date) : undefined,
+    tradeShowName: lead.details || '',
+    copperId: lead.copper_id || 0,
+    createdAt: new Date(lead.created_at),
+    updatedAt: new Date(lead.updated_at),
+  };
+}
+
+// Updated useContacts hook using Supabase
+export function useContactsFromSupabase(options?: { pageSize?: number }) {
+  const supabaseQuery = useSupabasePeople(options);
+  
+  return {
+    ...supabaseQuery,
+    data: {
+      data: supabaseQuery.data?.pages.flatMap(page => 
+        page.data.map(mapPersonToContact)
+      ) || [],
+      total: 0,
+    }
+  };
+}
+
+// Updated useContactCounts hook using Supabase
+export function useContactCountsFromSupabase() {
+  return useSupabasePeopleCounts();
+}
+
+// Updated useProspects hook using Supabase
+export function useProspectsFromSupabase(options?: { pageSize?: number }) {
+  const supabaseQuery = useSupabaseLeads(options);
+  
+  return {
+    ...supabaseQuery,
+    data: {
+      data: supabaseQuery.data?.pages.flatMap(page => 
+        page.data.map(mapLeadToProspect)
+      ) || [],
+      total: 0,
+    }
+  };
+}
+
+// Export Supabase hooks directly for new pages
+export { useSupabasePeople, useSupabasePeopleCounts, useSupabaseLeads, useSupabaseLeadCounts, useSupabaseOpportunities, useSupabaseOpportunityCounts, useSupabaseTasks, useSupabaseTaskCounts };

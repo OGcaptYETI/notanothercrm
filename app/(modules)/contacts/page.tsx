@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ColumnDef } from '@tanstack/react-table';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useContacts, useRefreshCRMData, useContactCounts } from '@/lib/crm/hooks';
+import { useContactsFromSupabase as useContacts, useRefreshCRMData, useContactCountsFromSupabase as useContactCounts } from '@/lib/crm/hooks';
 import { DataTable } from '@/components/crm/DataTable';
 import type { UnifiedContact } from '@/lib/crm/dataService';
 import Image from 'next/image';

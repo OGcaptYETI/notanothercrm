@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ColumnDef } from '@tanstack/react-table';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useProspects, useRefreshCRMData } from '@/lib/crm/hooks';
+import { useProspectsFromSupabase as useProspects, useRefreshCRMData } from '@/lib/crm/hooks';
 import { DataTable } from '@/components/crm/DataTable';
 import type { UnifiedProspect } from '@/lib/crm/dataService';
 import { 
@@ -310,7 +310,6 @@ export default function ProspectsPage() {
         onRowClick={handleRowClick}
         tableId="prospects"
         searchPlaceholder="Search prospects by name, company, email, phone..."
-        pageSize={50}
       />
     </div>
   );
