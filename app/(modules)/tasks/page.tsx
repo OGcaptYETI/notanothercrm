@@ -10,6 +10,7 @@ import { SavedFiltersPanel } from '@/components/crm/SavedFiltersPanel';
 import { FilterSidebar, type FilterCondition } from '@/components/crm/FilterSidebar';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { TaskDetailSidebar } from '@/components/crm/TaskDetailSidebar';
+import { TaskCardView } from '@/components/crm/TaskCardView';
 import { saveFilter, loadFilters, deleteFilter, updateFilter, type SavedFilter } from '@/lib/crm/supabaseFilterService';
 import { TASKS_FILTER_FIELDS } from '@/lib/crm/filterFields-tasks';
 import type { Task } from '@/lib/crm/types-crm';
@@ -62,6 +63,19 @@ export default function TasksPage() {
   const [viewMode, setViewMode] = useState<'table' | 'card'>('table');
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [detailSidebarOpen, setDetailSidebarOpen] = useState(false);
+  const [expandedTasks, setExpandedTasks] = useState<Set<string>>(new Set());
+  
+  const handleToggleExpand = (taskId: string) => {
+    setExpandedTasks(prev => {
+      const next = new Set(prev);
+      if (next.has(taskId)) {
+        next.delete(taskId);
+      } else {
+        next.add(taskId);
+      }
+      return next;
+    });
+  };
 
   // Data Fetching
   const { 
@@ -219,8 +233,26 @@ export default function TasksPage() {
 
   // Handle task completion toggle
   const handleTaskComplete = async (taskId: string, currentStatus: string) => {
-    // TODO: Implement actual API call to update task status
-    console.log('Toggle task completion:', taskId, currentStatus);
+    try {
+      const newStatus = currentStatus === 'completed' ? 'pending' : 'completed';
+      const { supabase } = await import('@/lib/supabase/client');
+      
+      const { error } = await supabase
+        .from('tasks')
+        .update({ 
+          status: newStatus,
+          completed_at: newStatus === 'completed' ? new Date().toISOString() : null,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', taskId);
+      
+      if (error) throw error;
+      
+      // Refresh data
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating task status:', error);
+    }
   };
 
   // Define table columns
@@ -443,9 +475,24 @@ export default function TasksPage() {
     setDetailSidebarOpen(true);
   };
   
-  const handleTaskUpdate = (taskId: string, updates: Partial<Task>) => {
-    // TODO: Implement Supabase update
-    console.log('Update task:', taskId, updates);
+  const handleTaskUpdate = async (taskId: string, updates: Partial<Task>) => {
+    try {
+      const { supabase } = await import('@/lib/supabase/client');
+      
+      const { error } = await supabase
+        .from('tasks')
+        .update({ 
+          ...updates,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', taskId);
+      
+      if (error) throw error;
+      
+      console.log('Task updated successfully');
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
   
   const handleCloseDetailSidebar = () => {
@@ -567,14 +614,14 @@ export default function TasksPage() {
           />
           
           <div className="h-full overflow-auto bg-white">
-
-        <DataTable
-              data={tasks}
-              columns={columns}
-              loading={isLoading}
-              onRowClick={handleRowClick}
-              tableId="tasks"
-              searchPlaceholder="Search tasks..."
+            {viewMode === 'table' ? (
+              <DataTable
+                data={tasks}
+                columns={columns}
+                loading={isLoading}
+                onRowClick={handleRowClick}
+                tableId="tasks"
+                searchPlaceholder="Search tasks..."
               leftToolbarActions={
                 <>
                   <button
@@ -657,10 +704,19 @@ export default function TasksPage() {
                   </div>
                 </>
               }
-            />
+              />
+            ) : (
+              <TaskCardView
+                tasks={tasks}
+                onTaskClick={handleRowClick}
+                onToggleComplete={handleTaskComplete}
+                expandedTasks={expandedTasks}
+                onToggleExpand={handleToggleExpand}
+              />
+            )}
             
             {/* Infinite Scroll Trigger */}
-            {hasNextPage && (
+            {viewMode === 'table' && hasNextPage && (
               <div ref={loadMoreRef} className="py-4 text-center">
                 {isFetchingNextPage ? (
                   <div className="flex items-center justify-center gap-2 text-gray-500">
