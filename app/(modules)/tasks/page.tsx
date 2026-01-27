@@ -48,6 +48,12 @@ export default function TasksPage() {
     field: 'due_date', 
     direction: 'desc' 
   });
+  const [mainSidebarCollapsed, setMainSidebarCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('sidebar-collapsed') === 'true';
+    }
+    return false;
+  });
 
   // Data Fetching
   const { 
@@ -106,12 +112,10 @@ export default function TasksPage() {
 
   useEffect(() => {
     const handleSidebarToggle = (e: CustomEvent) => {
-      setFiltersCollapsed(e.detail.collapsed);
+      setMainSidebarCollapsed(e.detail.isCollapsed);
     };
-    window.addEventListener('sidebar-toggle' as any, handleSidebarToggle);
-    return () => {
-      window.removeEventListener('sidebar-toggle' as any, handleSidebarToggle);
-    };
+    window.addEventListener('sidebar-toggle', handleSidebarToggle as EventListener);
+    return () => window.removeEventListener('sidebar-toggle', handleSidebarToggle as EventListener);
   }, []);
 
   const publicFilters = savedFilters.filter(f => f.is_public);
@@ -438,7 +442,13 @@ export default function TasksPage() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div 
+      className="fixed inset-0 flex overflow-hidden bg-gray-50 transition-all duration-300"
+      style={{ 
+        top: '64px',
+        left: mainSidebarCollapsed ? '64px' : '256px'
+      }}
+    >
       <ConfirmDialog
         isOpen={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}
@@ -467,48 +477,46 @@ export default function TasksPage() {
         privateFilters={privateFilters}
       />
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-6 space-y-6">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">All Tasks</h1>
-                <p className="text-sm text-gray-500 mt-1">
-                  {totalTasks.toLocaleString()} total tasks • Completed: {completedTasks.toLocaleString()}
-                </p>
-              </div>
-              <button
-                onClick={() => router.push('/tasks/new')}
-                className="px-4 py-2 bg-[#93D500] text-white rounded-lg hover:bg-[#84c000] flex items-center gap-2 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Add Task
-              </button>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden bg-white">
+        {/* Page Header */}
+        <div className="bg-white border-b border-gray-200 px-6 py-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-semibold text-gray-900">
+                {activeFilterId === 'all' ? 'All Tasks' : publicFilters.concat(privateFilters).find(f => f.id === activeFilterId)?.name || 'Tasks'}
+              </h1>
+              <p className="text-sm text-gray-500 mt-0.5">
+                {totalTasks.toLocaleString()} total tasks
+                <span className="text-gray-400 mx-2">•</span>
+                Completed: <span className="font-medium text-green-600">{completedTasks.toLocaleString()}</span>
+              </p>
             </div>
+          </div>
+        </div>
 
-            {/* Stats Summary */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <div className="text-sm text-gray-500">Total Tasks</div>
-                <div className="text-2xl font-bold text-gray-900">{totalTasks.toLocaleString()}</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <div className="text-sm text-gray-500">Completed</div>
-                <div className="text-2xl font-bold text-green-600">
-                  {completedTasks.toLocaleString()}
-                </div>
-              </div>
-              <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <div className="text-sm text-gray-500">Pending</div>
-                <div className="text-2xl font-bold text-orange-600">
-                  {pendingTasks.toLocaleString()}
-                </div>
-              </div>
-            </div>
+        {/* Data Table Container */}
+        <div className="flex-1 overflow-hidden relative">
+          {/* Filter Sidebar */}
+          <FilterSidebar
+            isOpen={filterSidebarOpen}
+            onClose={() => {
+              setFilterSidebarOpen(false);
+              setEditingFilter(null);
+            }}
+            onSave={handleFilterSave}
+            editingFilter={editingFilter}
+            filterFields={TASKS_FILTER_FIELDS}
+            initialConditions={editingFilter?.filter_conditions || activeFilterConditions}
+            onApply={(conditions: FilterCondition[]) => {
+              setActiveFilterConditions(conditions);
+              setActiveFilterId(null);
+            }}
+          />
+          
+          <div className="h-full overflow-auto bg-white">
 
-            {/* Data Table */}
-            <DataTable
+        <DataTable
               data={tasks}
               columns={columns}
               loading={isLoading}
@@ -585,23 +593,6 @@ export default function TasksPage() {
           </div>
         </div>
       </div>
-
-      {/* Filter Sidebar */}
-      <FilterSidebar
-        isOpen={filterSidebarOpen}
-        onClose={() => {
-          setFilterSidebarOpen(false);
-          setEditingFilter(null);
-        }}
-        onApply={(conditions) => {
-          setActiveFilterConditions(conditions);
-          setActiveFilterId(null);
-        }}
-        onSave={handleFilterSave}
-        filterFields={TASKS_FILTER_FIELDS}
-        initialConditions={editingFilter?.filter_conditions || activeFilterConditions}
-        editingFilter={editingFilter}
-      />
     </div>
   );
 }
