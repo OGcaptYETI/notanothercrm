@@ -76,6 +76,7 @@ export interface Task {
   priority: string | null;
   
   // Relationships
+  parent_task_id: string | null;
   related_to_type: string | null;
   related_to_id: string | null;
   account_id: string | null;

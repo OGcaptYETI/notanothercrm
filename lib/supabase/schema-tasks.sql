@@ -13,6 +13,7 @@ CREATE TABLE tasks (
   priority TEXT,
   
   -- Relationships
+  parent_task_id TEXT, -- For subtasks: references the parent task
   related_to_type TEXT, -- 'account', 'person', 'opportunity', 'lead'
   related_to_id TEXT,
   account_id TEXT,
@@ -45,6 +46,7 @@ CREATE TABLE tasks (
 
 -- Indexes
 CREATE INDEX idx_tasks_company_id ON tasks(company_id);
+CREATE INDEX idx_tasks_parent_task_id ON tasks(parent_task_id);
 CREATE INDEX idx_tasks_account_id ON tasks(account_id);
 CREATE INDEX idx_tasks_person_id ON tasks(person_id);
 CREATE INDEX idx_tasks_opportunity_id ON tasks(opportunity_id);
