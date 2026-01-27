@@ -240,6 +240,23 @@ async function migrateTasks() {
 // ============================================
 // OPPORTUNITIES MIGRATION
 // ============================================
+// Helper to parse numeric values safely
+const parseNumeric = (value: any): number | null => {
+  if (value === null || value === undefined || value === '') return null;
+  if (typeof value === 'number') return value;
+  const num = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
+  return isNaN(num) ? null : num;
+};
+
+// Helper to parse integer values safely
+const parseInteger = (value: any): number | null => {
+  if (value === null || value === undefined || value === '') return null;
+  if (value === 'unchecked' || value === 'checked') return null;
+  if (typeof value === 'number') return Math.floor(value);
+  const num = parseInt(String(value).replace(/[^0-9-]/g, ''));
+  return isNaN(num) ? null : num;
+};
+
 async function migrateOpportunities() {
   console.log('🔄 Starting opportunities migration...');
   
@@ -262,13 +279,13 @@ async function migrateOpportunities() {
         // Core fields
         name: data.Name || data.name,
         details: data.Details || null,
-        value: data.Value || data.value || null,
+        value: parseNumeric(data.Value || data.value),
         
         // Pipeline & Status
         pipeline: data.Pipeline || data.pipeline || null,
         stage: data.Stage || data.stage || null,
         status: data.Status || data.status || null,
-        win_probability: data['Win Probability'] ? parseInt(data['Win Probability'].replace('%', '')) : null,
+        win_probability: parseInteger(data['Win Probability']),
         priority: data.Priority || null,
         loss_reason: data['Loss Reason'] || null,
         
@@ -288,13 +305,13 @@ async function migrateOpportunities() {
         completed_date: data['Completed Date'] ? new Date(data['Completed Date']) : null,
         lead_created_at: data['Lead Created At'] ? new Date(data['Lead Created At']) : null,
         last_stage_at: data['Last Stage At'] ? new Date(data['Last Stage At']) : null,
-        days_in_stage: data['Days in Stage'] || null,
-        inactive_days: data['Inactive Days'] || null,
+        days_in_stage: parseInteger(data['Days in Stage']),
+        inactive_days: parseInteger(data['Inactive Days']),
         
         // Financial details
-        converted_value: data['Converted Value'] || null,
+        converted_value: parseNumeric(data['Converted Value']),
         currency: data.Currency || null,
-        exchange_rate: data['Exchange Rate'] || null,
+        exchange_rate: parseNumeric(data['Exchange Rate']),
         
         // Order details
         so_number: data['SO Number cf_698395'] || null,
@@ -302,7 +319,7 @@ async function migrateOpportunities() {
         customer_po: data['Customer PO cf_712764'] || null,
         
         // Shipping
-        shipping_amount: data['Shipping Amount cf_698427'] || null,
+        shipping_amount: parseNumeric(data['Shipping Amount cf_698427']),
         shipping_status: data['Shipping Status cf_706518'] || null,
         shipping_method: data['Shipping Method cf_698435'] || null,
         ship_date: data['Ship Date cf_698436'] ? new Date(data['Ship Date cf_698436']) : null,
@@ -311,10 +328,10 @@ async function migrateOpportunities() {
         carrier: data['Carrier cf_706513'] || null,
         
         // Financial breakdown
-        subtotal: data['Subtotal cf_698438'] || null,
-        tax_amount: data['Tax Amount cf_698439'] || null,
-        discount_amount: data['Discount Amount cf_698440'] || null,
-        order_total: data['Order Total cf_698441'] || null,
+        subtotal: parseNumeric(data['Subtotal cf_698438']),
+        tax_amount: parseNumeric(data['Tax Amount cf_698439']),
+        discount_amount: parseNumeric(data['Discount Amount cf_698440']),
+        order_total: parseNumeric(data['Order Total cf_698441']),
         
         // Payment
         payment_terms: data['Payment Terms cf_698434'] || null,
@@ -324,10 +341,10 @@ async function migrateOpportunities() {
         products_involved: data['Products Involved cf_705070'] || null,
         
         // Copper metadata
-        copper_id: data['Copper ID'] || data.id || null,
+        copper_id: parseInteger(data['Copper ID'] || data.id),
         copper_url: data.copperUrl || null,
         tags: data.Tags || null,
-        interaction_count: data['Interaction Count'] || 0,
+        interaction_count: parseInteger(data['Interaction Count']) || 0,
         last_contacted: data['Last Contacted'] ? new Date(data['Last Contacted']) : null,
         
         // Custom fields
