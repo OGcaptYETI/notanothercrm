@@ -1,0 +1,875 @@
+﻿Issued date,Sales order Number,Sales Order ID,SO Item ID,Account ID,SO Item Product Number,Product ID,Product,Billing Address,Billing City,Billing State,Billing Zip,Sales Rep Initials,Customer Name,Item,Product Description,Account ID,Sales person,Qty Fulfilled,Unit price,Total price,Total cost,Sales Order Line Item,So ct
+01-01-2026,10072,25120,76011,1194,KB-4000,206,KB-4000,"1525 S Baker Ave, Unit B",Ontario,California,91761,SH,Supreme Glass Wholesale Inc,KB-4000,Focus MC12,1194,Shane-Inactive,55,$576.00,"$31,680.00","$12,085.24",1.00,1.00
+01-01-2026,10072,25120,76314,1194,Shipping,11,Shipping,"1525 S Baker Ave, Unit B",Ontario,California,91761,SH,Supreme Glass Wholesale Inc,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121405720,1194,Shane-Inactive,1,$0.00,$0.00,$0.00,2.00,1.00
+01-02-2026,10074,25132,76040,204,KB-4000,206,KB-4000,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,KB-4000,Focus MC12,204,admin,112,$576.00,"$64,512.00","$24,913.95",2.00,2.00
+01-02-2026,10075,25133,76041,451,KB-4000,206,KB-4000,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4000,Focus MC12,451,admin,42,$576.00,"$24,192.00","$9,228.73",1.00,1.00
+01-02-2026,10075,25133,76042,451,KB-4001,194,KB-4001,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4001,Release + Relax MC (12 boxes),451,admin,2,$576.00,"$1,152.00",$350.39,2.00,1.00
+01-02-2026,10075,25133,76043,451,KB-4002,197,KB-4002,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4002,Zoom MC (12 boxes),451,admin,12,$423.36,"$5,080.32","$1,431.68",3.00,1.00
+01-02-2026,10074,25132,76258,204,Shipping,11,Shipping,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,Shipping,Shipping Tracking: WILL CALL,204,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-02-2026,10075,25133,76315,451,Shipping,11,Shipping,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121413560,451,admin,1,$0.00,$0.00,$0.00,4.00,1.00
+01-05-2026,10092,25187,76272,1966,Acrylic-007,199,Acrylic-007,6290 W Seltice Way Suite 105,Post Falls,Idaho,83854,JL,White Cloud- Post Falls,Acrylic-007,4-Tier Acrylic Focus+Flow Topper-  Empty White,1966,Jared,3,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10079,25172,76238,1676,CC Processing,74,CC Processing,1440 S Washington St,Grand Forks,North Dakota,58201,BG,Pluto's Smoke Shop | ND,CC Processing,Credit Card Processing Fee,1676,BrandonG,1,$9.45,$9.45,$0.00,3.00,1.00
+01-05-2026,10081,25175,76220,1022,CC Processing,74,CC Processing,"ATTN: Mason, 4070 Plaza Dr",Casper,Wyoming,82604,BG,iCloud Vape and Smoke | Casper,CC Processing,Credit Card Processing Fee,1022,BrandonG,1,$41.04,$41.04,$0.00,2.00,1.00
+01-05-2026,10100,25196,76296,245,FG-120g Red Powder,43,FG-120g Red Powder,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-021,120g Red Powder,245,admin,3,$5.60,$16.80,$7.97,2.00,1.00
+01-05-2026,10100,25196,76297,245,FG-120g White Powder,44,FG-120g White Powder,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-022,120g White Powder,245,admin,2,$5.60,$11.20,$5.34,3.00,1.00
+01-05-2026,10120,25215,76343,1235,KB-038,174,KB-038,1810 parkway view dr,pittsburgh,Pennsylvania,15205,DW,pittsburgh wholesale,KB-038,"Acrylic Kit- Black( 4 FF, 2 Zoom, 1 Mango, 1 RR)",1235,DerekW,1,$299.00,$299.00,$107.10,1.00,1.00
+01-05-2026,10076,25169,76188,1644,KB-3000,207,KB-3000,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,KB-3000,Focus+Flow 12PK,1644,DerekW,4,$60.00,$240.00,$20.98,1.00,1.00
+01-05-2026,10079,25172,76205,1676,KB-3000,207,KB-3000,1440 S Washington St,Grand Forks,North Dakota,58201,BG,Pluto's Smoke Shop | ND,KB-3000,Focus+Flow 12PK,1676,BrandonG,5,$60.00,$300.00,$26.22,1.00,1.00
+01-05-2026,10085,25179,76244,864,KB-3000,207,KB-3000,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),KB-3000,Focus+Flow 12PK,864,admin,6,$55.80,$334.80,$31.47,6.00,2.00
+01-05-2026,10087,25181,76246,991,KB-3000,207,KB-3000,2909 Howard St,Kalamazoo,Michigan,49006,ADM,WILD SIDE KALAMAZOO-KZ (MI),KB-3000,Focus+Flow 12PK,991,admin,8,$55.80,$446.40,$41.96,2.00,2.00
+01-05-2026,10094,25188,76275,862,KB-3000,207,KB-3000,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),KB-3000,Focus+Flow 12PK,862,admin,16,$55.80,$892.80,$83.91,4.00,2.00
+01-05-2026,10095,25189,76277,860,KB-3000,207,KB-3000,1207 S Kerr Ave,Wilmington,North Carolina,28403,ADM,SMOKE RINGS WILMINGTON-WT (NC),KB-3000,Focus+Flow 12PK,860,admin,6,$55.80,$334.80,$31.47,4.00,2.00
+01-05-2026,10096,25190,76278,979,KB-3000,207,KB-3000,106 Bratton Dr Suite 4,Garner,North Carolina,27529,ADM,SMOKE RINGS GARNER-RA2 (NC),KB-3000,Focus+Flow 12PK,979,admin,20,$55.80,"$1,116.00",$104.89,2.00,2.00
+01-05-2026,10097,25191,76279,985,KB-3000,207,KB-3000,2511 Battleground Ave Unit C,Greensboro,North Carolina,27408,ADM,SMOKE RINGS GREENSBORO-GB2 (NC),KB-3000,Focus+Flow 12PK,985,admin,10,$55.80,$558.00,$52.45,2.00,2.00
+01-05-2026,10103,25198,76301,977,KB-3000,207,KB-3000,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-3000,Focus+Flow 12PK,977,admin,8,$55.80,$446.40,$41.96,2.00,2.00
+01-05-2026,10113,25207,76316,854,KB-3000,207,KB-3000,"1194 Highway 544 , Unit 3",Conway,South Carolina,29526,ADM,WILD SIDE CONWAY-CW (SC),KB-3000,Focus+Flow 12PK,854,admin,12,$55.80,$669.60,$62.94,2.00,2.00
+01-05-2026,10114,25208,76317,1024,KB-3000,207,KB-3000,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),KB-3000,Focus+Flow 12PK,1024,admin,14,$55.80,$781.20,$73.42,2.00,2.00
+01-05-2026,10116,25210,76320,857,KB-3000,207,KB-3000,"4802 S. Center St., Suite B",Tacoma,Washington,98409,ADM,WILD SIDE TACOMA-TC (WA),KB-3000,Focus+Flow 12PK,857,admin,20,$55.80,"$1,116.00",$104.89,2.00,2.00
+01-05-2026,10084,25178,76235,869,KB-3001,193,KB-3001,111 S River Rd Suite C,West Lafayette,Indiana,47906,ADM,WILD SIDE WEST LAFAYETTE-LF (IN),KB-3001,Release + Relax 12pk,869,admin,6,$55.80,$334.80,$99.00,2.00,2.00
+01-05-2026,10103,25198,76302,977,KB-3001,193,KB-3001,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-3001,Release + Relax 12pk,977,admin,4,$55.80,$223.20,$66.00,4.00,2.00
+01-05-2026,10115,25209,76318,1071,KB-3001,193,KB-3001,604 S. Neil St. Suite 103,Champaign,Illinois,61820,ADM,WILD SIDE CHAMPAIGN-CP2 (IL),KB-3001,Release + Relax 12pk,1071,admin,4,$55.80,$223.20,$66.00,2.00,2.00
+01-05-2026,10085,25179,76242,864,KB-3002,196,KB-3002,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),KB-3002,Zoom 12PK,864,admin,4,$42.00,$168.00,$64.92,2.00,2.00
+01-05-2026,10098,25192,76280,1068,KB-3002,196,KB-3002,1728 Fordham Blvd Suite 147,Chapel Hill,North Carolina,27517,ADM,SMOKE RINGS CHAPEL HILL-CH2 (NC),KB-3002,Zoom 12PK,1068,admin,10,$42.00,$420.00,$162.30,2.00,2.00
+01-05-2026,10100,25196,76298,245,KB-3003,204,KB-3003,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-3003,Mango-Tango 12pk,245,admin,2,$60.00,$120.00,$34.47,4.00,1.00
+01-05-2026,10078,25171,76201,948,KB-4000,206,KB-4000,"1750 E Los Angeles Ave 
+Suite D",Simi Valley,California,93065,ADM,WILD SIDE SIMI VALLEY-SIMI (CA),KB-4000,Focus MC12,948,admin,2,$669.60,"$1,339.20",$458.37,2.00,2.00
+01-05-2026,10081,25175,76219,1022,KB-4000,206,KB-4000,"ATTN: Mason, 4070 Plaza Dr",Casper,Wyoming,82604,BG,iCloud Vape and Smoke | Casper,KB-4000,Focus MC12,1022,BrandonG,2,$684.00,"$1,368.00",$458.37,1.00,1.00
+01-05-2026,10082,25176,76221,730,KB-4000,206,KB-4000,"1540 S Holly St, Unit #5",Denver,Colorado,80222,BG,Mile High Botanicals,KB-4000,Focus MC12,730,BrandonG,2,$720.00,"$1,440.00",$444.89,1.00,1.00
+01-05-2026,10083,25177,76228,981,KB-4000,206,KB-4000,332 College St,Amherst,Massachusetts,1002,ADM,WILD SIDE AMHERST-AM1 (MA),KB-4000,Focus MC12,981,admin,6,$669.60,"$4,017.60","$1,375.10",2.00,2.00
+01-05-2026,10085,25179,76243,864,KB-4000,206,KB-4000,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),KB-4000,Focus MC12,864,admin,2,$669.60,"$1,339.20",$444.89,4.00,2.00
+01-05-2026,10089,25185,76263,450,KB-4000,206,KB-4000,342 Canal St,New York,New York,10013,DW,Canal Smoke Shop,KB-4000,Focus MC12,450,DerekW,1,$720.00,$720.00,$222.45,1.00,1.00
+01-05-2026,10090,25186,76265,2046,KB-4000,206,KB-4000,5804 W FRANKLIN RD,Boise,Idaho,83709,BW,Unio Enterprises LLC,KB-4000,Focus MC12,2046,BenW,5,$626.40,"$3,132.00","$1,097.95",1.00,1.00
+01-05-2026,10092,25187,76270,1966,KB-4000,206,KB-4000,6290 W Seltice Way Suite 105,Post Falls,Idaho,83854,JL,White Cloud- Post Falls,KB-4000,Focus MC12,1966,Jared,30,$612.00,"$18,360.00","$6,591.95",1.00,1.00
+01-05-2026,10094,25188,76274,862,KB-4000,206,KB-4000,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),KB-4000,Focus MC12,862,admin,2,$669.60,"$1,339.20",$444.89,2.00,2.00
+01-05-2026,10095,25189,76276,860,KB-4000,206,KB-4000,1207 S Kerr Ave,Wilmington,North Carolina,28403,ADM,SMOKE RINGS WILMINGTON-WT (NC),KB-4000,Focus MC12,860,admin,2,$669.60,"$1,339.20",$444.89,2.00,2.00
+01-05-2026,10099,25195,76294,1018,KB-4000,206,KB-4000,"405 W. University Dr.
+Suite 102",Tempe,Arizona,85281,ADM,WILD SIDE TEMPE-TP (AZ),KB-4000,Focus MC12,1018,admin,2,$669.60,"$1,339.20",$433.67,2.00,2.00
+01-05-2026,10100,25196,76295,245,KB-4000,206,KB-4000,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-4000,Focus MC12,245,admin,4,$576.00,"$2,304.00",$878.36,1.00,1.00
+01-05-2026,10102,25197,76299,1418,KB-4000,206,KB-4000,203 Caldwell Blvd,Nampa,Idaho,83651,ADM,Viable Alternatives - Nampa,KB-4000,Focus MC12,1418,admin,3,$684.00,"$2,052.00",$669.45,1.00,1.00
+01-05-2026,10105,25200,76304,1003,KB-4000,206,KB-4000,2850 Johnson Dr Suite C,Ventura,California,93003,ADM,WILD SIDE VENTURA-JOHNSON (CA),KB-4000,Focus MC12,1003,admin,6,$669.60,"$4,017.60","$1,301.01",2.00,2.00
+01-05-2026,10106,25201,76305,1575,KB-4000,206,KB-4000,51 W 14th St,New York,New York,10011,DW,Cigarville Inc,KB-4000,Focus MC12,1575,DerekW,1,-$720.00,-$720.00,-$219.73,1.00,1.00
+01-05-2026,10107,25202,76306,1447,KB-4000,206,KB-4000,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4000,Focus MC12,1447,admin,4,$576.00,"$2,304.00",$909.43,1.00,1.00
+01-05-2026,10108,25203,76308,861,KB-4000,206,KB-4000,25 Enfield St,Enfield,Connecticut,6082,ADM,SMOKE ZONE ENFIELD-EN (CT),KB-4000,Focus MC12,861,admin,6,$669.60,"$4,017.60","$1,301.01",2.00,2.00
+01-05-2026,10110,25205,76311,863,KB-4000,206,KB-4000,1350 Elm St,Manchester,New Hampshire,3101,ADM,WILD SIDE MANCHESTER-MC1 (NH),KB-4000,Focus MC12,863,admin,2,$669.60,"$1,339.20",$433.67,2.00,2.00
+01-05-2026,10112,25206,76312,849,KB-4000,206,KB-4000,"820 Nw 9th St, Suite 104",corvallis,Oregon,97330,ADM,WILD SIDE CORVALLIS-CV (OR),KB-4000,Focus MC12,849,admin,2,$669.60,"$1,339.20",$433.67,2.00,2.00
+01-05-2026,10118,25213,76327,1155,KB-4000,206,KB-4000,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,KB-4000,Focus MC12,1155,DerekW,112,$576.00,"$64,512.00","$25,464.16",1.00,1.00
+01-05-2026,10119,25214,76341,1478,KB-4000,206,KB-4000,6485 E River Rd,Fridley,Minnesota,55432,ADM,River Tobacco,KB-4000,Focus MC12,1478,admin,2,$720.00,"$1,440.00",$433.67,1.00,1.00
+01-05-2026,10107,25202,76307,1447,KB-4002,197,KB-4002,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4002,Zoom MC (12 boxes),1447,admin,1,$468.00,$468.00,$119.31,2.00,1.00
+01-05-2026,10076,25169,76191,1644,Shipping,11,Shipping,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,Shipping,Shipping,1644,DerekW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-05-2026,10076,25169,76266,1644,Shipping,11,Shipping,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160338375915,1644,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10078,25171,76232,948,Shipping,11,Shipping,"1750 E Los Angeles Ave 
+Suite D",Simi Valley,California,93065,ADM,WILD SIDE SIMI VALLEY-SIMI (CA),Shipping,Shipping Tracking: 1Z90V7160313659530,948,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10079,25172,76206,1676,Shipping,11,Shipping,1440 S Washington St,Grand Forks,North Dakota,58201,BG,Pluto's Smoke Shop | ND,Shipping,Shipping,1676,BrandonG,1,$15.00,$15.00,$0.05,2.00,1.00
+01-05-2026,10079,25172,76329,1676,Shipping,11,Shipping,1440 S Washington St,Grand Forks,North Dakota,58201,BG,Pluto's Smoke Shop | ND,Shipping,Shipping Tracking: 1Z90V7160315860479,1676,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-05-2026,10081,25175,76237,1022,Shipping,11,Shipping,"ATTN: Mason, 4070 Plaza Dr",Casper,Wyoming,82604,BG,iCloud Vape and Smoke | Casper,Shipping,Shipping Tracking: 1Z90V7160300440941,1022,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10082,25176,76268,730,Shipping,11,Shipping,"1540 S Holly St, Unit #5",Denver,Colorado,80222,BG,Mile High Botanicals,Shipping,Shipping Tracking: 1Z90V7160310210608,730,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-05-2026,10083,25177,76240,981,Shipping,11,Shipping,332 College St,Amherst,Massachusetts,1002,ADM,WILD SIDE AMHERST-AM1 (MA),Shipping,Shipping Tracking: 1Z90V7160316119368,981,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10084,25178,76239,869,Shipping,11,Shipping,111 S River Rd Suite C,West Lafayette,Indiana,47906,ADM,WILD SIDE WEST LAFAYETTE-LF (IN),Shipping,Shipping Tracking: 1Z90V7160329863879,869,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10085,25179,76250,864,Shipping,11,Shipping,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),Shipping,Shipping Tracking: 1Z90V7160322321494,864,admin,2,$0.00,$0.00,$0.00,8.00,2.00
+01-05-2026,10087,25181,76256,991,Shipping,11,Shipping,2909 Howard St,Kalamazoo,Michigan,49006,ADM,WILD SIDE KALAMAZOO-KZ (MI),Shipping,Shipping Tracking: 1Z90V7160311085994,991,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10089,25185,76264,450,Shipping,11,Shipping,342 Canal St,New York,New York,10013,DW,Canal Smoke Shop,Shipping,Shipping,450,DerekW,1,$25.00,$25.00,$0.05,2.00,1.00
+01-05-2026,10089,25185,76269,450,Shipping,11,Shipping,342 Canal St,New York,New York,10013,DW,Canal Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160302287426,450,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10090,25186,76741,2046,Shipping,11,Shipping,5804 W FRANKLIN RD,Boise,Idaho,83709,BW,Unio Enterprises LLC,Shipping,Shipping Tracking: WILL CALL,2046,BenW,1,$0.00,$0.00,$0.00,2.00,1.00
+01-05-2026,10092,25187,76271,1966,Shipping,11,Shipping,6290 W Seltice Way Suite 105,Post Falls,Idaho,83854,JL,White Cloud- Post Falls,Shipping,Shipping,1966,Jared,1,$228.00,$228.00,$0.05,2.00,1.00
+01-05-2026,10092,25187,76319,1966,Shipping,11,Shipping,6290 W Seltice Way Suite 105,Post Falls,Idaho,83854,JL,White Cloud- Post Falls,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121451970,1966,Jared,1,$0.00,$0.00,$0.00,4.00,1.00
+01-05-2026,10094,25188,76285,862,Shipping,11,Shipping,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),Shipping,Shipping Tracking: 1Z90V7160333421543,862,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-05-2026,10095,25189,76284,860,Shipping,11,Shipping,1207 S Kerr Ave,Wilmington,North Carolina,28403,ADM,SMOKE RINGS WILMINGTON-WT (NC),Shipping,Shipping Tracking: 1Z90V7160306727630,860,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-05-2026,10096,25190,76282,979,Shipping,11,Shipping,106 Bratton Dr Suite 4,Garner,North Carolina,27529,ADM,SMOKE RINGS GARNER-RA2 (NC),Shipping,Shipping Tracking: 1Z90V7160320779138,979,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10097,25191,76286,985,Shipping,11,Shipping,2511 Battleground Ave Unit C,Greensboro,North Carolina,27408,ADM,SMOKE RINGS GREENSBORO-GB2 (NC),Shipping,Shipping Tracking: 1Z90V7160336307966,985,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10098,25192,76292,1068,Shipping,11,Shipping,1728 Fordham Blvd Suite 147,Chapel Hill,North Carolina,27517,ADM,SMOKE RINGS CHAPEL HILL-CH2 (NC),Shipping,Shipping Tracking: 1Z90V7160309463464,1068,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10099,25195,76330,1018,Shipping,11,Shipping,"405 W. University Dr.
+Suite 102",Tempe,Arizona,85281,ADM,WILD SIDE TEMPE-TP (AZ),Shipping,Shipping Tracking: 1Z90V7160307506680,1018,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10100,25196,76740,245,Shipping,11,Shipping,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,Shipping,Shipping Tracking: WILL CALL,245,admin,1,$0.00,$0.00,$0.00,5.00,1.00
+01-05-2026,10102,25197,76676,1418,Shipping,11,Shipping,203 Caldwell Blvd,Nampa,Idaho,83651,ADM,Viable Alternatives - Nampa,Shipping,Shipping Tracking: WILL CALL,1418,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-05-2026,10103,25198,76331,977,Shipping,11,Shipping,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),Shipping,Shipping Tracking: 1Z90V7160313666095,977,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-05-2026,10105,25200,76332,1003,Shipping,11,Shipping,2850 Johnson Dr Suite C,Ventura,California,93003,ADM,WILD SIDE VENTURA-JOHNSON (CA),Shipping,Shipping Tracking: 1Z90V7160306482707,1003,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10107,25202,76486,1447,Shipping,11,Shipping,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,Shipping,Shipping Tracking: WILL CALL,1447,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10108,25203,76338,861,Shipping,11,Shipping,25 Enfield St,Enfield,Connecticut,6082,ADM,SMOKE ZONE ENFIELD-EN (CT),Shipping,Shipping Tracking: 1Z90V7160336001590,861,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10110,25205,76340,863,Shipping,11,Shipping,1350 Elm St,Manchester,New Hampshire,3101,ADM,WILD SIDE MANCHESTER-MC1 (NH),Shipping,Shipping Tracking: 1Z90V7160314663756,863,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10112,25206,76337,849,Shipping,11,Shipping,"820 Nw 9th St, Suite 104",corvallis,Oregon,97330,ADM,WILD SIDE CORVALLIS-CV (OR),Shipping,Shipping Tracking: 1Z90V7160301601140,849,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10113,25207,76339,854,Shipping,11,Shipping,"1194 Highway 544 , Unit 3",Conway,South Carolina,29526,ADM,WILD SIDE CONWAY-CW (SC),Shipping,Shipping Tracking: 1Z90V7160323348026,854,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10114,25208,76333,1024,Shipping,11,Shipping,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),Shipping,Shipping Tracking: 1Z90V7160321239979,1024,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10115,25209,76334,1071,Shipping,11,Shipping,604 S. Neil St. Suite 103,Champaign,Illinois,61820,ADM,WILD SIDE CHAMPAIGN-CP2 (IL),Shipping,Shipping Tracking: 1Z90V7160330023185,1071,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10116,25210,76335,857,Shipping,11,Shipping,"4802 S. Center St., Suite B",Tacoma,Washington,98409,ADM,WILD SIDE TACOMA-TC (WA),Shipping,Shipping Tracking: 1Z90V7160315115739,857,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-05-2026,10118,25213,76328,1155,Shipping,11,Shipping,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,Shipping,Shipping,1155,DerekW,1,$400.00,$400.00,$0.05,2.00,1.00
+01-05-2026,10118,25213,76488,1155,Shipping,11,Shipping,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121490800,1155,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10119,25214,76384,1478,Shipping,11,Shipping,6485 E River Rd,Fridley,Minnesota,55432,ADM,River Tobacco,Shipping,Shipping,1478,admin,1,$0.00,$0.00,$0.05,2.00,1.00
+01-05-2026,10119,25214,76394,1478,Shipping,11,Shipping,6485 E River Rd,Fridley,Minnesota,55432,ADM,River Tobacco,Shipping,Shipping Tracking: 1Z90V7160306696576,1478,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-05-2026,10120,25215,76398,1235,Shipping,11,Shipping,1810 parkway view dr,pittsburgh,Pennsylvania,15205,DW,pittsburgh wholesale,Shipping,Shipping Tracking: 1Z90V7160334184110,1235,DerekW,1,$0.00,$0.00,$0.00,2.00,1.00
+01-06-2026,10127,25231,76417,2052,Acrylic-007,199,Acrylic-007,11114 E US HWY 24,Sugar Creek,Missouri,64054,ADM,Wild Side Sugar Creek (MO),Acrylic-007,4-Tier Acrylic Focus+Flow Topper-  Empty White,2052,admin,2,$0.00,$0.00,$0.00,8.00,2.00
+01-06-2026,10080,25174,76427,1675,CC Processing,74,CC Processing,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,CC Processing,Credit Card Processing Fee,1675,BrandonG,1,$23.64,$23.64,$0.00,5.00,1.00
+01-06-2026,10117,25211,76426,2047,CC Processing,74,CC Processing,1503 W STATE HWY J,OZARK,Missouri,65721,BW,2 CHICKS AND A HEADSHOP,CC Processing,Credit Card Processing Fee,2047,BenW,1,$43.20,$43.20,$0.00,3.00,1.00
+01-06-2026,10122,25216,76478,1158,CC Processing,74,CC Processing,1421 Holmes Rd,Elgin,Illinois,60123,ADM,Jay Maha Inc,CC Processing,Credit Card Processing Fee,1158,admin,1,$21.12,$21.12,$0.00,3.00,1.00
+01-06-2026,10125,25229,76402,1428,CC Processing,74,CC Processing,1001 Coffeen Ave,Sheridan,Wyoming,82801,BG,iCloud Vape and Smoke | Sheridan,CC Processing,Credit Card Processing Fee,1428,BrandonG,1,$61.56,$61.56,$0.00,2.00,1.00
+01-06-2026,10126,25230,76404,1023,CC Processing,74,CC Processing,"ATTN: Eli, 1215 S Douglas Hwy",Gillette,Wyoming,82716,BG,iCloud Vape and Smoke 2 | Gilette,CC Processing,Credit Card Processing Fee,1023,BrandonG,1,$61.56,$61.56,$0.00,2.00,1.00
+01-06-2026,10128,25233,76415,1463,CC Processing,74,CC Processing,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,CC Processing,Credit Card Processing Fee,1463,BrandonG,1,$8.37,$8.37,$0.00,4.00,1.00
+01-06-2026,10129,25235,76443,1783,CC Processing,74,CC Processing,146-33 35th Ave,Flushing,New York,11354,DW,Noreservations,CC Processing,Credit Card Processing Fee,1783,DerekW,1,$7.58,$7.58,$0.00,3.00,1.00
+01-06-2026,10136,25251,76495,1076,CC Processing,74,CC Processing,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,CC Processing,Credit Card Processing Fee,1076,BenW,1,$278.40,$278.40,$0.00,3.00,1.00
+01-06-2026,10128,25233,76416,1463,KB-2004,212,KB-2004,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-2004,RAW 60 ml single bottle,1463,BrandonG,3,$0.00,$0.00,$0.00,5.00,1.00
+01-06-2026,10080,25174,76214,1675,KB-3000,207,KB-3000,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,KB-3000,Focus+Flow 12PK,1675,BrandonG,8,$60.00,$480.00,$41.96,1.00,1.00
+01-06-2026,10086,25180,76400,1055,KB-3000,207,KB-3000,13015 Abercorn St. Unit E 3A,Savannah,Georgia,31419,ADM,WILD SIDE SAVANNAH-SA (GA),KB-3000,Focus+Flow 12PK,1055,admin,18,$55.80,"$1,004.40",$94.40,4.00,2.00
+01-06-2026,10127,25231,76406,2052,KB-3000,207,KB-3000,11114 E US HWY 24,Sugar Creek,Missouri,64054,ADM,Wild Side Sugar Creek (MO),KB-3000,Focus+Flow 12PK,2052,admin,4,$55.80,$223.20,$20.98,4.00,2.00
+01-06-2026,10128,25233,76412,1463,KB-3000,207,KB-3000,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-3000,Focus+Flow 12PK,1463,BrandonG,3,$60.00,$180.00,$15.73,1.00,1.00
+01-06-2026,10129,25235,76422,1783,KB-3000,207,KB-3000,146-33 35th Ave,Flushing,New York,11354,DW,Noreservations,KB-3000,Focus+Flow 12PK,1783,DerekW,4,$60.00,$240.00,$20.98,1.00,1.00
+01-06-2026,10127,25231,76407,2052,KB-3001,193,KB-3001,11114 E US HWY 24,Sugar Creek,Missouri,64054,ADM,Wild Side Sugar Creek (MO),KB-3001,Release + Relax 12pk,2052,admin,4,$55.80,$223.20,$66.00,6.00,2.00
+01-06-2026,10130,25236,76424,1473,KB-3001,193,KB-3001,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3001,Release + Relax 12pk,1473,DerekW,4,$54.00,$216.00,$66.00,1.00,1.00
+01-06-2026,10080,25174,76215,1675,KB-3002,196,KB-3002,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,KB-3002,Zoom 12PK,1675,BrandonG,4,$42.00,$168.00,$64.92,2.00,1.00
+01-06-2026,10128,25233,76413,1463,KB-3002,196,KB-3002,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-3002,Zoom 12PK,1463,BrandonG,2,$42.00,$84.00,$32.46,2.00,1.00
+01-06-2026,10080,25174,76216,1675,KB-3003,204,KB-3003,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,KB-3003,Mango-Tango 12pk,1675,BrandonG,2,$60.00,$120.00,$34.47,3.00,1.00
+01-06-2026,10127,25231,76405,2052,KB-3003,204,KB-3003,11114 E US HWY 24,Sugar Creek,Missouri,64054,ADM,Wild Side Sugar Creek (MO),KB-3003,Mango-Tango 12pk,2052,admin,2,$60.00,$120.00,$34.47,2.00,2.00
+01-06-2026,10026,25018,75637,121,KB-4000,206,KB-4000,220 N River Ridge Circle,Burnsville,Minnesota,55337,DW,Savage Wholesale,KB-4000,Focus MC12,121,DerekW,50,$612.00,"$30,600.00","$10,979.50",1.00,1.00
+01-06-2026,10031,25026,75676,504,KB-4000,206,KB-4000,1609 Abram Ct,San Leandro,California,94577,BW,Raw Distribution,KB-4000,Focus MC12,504,BenW,52,$612.00,"$31,824.00","$11,418.68",1.00,1.00
+01-06-2026,10077,25170,76200,427,KB-4000,206,KB-4000,6628 W 10th st. #101,Greeley,Colorado,80634,BG,420 Friendlys CBD and Kratom shop,KB-4000,Focus MC12,427,BrandonG,4,$684.00,"$2,736.00",$857.90,1.00,1.00
+01-06-2026,10086,25180,76245,1055,KB-4000,206,KB-4000,13015 Abercorn St. Unit E 3A,Savannah,Georgia,31419,ADM,WILD SIDE SAVANNAH-SA (GA),KB-4000,Focus MC12,1055,admin,2,$669.60,"$1,339.20",$433.67,2.00,2.00
+01-06-2026,10111,25204,76309,1830,KB-4000,206,KB-4000,22595 Pillsbury Avenue,Lakeville,Minnesota,55044,JL,Eros Wholesalers,KB-4000,Focus MC12,1830,Jared,28,$626.40,"$17,539.20","$6,148.52",1.00,1.00
+01-06-2026,10117,25211,76321,2047,KB-4000,206,KB-4000,1503 W STATE HWY J,OZARK,Missouri,65721,BW,2 CHICKS AND A HEADSHOP,KB-4000,Focus MC12,2047,BenW,2,$720.00,"$1,440.00",$428.95,1.00,1.00
+01-06-2026,10123,25218,76353,1866,KB-4000,206,KB-4000,2350 W Hemingway Blvd,Nampa,Idaho,83651,ADM,SF Professional Distribution LLC,KB-4000,Focus MC12,1866,admin,10,$684.00,"$6,840.00","$2,273.59",1.00,1.00
+01-06-2026,10124,25228,76399,1069,KB-4000,206,KB-4000,8196 Colorado Blvd Unit N-5,Firestone,Colorado,80525,ADM,WILD SIDE FIRESTONE-FRS (CO),KB-4000,Focus MC12,1069,admin,4,$669.60,"$2,678.40",$867.34,2.00,2.00
+01-06-2026,10125,25229,76401,1428,KB-4000,206,KB-4000,1001 Coffeen Ave,Sheridan,Wyoming,82801,BG,iCloud Vape and Smoke | Sheridan,KB-4000,Focus MC12,1428,BrandonG,3,$684.00,"$2,052.00",$650.51,1.00,1.00
+01-06-2026,10126,25230,76403,1023,KB-4000,206,KB-4000,"ATTN: Eli, 1215 S Douglas Hwy",Gillette,Wyoming,82716,BG,iCloud Vape and Smoke 2 | Gilette,KB-4000,Focus MC12,1023,BrandonG,3,$684.00,"$2,052.00",$643.43,1.00,1.00
+01-06-2026,10131,25237,76428,115,KB-4000,206,KB-4000,1802 Enterprise Blvd,West Sacramento,California,95691,BW,Honest Inc,KB-4000,Focus MC12,115,BenW,56,$612.00,"$34,272.00","$12,732.08",1.00,1.00
+01-06-2026,10132,25240,76449,1429,KB-4000,206,KB-4000,1660 N 4th St,Laramie,Wyoming,82072,BG,iCloud Vape and Smoke | Laramie,KB-4000,Focus MC12,1429,BrandonG,3,$684.00,"$2,052.00",$669.45,1.00,1.00
+01-06-2026,10136,25251,76493,1076,KB-4000,206,KB-4000,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,KB-4000,Focus MC12,1076,BenW,15,$612.00,"$9,180.00","$3,293.85",1.00,1.00
+01-06-2026,10026,25018,75638,121,KB-4001,194,KB-4001,220 N River Ridge Circle,Burnsville,Minnesota,55337,DW,Savage Wholesale,KB-4001,Release + Relax MC (12 boxes),121,DerekW,4,$525.60,"$2,102.40",$700.78,2.00,1.00
+01-06-2026,10031,25026,76482,504,KB-4001,194,KB-4001,1609 Abram Ct,San Leandro,California,94577,BW,Raw Distribution,KB-4001,Release + Relax MC (12 boxes),504,BenW,4,$525.60,"$2,102.40",$700.78,3.00,1.00
+01-06-2026,10026,25018,75639,121,KB-4002,197,KB-4002,220 N River Ridge Circle,Burnsville,Minnesota,55337,DW,Savage Wholesale,KB-4002,Zoom MC (12 boxes),121,DerekW,1,$432.00,$432.00,$119.31,3.00,1.00
+01-06-2026,10026,25018,75640,121,KB-4003,205,KB-4003,220 N River Ridge Circle,Burnsville,Minnesota,55337,DW,Savage Wholesale,KB-4003,Mango-Tango MC 12CT,121,DerekW,1,$554.40,$554.40,$174.74,4.00,1.00
+01-06-2026,10122,25216,76344,1158,KB-4003,205,KB-4003,1421 Holmes Rd,Elgin,Illinois,60123,ADM,Jay Maha Inc,KB-4003,Mango-Tango MC 12CT,1158,admin,1,$684.00,$684.00,$174.74,1.00,1.00
+01-06-2026,10026,25018,76744,121,Shipping,11,Shipping,220 N River Ridge Circle,Burnsville,Minnesota,55337,DW,Savage Wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121601430,121,DerekW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-06-2026,10031,25026,75677,504,Shipping,11,Shipping,1609 Abram Ct,San Leandro,California,94577,BW,Raw Distribution,Shipping,Shipping,504,BenW,1,$345.60,$345.60,$0.05,2.00,1.00
+01-06-2026,10031,25026,76746,504,Shipping,11,Shipping,1609 Abram Ct,San Leandro,California,94577,BW,Raw Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121607190,504,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-06-2026,10077,25170,76448,427,Shipping,11,Shipping,6628 W 10th st. #101,Greeley,Colorado,80634,BG,420 Friendlys CBD and Kratom shop,Shipping,Shipping Tracking: 1Z90V7160337543404,427,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-06-2026,10080,25174,76217,1675,Shipping,11,Shipping,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,Shipping,Shipping,1675,BrandonG,1,$20.00,$20.00,$0.05,4.00,1.00
+01-06-2026,10080,25174,76462,1675,Shipping,11,Shipping,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,Shipping,Shipping Tracking: 1Z90V7160318922889,1675,BrandonG,1,$0.00,$0.00,$0.00,6.00,1.00
+01-06-2026,10086,25180,76431,1055,Shipping,11,Shipping,13015 Abercorn St. Unit E 3A,Savannah,Georgia,31419,ADM,WILD SIDE SAVANNAH-SA (GA),Shipping,Shipping Tracking: 1Z90V7160317966192,1055,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-06-2026,10111,25204,76310,1830,Shipping,11,Shipping,22595 Pillsbury Avenue,Lakeville,Minnesota,55044,JL,Eros Wholesalers,Shipping,Shipping,1830,Jared,1,$263.00,$263.00,$0.05,2.00,1.00
+01-06-2026,10111,25204,76743,1830,Shipping,11,Shipping,22595 Pillsbury Avenue,Lakeville,Minnesota,55044,JL,Eros Wholesalers,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121608320,1830,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-06-2026,10117,25211,76323,2047,Shipping,11,Shipping,1503 W STATE HWY J,OZARK,Missouri,65721,BW,2 CHICKS AND A HEADSHOP,Shipping,Shipping,2047,BenW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-06-2026,10117,25211,76442,2047,Shipping,11,Shipping,1503 W STATE HWY J,OZARK,Missouri,65721,BW,2 CHICKS AND A HEADSHOP,Shipping,Shipping Tracking: 1Z90V7160319959624,2047,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-06-2026,10122,25216,76345,1158,Shipping,11,Shipping,1421 Holmes Rd,Elgin,Illinois,60123,ADM,Jay Maha Inc,Shipping,Shipping,1158,admin,1,$20.00,$20.00,$0.05,2.00,1.00
+01-06-2026,10122,25216,76657,1158,Shipping,11,Shipping,1421 Holmes Rd,Elgin,Illinois,60123,ADM,Jay Maha Inc,Shipping,Shipping Tracking: 1Z90V7160300561543,1158,admin,1,$0.00,$0.00,$0.00,4.00,1.00
+01-06-2026,10123,25218,76487,1866,Shipping,11,Shipping,2350 W Hemingway Blvd,Nampa,Idaho,83651,ADM,SF Professional Distribution LLC,Shipping,Shipping Tracking: WILL CALL,1866,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-06-2026,10124,25228,76436,1069,Shipping,11,Shipping,8196 Colorado Blvd Unit N-5,Firestone,Colorado,80525,ADM,WILD SIDE FIRESTONE-FRS (CO),Shipping,Shipping Tracking: 1Z90V7160328987354,1069,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-06-2026,10125,25229,76435,1428,Shipping,11,Shipping,1001 Coffeen Ave,Sheridan,Wyoming,82801,BG,iCloud Vape and Smoke | Sheridan,Shipping,Shipping Tracking: 1Z90V7160320404121,1428,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-06-2026,10126,25230,76444,1023,Shipping,11,Shipping,"ATTN: Eli, 1215 S Douglas Hwy",Gillette,Wyoming,82716,BG,iCloud Vape and Smoke 2 | Gilette,Shipping,Shipping Tracking: 1Z90V7160300761247,1023,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-06-2026,10127,25231,76438,2052,Shipping,11,Shipping,11114 E US HWY 24,Sugar Creek,Missouri,64054,ADM,Wild Side Sugar Creek (MO),Shipping,Shipping Tracking: 1Z90V7160311704618,2052,admin,2,$0.00,$0.00,$0.00,10.00,2.00
+01-06-2026,10128,25233,76414,1463,Shipping,11,Shipping,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,Shipping,Shipping,1463,BrandonG,1,$15.00,$15.00,$0.05,3.00,1.00
+01-06-2026,10128,25233,76440,1463,Shipping,11,Shipping,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,Shipping,Shipping Tracking: 1Z90V7160325799385,1463,BrandonG,1,$0.00,$0.00,$0.00,6.00,1.00
+01-06-2026,10129,25235,76423,1783,Shipping,11,Shipping,146-33 35th Ave,Flushing,New York,11354,DW,Noreservations,Shipping,Shipping,1783,DerekW,1,$12.50,$12.50,$0.05,2.00,1.00
+01-06-2026,10129,25235,76656,1783,Shipping,11,Shipping,146-33 35th Ave,Flushing,New York,11354,DW,Noreservations,Shipping,Shipping Tracking: 1Z90V7160323028461,1783,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-06-2026,10130,25236,76425,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping,1473,DerekW,1,$12.50,$12.50,$0.05,2.00,1.00
+01-06-2026,10130,25236,76441,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160321121792,1473,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-06-2026,10131,25237,76429,115,Shipping,11,Shipping,1802 Enterprise Blvd,West Sacramento,California,95691,BW,Honest Inc,Shipping,Shipping,115,BenW,1,$370.00,$370.00,$0.05,2.00,1.00
+01-06-2026,10131,25237,76489,115,Shipping,11,Shipping,1802 Enterprise Blvd,West Sacramento,California,95691,BW,Honest Inc,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121520600,115,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-06-2026,10132,25240,76640,1429,Shipping,11,Shipping,1660 N 4th St,Laramie,Wyoming,82072,BG,iCloud Vape and Smoke | Laramie,Shipping,Shipping Tracking: 1Z90V7160301186493,1429,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-06-2026,10136,25251,76494,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping,1076,BenW,1,$91.80,$91.80,$0.05,2.00,1.00
+01-06-2026,10136,25251,76747,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121611210,1076,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-07-2026,10088,25183,76681,2045,CC Processing,74,CC Processing,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,CC Processing,Credit Card Processing Fee,2045,BrandonG,1,$241.86,$241.86,$0.00,6.00,1.00
+01-07-2026,10141,25307,76659,1639,CC Processing,74,CC Processing,338 Palisade Ave Ste 254,Jersey City,New Jersey,7307,DW,The Hemp Social,CC Processing,Credit Card Processing Fee,1639,DerekW,1,$22.35,$22.35,$0.00,3.00,1.00
+01-07-2026,10143,25310,76689,1307,CC Processing,74,CC Processing,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,CC Processing,Credit Card Processing Fee,1307,BrandonG,1,$20.52,$20.52,$0.00,2.00,1.00
+01-07-2026,10144,25311,76690,1686,CC Processing,74,CC Processing,127 Wanaque Ave,Pompton Lakes,New Jersey,7442,DW,Space Smoke Shop,CC Processing,Credit Card Processing Fee,1686,DerekW,1,$7.50,$7.50,$0.00,3.00,1.00
+01-07-2026,10144,25311,76682,1686,KB-3000,207,KB-3000,127 Wanaque Ave,Pompton Lakes,New Jersey,7442,DW,Space Smoke Shop,KB-3000,Focus+Flow 12PK,1686,DerekW,4,$60.00,$240.00,$20.98,1.00,1.00
+01-07-2026,10088,25183,76251,2045,KB-4000,206,KB-4000,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,KB-4000,Focus MC12,2045,BrandonG,10,$626.40,"$6,264.00","$2,195.90",1.00,1.00
+01-07-2026,10133,25245,76469,158,KB-4000,206,KB-4000,3906 northridge place s.e.,Lacey,Washington,98503,BW,Olympia Wholesale,KB-4000,Focus MC12,158,BenW,10,$626.40,"$6,264.00","$2,195.90",1.00,1.00
+01-07-2026,10139,25302,76613,1417,KB-4000,206,KB-4000,9400 Fairview Ave STE 100,Boise,Idaho,83704,ADM,Viable Alternatives,KB-4000,Focus MC12,1417,admin,3,$684.00,"$2,052.00",$623.66,1.00,1.00
+01-07-2026,10140,25304,76617,961,KB-4000,206,KB-4000,850 Industrial Park Drive,Marietta,Georgia,30062,ED,Wholesale Express- ED,KB-4000,Focus MC12,961,Zalak,448,$576.00,"$258,048.00","$100,469.74",1.00,1.00
+01-07-2026,10140,25304,76618,961,KB-4000,206,KB-4000,850 Industrial Park Drive,Marietta,Georgia,30062,ED,Wholesale Express- ED,KB-4000,Focus MC12,961,Zalak,2,$0.00,$0.00,$0.00,2.00,1.00
+01-07-2026,10141,25307,76638,1639,KB-4000,206,KB-4000,338 Palisade Ave Ste 254,Jersey City,New Jersey,7307,DW,The Hemp Social,KB-4000,Focus MC12,1639,DerekW,1,$720.00,$720.00,$223.15,1.00,1.00
+01-07-2026,10142,25309,76678,1042,KB-4000,206,KB-4000,203 Production Court,Elizabethtown,Kentucky,42701,ED,Etown Marketing & Distributing,KB-4000,Focus MC12,1042,Zalak,112,$576.00,"$64,512.00","$23,473.58",1.00,1.00
+01-07-2026,10143,25310,76680,1307,KB-4000,206,KB-4000,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,KB-4000,Focus MC12,1307,BrandonG,1,$684.00,$684.00,$223.15,1.00,1.00
+01-07-2026,10146,25331,76742,1175,KB-4000,206,KB-4000,5722 Logan Court,Denver,Colorado,80216,BG,CA Wholesale,KB-4000,Focus MC12,1175,BrandonG,112,$576.00,"$64,512.00","$25,118.60",1.00,1.00
+01-07-2026,10088,25183,76252,2045,KB-4001,194,KB-4001,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,KB-4001,Release + Relax MC (12 boxes),2045,BrandonG,1,$540.00,$540.00,$175.19,2.00,1.00
+01-07-2026,10088,25183,76253,2045,KB-4002,197,KB-4002,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,KB-4002,Zoom MC (12 boxes),2045,BrandonG,1,$432.00,$432.00,$119.31,3.00,1.00
+01-07-2026,10139,25302,76614,1417,KB-4002,197,KB-4002,9400 Fairview Ave STE 100,Boise,Idaho,83704,ADM,Viable Alternatives,KB-4002,Zoom MC (12 boxes),1417,admin,2,$504.00,"$1,008.00",$238.61,2.00,1.00
+01-07-2026,10088,25183,76254,2045,KB-4003,205,KB-4003,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,KB-4003,Mango-Tango MC 12CT,2045,BrandonG,1,$576.00,$576.00,$174.74,4.00,1.00
+01-07-2026,10088,25183,76255,2045,Shipping,11,Shipping,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,Shipping,Shipping,2045,BrandonG,1,$250.00,$250.00,$0.05,5.00,1.00
+01-07-2026,10088,25183,76745,2045,Shipping,11,Shipping,"ATTN: Robert Nabors
+250 Goat Trail",White Fish,Montana,59937,BG,Nabors Wholesale | MT,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121626290,2045,BrandonG,1,$0.00,$0.00,$0.00,7.00,1.00
+01-07-2026,10133,25245,76470,158,Shipping,11,Shipping,3906 northridge place s.e.,Lacey,Washington,98503,BW,Olympia Wholesale,Shipping,Shipping,158,BenW,1,$62.40,$62.40,$0.05,2.00,1.00
+01-07-2026,10133,25245,76748,158,Shipping,11,Shipping,3906 northridge place s.e.,Lacey,Washington,98503,BW,Olympia Wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121609890,158,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-07-2026,10139,25302,77052,1417,Shipping,11,Shipping,9400 Fairview Ave STE 100,Boise,Idaho,83704,ADM,Viable Alternatives,Shipping,Shipping Tracking: WILL CALL,1417,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-07-2026,10140,25304,77535,961,Shipping,11,Shipping,850 Industrial Park Drive,Marietta,Georgia,30062,ED,Wholesale Express- ED,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121970400,961,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-07-2026,10140,25304,77849,961,Shipping,11,Shipping,850 Industrial Park Drive,Marietta,Georgia,30062,ED,Wholesale Express- ED,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122180160,961,Zalak,1,$0.00,$0.00,$0.00,4.00,1.00
+01-07-2026,10141,25307,76639,1639,Shipping,11,Shipping,338 Palisade Ave Ste 254,Jersey City,New Jersey,7307,DW,The Hemp Social,Shipping,Shipping,1639,DerekW,1,$25.00,$25.00,$0.05,2.00,1.00
+01-07-2026,10141,25307,76671,1639,Shipping,11,Shipping,338 Palisade Ave Ste 254,Jersey City,New Jersey,7307,DW,The Hemp Social,Shipping,Shipping Tracking: 1Z90V7160309643206,1639,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-07-2026,10142,25309,76679,1042,Shipping,11,Shipping,203 Production Court,Elizabethtown,Kentucky,42701,ED,Etown Marketing & Distributing,Shipping,Shipping,1042,Zalak,1,$800.00,$800.00,$0.05,2.00,1.00
+01-07-2026,10142,25309,77642,1042,Shipping,11,Shipping,203 Production Court,Elizabethtown,Kentucky,42701,ED,Etown Marketing & Distributing,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122062620,1042,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-07-2026,10143,25310,76725,1307,Shipping,11,Shipping,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,Shipping,Shipping Tracking: 1Z90V7160315125111,1307,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-07-2026,10144,25311,76683,1686,Shipping,11,Shipping,127 Wanaque Ave,Pompton Lakes,New Jersey,7442,DW,Space Smoke Shop,Shipping,Shipping,1686,DerekW,1,$10.00,$10.00,$0.05,2.00,1.00
+01-07-2026,10144,25311,76723,1686,Shipping,11,Shipping,127 Wanaque Ave,Pompton Lakes,New Jersey,7442,DW,Space Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160334402197,1686,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-07-2026,10146,25331,76890,1175,Shipping,11,Shipping,5722 Logan Court,Denver,Colorado,80216,BG,CA Wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121692600,1175,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-08-2026,9928,24639,76884,1782,CC Processing,74,CC Processing,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,CC Processing,Credit Card Processing Fee,1782,Jared,1,$8.64,$8.64,$0.00,6.00,1.00
+01-08-2026,#T33CVZSO4GJEUQ,25350,76782,1785,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"1450 MANGROVE AVE
+IN STORE",CHICO,California,95926-2684,,VOLCANO SMOKE N VAPE,KB-019,BX12 Focus + Flow,1785,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#VRLMHXSZ6AHLYM,25351,76783,1750,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,5030 RHONDA RD STE C,ANDERSON,California,96007-9016,,SMOKERS CHOICE (ANDERSON),KB-019,BX12 Focus + Flow,1750,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#YCWWFHBM2G6428,25352,76784,276,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"6761 STANFORD RANCH RD
+IN STORE",ROCKLIN,California,95677-4796,,Top Notch Smoke Shop,KB-019,BX12 Focus + Flow,276,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#TD9MKC8Y17WF1D,25353,76785,1747,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"1750 CLARK AVE
+IN STORE",LONG BEACH,California,90815-3801,,CLARKS LIQUOR,KB-019,BX12 Focus + Flow,1747,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#4BNEELX6M0C0DE,25354,76786,1766,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"29830 ELLENSBURG AVE
+IN STORE",GOLD BEACH,Oregon,97444-7803,,GOLD BEACH LIQUOR AND SMOKES,KB-019,BX12 Focus + Flow,1766,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#SN2N8AVWG8EZOG,25355,76787,1741,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"19305 STATE HIGHWAY 71 W
+IN STORE",SPICEWOOD,Texas,78669-6551,,MR EXPRESS,KB-019,BX12 Focus + Flow,1741,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#D0IOEXKUFHM3EC,25356,76788,1729,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,3303 KIMBER DR STE A,NEWBURY PARK,California,91320-4368,,CASK & WINE SHOP,KB-019,BX12 Focus + Flow,1729,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#F43I68MWHDZ0T8,25357,76789,1824,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"51 CLARK ST
+IN STORE",BROOKLYN,New York,11201-2415,,CLARK MARKET,KB-019,BX12 Focus + Flow,1824,ShipStation,0,$60.00,$120.00,$0.00,1.00,1.00
+01-08-2026,#APEG1M758XUHPM,25358,76790,818,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,2485 NOTRE DAME BLVD STE 460,CHICO,California,95928-7155,,Cigarette City #3,KB-019,BX12 Focus + Flow,818,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#TDXLZ20VJ2AL1C,25359,76791,1745,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"1808 CA-273
+IN STORE",Anderson,California,96007,,ANDERSON VAPES AND SMOKES,KB-019,BX12 Focus + Flow,1745,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#1TC4FFXWZ63ST9,25360,76792,1751,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"11913 RANCHO ALTO RD
+IN STORE",AUSTIN,Texas,78748-3512,,FUEL WISE,KB-019,BX12 Focus + Flow,1751,ShipStation,0,$60.00,$0.00,$0.00,1.00,1.00
+01-08-2026,#RI6Z7OZ36VMR7Z,25361,76794,276,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"337 NORD AVE
+IN STORE",CHICO,California,95926-4710,,Top Notch Smoke Shop,KB-019,BX12 Focus + Flow,276,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-08-2026,#HKT64AKYZNHUIK,25362,76795,1823,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"6010 NEW JESUP HWY
+IN STORE",BRUNSWICK,Georgia,31523-1628,,TOMMYS CORNER,KB-019,BX12 Focus + Flow,1823,ShipStation,0,$60.00,$0.00,$0.00,1.00,1.00
+01-08-2026,10153,25348,76775,576,KB-038,174,KB-038,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,KB-038,"Acrylic Kit- Black( 4 FF, 2 Zoom, 1 Mango, 1 RR)",576,Jared,16,$350.00,"$5,600.00","$1,713.62",2.00,1.00
+01-08-2026,10153,25348,76774,576,KB-039,175,KB-039,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,KB-039,"Acrylic kit- White(4 FF, 2 Zoom, 1 RR,1 mango)",576,Jared,16,$350.00,"$5,600.00","$1,902.76",1.00,1.00
+01-08-2026,10156,25378,76865,1669,KB-2004,212,KB-2004,"Attn: BK
+8414 E Kellogg Dr.",Whichita,Kansas,67207,JL,Lucky Stop,KB-2004,RAW 60 ml single bottle,1669,Jared,6,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,9928,24639,74298,1782,KB-3000,207,KB-3000,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,KB-3000,Focus+Flow 12PK,1782,Jared,2,$60.00,$120.00,$10.49,1.00,1.00
+01-08-2026,10135,25250,76490,1697,KB-3000,207,KB-3000,2 W 33rd St,New York,New York,10001,DW,E-Smoke & Convenience,KB-3000,Focus+Flow 12PK,1697,DerekW,6,$60.00,$360.00,$31.47,1.00,1.00
+01-08-2026,10157,25384,76875,1493,KB-3000,207,KB-3000,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,KB-3000,Focus+Flow 12PK,1493,DerekW,18,-$60.00,"-$1,080.00",-$94.40,1.00,1.00
+01-08-2026,10158,25385,76877,1493,KB-3000,207,KB-3000,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,KB-3000,Focus+Flow 12PK,1493,DerekW,18,$60.00,"$1,080.00",$94.40,1.00,1.00
+01-08-2026,9928,24639,74299,1782,KB-3001,193,KB-3001,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,KB-3001,Release + Relax 12pk,1782,Jared,1,$54.00,$54.00,$16.50,2.00,1.00
+01-08-2026,9928,24639,74300,1782,KB-3002,196,KB-3002,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,KB-3002,Zoom 12PK,1782,Jared,1,$42.00,$42.00,$16.23,3.00,1.00
+01-08-2026,10157,25384,76876,1493,KB-3002,196,KB-3002,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,KB-3002,Zoom 12PK,1493,DerekW,2,-$42.00,-$84.00,-$32.46,2.00,1.00
+01-08-2026,10158,25385,76878,1493,KB-3002,196,KB-3002,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,KB-3002,Zoom 12PK,1493,DerekW,2,$42.00,$84.00,$32.46,2.00,1.00
+01-08-2026,9928,24639,74301,1782,KB-3003,204,KB-3003,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,KB-3003,Mango-Tango 12pk,1782,Jared,1,$60.00,$60.00,$17.24,4.00,1.00
+01-08-2026,#1TC4FFXWZ63ST9,25360,76793,1751,KB-3003,204,KB-3003,"11913 RANCHO ALTO RD
+IN STORE",AUSTIN,Texas,78748-3512,,FUEL WISE,KB-3003,Mango-Tango 12pk,1751,ShipStation,8,$59.88,$479.04,$137.88,2.00,1.00
+01-08-2026,#HKT64AKYZNHUIK,25362,76796,1823,KB-3003,204,KB-3003,"6010 NEW JESUP HWY
+IN STORE",BRUNSWICK,Georgia,31523-1628,,TOMMYS CORNER,KB-3003,Mango-Tango 12pk,1823,ShipStation,2,$59.88,$119.76,$34.47,2.00,1.00
+01-08-2026,10156,25378,76864,1669,KB-3003,204,KB-3003,"Attn: BK
+8414 E Kellogg Dr.",Whichita,Kansas,67207,JL,Lucky Stop,KB-3003,Mango-Tango 12pk,1669,Jared,1,$60.00,$60.00,$17.24,2.00,1.00
+01-08-2026,10019,25001,75587,1961,KB-4000,206,KB-4000,"Kettle Falls EXXON
+103 E 3rd Ave",Kettle Falls,Washington,99141,JL,Kettle Falls EXXON,KB-4000,Focus MC12,1961,Jared,3,$720.00,"$2,160.00",$735.29,1.00,1.00
+01-08-2026,10024,25012,75625,1801,KB-4000,206,KB-4000,1015 telegraph Ste. A,Reno,Nevada,89502,JL,Nevada Cash & Carry,KB-4000,Focus MC12,1801,Jared,28,$612.00,"$17,136.00","$5,820.84",1.00,1.00
+01-08-2026,10063,25097,75930,576,KB-4000,206,KB-4000,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,KB-4000,Focus MC12,576,Jared,56,$612.00,"$34,272.00","$11,641.68",1.00,1.00
+01-08-2026,10063,25097,76936,576,KB-4000,206,KB-4000,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,KB-4000,Focus MC12,576,Jared,1,$600.00,$600.00,$207.89,3.00,1.00
+01-08-2026,10134,25246,76471,1807,KB-4000,206,KB-4000,"800 Interstate Parkway, unit 144",Waukee,Iowa,50263,JL,Majestic Distribtion LLC,KB-4000,Focus MC12,1807,Jared,20,$626.40,"$12,528.00","$4,157.74",1.00,1.00
+01-08-2026,10138,25254,76506,881,KB-4000,206,KB-4000,"ATTN: WIll, 8229 C SW Wilsonville Rd",Wilsonville,Oregon,97070,BW,Paradox Wilsonville,KB-4000,Focus MC12,881,BenW,1,$720.00,$720.00,$224.27,1.00,1.00
+01-08-2026,10145,25330,76739,1131,KB-4000,206,KB-4000,201 E Anderson Lane,Austin,Texas,78752,JL,Amia Trading - AWS,KB-4000,Focus MC12,1131,Jared,560,$576.00,"$322,560.00","$114,019.95",1.00,1.00
+01-08-2026,10149,25341,76761,1542,KB-4000,206,KB-4000,1935 Solano St.,Corning,California,96021,BW,Corning Smoke Shop,KB-4000,Focus MC12,1542,BenW,4,$720.00,"$2,880.00",$980.38,1.00,1.00
+01-08-2026,10154,25349,76779,1040,KB-4000,206,KB-4000,"2496 Port Street,West",West Sacramento,California,95691,BW,Blueberry Trading,KB-4000,Focus MC12,1040,BenW,56,$612.00,"$34,272.00","$11,641.68",1.00,1.00
+01-08-2026,10155,25377,76853,1074,KB-4000,206,KB-4000,"ATTN: Steve, 3456 55th St NW",Rochester,Minnesota,55901,BG,Rochester Smoke Shop,KB-4000,Focus MC12,1074,BrandonG,8,$684.00,"$5,472.00","$1,663.10",1.00,1.00
+01-08-2026,10156,25378,76863,1669,KB-4000,206,KB-4000,"Attn: BK
+8414 E Kellogg Dr.",Whichita,Kansas,67207,JL,Lucky Stop,KB-4000,Focus MC12,1669,Jared,1,$720.00,$720.00,$224.27,1.00,1.00
+01-08-2026,9928,24639,74302,1782,Shipping,11,Shipping,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,Shipping,Shipping,1782,Jared,1,$12.00,$12.00,$0.05,5.00,1.00
+01-08-2026,9928,24639,76894,1782,Shipping,11,Shipping,2550 W State Rte 89A #3,Sedona,Arizona,86336,JL,A Vape Escape,Shipping,Shipping Tracking: 1Z90V7160325522495,1782,Jared,1,$0.00,$0.00,$0.00,7.00,1.00
+01-08-2026,10019,25001,76854,1961,Shipping,11,Shipping,"Kettle Falls EXXON
+103 E 3rd Ave",Kettle Falls,Washington,99141,JL,Kettle Falls EXXON,Shipping,Shipping Tracking: 1Z90V7160308851484,1961,Jared,1,$0.00,$0.00,$0.00,2.00,1.00
+01-08-2026,10024,25012,75626,1801,Shipping,11,Shipping,1015 telegraph Ste. A,Reno,Nevada,89502,JL,Nevada Cash & Carry,Shipping,Shipping,1801,Jared,1,$174.00,$174.00,$0.05,2.00,1.00
+01-08-2026,10024,25012,77041,1801,Shipping,11,Shipping,1015 telegraph Ste. A,Reno,Nevada,89502,JL,Nevada Cash & Carry,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121733710,1801,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10063,25097,75931,576,Shipping,11,Shipping,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,Shipping,Shipping,576,Jared,1,$343.00,$343.00,$0.05,2.00,1.00
+01-08-2026,10063,25097,77044,576,Shipping,11,Shipping,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121783140,576,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-08-2026,10134,25246,76472,1807,Shipping,11,Shipping,"800 Interstate Parkway, unit 144",Waukee,Iowa,50263,JL,Majestic Distribtion LLC,Shipping,Shipping,1807,Jared,1,$189.00,$189.00,$0.05,2.00,1.00
+01-08-2026,10134,25246,77042,1807,Shipping,11,Shipping,"800 Interstate Parkway, unit 144",Waukee,Iowa,50263,JL,Majestic Distribtion LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121732700,1807,Jared,1,$0.00,$0.00,$0.00,4.00,1.00
+01-08-2026,10135,25250,76491,1697,Shipping,11,Shipping,2 W 33rd St,New York,New York,10001,DW,E-Smoke & Convenience,Shipping,Shipping,1697,DerekW,1,$15.00,$15.00,$0.05,2.00,1.00
+01-08-2026,10135,25250,76892,1697,Shipping,11,Shipping,2 W 33rd St,New York,New York,10001,DW,E-Smoke & Convenience,Shipping,Shipping Tracking: 1Z90V7160313740530,1697,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10138,25254,76507,881,Shipping,11,Shipping,"ATTN: WIll, 8229 C SW Wilsonville Rd",Wilsonville,Oregon,97070,BW,Paradox Wilsonville,Shipping,Shipping,881,BenW,1,$20.00,$20.00,$0.05,2.00,1.00
+01-08-2026,10138,25254,76891,881,Shipping,11,Shipping,"ATTN: WIll, 8229 C SW Wilsonville Rd",Wilsonville,Oregon,97070,BW,Paradox Wilsonville,Shipping,Shipping Tracking: 1Z90V7160321896081,881,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10145,25330,77045,1131,Shipping,11,Shipping,201 E Anderson Lane,Austin,Texas,78752,JL,Amia Trading - AWS,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121763100,1131,Jared,1,$0.00,$0.00,$0.00,2.00,1.00
+01-08-2026,10145,25330,77308,1131,Shipping,11,Shipping,201 E Anderson Lane,Austin,Texas,78752,JL,Amia Trading - AWS,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121878090,1131,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10149,25341,76762,1542,Shipping,11,Shipping,1935 Solano St.,Corning,California,96021,BW,Corning Smoke Shop,Shipping,Shipping,1542,BenW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-08-2026,10149,25341,76838,1542,Shipping,11,Shipping,1935 Solano St.,Corning,California,96021,BW,Corning Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160332302343,1542,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10153,25348,76776,576,Shipping,11,Shipping,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,Shipping,Shipping,576,Jared,1,$199.00,$199.00,$0.05,3.00,1.00
+01-08-2026,10153,25348,77040,576,Shipping,11,Shipping,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121783140,576,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-08-2026,10154,25349,76780,1040,Shipping,11,Shipping,"2496 Port Street,West",West Sacramento,California,95691,BW,Blueberry Trading,Shipping,Shipping,1040,BenW,1,$342.00,$342.00,$0.05,2.00,1.00
+01-08-2026,10154,25349,77039,1040,Shipping,11,Shipping,"2496 Port Street,West",West Sacramento,California,95691,BW,Blueberry Trading,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121785270,1040,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-08-2026,10155,25377,77038,1074,Shipping,11,Shipping,"ATTN: Steve, 3456 55th St NW",Rochester,Minnesota,55901,BG,Rochester Smoke Shop,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121731450,1074,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-08-2026,10156,25378,76866,1669,Shipping,11,Shipping,"Attn: BK
+8414 E Kellogg Dr.",Whichita,Kansas,67207,JL,Lucky Stop,Shipping,Shipping,1669,Jared,1,$25.00,$25.00,$0.05,4.00,1.00
+01-08-2026,10156,25378,76889,1669,Shipping,11,Shipping,"Attn: BK
+8414 E Kellogg Dr.",Whichita,Kansas,67207,JL,Lucky Stop,Shipping,Shipping Tracking: 1Z90V7160325364862,1669,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-08-2026,10158,25385,76895,1493,Shipping,11,Shipping,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,Shipping,Shipping Tracking: 1Z90V7160313640559,1493,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-08-2026,10063,25097,76937,576,Acrylic Rebate 2,0,,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,,ACR-Distributor Rebate,576,Jared,1,-$600.00,-$600.00,$0.00,4.00,1.00
+01-08-2026,10134,25246,76473,1807,Acrylic Rebate 2,0,,"800 Interstate Parkway, unit 144",Waukee,Iowa,50263,JL,Majestic Distribtion LLC,,ACR-Distributor Rebate,1807,Jared,1,-$150.00,-$150.00,$0.00,3.00,1.00
+01-08-2026,10153,25348,76778,576,Acrylic Rebate 2,0,,"2710 e Patrick Lane , suite#5 and 6",las vegas,Nevada,89120,JL,LV Cash n Carry Attn Parth,,ACR-Distributor Rebate,576,Jared,1,"-$1,000.00","-$1,000.00",$0.00,4.00,1.00
+01-08-2026,10154,25349,76781,1040,Paid Shipping,0,,"2496 Port Street,West",West Sacramento,California,95691,BW,Blueberry Trading,,AE Paid Shipping,1040,BenW,1,-$171.00,-$171.00,$0.00,3.00,1.00
+01-09-2026,#GSBQ0FUE2M2R80,25410,76940,906,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"132 BROADWAY ST
+IN STORE",CHICO,California,95928-5318,,Dungeon Smoke Shop,KB-019,BX12 Focus + Flow,906,ShipStation,0,$60.00,$420.00,$0.00,1.00,1.00
+01-09-2026,#JIUCJOXSAXZQ6U,25411,76941,1817,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"2578 BROADWAY FRNT 5
+IN STORE",NEW YORK,New York,10025-5642,,2578 BROADWAY GIFT SHOP,KB-019,BX12 Focus + Flow,1817,ShipStation,0,$60.00,$0.00,$0.00,1.00,1.00
+01-09-2026,#F2O17GK842DETP,25412,76943,1769,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"2925 SURF AVE
+IN STORE",BROOKLYN,New York,11224-1705,,SEABREEZE GOURMET DELI 1 CORP,KB-019,BX12 Focus + Flow,1769,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-09-2026,#2UGU6FKC7YQNGQ,25413,76944,1736,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"1500 SPRING GARDEN ST
+IN STORE",PHILADELPHIA,Pennsylvania,19130-4067,,OLD NELSON FOOD MARKET SPRING GARDEN,KB-019,BX12 Focus + Flow,1736,ShipStation,0,$60.00,$720.00,$0.00,1.00,1.00
+01-09-2026,#3APKAJH2YLF0DT,25414,76945,1725,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"11550 NIGHT HERON DR
+IN STORE",NAPLES,Florida,34119-8865,,MATRIXGROWTH DISTRIBUTION LLC,KB-019,BX12 Focus + Flow,1725,ShipStation,0,$60.00,$360.00,$0.00,1.00,1.00
+01-09-2026,#PLCSJZ15XNUC8Q,25415,76946,1765,FG- BX12 Focus+Flow,82,FG- BX12 Focus+Flow,"140 OLD SOLOMONS ISLAND RD
+IN STORE",ANNAPOLIS,Maryland,21401-3826,,SPIRIT MART,KB-019,BX12 Focus + Flow,1765,ShipStation,0,$60.00,$360.00,$0.00,1.00,1.00
+01-09-2026,#JIUCJOXSAXZQ6U,25411,76942,1817,KB-3001,193,KB-3001,"2578 BROADWAY FRNT 5
+IN STORE",NEW YORK,New York,10025-5642,,2578 BROADWAY GIFT SHOP,KB-3001,Release + Relax 12pk,1817,ShipStation,4,$60.00,$240.00,$66.00,2.00,1.00
+01-09-2026,10150,25342,76763,405,KB-4000,206,KB-4000,230 Bristol Pike,Bristol,Pennsylvania,19007,DW,Giant Distribution,KB-4000,Focus MC12,405,DerekW,56,$576.00,"$32,256.00","$11,162.32",1.00,1.00
+01-09-2026,10162,25430,77001,1016,KB-4000,206,KB-4000,776 E Thousand Oaks Blvd,Thousand Oaks,California,91362,ADM,WILD SIDE THOUSAND OAKS-T.O. (CA),KB-4000,Focus MC12,1016,admin,4,$669.60,"$2,678.40",$846.89,2.00,2.00
+01-09-2026,10164,25431,77005,843,KB-4000,206,KB-4000,107 8th ave. west suite 6,Williston,North Dakota,58801,BG,Hemp Plus,KB-4000,Focus MC12,843,BrandonG,4,$720.00,"$2,880.00",$834.69,1.00,1.00
+01-09-2026,10166,25436,77018,1775,KB-4000,206,KB-4000,"1265 S Capitol Blvd, #101",Boise,Idaho,83706,ADM,Lg Mart,KB-4000,Focus MC12,1775,admin,2,$684.00,"$1,368.00",$417.34,1.00,1.00
+01-09-2026,#HGQV0P7OMZ1UDH,25416,76947,1199,ShipStation Shipping,1,ShipStation Shipping,39872 LOS ALAMOS RD STE A11,MURRIETA,California,92562-5745,,Night Owl Smoke Shop,ShipStation Shipping,ShipStation shipping amount,1199,ShipStation,8,$42.00,$336.00,$0.00,1.00,1.00
+01-09-2026,10150,25342,76764,405,Shipping,11,Shipping,230 Bristol Pike,Bristol,Pennsylvania,19007,DW,Giant Distribution,Shipping,Shipping,405,DerekW,1,$645.00,$645.00,$0.05,2.00,1.00
+01-09-2026,10150,25342,77306,405,Shipping,11,Shipping,230 Bristol Pike,Bristol,Pennsylvania,19007,DW,Giant Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121878090,405,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-09-2026,10162,25430,77017,1016,Shipping,11,Shipping,776 E Thousand Oaks Blvd,Thousand Oaks,California,91362,ADM,WILD SIDE THOUSAND OAKS-T.O. (CA),Shipping,Shipping Tracking: 1Z90V7160330428239,1016,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-09-2026,10164,25431,77034,843,Shipping,11,Shipping,107 8th ave. west suite 6,Williston,North Dakota,58801,BG,Hemp Plus,Shipping,Shipping Tracking: 1Z90V7160333032286,843,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-09-2026,10166,25436,77033,1775,Shipping,11,Shipping,"1265 S Capitol Blvd, #101",Boise,Idaho,83706,ADM,Lg Mart,Shipping,Shipping Tracking: WILL CALL,1775,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-12-2026,10177,25508,77267,1206,CC Processing,74,CC Processing,6590 West Seltice Way,Post Falls,Idaho,83854,JL,Nikk Drips,CC Processing,Credit Card Processing Fee,1206,Jared,1,$22.20,$22.20,$0.00,4.00,1.00
+01-12-2026,10182,25516,77297,1076,CC Processing,74,CC Processing,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,CC Processing,Credit Card Processing Fee,1076,BenW,1,$278.15,$278.15,$0.00,3.00,1.00
+01-12-2026,10177,25508,77265,1206,KB-2004,212,KB-2004,6590 West Seltice Way,Post Falls,Idaho,83854,JL,Nikk Drips,KB-2004,RAW 60 ml single bottle,1206,Jared,6,$0.00,$0.00,$0.00,2.00,1.00
+01-12-2026,10170,25498,77213,1473,KB-3001,193,KB-3001,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3001,Release + Relax 12pk,1473,DerekW,2,$54.00,$108.00,$33.00,1.00,1.00
+01-12-2026,10171,25499,77216,1004,KB-3001,193,KB-3001,11279 Santa Monica Blvd,Los Angeles,California,90025,ADM,PURPLE HAZE LOS ANGELES-LA (CA),KB-3001,Release + Relax 12pk,1004,admin,2,$55.80,$111.60,$33.00,4.00,2.00
+01-12-2026,10170,25498,77214,1473,KB-3002,196,KB-3002,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3002,Zoom 12PK,1473,DerekW,2,$42.00,$84.00,$32.46,2.00,1.00
+01-12-2026,10159,25386,76879,2106,KB-4000,206,KB-4000,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,KB-4000,Focus MC12,2106,BenW,6,$626.40,"$3,758.40","$1,195.96",1.00,1.00
+01-12-2026,10168,25441,77030,1398,KB-4000,206,KB-4000,729 West 1700 South,Salt Lake City,Utah,84104,BG,Everest Distribution,KB-4000,Focus MC12,1398,BrandonG,10,$626.40,"$6,264.00","$2,259.16",1.00,1.00
+01-12-2026,10169,25497,77212,1109,KB-4000,206,KB-4000,8790 Farm To Market 1960 Bypass Rd W Suite 200,Humble,Texas,77338,ADM,WILD SIDE HUMBLE-HU (TX),KB-4000,Focus MC12,1109,admin,2,$669.60,"$1,339.20",$400.06,2.00,2.00
+01-12-2026,10171,25499,77215,1004,KB-4000,206,KB-4000,11279 Santa Monica Blvd,Los Angeles,California,90025,ADM,PURPLE HAZE LOS ANGELES-LA (CA),KB-4000,Focus MC12,1004,admin,2,$669.60,"$1,339.20",$400.06,2.00,2.00
+01-12-2026,10174,25504,77249,1559,KB-4000,206,KB-4000,2008 48th Ave. Ct. E,Fife,Washington,98424,BW,Ace Wholesale Inc. | WA,KB-4000,Focus MC12,1559,BenW,55,$612.00,"$33,660.00","$12,425.38",1.00,1.00
+01-12-2026,10176,25506,77255,1575,KB-4000,206,KB-4000,51 W 14th St,New York,New York,10011,DW,Cigarville Inc,KB-4000,Focus MC12,1575,DerekW,1,$720.00,$720.00,$200.03,1.00,1.00
+01-12-2026,10177,25508,77264,1206,KB-4000,206,KB-4000,6590 West Seltice Way,Post Falls,Idaho,83854,JL,Nikk Drips,KB-4000,Focus MC12,1206,Jared,1,$720.00,$720.00,$200.03,1.00,1.00
+01-12-2026,10182,25516,77295,1076,KB-4000,206,KB-4000,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,KB-4000,Focus MC12,1076,BenW,15,$612.00,"$9,180.00","$3,388.74",1.00,1.00
+01-12-2026,10174,25504,77251,1559,KB-4003,205,KB-4003,2008 48th Ave. Ct. E,Fife,Washington,98424,BW,Ace Wholesale Inc. | WA,KB-4003,Mango-Tango MC 12CT,1559,BenW,1,$576.00,$576.00,$174.74,3.00,1.00
+01-12-2026,10159,25386,76880,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping,2106,BenW,1,$60.00,$60.00,$0.05,2.00,1.00
+01-12-2026,10159,25386,77309,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121861110,2106,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-12-2026,10168,25441,77031,1398,Shipping,11,Shipping,729 West 1700 South,Salt Lake City,Utah,84104,BG,Everest Distribution,Shipping,Shipping,1398,BrandonG,1,$220.55,$220.55,$0.05,2.00,1.00
+01-12-2026,10168,25441,77533,1398,Shipping,11,Shipping,729 West 1700 South,Salt Lake City,Utah,84104,BG,Everest Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121923540,1398,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-12-2026,10169,25497,77248,1109,Shipping,11,Shipping,8790 Farm To Market 1960 Bypass Rd W Suite 200,Humble,Texas,77338,ADM,WILD SIDE HUMBLE-HU (TX),Shipping,Shipping Tracking: 1Z90V7160332412555,1109,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-12-2026,10170,25498,77217,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping,1473,DerekW,1,$15.00,$15.00,$0.05,3.00,1.00
+01-12-2026,10170,25498,77259,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160334485367,1473,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-12-2026,10171,25499,77273,1004,Shipping,11,Shipping,11279 Santa Monica Blvd,Los Angeles,California,90025,ADM,PURPLE HAZE LOS ANGELES-LA (CA),Shipping,Shipping Tracking: 1Z90V7160301042343,1004,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-12-2026,10174,25504,77250,1559,Shipping,11,Shipping,2008 48th Ave. Ct. E,Fife,Washington,98424,BW,Ace Wholesale Inc. | WA,Shipping,Shipping,1559,BenW,1,$351.00,$351.00,$0.05,2.00,1.00
+01-12-2026,10174,25504,77536,1559,Shipping,11,Shipping,2008 48th Ave. Ct. E,Fife,Washington,98424,BW,Ace Wholesale Inc. | WA,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121980880,1559,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-12-2026,10176,25506,77257,1575,Shipping,11,Shipping,51 W 14th St,New York,New York,10011,DW,Cigarville Inc,Shipping,Shipping Tracking: 1Z90V7160321419042,1575,DerekW,1,$0.00,$0.00,$0.00,2.00,1.00
+01-12-2026,10176,25506,77285,1575,Shipping,11,Shipping,51 W 14th St,New York,New York,10011,DW,Cigarville Inc,Shipping,Shipping Tracking: 1Z90V7160304489777,1575,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-12-2026,10177,25508,77266,1206,Shipping,11,Shipping,6590 West Seltice Way,Post Falls,Idaho,83854,JL,Nikk Drips,Shipping,Shipping,1206,Jared,1,$20.00,$20.00,$0.05,3.00,1.00
+01-12-2026,10177,25508,77286,1206,Shipping,11,Shipping,6590 West Seltice Way,Post Falls,Idaho,83854,JL,Nikk Drips,Shipping,Shipping Tracking: 1Z90V7160315091989,1206,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-12-2026,10182,25516,77296,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping,1076,BenW,1,$91.80,$91.80,$0.05,2.00,1.00
+01-12-2026,10182,25516,77534,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121951910,1076,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10060,25093,77392,1254,CC Processing,74,CC Processing,3800 Factoria Blvd SE,Bellevue,Washington,98006,BW,Hotbox Smoke Shop | Bellevue,CC Processing,Credit Card Processing Fee,1254,BenW,1,$43.05,$43.05,$0.00,3.00,1.00
+01-13-2026,10165,25435,77391,562,CC Processing,74,CC Processing,3372 Santa Rosa Ave,Santa Rosa,California,95407,BW,The Mighty Quinn Smoke,CC Processing,Credit Card Processing Fee,562,BenW,1,$48.06,$48.06,$0.00,4.00,1.00
+01-13-2026,10180,25511,77387,1352,CC Processing,74,CC Processing,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,CC Processing,Credit Card Processing Fee,1352,BrandonG,1,$1.95,$1.95,$0.00,3.00,1.00
+01-13-2026,10181,25512,77388,1307,CC Processing,74,CC Processing,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,CC Processing,Credit Card Processing Fee,1307,BrandonG,1,$41.04,$41.04,$0.00,3.00,1.00
+01-13-2026,10185,25535,77412,1552,CC Processing,74,CC Processing,522 Burmont Rd,Pennsylvania,Pennsylvania,19026,DW,Puff N Stuff,CC Processing,Credit Card Processing Fee,1552,DerekW,1,$20.34,$20.34,$0.00,3.00,1.00
+01-13-2026,10188,25540,77416,392,CC Processing,74,CC Processing,16055 Emerald Coast Pkwy #105,Destin,Florida,32541,ED,Destin Smoke Shop,CC Processing,Credit Card Processing Fee,392,Zalak,1,$64.80,$64.80,$0.00,2.00,1.00
+01-13-2026,10201,25564,77482,1791,CC Processing,74,CC Processing,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,CC Processing,Credit Card Processing Fee,1791,BrandonG,1,$20.04,$20.04,$0.00,2.00,1.00
+01-13-2026,10203,25565,77486,1791,CC Processing,74,CC Processing,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,CC Processing,Credit Card Processing Fee,1791,BrandonG,1,$5.01,$5.01,$0.00,3.00,1.00
+01-13-2026,10197,25555,77452,2484,KB-2000,186,KB-2000,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",KB-2000,FG-Focus and Flow 2oz,2484,BenW,3,$0.00,$0.00,$0.00,2.00,1.00
+01-13-2026,10197,25555,77453,2484,KB-2001,191,KB-2001,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",KB-2001,Release + Relax 60ml,2484,BenW,3,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10197,25555,77454,2484,KB-2002,195,KB-2002,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",KB-2002,Zoom 60ml bottle,2484,BenW,3,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10197,25555,77455,2484,KB-2003,203,KB-2003,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",KB-2003,Mango-Tango 15ml 120mg,2484,BenW,3,$0.00,$0.00,$0.00,5.00,1.00
+01-13-2026,10172,25502,77276,1533,KB-2004,212,KB-2004,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,KB-2004,RAW 60 ml single bottle,1533,Jared,6,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10181,25512,77284,1307,KB-2004,212,KB-2004,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,KB-2004,RAW 60 ml single bottle,1307,BrandonG,6,$0.00,$0.00,$0.00,2.00,1.00
+01-13-2026,10172,25502,77236,1533,KB-3000,207,KB-3000,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,KB-3000,Focus+Flow 12PK,1533,Jared,3,$60.00,$180.00,$15.73,1.00,1.00
+01-13-2026,10180,25511,77279,1352,KB-3000,207,KB-3000,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,KB-3000,Focus+Flow 12PK,1352,BrandonG,1,$60.00,$60.00,$5.24,1.00,1.00
+01-13-2026,10186,25536,77371,1473,KB-3000,207,KB-3000,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3000,Focus+Flow 12PK,1473,DerekW,2,$60.00,$120.00,$10.49,1.00,1.00
+01-13-2026,10202,25566,77487,980,KB-3000,207,KB-3000,1650a Storrs Rd,Storrs,Connecticut,6268,ADM,SMOKE ZONE STORRS-ST (CT),KB-3000,Focus+Flow 12PK,980,admin,8,$55.80,$446.40,$41.96,2.00,2.00
+01-13-2026,10165,25435,77015,562,KB-3001,193,KB-3001,3372 Santa Rosa Ave,Santa Rosa,California,95407,BW,The Mighty Quinn Smoke,KB-3001,Release + Relax 12pk,562,BenW,3,$54.00,$162.00,$49.50,2.00,1.00
+01-13-2026,10196,25556,77456,1955,KB-3001,193,KB-3001,1522 S Vista Ave,Boise,Idaho,83705,DW,No Gravity,KB-3001,Release + Relax 12pk,1955,DerekW,1,$54.00,$54.00,$16.50,1.00,1.00
+01-13-2026,10186,25536,77372,1473,KB-3002,196,KB-3002,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3002,Zoom 12PK,1473,DerekW,2,$42.00,$84.00,$32.46,2.00,1.00
+01-13-2026,10191,25547,77417,1447,KB-3002,196,KB-3002,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-3002,Zoom 12PK,1447,admin,6,$39.00,$234.00,$97.38,2.00,1.00
+01-13-2026,10184,25519,77310,1493,KB-3004,213,KB-3004,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,KB-3004,RAW 12 pk,1493,DerekW,6,$54.00,$324.00,$0.00,1.00,1.00
+01-13-2026,10196,25556,77458,1955,KB-3004,213,KB-3004,1522 S Vista Ave,Boise,Idaho,83705,DW,No Gravity,KB-3004,RAW 12 pk,1955,DerekW,1,$54.00,$54.00,$0.00,3.00,1.00
+01-13-2026,10203,25565,77484,1791,KB-3004,213,KB-3004,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,KB-3004,RAW 12 pk,1791,BrandonG,3,$54.00,$162.00,$0.00,1.00,1.00
+01-13-2026,9894,24422,73538,287,KB-4000,206,KB-4000,5740 Logan Street,Denver,Colorado,80216,JL,Number One Distro,KB-4000,Focus MC12,287,Jared,56,$612.00,"$34,272.00","$12,651.30",1.00,1.00
+01-13-2026,10060,25093,75894,1254,KB-4000,206,KB-4000,3800 Factoria Blvd SE,Bellevue,Washington,98006,BW,Hotbox Smoke Shop | Bellevue,KB-4000,Focus MC12,1254,BenW,2,$717.50,"$1,435.00",$463.92,1.00,1.00
+01-13-2026,10165,25435,77014,562,KB-4000,206,KB-4000,3372 Santa Rosa Ave,Santa Rosa,California,95407,BW,The Mighty Quinn Smoke,KB-4000,Focus MC12,562,BenW,2,$720.00,"$1,440.00",$483.68,1.00,1.00
+01-13-2026,10181,25512,77283,1307,KB-4000,206,KB-4000,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,KB-4000,Focus MC12,1307,BrandonG,2,$684.00,"$1,368.00",$463.92,1.00,1.00
+01-13-2026,10188,25540,77393,392,KB-4000,206,KB-4000,16055 Emerald Coast Pkwy #105,Destin,Florida,32541,ED,Destin Smoke Shop,KB-4000,Focus MC12,392,Zalak,3,$720.00,"$2,160.00",$695.89,1.00,1.00
+01-13-2026,10191,25547,77413,1447,KB-4000,206,KB-4000,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4000,Focus MC12,1447,admin,4,$576.00,"$2,304.00",$967.36,1.00,1.00
+01-13-2026,10200,25563,77478,245,KB-4000,206,KB-4000,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-4000,Focus MC12,245,admin,3,$576.00,"$1,728.00",$611.73,1.00,1.00
+01-13-2026,10204,25575,77506,1014,KB-4000,206,KB-4000,12910 Magnolia Blvd,Sherman Oaks,California,91423,ADM,PURPLE HAZE SHERMAN OAKS-SO (CA),KB-4000,Focus MC12,1014,admin,2,$669.60,"$1,339.20",$441.64,2.00,2.00
+01-13-2026,9894,24422,73541,287,KB-4001,194,KB-4001,5740 Logan Street,Denver,Colorado,80216,JL,Number One Distro,KB-4001,Release + Relax MC (12 boxes),287,Jared,2,$525.60,"$1,051.20",$350.39,2.00,1.00
+01-13-2026,10178,25509,77271,284,KB-4001,194,KB-4001,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,KB-4001,Release + Relax MC (12 boxes),284,Jared,3,$525.60,"$1,576.80",$525.58,1.00,1.00
+01-13-2026,10201,25564,77481,1791,KB-4001,194,KB-4001,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,KB-4001,Release + Relax MC (12 boxes),1791,BrandonG,1,$648.00,$648.00,$175.19,1.00,1.00
+01-13-2026,10198,25559,77471,2485,KB-4002,197,KB-4002,8200 Southwest Barbur Blvd,Portland,Oregon,97219,BW,Tobacco Town 2,KB-4002,Zoom MC (12 boxes),2485,BenW,2,$504.00,"$1,008.00",$238.61,1.00,1.00
+01-13-2026,10200,25563,77479,245,KB-4002,197,KB-4002,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-4002,Zoom MC (12 boxes),245,admin,1,$468.00,$468.00,$119.31,2.00,1.00
+01-13-2026,10185,25535,77369,1552,KB-4004,214,KB-4004,522 Burmont Rd,Pennsylvania,Pennsylvania,19026,DW,Puff N Stuff,KB-4004,RAW MC (12 count),1552,DerekW,1,$648.00,$648.00,$150.81,1.00,1.00
+01-13-2026,10190,25544,77399,551,KB-4004,214,KB-4004,1600 w 1st st,Loveland,Colorado,80537,BG,One Love,KB-4004,RAW MC (12 count),551,BrandonG,1,$648.00,$648.00,$150.81,1.00,1.00
+01-13-2026,9894,24422,73542,287,Shipping,11,Shipping,5740 Logan Street,Denver,Colorado,80216,JL,Number One Distro,Shipping,Shipping,287,Jared,1,$353.00,$353.00,$0.05,3.00,1.00
+01-13-2026,9894,24422,77537,287,Shipping,11,Shipping,5740 Logan Street,Denver,Colorado,80216,JL,Number One Distro,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77121991940,287,Jared,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10060,25093,75895,1254,Shipping,11,Shipping,3800 Factoria Blvd SE,Bellevue,Washington,98006,BW,Hotbox Smoke Shop | Bellevue,Shipping,Shipping,1254,BenW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-13-2026,10060,25093,77463,1254,Shipping,11,Shipping,3800 Factoria Blvd SE,Bellevue,Washington,98006,BW,Hotbox Smoke Shop | Bellevue,Shipping,Shipping Tracking: 1Z90V7160328796757,1254,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10165,25435,77016,562,Shipping,11,Shipping,3372 Santa Rosa Ave,Santa Rosa,California,95407,BW,The Mighty Quinn Smoke,Shipping,Shipping,562,BenW,1,$0.00,$0.00,$0.05,3.00,1.00
+01-13-2026,10165,25435,77448,562,Shipping,11,Shipping,3372 Santa Rosa Ave,Santa Rosa,California,95407,BW,The Mighty Quinn Smoke,Shipping,Shipping Tracking: 1Z90V7160316828182,562,BenW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-13-2026,10172,25502,77237,1533,Shipping,11,Shipping,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,Shipping,Shipping,1533,Jared,1,$10.00,$10.00,$0.05,2.00,1.00
+01-13-2026,10172,25502,77445,1533,Shipping,11,Shipping,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,Shipping,Shipping Tracking: 1Z90V7160312024968,1533,Jared,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10178,25509,77272,284,Shipping,11,Shipping,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,Shipping,Shipping,284,Jared,1,$45.00,$45.00,$0.05,2.00,1.00
+01-13-2026,10178,25509,77465,284,Shipping,11,Shipping,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,Shipping,Shipping Tracking: 1Z90V7160312042019,284,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10180,25511,77280,1352,Shipping,11,Shipping,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,Shipping,Shipping,1352,BrandonG,1,$5.00,$5.00,$0.05,2.00,1.00
+01-13-2026,10180,25511,77447,1352,Shipping,11,Shipping,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,Shipping,Shipping Tracking: 1Z90V7160321068734,1352,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10181,25512,77470,1307,Shipping,11,Shipping,630 E 58th Ave,Denver,Colorado,80216,BG,Lazy Daze Inc,Shipping,Shipping Tracking: 1Z90V7160330645629,1307,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10184,25519,77311,1493,Shipping,11,Shipping,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,Shipping,Shipping,1493,DerekW,1,$15.00,$15.00,$0.05,2.00,1.00
+01-13-2026,10184,25519,77446,1493,Shipping,11,Shipping,251 5th Ave Street Level,New York,New York,10016,DW,Mahant 342 Inc,Shipping,Shipping Tracking: 1Z90V7160315001978,1493,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10185,25535,77370,1552,Shipping,11,Shipping,522 Burmont Rd,Pennsylvania,Pennsylvania,19026,DW,Puff N Stuff,Shipping,Shipping,1552,DerekW,1,$30.00,$30.00,$0.05,2.00,1.00
+01-13-2026,10185,25535,77462,1552,Shipping,11,Shipping,522 Burmont Rd,Pennsylvania,Pennsylvania,19026,DW,Puff N Stuff,Shipping,Shipping Tracking: 1Z90V7160338063145,1552,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10186,25536,77373,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping,1473,DerekW,1,$15.00,$15.00,$0.05,3.00,1.00
+01-13-2026,10186,25536,77444,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160336789526,1473,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10188,25540,77464,392,Shipping,11,Shipping,16055 Emerald Coast Pkwy #105,Destin,Florida,32541,ED,Destin Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160335577579,392,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10190,25544,77401,551,Shipping,11,Shipping,1600 w 1st st,Loveland,Colorado,80537,BG,One Love,Shipping,Shipping,551,BrandonG,1,$20.00,$20.00,$0.05,2.00,1.00
+01-13-2026,10190,25544,77437,551,Shipping,11,Shipping,1600 w 1st st,Loveland,Colorado,80537,BG,One Love,Shipping,Shipping Tracking: 1Z90V7160318362547,551,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10191,25547,77443,1447,Shipping,11,Shipping,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,Shipping,Shipping Tracking: WILL CALL,1447,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10197,25555,77488,2484,Shipping,11,Shipping,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",Shipping,Shipping Tracking: 1Z90V7160309602643,2484,BenW,1,$0.00,$0.00,$0.00,6.00,1.00
+01-13-2026,10196,25556,77501,1955,Shipping,11,Shipping,1522 S Vista Ave,Boise,Idaho,83705,DW,No Gravity,Shipping,Shipping Tracking: WILL CALL,1955,DerekW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-13-2026,10198,25559,77472,2485,Shipping,11,Shipping,8200 Southwest Barbur Blvd,Portland,Oregon,97219,BW,Tobacco Town 2,Shipping,Shipping,2485,BenW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-13-2026,10198,25559,77493,2485,Shipping,11,Shipping,8200 Southwest Barbur Blvd,Portland,Oregon,97219,BW,Tobacco Town 2,Shipping,Shipping Tracking: 1Z90V7160329993676,2485,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10200,25563,77755,245,Shipping,11,Shipping,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,Shipping,Shipping Tracking: WILL CALL,245,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-13-2026,10201,25564,77483,1791,Shipping,11,Shipping,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,Shipping,Shipping,1791,BrandonG,1,$20.00,$20.00,$0.05,3.00,1.00
+01-13-2026,10201,25564,77489,1791,Shipping,11,Shipping,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,Shipping,Shipping Tracking: 1Z90V7160304045255,1791,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10203,25565,77485,1791,Shipping,11,Shipping,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,Shipping,Shipping,1791,BrandonG,1,$5.00,$5.00,$0.05,2.00,1.00
+01-13-2026,10203,25565,77495,1791,Shipping,11,Shipping,400 S 2nd Ave,Sioux Falls,South Dakota,57104,BG,Common Sense,Shipping,Shipping Tracking: 1Z90V7160332329717,1791,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-13-2026,10202,25566,77491,980,Shipping,11,Shipping,1650a Storrs Rd,Storrs,Connecticut,6268,ADM,SMOKE ZONE STORRS-ST (CT),Shipping,Shipping Tracking: 1Z90V7160305689068,980,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-13-2026,10204,25575,77562,1014,Shipping,11,Shipping,12910 Magnolia Blvd,Sherman Oaks,California,91423,ADM,PURPLE HAZE SHERMAN OAKS-SO (CA),Shipping,Shipping Tracking: 1Z90V7160338703346,1014,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-13-2026,10197,25555,77451,2484,Store Sample Kit,85,Store Sample Kit,1026 9 MILE ROAD,KAWKAWLIN,Michigan,48631,BW,"DORE'S STORES, INC",,Store Sample Kit,2484,BenW,1,$0.00,$0.00,$13.31,1.00,1.00
+01-13-2026,10196,25556,77457,1955,Sample Cost,0,,1522 S Vista Ave,Boise,Idaho,83705,DW,No Gravity,,Samples,1955,DerekW,1,-$54.00,-$54.00,$0.00,2.00,1.00
+01-13-2026,10196,25556,77459,1955,Sample Cost,0,,1522 S Vista Ave,Boise,Idaho,83705,DW,No Gravity,,Samples,1955,DerekW,1,-$54.00,-$54.00,$0.00,4.00,1.00
+01-14-2026,10205,25581,77512,785,KB-4000,206,KB-4000,911 N Lake Havasu Ave,Lake Havasu City,Arizona,86403,JL,The Kind Connection Smoke Shop,KB-4000,Focus MC12,785,Jared,1,$720.00,$720.00,$212.52,1.00,1.00
+01-14-2026,10207,25604,77611,1194,KB-4000,206,KB-4000,"1525 S Baker Ave, Unit B",Ontario,California,91761,ED,Supreme Glass Wholesale Inc,KB-4000,Focus MC12,1194,Zalak,56,$576.00,"$32,256.00","$11,395.45",1.00,1.00
+01-14-2026,10205,25581,77513,785,KB-4002,197,KB-4002,911 N Lake Havasu Ave,Lake Havasu City,Arizona,86403,JL,The Kind Connection Smoke Shop,KB-4002,Zoom MC (12 boxes),785,Jared,1,$504.00,$504.00,$119.31,2.00,1.00
+01-14-2026,10205,25581,77610,785,Shipping,11,Shipping,911 N Lake Havasu Ave,Lake Havasu City,Arizona,86403,JL,The Kind Connection Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160337693038,785,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-14-2026,10207,25604,77769,1194,Shipping,11,Shipping,"1525 S Baker Ave, Unit B",Ontario,California,91761,ED,Supreme Glass Wholesale Inc,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122131350,1194,Zalak,1,$0.00,$0.00,$0.00,2.00,1.00
+01-15-2026,10212,25623,77672,511,CC Processing,74,CC Processing,6166 Gunn Hwy,Tampa,Florida,33625,ED,Drip Botanical Tea Bar,CC Processing,Credit Card Processing Fee,511,Zalak,1,$82.08,$82.08,$0.00,2.00,1.00
+01-15-2026,10214,25630,77754,1649,CC Processing,74,CC Processing,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,CC Processing,Credit Card Processing Fee,1649,BrandonG,1,$21.77,$21.77,$0.00,5.00,1.00
+01-15-2026,10219,25638,77739,2026,CC Processing,74,CC Processing,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,CC Processing,Credit Card Processing Fee,2026,BrandonG,1,$5.70,$5.70,$0.00,3.00,1.00
+01-15-2026,10214,25630,77702,1649,KB-3000,207,KB-3000,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,KB-3000,Focus+Flow 12PK,1649,BrandonG,6,$60.00,$360.00,$31.47,1.00,1.00
+01-15-2026,10219,25638,77726,2026,KB-3000,207,KB-3000,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,KB-3000,Focus+Flow 12PK,2026,BrandonG,3,$60.00,$180.00,$15.73,1.00,1.00
+01-15-2026,10218,25635,77719,343,KB-3001,193,KB-3001,209 E Liberty St,Ann Arbor,Michigan,48104,ADM,WILD SIDE ANN ARBOR-AA2 (MI),KB-3001,Release + Relax 12pk,343,admin,2,$55.80,$111.60,$33.00,4.00,2.00
+01-15-2026,10216,25632,77708,1418,KB-3002,196,KB-3002,203 Caldwell Blvd,Nampa,Idaho,83651,ADM,Viable Alternatives - Nampa,KB-3002,Zoom 12PK,1418,admin,8,$39.00,$312.00,$129.84,1.00,1.00
+01-15-2026,10214,25630,77703,1649,KB-3003,204,KB-3003,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,KB-3003,Mango-Tango 12pk,1649,BrandonG,2,$60.00,$120.00,$34.47,2.00,1.00
+01-15-2026,10214,25630,77704,1649,KB-3004,213,KB-3004,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,KB-3004,RAW 12 pk,1649,BrandonG,3,$54.00,$162.00,$0.00,3.00,1.00
+01-15-2026,10221,25653,77770,1579,KB-3004,213,KB-3004,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,KB-3004,RAW 12 pk,1579,BrandonG,6,$54.00,$324.00,$0.00,1.00,1.00
+01-15-2026,10208,25606,77615,308,KB-4000,206,KB-4000,236 space park s,nashville,Tennessee,37211,ED,Down South Distro,KB-4000,Focus MC12,308,Zalak,56,$612.00,"$34,272.00","$12,466.14",1.00,1.00
+01-15-2026,10212,25623,77671,511,KB-4000,206,KB-4000,6166 Gunn Hwy,Tampa,Florida,33625,ED,Drip Botanical Tea Bar,KB-4000,Focus MC12,511,Zalak,4,$684.00,"$2,736.00",$825.25,1.00,1.00
+01-15-2026,10217,25634,77713,998,KB-4000,206,KB-4000,1421 S Miltion Road,Flagstaff,Arizona,86001,ADM,WILD SIDE FLAGSTAFF-FS 1,KB-4000,Focus MC12,998,admin,2,$669.60,"$1,339.20",$411.14,2.00,2.00
+01-15-2026,10218,25635,77718,343,KB-4000,206,KB-4000,209 E Liberty St,Ann Arbor,Michigan,48104,ADM,WILD SIDE ANN ARBOR-AA2 (MI),KB-4000,Focus MC12,343,admin,2,$669.60,"$1,339.20",$408.77,2.00,2.00
+01-15-2026,10208,25606,77616,308,KB-4001,194,KB-4001,236 space park s,nashville,Tennessee,37211,ED,Down South Distro,KB-4001,Release + Relax MC (12 boxes),308,Zalak,1,$525.60,$525.60,$175.19,2.00,1.00
+01-15-2026,10208,25606,77617,308,Shipping,11,Shipping,236 space park s,nashville,Tennessee,37211,ED,Down South Distro,Shipping,Shipping,308,Zalak,1,$695.00,$695.00,$0.05,3.00,1.00
+01-15-2026,10208,25606,77848,308,Shipping,11,Shipping,236 space park s,nashville,Tennessee,37211,ED,Down South Distro,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122228920,308,Zalak,1,$0.00,$0.00,$0.00,4.00,1.00
+01-15-2026,10212,25623,77699,511,Shipping,11,Shipping,6166 Gunn Hwy,Tampa,Florida,33625,ED,Drip Botanical Tea Bar,Shipping,Shipping Tracking: 1Z90V7160321385187,511,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-15-2026,10214,25630,77705,1649,Shipping,11,Shipping,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,Shipping,Shipping,1649,BrandonG,1,$83.79,$83.79,$0.05,4.00,1.00
+01-15-2026,10214,25630,77761,1649,Shipping,11,Shipping,"ATTN: Jacob
+216 4th Avenue Suite #5",Seward,Alaska,99664,BG,SNJ GIFTS | AK,Shipping,Shipping Tracking: 1Z90V7160327023744,1649,BrandonG,1,$0.00,$0.00,$0.00,6.00,1.00
+01-15-2026,10216,25632,78712,1418,Shipping,11,Shipping,203 Caldwell Blvd,Nampa,Idaho,83651,ADM,Viable Alternatives - Nampa,Shipping,Shipping Tracking: WILL CALL,1418,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-15-2026,10217,25634,77716,998,Shipping,11,Shipping,1421 S Miltion Road,Flagstaff,Arizona,86001,ADM,WILD SIDE FLAGSTAFF-FS 1,Shipping,Shipping Tracking: 1Z90V7160325357254,998,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-15-2026,10218,25635,77728,343,Shipping,11,Shipping,209 E Liberty St,Ann Arbor,Michigan,48104,ADM,WILD SIDE ANN ARBOR-AA2 (MI),Shipping,Shipping Tracking: 1Z90V7160338858073,343,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-15-2026,10219,25638,77727,2026,Shipping,11,Shipping,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,Shipping,Shipping,2026,BrandonG,1,$10.00,$10.00,$0.05,2.00,1.00
+01-15-2026,10219,25638,77746,2026,Shipping,11,Shipping,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,Shipping,Shipping Tracking: 1Z90V7160308374311,2026,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-15-2026,10221,25653,77777,1579,Shipping,11,Shipping,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,Shipping,Shipping Tracking: 1Z90V7160318452600,1579,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-16-2026,10229,25683,77891,2724,Acrylic-008,200,Acrylic-008,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,Acrylic-008,4-Tier Acrylic- Focus+Flow Topper-  Empty Black,2724,admin,1,$0.00,$0.00,$0.00,26.00,1.00
+01-16-2026,10226,25677,77846,2106,CC Processing,74,CC Processing,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,CC Processing,Credit Card Processing Fee,2106,BenW,1,$77.57,$77.57,$0.00,3.00,1.00
+01-16-2026,10229,25683,77889,2724,FG- 1kg Green Caps Wt,36,FG- 1kg Green Caps Wt,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-001,1kg Green Caps Wt,2724,admin,2,$40.00,$80.00,$47.48,24.00,1.00
+01-16-2026,10229,25683,77869,2724,FG- 20g Green Powder,39,FG- 20g Green Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-010,20g Green Powder,2724,admin,2,$2.00,$4.00,$2.62,6.00,1.00
+01-16-2026,10229,25683,77870,2724,FG- 20g Red Powder,37,FG- 20g Red Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-011,20g Red Powder,2724,admin,2,$2.00,$4.00,$2.62,7.00,1.00
+01-16-2026,10229,25683,77871,2724,FG- 20g White Powder,38,FG- 20g White Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-012,20g White Powder,2724,admin,2,$2.00,$4.00,$2.62,8.00,1.00
+01-16-2026,10229,25683,77872,2724,FG- 60g Green Powder,42,FG- 60g Green Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-013,60g Green Powder,2724,admin,2,$3.50,$7.00,$3.40,9.00,1.00
+01-16-2026,10229,25683,77873,2724,FG- 60g Red Powder,40,FG- 60g Red Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-014,60g Red Powder,2724,admin,2,$3.50,$7.00,$3.39,10.00,1.00
+01-16-2026,10229,25683,77874,2724,FG- 60g White Powder,41,FG- 60g White Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-015,60g White Powder,2724,admin,2,$3.50,$7.00,$3.39,11.00,1.00
+01-16-2026,10229,25683,77884,2724,FG- 75ct Red Caps,25,FG- 75ct Red Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-017,75ct Red Caps,2724,admin,2,$4.50,$9.00,$3.69,19.00,1.00
+01-16-2026,10229,25683,77875,2724,FG-120g Red Powder,43,FG-120g Red Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-021,120g Red Powder,2724,admin,2,$5.60,$11.20,$5.31,12.00,1.00
+01-16-2026,10229,25683,77876,2724,FG-120g White Powder,44,FG-120g White Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-022,120g White Powder,2724,admin,2,$5.60,$11.20,$5.34,13.00,1.00
+01-16-2026,10229,25683,77885,2724,FG-150ct Green Caps,30,FG-150ct Green Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-023,150ct Green Caps,2724,admin,2,$6.00,$12.00,$6.58,20.00,1.00
+01-16-2026,10229,25683,77886,2724,FG-150ct Red Caps,28,FG-150ct Red Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-024,150ct Red Caps,2724,admin,2,$6.00,$12.00,$6.57,21.00,1.00
+01-16-2026,10229,25683,77879,2724,FG-1kg Red Powder,49,FG-1kg Red Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-004,1kg Red Powder,2724,admin,2,$30.00,$60.00,$30.78,15.00,1.00
+01-16-2026,10229,25683,77890,2724,FG-1kg White Cap Wt,35,FG-1kg White Cap Wt,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-005,1kg White Cap Wt,2724,admin,2,$40.00,$80.00,$47.08,25.00,1.00
+01-16-2026,10229,25683,77880,2724,FG-20ct Green Caps,21,FG-20ct Green Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-007,20ct Green Caps,2724,admin,2,$2.00,$4.00,$2.09,16.00,1.00
+01-16-2026,10229,25683,77881,2724,FG-20ct Red Caps Kanva,20,FG-20ct Red Caps Kanva,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-008,20ct Red Caps,2724,admin,2,$2.00,$4.00,$2.07,17.00,1.00
+01-16-2026,10229,25683,77882,2724,FG-20ct White Caps,19,FG-20ct White Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-009,20ct White Caps,2724,admin,2,$2.00,$4.00,$2.04,18.00,1.00
+01-16-2026,10229,25683,77878,2724,FG-250g Red Powder,46,FG-250g Red Powder,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-028,250g Red Powder,2724,admin,2,$9.00,$18.00,$9.17,14.00,1.00
+01-16-2026,10229,25683,77887,2724,FG-300ct Green Caps,33,FG-300ct Green Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-030,300ct Green Caps,2724,admin,2,$11.00,$22.00,$11.27,22.00,1.00
+01-16-2026,10229,25683,77888,2724,FG-300ct Red Caps,31,FG-300ct Red Caps,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-031,300ct Red Caps,2724,admin,2,$11.00,$22.00,$11.32,23.00,1.00
+01-16-2026,10230,25682,77861,1579,KB-3000,207,KB-3000,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,KB-3000,Focus+Flow 12PK,1579,BrandonG,4,$60.00,$240.00,$20.98,2.00,1.00
+01-16-2026,10230,25682,77860,1579,KB-3001,193,KB-3001,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,KB-3001,Release + Relax 12pk,1579,BrandonG,4,$54.00,$216.00,$66.00,1.00,1.00
+01-16-2026,10229,25683,77867,2724,KB-3001,193,KB-3001,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-3001,Release + Relax 12pk,2724,admin,2,$45.00,$90.00,$33.00,4.00,1.00
+01-16-2026,10230,25682,77862,1579,KB-3002,196,KB-3002,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,KB-3002,Zoom 12PK,1579,BrandonG,7,$42.00,$294.00,$113.61,3.00,1.00
+01-16-2026,10230,25682,77863,1579,KB-3003,204,KB-3003,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,KB-3003,Mango-Tango 12pk,1579,BrandonG,4,$60.00,$240.00,$68.94,4.00,1.00
+01-16-2026,10229,25683,77868,2724,KB-3003,204,KB-3003,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-3003,Mango-Tango 12pk,2724,admin,2,$60.00,$120.00,$34.47,5.00,1.00
+01-16-2026,10229,25683,77866,2724,KB-3004,213,KB-3004,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-3004,RAW 12 pk,2724,admin,6,$48.00,$288.00,$0.00,3.00,1.00
+01-16-2026,10189,25541,77396,883,KB-4000,206,KB-4000,6690 Sterling Dr N,Sterling Heights,Michigan,48312,ED,KMT Distribution,KB-4000,Focus MC12,883,Zalak,448,$576.00,"$258,048.00","$98,440.16",1.00,1.00
+01-16-2026,10192,25549,77421,1155,KB-4000,206,KB-4000,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,KB-4000,Focus MC12,1155,DerekW,112,$576.00,"$64,512.00","$27,107.70",1.00,1.00
+01-16-2026,10192,25549,77910,1155,KB-4000,206,KB-4000,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,KB-4000,Focus MC12,1155,DerekW,1,$576.00,$576.00,$242.03,3.00,1.00
+01-16-2026,10220,25652,77763,1884,KB-4000,206,KB-4000,10475 SE Division St,Portland,Oregon,97266,BW,Oregon Distro,KB-4000,Focus MC12,1884,BenW,56,$612.00,"$34,272.00","$13,553.85",1.00,1.00
+01-16-2026,10225,25676,77841,812,KB-4000,206,KB-4000,"1601 Westpark Drive, Suite 4C",little rock,Arkansas,72204,ADM,Max Distributing,KB-4000,Focus MC12,812,admin,40,$511.20,"$20,448.00","$9,681.32",1.00,1.00
+01-16-2026,10226,25677,77842,2106,KB-4000,206,KB-4000,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,KB-4000,Focus MC12,2106,BenW,4,$626.40,"$2,505.60",$896.07,1.00,1.00
+01-16-2026,10229,25683,77864,2724,KB-4000,206,KB-4000,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-4000,Focus MC12,2724,admin,2,$576.00,"$1,152.00",$445.22,1.00,1.00
+01-16-2026,10232,25688,77902,1447,KB-4000,206,KB-4000,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4000,Focus MC12,1447,admin,4,$576.00,"$2,304.00",$890.44,1.00,1.00
+01-16-2026,10229,25683,77865,2724,KB-4002,197,KB-4002,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,KB-4002,Zoom MC (12 boxes),2724,admin,1,$468.00,$468.00,$119.31,2.00,1.00
+01-16-2026,10227,25678,77844,393,KB-R007,217,KB-R007,1275 Linda Vista Drive,San Marcos,California,92078,ADM,Alpha Creations- CA,KB-R007,30% Kava Extract,393,admin,"6,000",$0.43,"$2,580.00","$2,165.92",1.00,1.00
+01-16-2026,10189,25541,78436,883,Shipping,11,Shipping,6690 Sterling Dr N,Sterling Heights,Michigan,48312,ED,KMT Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122421750,883,Zalak,1,$0.00,$0.00,$0.00,2.00,1.00
+01-16-2026,10189,25541,78611,883,Shipping,11,Shipping,6690 Sterling Dr N,Sterling Heights,Michigan,48312,ED,KMT Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122558400,883,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-16-2026,10192,25549,77422,1155,Shipping,11,Shipping,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,Shipping,Shipping,1155,DerekW,1,$400.00,$400.00,$0.05,2.00,1.00
+01-16-2026,10192,25549,78183,1155,Shipping,11,Shipping,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122315830,1155,DerekW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-16-2026,10220,25652,77764,1884,Shipping,11,Shipping,10475 SE Division St,Portland,Oregon,97266,BW,Oregon Distro,Shipping,Shipping,1884,BenW,1,$342.00,$342.00,$0.05,2.00,1.00
+01-16-2026,10220,25652,78185,1884,Shipping,11,Shipping,10475 SE Division St,Portland,Oregon,97266,BW,Oregon Distro,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122258520,1884,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-16-2026,10225,25676,78184,812,Shipping,11,Shipping,"1601 Westpark Drive, Suite 4C",little rock,Arkansas,72204,ADM,Max Distributing,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122257290,812,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-16-2026,10226,25677,77843,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping,2106,BenW,1,$80.00,$80.00,$0.05,2.00,1.00
+01-16-2026,10226,25677,77847,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping Tracking: 1Z90V7160334262268,2106,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-16-2026,10227,25678,77845,393,Shipping,11,Shipping,1275 Linda Vista Drive,San Marcos,California,92078,ADM,Alpha Creations- CA,Shipping,Shipping,393,admin,1,$25.00,$25.00,$0.05,2.00,1.00
+01-16-2026,10227,25678,78233,393,Shipping,11,Shipping,1275 Linda Vista Drive,San Marcos,California,92078,ADM,Alpha Creations- CA,Shipping,Shipping Tracking: 1Z90V7160322345905,393,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-16-2026,10230,25682,78037,1579,Shipping,11,Shipping,344 W Main St,American Fork,Utah,84003,BG,Good Earth Markets,Shipping,Shipping Tracking: 1Z90V7160316618579,1579,BrandonG,1,$0.00,$0.00,$0.00,5.00,1.00
+01-16-2026,10229,25683,77905,2724,Shipping,11,Shipping,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,Shipping,Shipping Tracking: WILL CALL,2724,admin,1,$0.00,$0.00,$0.00,28.00,1.00
+01-16-2026,10232,25688,77907,1447,Shipping,11,Shipping,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,Shipping,Shipping Tracking: WILL CALL,1447,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-16-2026,10192,25549,77911,1155,RDISC,0,,4901 Levick Street,philadelphia,Pennsylvania,19135,DW,Tacony,,Special Discount ( ),1155,DerekW,1,-$576.00,-$576.00,$0.00,4.00,1.00
+01-16-2026,10220,25652,77768,1884,Paid Shipping,0,,10475 SE Division St,Portland,Oregon,97266,BW,Oregon Distro,,AE Paid Shipping,1884,BenW,1,-$171.00,-$171.00,$0.00,3.00,1.00
+01-16-2026,10229,25683,77898,2724,New Store Promo,0,,6555 W Overland Rd Suite 100,Boise,Idaho,83709,ADM,Good Vibes Overland,,New Store Promo,2724,admin,1,"-$2,500.40","-$2,500.40",$0.00,27.00,1.00
+01-19-2026,10228,25681,78071,1132,CC Processing,74,CC Processing,1041 Brighton Ave Ste 8,Portland,Maine,4102,DW,Portland Smoke & Vape,CC Processing,Credit Card Processing Fee,1132,DerekW,1,$41.04,$41.04,$0.00,4.00,1.00
+01-19-2026,10241,25743,78091,1644,KB-2004,212,KB-2004,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,KB-2004,RAW 60 ml single bottle,1644,DerekW,6,$4.50,$27.00,$0.00,2.00,1.00
+01-19-2026,10242,25744,78103,1459,KB-2004,212,KB-2004,"ATTN: Sarah, 604 S Douglas Hwy",Gillette,Wyoming,82718,BG,Mountain High Wellness | WY,KB-2004,RAW 60 ml single bottle,1459,BrandonG,6,$4.50,$27.00,$0.00,3.00,1.00
+01-19-2026,10241,25743,78089,1644,KB-3000,207,KB-3000,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,KB-3000,Focus+Flow 12PK,1644,DerekW,6,$60.00,$360.00,$31.47,1.00,1.00
+01-19-2026,10243,25745,78100,975,KB-3000,207,KB-3000,1126 Blowing Rock Rd. Unit C,Boone,North Carolina,28607,ADM,SMOKE RINGS BOONE-BN (NC),KB-3000,Focus+Flow 12PK,975,admin,2,$55.80,$111.60,$10.49,4.00,2.00
+01-19-2026,10244,25746,78102,862,KB-3000,207,KB-3000,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),KB-3000,Focus+Flow 12PK,862,admin,6,$55.80,$334.80,$31.47,4.00,2.00
+01-19-2026,10245,25747,78105,993,KB-3000,207,KB-3000,758 9th St.,Durham,North Carolina,27705,ADM,SMOKE RINGS DURHAM-DH (NC),KB-3000,Focus+Flow 12PK,993,admin,20,$55.80,"$1,116.00",$104.89,4.00,2.00
+01-19-2026,10247,25749,78109,860,KB-3000,207,KB-3000,1207 S Kerr Ave,Wilmington,North Carolina,28403,ADM,SMOKE RINGS WILMINGTON-WT (NC),KB-3000,Focus+Flow 12PK,860,admin,20,$55.80,"$1,116.00",$104.89,2.00,2.00
+01-19-2026,10248,25750,78110,992,KB-3000,207,KB-3000,418 West Franklin St,Chapel Hill,North Carolina,27516,ADM,SMOKE RINGS CHAPEL HILL-CH (NC),KB-3000,Focus+Flow 12PK,992,admin,8,$55.80,$446.40,$41.96,2.00,2.00
+01-19-2026,10240,25742,78088,869,KB-3001,193,KB-3001,111 S River Rd Suite C,West Lafayette,Indiana,47906,ADM,WILD SIDE WEST LAFAYETTE-LF (IN),KB-3001,Release + Relax 12pk,869,admin,12,$55.80,$669.60,$198.00,2.00,2.00
+01-19-2026,10245,25747,78104,993,KB-3002,196,KB-3002,758 9th St.,Durham,North Carolina,27705,ADM,SMOKE RINGS DURHAM-DH (NC),KB-3002,Zoom 12PK,993,admin,20,$42.00,$840.00,$324.60,2.00,2.00
+01-19-2026,10237,25739,78076,341,KB-3003,204,KB-3003,33766 Woodward Ave,Birmingham,Michigan,48009,ADM,WILD SIDE BIRMINGHAM-BH (MI),KB-3003,Mango-Tango 12pk,341,admin,2,$60.00,$120.00,$34.47,4.00,2.00
+01-19-2026,10228,25681,77858,1132,KB-4000,206,KB-4000,1041 Brighton Ave Ste 8,Portland,Maine,4102,DW,Portland Smoke & Vape,KB-4000,Focus MC12,1132,DerekW,1,$720.00,$720.00,$247.97,2.00,1.00
+01-19-2026,10233,25690,77908,1851,KB-4000,206,KB-4000,"ATTN: Akram
+215 S Edsion Street",Salt Lake City,Utah,84111,BG,Edison Grab N Go | UT,KB-4000,Focus MC12,1851,BrandonG,2,$720.00,"$1,440.00",$495.94,1.00,1.00
+01-19-2026,10237,25739,78075,341,KB-4000,206,KB-4000,33766 Woodward Ave,Birmingham,Michigan,48009,ADM,WILD SIDE BIRMINGHAM-BH (MI),KB-4000,Focus MC12,341,admin,8,$669.60,"$5,356.80","$1,983.77",2.00,2.00
+01-19-2026,10242,25744,78090,1459,KB-4000,206,KB-4000,"ATTN: Sarah, 604 S Douglas Hwy",Gillette,Wyoming,82718,BG,Mountain High Wellness | WY,KB-4000,Focus MC12,1459,BrandonG,3,$720.00,"$2,160.00",$734.49,1.00,1.00
+01-19-2026,10243,25745,78099,975,KB-4000,206,KB-4000,1126 Blowing Rock Rd. Unit C,Boone,North Carolina,28607,ADM,SMOKE RINGS BOONE-BN (NC),KB-4000,Focus MC12,975,admin,4,$669.60,"$2,678.40",$979.32,2.00,2.00
+01-19-2026,10244,25746,78101,862,KB-4000,206,KB-4000,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),KB-4000,Focus MC12,862,admin,2,$669.60,"$1,339.20",$489.66,2.00,2.00
+01-19-2026,10246,25748,78107,942,KB-4000,206,KB-4000,4201 Emerson Street,Wilmington,North Carolina,28401,ED,Port City Distro,KB-4000,Focus MC12,942,Zalak,112,$597.60,"$66,931.20","$24,056.33",1.00,1.00
+01-19-2026,10228,25681,77857,1132,KB-4004,214,KB-4004,1041 Brighton Ave Ste 8,Portland,Maine,4102,DW,Portland Smoke & Vape,KB-4004,RAW MC (12 count),1132,DerekW,1,$648.00,$648.00,$150.81,1.00,1.00
+01-19-2026,10228,25681,77859,1132,Shipping,11,Shipping,1041 Brighton Ave Ste 8,Portland,Maine,4102,DW,Portland Smoke & Vape,Shipping,Shipping,1132,DerekW,1,$0.00,$0.00,$0.05,3.00,1.00
+01-19-2026,10228,25681,78094,1132,Shipping,11,Shipping,1041 Brighton Ave Ste 8,Portland,Maine,4102,DW,Portland Smoke & Vape,Shipping,Shipping Tracking: 1Z90V7160304329958,1132,DerekW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-19-2026,10233,25690,77909,1851,Shipping,11,Shipping,"ATTN: Akram
+215 S Edsion Street",Salt Lake City,Utah,84111,BG,Edison Grab N Go | UT,Shipping,Shipping,1851,BrandonG,1,$0.00,$0.00,$0.05,2.00,1.00
+01-19-2026,10233,25690,78093,1851,Shipping,11,Shipping,"ATTN: Akram
+215 S Edsion Street",Salt Lake City,Utah,84111,BG,Edison Grab N Go | UT,Shipping,Shipping Tracking: 1Z90V7160311613930,1851,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-19-2026,10237,25739,78096,341,Shipping,11,Shipping,33766 Woodward Ave,Birmingham,Michigan,48009,ADM,WILD SIDE BIRMINGHAM-BH (MI),Shipping,Shipping Tracking: 1Z90V7160313850779,341,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-19-2026,10240,25742,78097,869,Shipping,11,Shipping,111 S River Rd Suite C,West Lafayette,Indiana,47906,ADM,WILD SIDE WEST LAFAYETTE-LF (IN),Shipping,Shipping Tracking: 1Z90V7160301233824,869,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-19-2026,10241,25743,78092,1644,Shipping,11,Shipping,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,Shipping,Shipping,1644,DerekW,1,$15.00,$15.00,$0.05,3.00,1.00
+01-19-2026,10241,25743,78119,1644,Shipping,11,Shipping,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160312430135,1644,DerekW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-19-2026,10242,25744,78112,1459,Shipping,11,Shipping,"ATTN: Sarah, 604 S Douglas Hwy",Gillette,Wyoming,82718,BG,Mountain High Wellness | WY,Shipping,Shipping Tracking: 1Z90V7160305721861,1459,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-19-2026,10243,25745,78111,975,Shipping,11,Shipping,1126 Blowing Rock Rd. Unit C,Boone,North Carolina,28607,ADM,SMOKE RINGS BOONE-BN (NC),Shipping,Shipping Tracking: 1Z90V7160316362032,975,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-19-2026,10244,25746,78113,862,Shipping,11,Shipping,1106 Burke St,Winston-Salem,North Carolina,27101,ADM,SMOKE RINGS WINSTON SALEM-WS (NC),Shipping,Shipping Tracking: 1Z90V7160313013101,862,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-19-2026,10245,25747,78123,993,Shipping,11,Shipping,758 9th St.,Durham,North Carolina,27705,ADM,SMOKE RINGS DURHAM-DH (NC),Shipping,Shipping Tracking: 1Z90V7160326349734,993,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-19-2026,10246,25748,78108,942,Shipping,11,Shipping,4201 Emerson Street,Wilmington,North Carolina,28401,ED,Port City Distro,Shipping,Shipping,942,Zalak,1,$0.00,$0.00,$0.05,2.00,1.00
+01-19-2026,10246,25748,78606,942,Shipping,11,Shipping,4201 Emerson Street,Wilmington,North Carolina,28401,ED,Port City Distro,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122502380,942,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-19-2026,10247,25749,78118,860,Shipping,11,Shipping,1207 S Kerr Ave,Wilmington,North Carolina,28403,ADM,SMOKE RINGS WILMINGTON-WT (NC),Shipping,Shipping Tracking: 1Z90V7160317689929,860,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-19-2026,10248,25750,78125,992,Shipping,11,Shipping,418 West Franklin St,Chapel Hill,North Carolina,27516,ADM,SMOKE RINGS CHAPEL HILL-CH (NC),Shipping,Shipping Tracking: 1Z90V7160329917758,992,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-19-2026,10249,25753,78287,574,Shipping,11,Shipping,"18023 Sky Park Circle, Unit J",Irvine,California,92614,CC,Fourice Brands LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122388000,574,Cori,2,$0.00,$0.00,$0.00,4.00,2.00
+01-19-2026,10249,25753,78127,574,TT-002-WL,144,TT-002-WL,"18023 Sky Park Circle, Unit J",Irvine,California,92614,CC,Fourice Brands LLC,HL-002-WL,TikTonics-Berry Bliss-100mg Kratom-2oz FG,574,Cori,"23,060",$3.00,"$69,180.00","$28,725.93",2.00,2.00
+01-19-2026,10241,25743,78095,1644,Sample Cost,0,,1 Coppland St,Quincy,Massachusetts,2169,DW,New Smoke Shop,,Samples,1644,DerekW,1,-$27.00,-$27.00,$0.00,4.00,1.00
+01-19-2026,10242,25744,78106,1459,Sample Cost,0,,"ATTN: Sarah, 604 S Douglas Hwy",Gillette,Wyoming,82718,BG,Mountain High Wellness | WY,,Samples,1459,BrandonG,1,-$27.00,-$27.00,$0.00,2.00,1.00
+01-20-2026,10270,25808,78291,1923,KB-2004,212,KB-2004,9031 Lake Shore Dr,Nampa,Idaho,83686,BG,Lakeshore Market | ID,KB-2004,RAW 60 ml single bottle,1923,BrandonG,6,$4.50,$27.00,$0.00,3.00,1.00
+01-20-2026,10253,25782,78224,1009,KB-3000,207,KB-3000,784 Asp Ave.,Norman,Oklahoma,65201,ADM,WILD SIDE NORMAN-NM (OK),KB-3000,Focus+Flow 12PK,1009,admin,4,$55.80,$223.20,$20.98,4.00,2.00
+01-20-2026,10258,25792,78248,1024,KB-3000,207,KB-3000,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),KB-3000,Focus+Flow 12PK,1024,admin,12,$55.80,$669.60,$62.94,4.00,2.00
+01-20-2026,10259,25793,78250,845,KB-3000,207,KB-3000,"44 Lafayette Rd. , Unit 8 North",North Hampton,New Hampshire,3862,ADM,WILD SIDE NORTH HAMPTON-HAM (NH),KB-3000,Focus+Flow 12PK,845,admin,12,$55.80,$669.60,$62.94,4.00,2.00
+01-20-2026,10261,25796,78254,980,KB-3000,207,KB-3000,1650a Storrs Rd,Storrs,Connecticut,6268,ADM,SMOKE ZONE STORRS-ST (CT),KB-3000,Focus+Flow 12PK,980,admin,2,$55.80,$111.60,$10.49,4.00,2.00
+01-20-2026,10262,25798,78259,1072,KB-3000,207,KB-3000,384 College Ave.,Clemson,South Carolina,29631,ADM,WILD SIDE CLEMSON-CL (SC),KB-3000,Focus+Flow 12PK,1072,admin,6,$55.80,$334.80,$31.47,2.00,2.00
+01-20-2026,10253,25782,78225,1009,KB-3001,193,KB-3001,784 Asp Ave.,Norman,Oklahoma,65201,ADM,WILD SIDE NORMAN-NM (OK),KB-3001,Release + Relax 12pk,1009,admin,2,$55.80,$111.60,$33.00,6.00,2.00
+01-20-2026,10260,25795,78252,852,KB-3001,193,KB-3001,539 King St.,Charleston,South Carolina,29403,ADM,WILD SIDE CHARLESTON-CR (SC),KB-3001,Release + Relax 12pk,852,admin,8,$55.80,$446.40,$132.00,2.00,2.00
+01-20-2026,10261,25796,78253,980,KB-3002,196,KB-3002,1650a Storrs Rd,Storrs,Connecticut,6268,ADM,SMOKE ZONE STORRS-ST (CT),KB-3002,Zoom 12PK,980,admin,6,$42.00,$252.00,$97.38,2.00,2.00
+01-20-2026,10263,25799,78260,849,KB-3002,196,KB-3002,"820 Nw 9th St, Suite 104",corvallis,Oregon,97330,ADM,WILD SIDE CORVALLIS-CV (OR),KB-3002,Zoom 12PK,849,admin,6,$42.00,$252.00,$97.38,2.00,2.00
+01-20-2026,10253,25782,78223,1009,KB-3003,204,KB-3003,784 Asp Ave.,Norman,Oklahoma,65201,ADM,WILD SIDE NORMAN-NM (OK),KB-3003,Mango-Tango 12pk,1009,admin,2,$60.00,$120.00,$34.47,2.00,2.00
+01-20-2026,10238,25740,78079,263,KB-4000,206,KB-4000,4200 Industry Dr E #A,Fife,Washington,98424,ADM,B.I.G. Wholesale,KB-4000,Focus MC12,263,admin,56,$576.00,"$32,256.00","$12,028.17",1.00,1.00
+01-20-2026,10252,25780,78217,1425,KB-4000,206,KB-4000,875 W Redclifs,Washington,Utah,84780,BG,Mike's Smoke cigar and gifts,KB-4000,Focus MC12,1425,BrandonG,4,$720.00,"$2,880.00",$955.38,1.00,1.00
+01-20-2026,10254,25783,78228,1557,KB-4000,206,KB-4000,14440 F St. Suite 111,Omaha,Nebraska,68137,ADM,Precision Edge Fit LLC,KB-4000,Focus MC12,1557,admin,8,$648.00,"$5,184.00","$1,847.15",1.00,1.00
+01-20-2026,10255,25784,78231,864,KB-4000,206,KB-4000,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),KB-4000,Focus MC12,864,admin,4,$669.60,"$2,678.40",$932.05,2.00,2.00
+01-20-2026,10257,25791,78246,1034,KB-4000,206,KB-4000,4650 N. Alafaya Trail Unit 102,Orlando,Florida,32826,ADM,WILD SIDE ORLANDO-OL (FL),KB-4000,Focus MC12,1034,admin,6,$669.60,"$4,017.60","$1,370.46",2.00,2.00
+01-20-2026,10264,25800,78261,843,KB-4000,206,KB-4000,107 8th ave. west suite 6,Williston,North Dakota,58801,BG,Hemp Plus,KB-4000,Focus MC12,843,BrandonG,1,-$720.00,-$720.00,-$233.01,1.00,1.00
+01-20-2026,10265,25801,78262,843,KB-4000,206,KB-4000,107 8th ave. west suite 6,Williston,North Dakota,58801,BG,Hemp Plus,KB-4000,Focus MC12,843,BrandonG,1,$720.00,$720.00,$233.01,1.00,1.00
+01-20-2026,10270,25808,78290,1923,KB-4000,206,KB-4000,9031 Lake Shore Dr,Nampa,Idaho,83686,BG,Lakeshore Market | ID,KB-4000,Focus MC12,1923,BrandonG,1,$720.00,$720.00,$224.68,1.00,1.00
+01-20-2026,10238,25740,78082,263,KB-4001,194,KB-4001,4200 Industry Dr E #A,Fife,Washington,98424,ADM,B.I.G. Wholesale,KB-4001,Release + Relax MC (12 boxes),263,admin,6,$525.50,"$3,153.00","$1,051.17",3.00,1.00
+01-20-2026,10259,25793,78249,845,KB-4001,194,KB-4001,"44 Lafayette Rd. , Unit 8 North",North Hampton,New Hampshire,3862,ADM,WILD SIDE NORTH HAMPTON-HAM (NH),KB-4001,Release + Relax MC (12 boxes),845,admin,2,$669.60,"$1,339.20",$350.39,2.00,2.00
+01-20-2026,10238,25740,78222,263,KB-4002,197,KB-4002,4200 Industry Dr E #A,Fife,Washington,98424,ADM,B.I.G. Wholesale,KB-4002,Zoom MC (12 boxes),263,admin,5,$417.60,"$2,088.00",$596.53,4.00,1.00
+01-20-2026,10238,25740,78081,263,KB-4003,205,KB-4003,4200 Industry Dr E #A,Fife,Washington,98424,ADM,B.I.G. Wholesale,KB-4003,Mango-Tango MC 12CT,263,admin,4,$576.00,"$2,304.00",$698.95,2.00,1.00
+01-20-2026,10254,25783,78229,1557,KB-4003,205,KB-4003,14440 F St. Suite 111,Omaha,Nebraska,68137,ADM,Precision Edge Fit LLC,KB-4003,Mango-Tango MC 12CT,1557,admin,1,$864.00,$864.00,$174.74,2.00,1.00
+01-20-2026,10258,25792,78247,1024,KB-4003,205,KB-4003,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),KB-4003,Mango-Tango MC 12CT,1024,admin,2,$720.00,"$1,440.00",$349.47,2.00,2.00
+01-20-2026,10238,25740,78609,263,Shipping,11,Shipping,4200 Industry Dr E #A,Fife,Washington,98424,ADM,B.I.G. Wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122576260,263,admin,1,$0.00,$0.00,$0.00,5.00,1.00
+01-20-2026,10252,25780,78218,1425,Shipping,11,Shipping,875 W Redclifs,Washington,Utah,84780,BG,Mike's Smoke cigar and gifts,Shipping,Shipping,1425,BrandonG,1,$0.00,$0.00,$0.05,2.00,1.00
+01-20-2026,10252,25780,78226,1425,Shipping,11,Shipping,875 W Redclifs,Washington,Utah,84780,BG,Mike's Smoke cigar and gifts,Shipping,Shipping Tracking: 1Z90V7160339789851,1425,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-20-2026,10253,25782,78237,1009,Shipping,11,Shipping,784 Asp Ave.,Norman,Oklahoma,65201,ADM,WILD SIDE NORMAN-NM (OK),Shipping,Shipping Tracking: 1Z90V7160329770719,1009,admin,2,$0.00,$0.00,$0.00,8.00,2.00
+01-20-2026,10254,25783,78230,1557,Shipping,11,Shipping,14440 F St. Suite 111,Omaha,Nebraska,68137,ADM,Precision Edge Fit LLC,Shipping,Shipping,1557,admin,9,$10.00,$90.00,$0.45,3.00,1.00
+01-20-2026,10254,25783,78286,1557,Shipping,11,Shipping,14440 F St. Suite 111,Omaha,Nebraska,68137,ADM,Precision Edge Fit LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122405690,1557,admin,1,$0.00,$0.00,$0.00,4.00,1.00
+01-20-2026,10255,25784,78243,864,Shipping,11,Shipping,102 Portland St,Portland,Maine,4101,ADM,WILD SIDE PORTLAND-PT (ME),Shipping,Shipping Tracking: 1Z90V7160300930064,864,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-20-2026,10257,25791,78379,1034,Shipping,11,Shipping,4650 N. Alafaya Trail Unit 102,Orlando,Florida,32826,ADM,WILD SIDE ORLANDO-OL (FL),Shipping,Shipping Tracking: 1Z90V7160315355177,1034,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-20-2026,10258,25792,78274,1024,Shipping,11,Shipping,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),Shipping,Shipping Tracking: 1Z90V7160333782761,1024,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-20-2026,10259,25793,78275,845,Shipping,11,Shipping,"44 Lafayette Rd. , Unit 8 North",North Hampton,New Hampshire,3862,ADM,WILD SIDE NORTH HAMPTON-HAM (NH),Shipping,Shipping Tracking: 1Z90V7160320169985,845,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-20-2026,10260,25795,78276,852,Shipping,11,Shipping,539 King St.,Charleston,South Carolina,29403,ADM,WILD SIDE CHARLESTON-CR (SC),Shipping,Shipping Tracking: 1Z90V7160322698007,852,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-20-2026,10261,25796,78273,980,Shipping,11,Shipping,1650a Storrs Rd,Storrs,Connecticut,6268,ADM,SMOKE ZONE STORRS-ST (CT),Shipping,Shipping Tracking: 1Z90V7160333981957,980,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-20-2026,10262,25798,78272,1072,Shipping,11,Shipping,384 College Ave.,Clemson,South Carolina,29631,ADM,WILD SIDE CLEMSON-CL (SC),Shipping,Shipping Tracking: 1Z90V7160337104343,1072,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-20-2026,10263,25799,78271,849,Shipping,11,Shipping,"820 Nw 9th St, Suite 104",corvallis,Oregon,97330,ADM,WILD SIDE CORVALLIS-CV (OR),Shipping,Shipping Tracking: 1Z90V7160318807110,849,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-20-2026,10265,25801,78269,843,Shipping,11,Shipping,107 8th ave. west suite 6,Williston,North Dakota,58801,BG,Hemp Plus,Shipping,Shipping Tracking: 1Z90V7160315677301,843,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-20-2026,10270,25808,78437,1923,Shipping,11,Shipping,9031 Lake Shore Dr,Nampa,Idaho,83686,BG,Lakeshore Market | ID,Shipping,Shipping Tracking: WILL CALL,1923,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-20-2026,10270,25808,78292,1923,Sample Cost,0,,9031 Lake Shore Dr,Nampa,Idaho,83686,BG,Lakeshore Market | ID,,Samples,1923,BrandonG,1,-$27.00,-$27.00,$0.00,2.00,1.00
+01-21-2026,10269,25807,78382,1787,CC Processing,74,CC Processing,1650 E Richards St Unit B,Douglas,Wyoming,82633,BG,Douglas Vapor LLC | WY,CC Processing,Credit Card Processing Fee,1787,BrandonG,1,$20.04,$20.04,$0.00,3.00,1.00
+01-21-2026,10272,25823,78327,977,KB-3000,207,KB-3000,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-3000,Focus+Flow 12PK,977,admin,4,$55.80,$223.20,$20.98,4.00,2.00
+01-21-2026,10271,25822,78325,1018,KB-3002,196,KB-3002,"405 W. University Dr.
+Suite 102",Tempe,Arizona,85281,ADM,WILD SIDE TEMPE-TP (AZ),KB-3002,Zoom 12PK,1018,admin,2,$42.00,$84.00,$32.46,4.00,2.00
+01-21-2026,10272,25823,78329,977,KB-3002,196,KB-3002,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-3002,Zoom 12PK,977,admin,4,$42.00,$168.00,$64.92,8.00,2.00
+01-21-2026,10272,25823,78328,977,KB-3003,204,KB-3003,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-3003,Mango-Tango 12pk,977,admin,2,$60.00,$120.00,$34.47,6.00,2.00
+01-21-2026,10275,25834,78388,1662,KB-3004,213,KB-3004,1919 hwy blvd,Spencer,Iowa,51301,JL,Smoke Stop (Spencer),KB-3004,RAW 12 pk,1662,Jared,1,$54.00,$54.00,$0.00,2.00,1.00
+01-21-2026,10282,25847,78432,323,KB-3004,213,KB-3004,203 G st,Davis,California,95616,BW,Illusions/Moe,KB-3004,RAW 12 pk,323,BenW,2,$54.00,$108.00,$0.00,3.00,1.00
+01-21-2026,10271,25822,78324,1018,KB-4000,206,KB-4000,"405 W. University Dr.
+Suite 102",Tempe,Arizona,85281,ADM,WILD SIDE TEMPE-TP (AZ),KB-4000,Focus MC12,1018,admin,2,$669.60,"$1,339.20",$456.82,2.00,2.00
+01-21-2026,10272,25823,78326,977,KB-4000,206,KB-4000,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),KB-4000,Focus MC12,977,admin,2,$669.60,"$1,339.20",$456.82,2.00,2.00
+01-21-2026,10273,25824,78330,1001,KB-4000,206,KB-4000,16516 Beach Blvd,Huntington Beach,California,92647,ADM,PURPLE HAZE HUNTINGTON BEACH-HN (CA),KB-4000,Focus MC12,1001,admin,2,$669.60,"$1,339.20",$456.82,2.00,2.00
+01-21-2026,10274,25825,78331,1417,KB-4000,206,KB-4000,9400 Fairview Ave STE 100,Boise,Idaho,83704,ADM,Viable Alternatives,KB-4000,Focus MC12,1417,admin,6,$684.00,"$4,104.00","$1,275.67",1.00,1.00
+01-21-2026,10275,25834,78387,1662,KB-4000,206,KB-4000,1919 hwy blvd,Spencer,Iowa,51301,JL,Smoke Stop (Spencer),KB-4000,Focus MC12,1662,Jared,2,$720.00,"$1,440.00",$453.43,1.00,1.00
+01-21-2026,10276,25835,78389,1533,KB-4000,206,KB-4000,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,KB-4000,Focus MC12,1533,Jared,1,$720.00,$720.00,$228.41,1.00,1.00
+01-21-2026,10277,25838,78393,1043,KB-4000,206,KB-4000,1440 Landmeier Road,Elk Grove Village,Illinois,60007,ADM,Silk Road Distro,KB-4000,Focus MC12,1043,admin,168,$576.00,"$96,768.00","$39,282.11",1.00,1.00
+01-21-2026,10279,25842,78407,1014,KB-4000,206,KB-4000,12910 Magnolia Blvd,Sherman Oaks,California,91423,ADM,PURPLE HAZE SHERMAN OAKS-SO (CA),KB-4000,Focus MC12,1014,admin,2,-$669.60,"-$1,339.20",-$453.43,2.00,2.00
+01-21-2026,10281,25846,78422,1194,KB-4000,206,KB-4000,"1525 S Baker Ave, Unit B",Ontario,California,91761,ADM,Supreme Glass Wholesale Inc,KB-4000,Focus MC12,1194,admin,56,$576.00,"$32,256.00","$12,028.17",1.00,1.00
+01-21-2026,10282,25847,78424,323,KB-4000,206,KB-4000,203 G st,Davis,California,95616,BW,Illusions/Moe,KB-4000,Focus MC12,323,BenW,8,$648.00,"$5,184.00","$1,718.31",1.00,1.00
+01-21-2026,10283,25848,78427,183,KB-4000,206,KB-4000,50 Sandwich Street,Plymouth,Massachusetts,2360,BG,The Vape Way,KB-4000,Focus MC12,183,BrandonG,3,$720.00,"$2,160.00",$674.03,1.00,1.00
+01-21-2026,10269,25807,78288,1787,KB-4001,194,KB-4001,1650 E Richards St Unit B,Douglas,Wyoming,82633,BG,Douglas Vapor LLC | WY,KB-4001,Release + Relax MC (12 boxes),1787,BrandonG,1,$648.00,$648.00,$175.19,1.00,1.00
+01-21-2026,10269,25807,78289,1787,Shipping,11,Shipping,1650 E Richards St Unit B,Douglas,Wyoming,82633,BG,Douglas Vapor LLC | WY,Shipping,Shipping,1787,BrandonG,1,$20.00,$20.00,$0.05,2.00,1.00
+01-21-2026,10269,25807,78403,1787,Shipping,11,Shipping,1650 E Richards St Unit B,Douglas,Wyoming,82633,BG,Douglas Vapor LLC | WY,Shipping,Shipping Tracking: 1Z90V7160325066185,1787,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-21-2026,10271,25822,78372,1018,Shipping,11,Shipping,"405 W. University Dr.
+Suite 102",Tempe,Arizona,85281,ADM,WILD SIDE TEMPE-TP (AZ),Shipping,Shipping Tracking: 1Z90V7160338346876,1018,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-21-2026,10272,25823,78368,977,Shipping,11,Shipping,6527 S Cedar St. Suite A,Lansing,Michigan,48911,ADM,WILD SIDE LANSING-LS (MI),Shipping,Shipping Tracking: 1Z90V7160336494059,977,admin,2,$0.00,$0.00,$0.00,10.00,2.00
+01-21-2026,10273,25824,78373,1001,Shipping,11,Shipping,16516 Beach Blvd,Huntington Beach,California,92647,ADM,PURPLE HAZE HUNTINGTON BEACH-HN (CA),Shipping,Shipping Tracking: 1Z90V7160327924495,1001,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-21-2026,10274,25825,78713,1417,Shipping,11,Shipping,9400 Fairview Ave STE 100,Boise,Idaho,83704,ADM,Viable Alternatives,Shipping,Shipping Tracking: WILL CALL,1417,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-21-2026,10275,25834,78421,1662,Shipping,11,Shipping,1919 hwy blvd,Spencer,Iowa,51301,JL,Smoke Stop (Spencer),Shipping,Shipping Tracking: 1Z90V7160339204599,1662,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-21-2026,10276,25835,78390,1533,Shipping,11,Shipping,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,Shipping,Shipping,1533,Jared,1,$20.00,$20.00,$0.05,2.00,1.00
+01-21-2026,10276,25835,78399,1533,Shipping,11,Shipping,719 2nd Ave W,Spencer,Iowa,51301,JL,C's Liquor,Shipping,Shipping Tracking: 1Z90V7160323322973,1533,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-21-2026,10277,25838,78394,1043,Shipping,11,Shipping,1440 Landmeier Road,Elk Grove Village,Illinois,60007,ADM,Silk Road Distro,Shipping,Shipping,1043,admin,3,$300.00,$900.00,$0.15,2.00,1.00
+01-21-2026,10277,25838,79216,1043,Shipping,11,Shipping,1440 Landmeier Road,Elk Grove Village,Illinois,60007,ADM,Silk Road Distro,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122773900,1043,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-21-2026,10281,25846,78610,1194,Shipping,11,Shipping,"1525 S Baker Ave, Unit B",Ontario,California,91761,ADM,Supreme Glass Wholesale Inc,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122547960,1194,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-21-2026,10282,25847,78425,323,Shipping,11,Shipping,203 G st,Davis,California,95616,BW,Illusions/Moe,Shipping,Shipping,323,BenW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-21-2026,10282,25847,78608,323,Shipping,11,Shipping,203 G st,Davis,California,95616,BW,Illusions/Moe,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122550710,323,BenW,1,$0.00,$0.00,$0.00,5.00,1.00
+01-21-2026,10283,25848,78439,183,Shipping,11,Shipping,50 Sandwich Street,Plymouth,Massachusetts,2360,BG,The Vape Way,Shipping,Shipping Tracking: 1Z90V7160322231028,183,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-21-2026,10282,25847,78433,323,Sample Cost,0,,203 G st,Davis,California,95616,BW,Illusions/Moe,,Samples,323,BenW,1,-$108.00,-$108.00,$0.00,4.00,1.00
+01-22-2026,10288,25867,78541,3117,Acrylic-008,200,Acrylic-008,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,Acrylic-008,4-Tier Acrylic- Focus+Flow Topper-  Empty Black,3117,DerekW,3,$0.00,$0.00,$0.00,7.00,1.00
+01-22-2026,10292,25884,78548,1463,CC Processing,74,CC Processing,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,CC Processing,Credit Card Processing Fee,1463,BrandonG,1,$10.14,$10.14,$0.00,5.00,1.00
+01-22-2026,10294,25886,78552,1076,CC Processing,74,CC Processing,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,CC Processing,Credit Card Processing Fee,1076,BenW,1,$278.15,$278.15,$0.00,3.00,1.00
+01-22-2026,10301,25900,78618,3197,KB-2000,186,KB-2000,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,KB-2000,FG-Focus and Flow 2oz,3197,BrandonG,3,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10303,25902,78625,3198,KB-2000,186,KB-2000,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,KB-2000,FG-Focus and Flow 2oz,3198,BrandonG,3,$0.00,$0.00,$0.00,2.00,1.00
+01-22-2026,10301,25900,78619,3197,KB-2001,191,KB-2001,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,KB-2001,Release + Relax 60ml,3197,BrandonG,3,$0.00,$0.00,$0.00,4.00,1.00
+01-22-2026,10303,25902,78626,3198,KB-2001,191,KB-2001,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,KB-2001,Release + Relax 60ml,3198,BrandonG,3,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10301,25900,78620,3197,KB-2002,195,KB-2002,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,KB-2002,Zoom 60ml bottle,3197,BrandonG,3,$0.00,$0.00,$0.00,5.00,1.00
+01-22-2026,10303,25902,78627,3198,KB-2002,195,KB-2002,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,KB-2002,Zoom 60ml bottle,3198,BrandonG,3,$0.00,$0.00,$0.00,4.00,1.00
+01-22-2026,10301,25900,78621,3197,KB-2003,203,KB-2003,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,KB-2003,Mango-Tango 15ml 120mg,3197,BrandonG,3,$0.00,$0.00,$0.00,6.00,1.00
+01-22-2026,10303,25902,78628,3198,KB-2003,203,KB-2003,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,KB-2003,Mango-Tango 15ml 120mg,3198,BrandonG,3,$0.00,$0.00,$0.00,5.00,1.00
+01-22-2026,10292,25884,78544,1463,KB-3000,207,KB-3000,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-3000,Focus+Flow 12PK,1463,BrandonG,3,$60.00,$180.00,$15.73,1.00,1.00
+01-22-2026,10295,25888,78558,1659,KB-3000,207,KB-3000,2245 W. Eisenhower Blvd Unit B4,Loveland,Colorado,80537,ADM,WILD SIDE LOVELAND-LL,KB-3000,Focus+Flow 12PK,1659,admin,8,$55.80,$446.40,$41.96,4.00,2.00
+01-22-2026,10292,25884,78546,1463,KB-3002,196,KB-3002,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-3002,Zoom 12PK,1463,BrandonG,2,$42.00,$84.00,$32.46,3.00,1.00
+01-22-2026,10295,25888,78559,1659,KB-3002,196,KB-3002,2245 W. Eisenhower Blvd Unit B4,Loveland,Colorado,80537,ADM,WILD SIDE LOVELAND-LL,KB-3002,Zoom 12PK,1659,admin,4,$42.00,$168.00,$64.92,6.00,2.00
+01-22-2026,10292,25884,78545,1463,KB-3004,213,KB-3004,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,KB-3004,RAW 12 pk,1463,BrandonG,1,$54.00,$54.00,$0.00,2.00,1.00
+01-22-2026,10222,25655,77778,1007,KB-4000,206,KB-4000,888 New Los Angeles Ave. Suite H,Moorpark,California,93021,ADM,WILD SIDE MOORPARK-MPARK (CA),KB-4000,Focus MC12,1007,admin,2,$669.60,"$1,339.20",$429.58,2.00,2.00
+01-22-2026,10280,25843,78408,451,KB-4000,206,KB-4000,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4000,Focus MC12,451,admin,56,$576.00,"$32,256.00","$12,028.17",1.00,1.00
+01-22-2026,10286,25855,78454,1276,KB-4000,206,KB-4000,141 E 26th St,Erie,Pennsylvania,16504,DW,Erie Distributors,KB-4000,Focus MC12,1276,DerekW,28,$626.40,"$17,539.20","$5,854.93",1.00,1.00
+01-22-2026,10287,25856,78456,1432,KB-4000,206,KB-4000,2401 N Ponce De Leon Blvd,St. Augustine,Florida,32084,ED,noura smoke & vape shop,KB-4000,Focus MC12,1432,Zalak,1,$720.00,$720.00,$216.83,1.00,1.00
+01-22-2026,10288,25867,78468,3117,KB-4000,206,KB-4000,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,KB-4000,Focus MC12,3117,DerekW,40,$612.00,"$24,480.00","$8,364.19",1.00,1.00
+01-22-2026,10289,25869,78475,2106,KB-4000,206,KB-4000,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,KB-4000,Focus MC12,2106,BenW,5,$626.40,"$3,132.00","$1,084.17",1.00,1.00
+01-22-2026,10294,25886,78550,1076,KB-4000,206,KB-4000,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,KB-4000,Focus MC12,1076,BenW,15,$612.00,"$9,180.00","$3,136.57",1.00,1.00
+01-22-2026,10295,25888,78557,1659,KB-4000,206,KB-4000,2245 W. Eisenhower Blvd Unit B4,Loveland,Colorado,80537,ADM,WILD SIDE LOVELAND-LL,KB-4000,Focus MC12,1659,admin,6,$669.60,"$4,017.60","$1,301.00",2.00,2.00
+01-22-2026,10296,25889,78560,87,KB-4000,206,KB-4000,5118 N Sawyer Ave,Boise,Idaho,83714,ADM,Vanguard Enterprises,KB-4000,Focus MC12,87,admin,54,$612.00,"$33,048.00","$12,876.03",2.00,2.00
+01-22-2026,10298,25891,78567,2106,KB-4000,206,KB-4000,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,KB-4000,Focus MC12,2106,BenW,2,$626.40,"$1,252.80",$433.67,1.00,1.00
+01-22-2026,10299,25892,78579,1447,KB-4000,206,KB-4000,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4000,Focus MC12,1447,admin,4,$576.00,"$2,304.00",$864.61,1.00,1.00
+01-22-2026,10300,25899,78603,1775,KB-4000,206,KB-4000,"1265 S Capitol Blvd, #101",Boise,Idaho,83706,ADM,Lg Mart,KB-4000,Focus MC12,1775,admin,2,$684.00,"$1,368.00",$429.58,1.00,1.00
+01-22-2026,10288,25867,78469,3117,KB-4001,194,KB-4001,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,KB-4001,Release + Relax MC (12 boxes),3117,DerekW,3,$540.00,"$1,620.00",$525.58,2.00,1.00
+01-22-2026,10296,25889,78561,87,KB-4001,194,KB-4001,5118 N Sawyer Ave,Boise,Idaho,83714,ADM,Vanguard Enterprises,KB-4001,Release + Relax MC (12 boxes),87,admin,4,$612.00,"$2,448.00",$700.78,4.00,2.00
+01-22-2026,10280,25843,78409,451,KB-4002,197,KB-4002,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4002,Zoom MC (12 boxes),451,admin,12,$423.36,"$5,080.32","$1,431.68",2.00,1.00
+01-22-2026,10288,25867,78470,3117,KB-4002,197,KB-4002,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,KB-4002,Zoom MC (12 boxes),3117,DerekW,2,$432.00,$864.00,$238.61,3.00,1.00
+01-22-2026,10299,25892,78580,1447,KB-4002,197,KB-4002,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,KB-4002,Zoom MC (12 boxes),1447,admin,1,$468.00,$468.00,$119.31,2.00,1.00
+01-22-2026,10280,25843,78410,451,KB-4003,205,KB-4003,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,KB-4003,Mango-Tango MC 12CT,451,admin,5,$604.80,"$3,024.00",$873.69,3.00,1.00
+01-22-2026,10288,25867,78471,3117,KB-4003,205,KB-4003,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,KB-4003,Mango-Tango MC 12CT,3117,DerekW,0,$576.00,$0.00,$0.00,4.00,1.00
+01-22-2026,10222,25655,78602,1007,Shipping,11,Shipping,888 New Los Angeles Ave. Suite H,Moorpark,California,93021,ADM,WILD SIDE MOORPARK-MPARK (CA),Shipping,Shipping Tracking: 1Z90V7160329742455,1007,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-22-2026,10280,25843,78607,451,Shipping,11,Shipping,901 Valley Ave NW,Puyallup,Washington,98371,ADM,Inderbitzin Distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122583380,451,admin,1,$0.00,$0.00,$0.00,4.00,1.00
+01-22-2026,10286,25855,78455,1276,Shipping,11,Shipping,141 E 26th St,Erie,Pennsylvania,16504,DW,Erie Distributors,Shipping,Shipping,1276,DerekW,1,$350.00,$350.00,$0.05,2.00,1.00
+01-22-2026,10286,25855,78817,1276,Shipping,11,Shipping,141 E 26th St,Erie,Pennsylvania,16504,DW,Erie Distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122635110,1276,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10287,25856,78457,1432,Shipping,11,Shipping,2401 N Ponce De Leon Blvd,St. Augustine,Florida,32084,ED,noura smoke & vape shop,Shipping,Shipping,1432,Zalak,1,$30.00,$30.00,$0.05,2.00,1.00
+01-22-2026,10287,25856,78582,1432,Shipping,11,Shipping,2401 N Ponce De Leon Blvd,St. Augustine,Florida,32084,ED,noura smoke & vape shop,Shipping,Shipping Tracking: 1Z90V7160307564046,1432,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10288,25867,78472,3117,Shipping,11,Shipping,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,Shipping,Shipping,3117,DerekW,1,$550.00,$550.00,$0.05,5.00,1.00
+01-22-2026,10288,25867,78816,3117,Shipping,11,Shipping,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122633970,3117,DerekW,1,$0.00,$0.00,$0.00,8.00,1.00
+01-22-2026,10289,25869,78476,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping,2106,BenW,5,$20.00,$100.00,$0.25,2.00,1.00
+01-22-2026,10289,25869,78583,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping Tracking: 1Z90V7160306494650,2106,BenW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10292,25884,78547,1463,Shipping,11,Shipping,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,Shipping,Shipping,1463,BrandonG,1,$20.00,$20.00,$0.05,4.00,1.00
+01-22-2026,10292,25884,78571,1463,Shipping,11,Shipping,1934 Sheridan Avenue,Cody,Wyoming,82414,BG,Capitol Botanicals | WY,Shipping,Shipping Tracking: 1Z90V7160300821584,1463,BrandonG,1,$0.00,$0.00,$0.00,6.00,1.00
+01-22-2026,10294,25886,78551,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping,1076,BenW,1,$91.80,$91.80,$0.05,2.00,1.00
+01-22-2026,10294,25886,78818,1076,Shipping,11,Shipping,1233 e beamer st Suite E1,woodland,California,95776,BW,woodland distributors,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122633310,1076,BenW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-22-2026,10295,25888,78576,1659,Shipping,11,Shipping,2245 W. Eisenhower Blvd Unit B4,Loveland,Colorado,80537,ADM,WILD SIDE LOVELAND-LL,Shipping,Shipping Tracking: 1Z90V7160332042384,1659,admin,2,$0.00,$0.00,$0.00,8.00,2.00
+01-22-2026,10296,25889,79183,87,Shipping,11,Shipping,5118 N Sawyer Ave,Boise,Idaho,83714,ADM,Vanguard Enterprises,Shipping,Shipping Tracking: WILL CALL,87,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-22-2026,10298,25891,78577,2106,Shipping,11,Shipping,2612 CELESTIAL LN,LINCOLN,California,95648,BW,NASEEB TRADING LLC,Shipping,Shipping Tracking: 1Z90V7160313770427,2106,BenW,1,$0.00,$0.00,$0.00,2.00,1.00
+01-22-2026,10299,25892,78598,1447,Shipping,11,Shipping,655 N Five Mile Road,Boise,Idaho,83713,ADM,Good Vibes Boise,Shipping,Shipping Tracking: WILL CALL,1447,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-22-2026,10300,25899,78605,1775,Shipping,11,Shipping,"1265 S Capitol Blvd, #101",Boise,Idaho,83706,ADM,Lg Mart,Shipping,Shipping Tracking: WILL CALL,1775,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-22-2026,10301,25900,78661,3197,Shipping,11,Shipping,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,Shipping,Shipping Tracking: 1Z90V7160310558734,3197,BrandonG,1,$0.00,$0.00,$0.00,7.00,1.00
+01-22-2026,10303,25902,78660,3198,Shipping,11,Shipping,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,Shipping,Shipping Tracking: 1Z90V7160321303265,3198,BrandonG,1,$0.00,$0.00,$0.00,7.00,1.00
+01-22-2026,10301,25900,78617,3197,Store Sample Kit,85,Store Sample Kit,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,,Store Sample Kit,3197,BrandonG,1,$54.00,$54.00,$13.31,2.00,1.00
+01-22-2026,10303,25902,78624,3198,Store Sample Kit,85,Store Sample Kit,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,,Store Sample Kit,3198,BrandonG,1,$54.00,$54.00,$13.31,1.00,1.00
+01-22-2026,10288,25867,78473,3117,Paid Shipping,0,,251 Andrews Rd,Mineola,New York,11501,DW,D2D Distribution,,AE Paid Shipping,3117,DerekW,0,-$550.00,-$550.00,$0.00,6.00,1.00
+01-22-2026,10301,25900,78623,3197,Sample Cost,0,,"ATTN: Manish
+690 W State St",Pleasant Grove,Utah,84062,BG,Quik Mart | UT,,Samples,3197,BrandonG,1,-$54.00,-$54.00,$0.00,1.00,1.00
+01-22-2026,10303,25902,78629,3198,Sample Cost,0,,"ATTN: Khan
+249 N Main Street",Brigham City,Utah,84414,BG,Tesoro Corporation,,Samples,3198,BrandonG,1,-$54.00,-$54.00,$0.00,6.00,1.00
+01-23-2026,10310,25928,78708,1473,KB-3000,207,KB-3000,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3000,Focus+Flow 12PK,1473,DerekW,2,$60.00,$120.00,$10.49,1.00,1.00
+01-23-2026,10311,25929,78714,1473,KB-3000,207,KB-3000,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3000,Focus+Flow 12PK,1473,DerekW,6,$60.00,$360.00,$31.47,1.00,1.00
+01-23-2026,10305,25918,78688,437,KB-4000,206,KB-4000,3536 W Vista Pradera Way,south jordan,Utah,84095,BG,Uno Wireless distribution llc,KB-4000,Focus MC12,437,BrandonG,30,$612.00,"$18,360.00","$7,014.66",1.00,1.00
+01-23-2026,10306,25922,78696,1011,KB-4000,206,KB-4000,637 Spring St,Paso Robles,California,93446,ADM,WILD SIDE PASO ROBLES-PAS (CA),KB-4000,Focus MC12,1011,admin,2,$669.60,"$1,339.20",$418.21,2.00,2.00
+01-23-2026,10307,25924,78701,570,KB-4000,206,KB-4000,5733 Logan CT,Denver,Colorado,80216,BG,Paykoc Imports,KB-4000,Focus MC12,570,BrandonG,56,$612.00,"$34,272.00","$13,094.04",1.00,1.00
+01-23-2026,10305,25918,78689,437,Shipping,11,Shipping,3536 W Vista Pradera Way,south jordan,Utah,84095,BG,Uno Wireless distribution llc,Shipping,Shipping,437,BrandonG,1,$220.98,$220.98,$0.05,2.00,1.00
+01-23-2026,10305,25918,79219,437,Shipping,11,Shipping,3536 W Vista Pradera Way,south jordan,Utah,84095,BG,Uno Wireless distribution llc,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122792640,437,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-23-2026,10306,25922,78738,1011,Shipping,11,Shipping,637 Spring St,Paso Robles,California,93446,ADM,WILD SIDE PASO ROBLES-PAS (CA),Shipping,Shipping Tracking: 1Z90V7160334427376,1011,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-23-2026,10307,25924,78702,570,Shipping,11,Shipping,5733 Logan CT,Denver,Colorado,80216,BG,Paykoc Imports,Shipping,Shipping,570,BrandonG,1,$342.72,$342.72,$0.05,2.00,1.00
+01-23-2026,10307,25924,79217,570,Shipping,11,Shipping,5733 Logan CT,Denver,Colorado,80216,BG,Paykoc Imports,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122776950,570,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-23-2026,10310,25928,78735,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: Item already shipped to customer,1473,DerekW,1,$0.00,$0.00,$0.00,2.00,1.00
+01-23-2026,10311,25929,78715,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping,1473,DerekW,1,$15.00,$15.00,$0.05,2.00,1.00
+01-23-2026,10311,25929,78743,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160333098582,1473,DerekW,1,$0.00,$0.00,$0.00,3.00,1.00
+01-26-2026,10193,25551,78909,1136,CC Processing,74,CC Processing,116 Hillcrest Avenue,Glendive,Montana,59330,BG,Montana Moon Reflexology LLC,CC Processing,Credit Card Processing Fee,1136,BrandonG,1,$1.77,$1.77,$0.00,3.00,1.00
+01-26-2026,10314,25996,78928,2026,CC Processing,74,CC Processing,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,CC Processing,Credit Card Processing Fee,2026,BrandonG,1,$7.50,$7.50,$0.00,3.00,1.00
+01-26-2026,10316,25998,78915,919,CC Processing,74,CC Processing,615 E North St,Rapid City,South Dakota,57701,BG,Smoke Solutions Super Store | SD,CC Processing,Credit Card Processing Fee,919,BrandonG,1,$43.20,$43.20,$0.00,2.00,1.00
+01-26-2026,10314,25996,78910,2026,KB-3000,207,KB-3000,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,KB-3000,Focus+Flow 12PK,2026,BrandonG,4,$60.00,$240.00,$20.98,1.00,1.00
+01-26-2026,10321,26007,78985,1473,KB-3001,193,KB-3001,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3001,Release + Relax 12pk,1473,DerekW,2,$54.00,$108.00,$33.00,1.00,1.00
+01-26-2026,10321,26007,78986,1473,KB-3002,196,KB-3002,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,KB-3002,Zoom 12PK,1473,DerekW,2,$42.00,$84.00,$32.46,2.00,1.00
+01-26-2026,10193,25551,77429,1136,KB-3004,213,KB-3004,116 Hillcrest Avenue,Glendive,Montana,59330,BG,Montana Moon Reflexology LLC,KB-3004,RAW 12 pk,1136,BrandonG,1,$54.00,$54.00,$0.00,1.00,1.00
+01-26-2026,10315,25997,78912,1916,KB-4000,206,KB-4000,509 W Lincolnway,Cheyenne,Wyoming,82001-4325,BG,iCloud Vape and Smoke 5 | Cheyenne,KB-4000,Focus MC12,1916,BrandonG,2,$684.00,"$1,368.00",$494.21,1.00,1.00
+01-26-2026,10316,25998,78913,919,KB-4000,206,KB-4000,615 E North St,Rapid City,South Dakota,57701,BG,Smoke Solutions Super Store | SD,KB-4000,Focus MC12,919,BrandonG,2,$720.00,"$1,440.00",$494.21,1.00,1.00
+01-26-2026,10319,26000,78924,848,KB-4000,206,KB-4000,1414 E. Harmony Rd. Unit 3E,Fort Collins,Colorado,80525,ADM,WILD SIDE FORT COLLINS-FC2 (CO),KB-4000,Focus MC12,848,admin,26,$669.60,"$17,409.60","$5,759.00",2.00,2.00
+01-26-2026,10320,26001,78926,1779,KB-4000,206,KB-4000,3502 E Route 66,Flagstaff,Arizona,86004,ADM,WILD SIDE FLAGSTAFF- FS2,KB-4000,Focus MC12,1779,admin,1,$669.60,$669.60,$247.11,1.00,1.00
+01-26-2026,10322,26008,78987,1129,KB-4000,206,KB-4000,"ATTN: Tiffany, 1801 N Montana Ave",Helena,Montana,59601,BG,The Karma Korner | Helena,KB-4000,Focus MC12,1129,BrandonG,8,$684.00,"$5,472.00","$1,772.00",1.00,1.00
+01-26-2026,10322,26008,78988,1129,KB-4004,214,KB-4004,"ATTN: Tiffany, 1801 N Montana Ave",Helena,Montana,59601,BG,The Karma Korner | Helena,KB-4004,RAW MC (12 count),1129,BrandonG,2,$648.00,"$1,296.00",$301.62,2.00,1.00
+01-26-2026,10193,25551,77430,1136,Shipping,11,Shipping,116 Hillcrest Avenue,Glendive,Montana,59330,BG,Montana Moon Reflexology LLC,Shipping,Shipping,1136,BrandonG,1,$5.00,$5.00,$0.05,2.00,1.00
+01-26-2026,10193,25551,79049,1136,Shipping,11,Shipping,116 Hillcrest Avenue,Glendive,Montana,59330,BG,Montana Moon Reflexology LLC,Shipping,Shipping Tracking: 1Z90V7160326455566,1136,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-26-2026,10314,25996,78911,2026,Shipping,11,Shipping,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,Shipping,Shipping,2026,BrandonG,1,$10.00,$10.00,$0.05,2.00,1.00
+01-26-2026,10314,25996,79050,2026,Shipping,11,Shipping,"ATTN: Brian
+75 S Madison St 
+Ste 201",Denver,Colorado,80209,BG,Numia Healing,Shipping,Shipping Tracking: 1Z90V7160336699570,2026,BrandonG,1,$0.00,$0.00,$0.00,4.00,1.00
+01-26-2026,10315,25997,79048,1916,Shipping,11,Shipping,509 W Lincolnway,Cheyenne,Wyoming,82001-4325,BG,iCloud Vape and Smoke 5 | Cheyenne,Shipping,Shipping Tracking: 1Z90V7160330065149,1916,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-26-2026,10316,25998,79047,919,Shipping,11,Shipping,615 E North St,Rapid City,South Dakota,57701,BG,Smoke Solutions Super Store | SD,Shipping,Shipping Tracking: 1Z90V7160310782009,919,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-26-2026,10319,26000,79413,848,Shipping,11,Shipping,1414 E. Harmony Rd. Unit 3E,Fort Collins,Colorado,80525,ADM,WILD SIDE FORT COLLINS-FC2 (CO),Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122810550,848,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-26-2026,10320,26001,79042,1779,Shipping,11,Shipping,3502 E Route 66,Flagstaff,Arizona,86004,ADM,WILD SIDE FLAGSTAFF- FS2,Shipping,Shipping Tracking: 1Z90V7160310053985,1779,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-26-2026,10321,26007,78992,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping,1473,DerekW,1,$15.00,$15.00,$0.05,3.00,1.00
+01-26-2026,10321,26007,79043,1473,Shipping,11,Shipping,498 Stillwater Ave,Old Town,Maine,4468,DW,Maine Smoke Shop,Shipping,Shipping Tracking: 1Z90V7160319729391,1473,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-26-2026,10322,26008,79412,1129,Shipping,11,Shipping,"ATTN: Tiffany, 1801 N Montana Ave",Helena,Montana,59601,BG,The Karma Korner | Helena,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122808690,1129,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10187,25539,77381,2483,Acrylic-007,199,Acrylic-007,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,Acrylic-007,4-Tier Acrylic Focus+Flow Topper-  Empty White,2483,Jared,1,$299.00,$299.00,$31.75,1.00,1.00
+01-27-2026,10210,25611,77627,2566,Acrylic-007,199,Acrylic-007,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,Acrylic-007,4-Tier Acrylic Focus+Flow Topper-  Empty White,2566,Jared,1,$299.00,$299.00,$31.75,1.00,1.00
+01-27-2026,10211,25612,77633,2565,Acrylic-007,199,Acrylic-007,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,Acrylic-007,4-Tier Acrylic Focus+Flow Topper-  Empty White,2565,Jared,1,$299.00,$299.00,$31.75,1.00,1.00
+01-27-2026,10187,25539,79169,2483,CC Processing,74,CC Processing,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,CC Processing,Credit Card Processing Fee,2483,Jared,1,$8.97,$8.97,$0.00,7.00,1.00
+01-27-2026,10210,25611,79168,2566,CC Processing,74,CC Processing,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,CC Processing,Credit Card Processing Fee,2566,Jared,1,$8.97,$8.97,$0.00,7.00,1.00
+01-27-2026,10211,25612,79173,2565,CC Processing,74,CC Processing,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,CC Processing,Credit Card Processing Fee,2565,Jared,1,$8.97,$8.97,$0.00,7.00,1.00
+01-27-2026,10333,26047,79167,1675,CC Processing,74,CC Processing,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,CC Processing,Credit Card Processing Fee,1675,BrandonG,1,$13.77,$13.77,$0.00,4.00,1.00
+01-27-2026,10187,25539,77382,2483,KB-3000,207,KB-3000,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,KB-3000,Focus+Flow 12PK,2483,Jared,2,$0.00,$0.00,$0.00,2.00,1.00
+01-27-2026,10210,25611,77628,2566,KB-3000,207,KB-3000,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,KB-3000,Focus+Flow 12PK,2566,Jared,2,$0.00,$0.00,$0.00,2.00,1.00
+01-27-2026,10211,25612,77634,2565,KB-3000,207,KB-3000,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,KB-3000,Focus+Flow 12PK,2565,Jared,2,$0.00,$0.00,$0.00,2.00,1.00
+01-27-2026,10329,26031,79089,1024,KB-3000,207,KB-3000,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),KB-3000,Focus+Flow 12PK,1024,admin,14,$0.00,$0.00,$0.00,2.00,2.00
+01-27-2026,10340,26070,79238,1019,KB-3000,207,KB-3000,427 N. 4th Ave.,Tucson,Arizona,85705,ADM,WILD SIDE TUCSON-TUC (AZ),KB-3000,Focus+Flow 12PK,1019,admin,12,$55.80,$669.60,$62.94,2.00,2.00
+01-27-2026,10187,25539,77385,2483,KB-3001,193,KB-3001,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,KB-3001,Release + Relax 12pk,2483,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-27-2026,10210,25611,77631,2566,KB-3001,193,KB-3001,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,KB-3001,Release + Relax 12pk,2566,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-27-2026,10211,25612,77637,2565,KB-3001,193,KB-3001,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,KB-3001,Release + Relax 12pk,2565,Jared,1,$0.00,$0.00,$0.00,5.00,1.00
+01-27-2026,10323,26023,79024,1720,KB-3001,193,KB-3001,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,KB-3001,Release + Relax 12pk,1720,Zalak,1,$60.00,$60.00,$16.50,2.00,1.00
+01-27-2026,10187,25539,77384,2483,KB-3002,196,KB-3002,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,KB-3002,Zoom 12PK,2483,Jared,2,$0.00,$0.00,$0.00,4.00,1.00
+01-27-2026,10210,25611,77630,2566,KB-3002,196,KB-3002,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,KB-3002,Zoom 12PK,2566,Jared,2,$0.00,$0.00,$0.00,4.00,1.00
+01-27-2026,10211,25612,77636,2565,KB-3002,196,KB-3002,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,KB-3002,Zoom 12PK,2565,Jared,2,$0.00,$0.00,$0.00,4.00,1.00
+01-27-2026,10323,26023,79025,1720,KB-3002,196,KB-3002,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,KB-3002,Zoom 12PK,1720,Zalak,1,$42.00,$42.00,$16.23,3.00,1.00
+01-27-2026,10333,26047,79159,1675,KB-3002,196,KB-3002,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,KB-3002,Zoom 12PK,1675,BrandonG,8,$42.00,$336.00,$129.84,1.00,1.00
+01-27-2026,10334,26048,79163,425,KB-3002,196,KB-3002,1218 S Mission St,Mt Pleasant,Michigan,48858,ADM,WILD SIDE MOUNT PLEASANT-MP (MI),KB-3002,Zoom 12PK,425,admin,10,$42.00,$420.00,$162.30,4.00,2.00
+01-27-2026,10187,25539,77386,2483,KB-3003,204,KB-3003,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,KB-3003,Mango-Tango 12pk,2483,Jared,1,$0.00,$0.00,$0.00,6.00,1.00
+01-27-2026,10210,25611,77632,2566,KB-3003,204,KB-3003,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,KB-3003,Mango-Tango 12pk,2566,Jared,1,$0.00,$0.00,$0.00,6.00,1.00
+01-27-2026,10211,25612,77638,2565,KB-3003,204,KB-3003,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,KB-3003,Mango-Tango 12pk,2565,Jared,1,$0.00,$0.00,$0.00,6.00,1.00
+01-27-2026,10187,25539,77383,2483,KB-3004,213,KB-3004,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,KB-3004,RAW 12 pk,2483,Jared,2,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10210,25611,77629,2566,KB-3004,213,KB-3004,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,KB-3004,RAW 12 pk,2566,Jared,2,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10211,25612,77635,2565,KB-3004,213,KB-3004,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,KB-3004,RAW 12 pk,2565,Jared,2,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10333,26047,79160,1675,KB-3004,213,KB-3004,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,KB-3004,RAW 12 pk,1675,BrandonG,2,$54.00,$108.00,$0.00,2.00,1.00
+01-27-2026,10312,25931,78720,255,KB-4000,206,KB-4000,"6221 S Santa Fe Drive, Unit A",Littleton,Colorado,80246,BG,Colorado Herbal Imports | Eroy,KB-4000,Focus MC12,255,BrandonG,28,$626.40,"$17,539.20","$6,202.00",1.00,1.00
+01-27-2026,10317,25999,78916,284,KB-4000,206,KB-4000,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,KB-4000,Focus MC12,284,Jared,56,$576.00,"$32,256.00","$12,404.00",1.00,1.00
+01-27-2026,10323,26023,79023,1720,KB-4000,206,KB-4000,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,KB-4000,Focus MC12,1720,Zalak,2,$720.00,"$1,440.00",$487.87,1.00,1.00
+01-27-2026,10324,26024,79028,1494,KB-4000,206,KB-4000,3220 45th Street,West Palm Beach,Florida,33407,ED,Nepa 2 Wholesale LLC,KB-4000,Focus MC12,1494,Zalak,224,$597.60,"$133,862.41","$49,616.01",1.00,1.00
+01-27-2026,10325,26025,79044,541,KB-4000,206,KB-4000,1660 Ridgewood Ave,Daytona Beach,,32117,ADM,Pumpernickel Pops,KB-4000,Focus MC12,541,admin,8,$684.00,"$5,472.00","$1,772.00",1.00,1.00
+01-27-2026,10326,26027,79063,984,KB-4000,206,KB-4000,1101 E. Grand River Ave,East Lansing,Michigan,48823,ADM,WILD SIDE EAST LANSING-EL (MI),KB-4000,Focus MC12,984,admin,2,$669.60,"$1,339.20",$443.00,2.00,2.00
+01-27-2026,10330,26035,79099,775,KB-4000,206,KB-4000,4690 interstate dr suite S,west chester,Ohio,45246,ADM,Px wholesale,KB-4000,Focus MC12,775,admin,15,$626.40,"$9,396.00","$3,507.33",1.00,1.00
+01-27-2026,10331,26039,79126,245,KB-4000,206,KB-4000,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-4000,Focus MC12,245,admin,4,$576.00,"$2,304.00",$915.65,1.00,1.00
+01-27-2026,10332,26044,79147,994,KB-4000,206,KB-4000,1770 Golden Mile Highway,Monroeville,Pennsylvania,15146,ADM,WILD SIDE MONROEVILLE-MV (PA),KB-4000,Focus MC12,994,admin,2,$669.60,"$1,339.20",$476.89,2.00,2.00
+01-27-2026,10334,26048,79162,425,KB-4000,206,KB-4000,1218 S Mission St,Mt Pleasant,Michigan,48858,ADM,WILD SIDE MOUNT PLEASANT-MP (MI),KB-4000,Focus MC12,425,admin,6,$669.60,"$4,017.60","$1,430.67",2.00,2.00
+01-27-2026,10336,26054,79193,1866,KB-4000,206,KB-4000,2350 W Hemingway Blvd,Nampa,Idaho,83651,ADM,SF Professional Distribution LLC,KB-4000,Focus MC12,1866,admin,20,$684.00,"$13,680.00","$4,430.00",1.00,1.00
+01-27-2026,10337,26057,79204,1971,KB-4000,206,KB-4000,2320 George Urban Blvd Unit 5,Depew,New York,14043,DW,Z&A Wholesale,KB-4000,Focus MC12,1971,DerekW,1,$626.40,$626.40,$221.50,3.00,1.00
+01-27-2026,10327,26028,79066,1017,KB-4001,194,KB-4001,9857 Topanga Canyon Blvd,Chatsworth,California,91311,ADM,PURPLE HAZE CHATSWORTH-TOP (CA),KB-4001,Release + Relax MC (12 boxes),1017,admin,2,$669.60,"$1,339.20",$350.39,2.00,2.00
+01-27-2026,10331,26039,79127,245,KB-4002,197,KB-4002,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,KB-4002,Zoom MC (12 boxes),245,admin,1,$468.00,$468.00,$119.31,2.00,1.00
+01-27-2026,10187,25539,79287,2483,Shipping,11,Shipping,2238 S Lamar BLVD,Austin,Texas,78704,JL,Lamar Grocery,Shipping,Shipping Tracking: 1Z90V7160320747181,2483,Jared,1,$0.00,$0.00,$0.00,8.00,1.00
+01-27-2026,10210,25611,79291,2566,Shipping,11,Shipping,11655 Research Blvd #2,Austin,Texas,78759,JL,Smokeland,Shipping,Shipping Tracking: 1Z90V7160337605598,2566,Jared,1,$0.00,$0.00,$0.00,8.00,1.00
+01-27-2026,10211,25612,79378,2565,Shipping,11,Shipping,1923 E 7th St. STE 180,Austin,Texas,78702,JL,Puff & Snack,Shipping,Shipping Tracking: 1Z90V7160329579589,2565,Jared,1,$0.00,$0.00,$0.00,8.00,1.00
+01-27-2026,10312,25931,78721,255,Shipping,11,Shipping,"6221 S Santa Fe Drive, Unit A",Littleton,Colorado,80246,BG,Colorado Herbal Imports | Eroy,Shipping,Shipping,255,BrandonG,1,$334.00,$334.00,$0.05,2.00,1.00
+01-27-2026,10312,25931,79410,255,Shipping,11,Shipping,"6221 S Santa Fe Drive, Unit A",Littleton,Colorado,80246,BG,Colorado Herbal Imports | Eroy,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122821880,255,BrandonG,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10317,25999,78917,284,Shipping,11,Shipping,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,Shipping,Shipping,284,Jared,1,$322.00,$322.00,$0.05,2.00,1.00
+01-27-2026,10317,25999,79414,284,Shipping,11,Shipping,20731 N Scottsdale Road Unit 103,Scottsdale,Arizona,85255,JL,ISmoke Cigars and Vape LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122856960,284,Jared,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10323,26023,79027,1720,Shipping,11,Shipping,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,Shipping,Shipping,1720,Zalak,1,$0.00,$0.00,$0.05,5.00,1.00
+01-27-2026,10323,26023,79133,1720,Shipping,11,Shipping,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,Shipping,Shipping Tracking: 1Z90V7160339451778,1720,Zalak,1,$0.00,$0.00,$0.00,6.00,1.00
+01-27-2026,10324,26024,79029,1494,Shipping,11,Shipping,3220 45th Street,West Palm Beach,Florida,33407,ED,Nepa 2 Wholesale LLC,Shipping,Shipping,1494,Zalak,1,$0.00,$0.00,$0.05,2.00,1.00
+01-27-2026,10324,26024,79415,1494,Shipping,11,Shipping,3220 45th Street,West Palm Beach,Florida,33407,ED,Nepa 2 Wholesale LLC,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122859830,1494,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10325,26025,79045,541,Shipping,11,Shipping,1660 Ridgewood Ave,Daytona Beach,,32117,ADM,Pumpernickel Pops,Shipping,Shipping,541,admin,1,$130.00,$130.00,$0.05,2.00,1.00
+01-27-2026,10325,26025,79411,541,Shipping,11,Shipping,1660 Ridgewood Ave,Daytona Beach,,32117,ADM,Pumpernickel Pops,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122809660,541,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10326,26027,79379,984,Shipping,11,Shipping,1101 E. Grand River Ave,East Lansing,Michigan,48823,ADM,WILD SIDE EAST LANSING-EL (MI),Shipping,Shipping Tracking: 1Z90V7160338725993,984,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-27-2026,10327,26028,79140,1017,Shipping,11,Shipping,9857 Topanga Canyon Blvd,Chatsworth,California,91311,ADM,PURPLE HAZE CHATSWORTH-TOP (CA),Shipping,Shipping Tracking: 1Z90V7160321115816,1017,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-27-2026,10329,26031,79382,1024,Shipping,11,Shipping,1029 W. University Ave,Gainesville,Florida,32601,ADM,WILD SIDE GAINESVILLE-GV2 (FL),Shipping,Shipping Tracking: 1Z90V7160325660416,1024,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-27-2026,10330,26035,79101,775,Shipping,11,Shipping,4690 interstate dr suite S,west chester,Ohio,45246,ADM,Px wholesale,Shipping,Shipping,775,admin,1,$245.00,$245.00,$0.05,2.00,1.00
+01-27-2026,10330,26035,79218,775,Shipping,11,Shipping,4690 interstate dr suite S,west chester,Ohio,45246,ADM,Px wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122788890,775,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10331,26039,79353,245,Shipping,11,Shipping,607 n Orchard,boise,Idaho,83706,ADM,Elevated Alternatives,Shipping,Shipping Tracking: Will Call,245,admin,1,$0.00,$0.00,$0.00,3.00,1.00
+01-27-2026,10332,26044,79188,994,Shipping,11,Shipping,1770 Golden Mile Highway,Monroeville,Pennsylvania,15146,ADM,WILD SIDE MONROEVILLE-MV (PA),Shipping,Shipping Tracking: 1Z90V7160317355155,994,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-27-2026,10333,26047,79161,1675,Shipping,11,Shipping,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,Shipping,Shipping,1675,BrandonG,1,$15.00,$15.00,$0.05,3.00,1.00
+01-27-2026,10333,26047,79192,1675,Shipping,11,Shipping,1829 Dell Range Blvd,Cheyenne,Wyoming,82009,BG,Pluto's Smoke Shop | WY,Shipping,Shipping Tracking: 1Z90V7160321103132,1675,BrandonG,1,$0.00,$0.00,$0.00,5.00,1.00
+01-27-2026,10334,26048,79186,425,Shipping,11,Shipping,1218 S Mission St,Mt Pleasant,Michigan,48858,ADM,WILD SIDE MOUNT PLEASANT-MP (MI),Shipping,Shipping Tracking: 1Z90V7160338507871,425,admin,2,$0.00,$0.00,$0.00,6.00,2.00
+01-27-2026,10336,26054,79406,1866,Shipping,11,Shipping,2350 W Hemingway Blvd,Nampa,Idaho,83651,ADM,SF Professional Distribution LLC,Shipping,Shipping Tracking: WILL CALL,1866,admin,1,$0.00,$0.00,$0.00,2.00,1.00
+01-27-2026,10337,26057,79203,1971,Shipping,11,Shipping,2320 George Urban Blvd Unit 5,Depew,New York,14043,DW,Z&A Wholesale,Shipping,Shipping,1971,DerekW,1,$0.00,$0.00,$0.05,2.00,1.00
+01-27-2026,10337,26057,79380,1971,Shipping,11,Shipping,2320 George Urban Blvd Unit 5,Depew,New York,14043,DW,Z&A Wholesale,Shipping,Shipping Tracking: 1Z90V7160331851609,1971,DerekW,1,$0.00,$0.00,$0.00,4.00,1.00
+01-27-2026,10340,26070,79302,1019,Shipping,11,Shipping,427 N. 4th Ave.,Tucson,Arizona,85705,ADM,WILD SIDE TUCSON-TUC (AZ),Shipping,Shipping Tracking: 1Z90V7160322776066,1019,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-27-2026,10323,26023,79026,1720,Promo Discount,0,,3093 NE 163rd St,North Miami Beach,Florida,33160,ED,World of Smoke & Vape North MIami Beach,,Promo Discount,1720,Zalak,1,-$102.00,-$102.00,$0.00,4.00,1.00
+01-27-2026,10337,26057,79202,1971,RDISC,0,,2320 George Urban Blvd Unit 5,Depew,New York,14043,DW,Z&A Wholesale,,Special Discount ( ),1971,DerekW,1,-$14.40,-$14.40,$0.00,1.00,1.00
+01-28-2026,10338,26060,79368,1352,CC Processing,74,CC Processing,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,CC Processing,Credit Card Processing Fee,1352,BrandonG,1,$1.95,$1.95,$0.00,5.00,1.00
+01-28-2026,10339,26061,79408,1959,CC Processing,74,CC Processing,"ATTN: Christy
+1616 Liliha Street #104",Honolulu,Hawaii,96817,BG,Aloha Vibrations,CC Processing,Credit Card Processing Fee,1959,BrandonG,1,$8.47,$8.47,$0.00,4.00,1.00
+01-28-2026,10341,26089,79313,1162,KB-2000,186,KB-2000,104 E 29th St suite d,Loveland,Colorado,80538,BG,The Hideout Vape & Glass | CO,KB-2000,FG-Focus and Flow 2oz,1162,BrandonG,1,$5.00,$5.00,$0.65,3.00,1.00
+01-28-2026,10338,26060,79212,1352,KB-2004,212,KB-2004,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,KB-2004,RAW 60 ml single bottle,1352,BrandonG,4,$4.50,$18.00,$0.00,2.00,1.00
+01-28-2026,10338,26060,79211,1352,KB-3000,207,KB-3000,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,KB-3000,Focus+Flow 12PK,1352,BrandonG,1,$60.00,$60.00,$5.24,1.00,1.00
+01-28-2026,10339,26061,79224,1959,KB-3000,207,KB-3000,"ATTN: Christy
+1616 Liliha Street #104",Honolulu,Hawaii,96817,BG,Aloha Vibrations,KB-3000,Focus+Flow 12PK,1959,BrandonG,3,$60.00,$180.00,$15.73,1.00,1.00
+01-28-2026,10343,26091,79320,1673,KB-3000,207,KB-3000,728 Stateline Rd,West Siloam Springs,Oklahoma,74338,ED,Mad Hatters Tea & Gifts Siloam Springs,KB-3000,Focus+Flow 12PK,1673,Zalak,5,$60.00,$300.00,$26.23,1.00,1.00
+01-28-2026,10339,26061,79225,1959,KB-3001,193,KB-3001,"ATTN: Christy
+1616 Liliha Street #104",Honolulu,Hawaii,96817,BG,Aloha Vibrations,KB-3001,Release + Relax 12pk,1959,BrandonG,1,$54.00,$54.00,$16.50,2.00,1.00
+01-28-2026,10346,26106,79389,204,KB-3002,196,KB-3002,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,KB-3002,Zoom 12PK,204,admin,8,$42.00,$336.00,$129.84,4.00,2.00
+01-28-2026,10341,26089,79314,1162,KB-3004,213,KB-3004,104 E 29th St suite d,Loveland,Colorado,80538,BG,The Hideout Vape & Glass | CO,KB-3004,RAW 12 pk,1162,BrandonG,6,$4.50,$27.00,$0.00,4.00,1.00
+01-28-2026,10313,25995,78905,1505,KB-4000,206,KB-4000,21707 66th Ave W,Mountlake terrece,Washington,98043,BW,Northwest Importer - mountlake,KB-4000,Focus MC12,1505,BenW,0,$612.00,"$34,272.00",$0.00,1.00,1.00
+01-28-2026,10341,26089,79312,1162,KB-4000,206,KB-4000,104 E 29th St suite d,Loveland,Colorado,80538,BG,The Hideout Vape & Glass | CO,KB-4000,Focus MC12,1162,BrandonG,2,$720.00,"$1,440.00",$457.82,1.00,1.00
+01-28-2026,10342,26090,79316,1175,KB-4000,206,KB-4000,5722 Logan Court,Denver,Colorado,80216,BG,CA Wholesale,KB-4000,Focus MC12,1175,BrandonG,112,$576.00,"$64,512.00","$24,808.01",1.00,1.00
+01-28-2026,10345,26100,79365,1015,KB-4000,206,KB-4000,211 N. Perkins Rd. Suite 9,Stillwater,Oklahoma,74075,ADM,WILD SIDE STILLWATER-SW (OK),KB-4000,Focus MC12,1015,admin,4,$669.60,"$2,678.40",$899.30,2.00,2.00
+01-28-2026,10346,26106,79388,204,KB-4002,197,KB-4002,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,KB-4002,Zoom MC (12 boxes),204,admin,4,$432.00,"$1,728.00",$477.23,2.00,2.00
+01-28-2026,10338,26060,79214,1352,Shipping,11,Shipping,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,Shipping,Shipping,1352,BrandonG,1,$5.00,$5.00,$0.05,4.00,1.00
+01-28-2026,10338,26060,79387,1352,Shipping,11,Shipping,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,Shipping,Shipping Tracking: 1Z90V7160322143632,1352,BrandonG,1,$0.00,$0.00,$0.00,6.00,1.00
+01-28-2026,10339,26061,79226,1959,Shipping,11,Shipping,"ATTN: Christy
+1616 Liliha Street #104",Honolulu,Hawaii,96817,BG,Aloha Vibrations,Shipping,Shipping,1959,BrandonG,1,$48.47,$48.47,$0.05,3.00,1.00
+01-28-2026,10339,26061,79418,1959,Shipping,11,Shipping,"ATTN: Christy
+1616 Liliha Street #104",Honolulu,Hawaii,96817,BG,Aloha Vibrations,Shipping,Shipping Tracking: 1Z90V7160338806093,1959,BrandonG,1,$0.00,$0.00,$0.00,5.00,1.00
+01-28-2026,10341,26089,79357,1162,Shipping,11,Shipping,104 E 29th St suite d,Loveland,Colorado,80538,BG,The Hideout Vape & Glass | CO,Shipping,Shipping Tracking: 1Z90V7160331436317,1162,BrandonG,1,$0.00,$0.00,$0.00,5.00,1.00
+01-28-2026,10342,26090,79416,1175,Shipping,11,Shipping,5722 Logan Court,Denver,Colorado,80216,BG,CA Wholesale,Shipping,Shipping Tracking: https://www.saia.com/track/details;pro=77122868710,1175,BrandonG,1,$0.00,$0.00,$0.00,2.00,1.00
+01-28-2026,10343,26091,79321,1673,Shipping,11,Shipping,728 Stateline Rd,West Siloam Springs,Oklahoma,74338,ED,Mad Hatters Tea & Gifts Siloam Springs,Shipping,Shipping,1673,Zalak,1,$25.00,$25.00,$0.05,2.00,1.00
+01-28-2026,10343,26091,79419,1673,Shipping,11,Shipping,728 Stateline Rd,West Siloam Springs,Oklahoma,74338,ED,Mad Hatters Tea & Gifts Siloam Springs,Shipping,Shipping Tracking: 1Z90V7160307569596,1673,Zalak,1,$0.00,$0.00,$0.00,3.00,1.00
+01-28-2026,10345,26100,79367,1015,Shipping,11,Shipping,211 N. Perkins Rd. Suite 9,Stillwater,Oklahoma,74075,ADM,WILD SIDE STILLWATER-SW (OK),Shipping,Shipping Tracking: 1Z90V7160334895530,1015,admin,2,$0.00,$0.00,$0.00,4.00,2.00
+01-28-2026,10346,26106,79417,204,Shipping,11,Shipping,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,Shipping,Shipping Tracking: WILL CALL,204,admin,2,$0.00,$0.00,$0.00,8.00,2.00
+01-28-2026,10338,26060,79213,1352,Sample Cost,0,,634 S. Mason St. Unit 1,Fort Collins,Colorado,80524,BG,Vape Colorado,,Samples,1352,BrandonG,1,-$18.00,-$18.00,$0.00,3.00,1.00
+01-28-2026,10341,26089,79315,1162,Sample Cost,0,,104 E 29th St suite d,Loveland,Colorado,80538,BG,The Hideout Vape & Glass | CO,,Samples,1162,BrandonG,1,-$32.00,-$32.00,$0.00,2.00,1.00
+01-28-2026,10346,26106,79390,204,Promo Discount,0,,"2623 s Fry st, Unit 154",Boise,Idaho,83709,ADM,Durity Distro,,Promo Discount,204,admin,2,-$168.00,-$336.00,$0.00,6.00,2.00

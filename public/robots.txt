@@ -1,8 +1,0 @@
-User-agent: *
-Disallow: /api/
-Disallow: /login
-Disallow: /dashboard
-Disallow: /settings
-Disallow: /database
-Disallow: /reports
-Allow: /

@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase/admin';
+import Papa from 'papaparse';
+import { syncCustomersToSupabase } from '@/lib/services/firebase-to-supabase-sync';
 import { Timestamp } from 'firebase-admin/firestore';
 import { parse } from 'csv-parse/sync';
-import { createHeaderMap, normalizeRow } from '../normalize-headers';
+import { createHeaderMap, normalizeRow, validateRequiredHeaders } from '../normalize-headers';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -25,6 +27,17 @@ function safeParseNumber(val: any): number {
   if (val === null || val === undefined || val === '') return 0;
   const num = typeof val === 'number' ? val : parseFloat(String(val).replace(/[^0-9.-]/g, ''));
   return isNaN(num) ? 0 : num;
+}
+
+function sanitizeCustomerId(rawId: any): string | null {
+  if (!rawId) return null;
+  const sanitized = String(rawId)
+    .replace(/,/g, '')  // Remove all commas
+    .trim();
+  if (!sanitized || sanitized === '') {
+    return null;
+  }
+  return sanitized;
 }
 
 function parseDate(val: any): Date | null {
@@ -98,20 +111,90 @@ export async function POST(req: NextRequest) {
     
     console.log(`📦 Processing ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
     
-    // Read as text to preserve exact CSV values (no Excel date conversion)
-    const text = await file.text();
-    const data = parse(text, {
-      columns: true,
-      skip_empty_lines: true,
-      trim: true,
-      relax_column_count: true
+    // Step 1: Normalize CSV to match hardcoded field expectations
+    console.log('🔄 Step 1: Normalizing CSV headers...');
+    const normalizeFormData = new FormData();
+    const fileBlob = new Blob([await file.arrayBuffer()], { type: file.type });
+    const normalizeFile = new File([fileBlob], file.name, { type: file.type });
+    normalizeFormData.append('file', normalizeFile);
+    
+    const normalizeUrl = new URL('/api/fishbowl/normalize-csv', req.url);
+    const normalizeResponse = await fetch(normalizeUrl.toString(), {
+      method: 'POST',
+      body: normalizeFormData
     });
     
-    console.log(`📊 Parsed ${data.length} rows from CSV`);
+    if (!normalizeResponse.ok) {
+      const errorData = await normalizeResponse.json();
+      return NextResponse.json({ 
+        error: 'CSV normalization failed',
+        details: errorData 
+      }, { status: 400 });
+    }
+    
+    const normalizationResult = await normalizeResponse.json();
+    
+    if (!normalizationResult.success) {
+      return NextResponse.json({ 
+        error: 'CSV normalization failed',
+        details: normalizationResult 
+      }, { status: 400 });
+    }
+    
+    console.log(`✅ Normalization complete: ${normalizationResult.mappings.length} fields mapped`);
+    console.log(`📊 Parsed ${normalizationResult.normalizedData.length} rows from CSV\n`);
+
+    // Check if user provided custom field mappings
+    const customMappingsRaw = formData.get('fieldMappings');
+    let customMappings: Record<string, string> | null = null;
+    if (customMappingsRaw) {
+      try {
+        customMappings = JSON.parse(customMappingsRaw as string);
+        console.log('🔧 Using custom field mappings from user');
+      } catch (e) {
+        console.warn('Failed to parse custom field mappings, using auto-detected');
+      }
+    }
+
+    // Step 2: Use normalized data OR apply custom mappings
+    let data = normalizationResult.normalizedData;
+    
+    // If custom mappings provided, re-map the data
+    if (customMappings) {
+      const csvText = await file.text();
+      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+      const originalRows = parsed.data as any[];
+      
+      data = originalRows.map((row: any) => {
+        const remappedRow: any = {};
+        // Apply custom mappings: systemField -> csvColumn
+        for (const [systemField, csvColumn] of Object.entries(customMappings!)) {
+          if (csvColumn && row[csvColumn] !== undefined) {
+            remappedRow[systemField] = row[csvColumn];
+          }
+        }
+        return remappedRow;
+      });
+      
+      console.log(`✅ Re-mapped ${data.length} rows with ${Object.keys(customMappings).length} custom field mappings`);
+    }
     
     // Normalize headers to handle varying CSV formats
     const headers = data.length > 0 ? Object.keys(data[0] as Record<string, any>) : [];
     const headerMap = createHeaderMap(headers);
+
+    // HARD FAIL: Validate the file matches our canonical schema
+    const headerValidation = validateRequiredHeaders(headerMap);
+    if (!headerValidation.valid) {
+      const normalizedHeadersPresent = Array.from(new Set(headerMap.values())).sort();
+      return NextResponse.json({
+        error: `Missing required headers: ${headerValidation.missing.join(', ')}`,
+        missing: headerValidation.missing,
+        normalizedHeadersPresent,
+        originalHeadersPresent: headers
+      }, { status: 400 });
+    }
+
     const normalizedData = data.map(row => normalizeRow(row, headerMap));
     
     // Debug: Show first row's column names and price values
@@ -150,31 +233,65 @@ export async function POST(req: NextRequest) {
     const fishbowlCustomersMap = new Map<string, any>();
     fishbowlCustomersSnapshot.forEach(doc => {
       const data = doc.data();
+      // IMPORTANT: The authoritative customer ID is the Firestore document ID (sanitized)
+      fishbowlCustomersMap.set(doc.id, data);
+      // Also index by data.id if present (backward compatibility)
       if (data.id) {
-        fishbowlCustomersMap.set(data.id, data);
+        fishbowlCustomersMap.set(String(data.id), data);
       }
     });
     console.log(`✅ Loaded ${fishbowlCustomersMap.size} existing Fishbowl customers (from Copper Sync)`);
+    
+    // DEBUG: Log first 3 rows to verify normalization
+    if (normalizedData.length > 0) {
+      console.log('\n🔍 DEBUG: First normalized row keys:', Object.keys(normalizedData[0]));
+      console.log('🔍 DEBUG: Sample values from first row:');
+      const firstRow = normalizedData[0];
+      console.log(`  Sales order Number: "${firstRow['Sales order Number']}"`);
+      console.log(`  Sales Order ID: "${firstRow['Sales Order ID']}"`);
+      console.log(`  SO Item ID: "${firstRow['SO Item ID']}"`);
+      console.log(`  Account ID: "${firstRow['Account ID']}"`);
+      console.log(`  Sales Rep: "${firstRow['Sales Rep']}"`);
+    }
     
     for (let i = 0; i < normalizedData.length; i++) {
       const row = normalizedData[i] as Record<string, any>;
       stats.processed++;
       
-      const soNum = String(row['Sales order Number'] ?? row['Sales Order Number'] ?? '').trim();
-      const salesOrderId = row['Sales Order ID'] || row['SO ID'];
-      const lineItemId = row['SO Item ID'] || row['SO item ID'];
-      const customerId = String(row['Account ID'] || row['Account id'] || row['Customer id'] || '').trim();
+      const soNum = String(row['Sales order Number'] ?? '').trim();
+      const salesOrderId = row['Sales Order ID'];
+      const lineItemId = row['SO Item ID'];
+      const rawCustomerId = String(row['Account ID'] || '').trim();
+      const customerId = sanitizeCustomerId(rawCustomerId);
       const customerName = String(row['Customer Name'] || row['Customer'] || '').trim();
       
-      if (!soNum || !customerId || !salesOrderId || !lineItemId) {
+      // CRITICAL: Skip rows with missing required fields
+      if (!soNum || !salesOrderId || !lineItemId) {
+        if (stats.skipped < 5) { // Log first 5 skipped rows
+          console.warn(`⚠️ Skipping row ${i + 1} - missing fields:`);
+          console.warn(`  soNum: "${soNum}" | salesOrderId: "${salesOrderId}" | lineItemId: "${lineItemId}"`);
+          console.warn(`  Available keys:`, Object.keys(row).slice(0, 10));
+        }
+        stats.skipped++;
+        continue;
+      }
+      
+      // CRITICAL: Skip rows with empty customer IDs after sanitization
+      if (!customerId) {
+        console.warn(`⚠️ Skipping order ${soNum} - invalid customer ID: "${rawCustomerId}"`);
         stats.skipped++;
         continue;
       }
       
       // Get account type from existing Fishbowl customer (set by Copper Sync)
-      // If customer doesn't exist yet, default to 'Retail' (will be updated by next Copper Sync)
       const existingCustomer = fishbowlCustomersMap.get(customerId);
-      const accountType = existingCustomer?.accountType || 'Retail';
+      const existingAccountType = existingCustomer?.accountType;
+      // For downstream order/commission logic we still need an account type.
+      // Default to Wholesale (most customers are wholesale) if missing.
+      const accountType = existingAccountType || 'Wholesale';
+      
+      // CRITICAL: Parse salesPerson early so it's available for both orders AND line items
+      const salesPersonValue = String(row['Sales Rep'] || '').trim();
       
       // Upsert customer with account type
       if (!processedCustomers.has(customerId)) {
@@ -182,7 +299,7 @@ export async function POST(req: NextRequest) {
         batch.set(customerRef, {
           id: customerId,
           name: customerName,
-          accountType: accountType, // Defaults to 'Retail' if not found
+          accountType: accountType, // Always write accountType (defaults to Wholesale if not from Copper)
           updatedAt: Timestamp.now()
         }, { merge: true });
         batchCount++;
@@ -196,13 +313,18 @@ export async function POST(req: NextRequest) {
         const orderRef = adminDb.collection('fishbowl_sales_orders').doc(soNum);
         const existingOrderDoc = await orderRef.get();
         
+        let preservedCustomerId = customerId;
+        let preservedAccountType = accountType;
+        let isManuallyLinked = false;
+        
         if (existingOrderDoc.exists) {
           const existingData = existingOrderDoc.data();
           if (existingData?.manuallyLinked === true) {
-            console.log(`🔒 Skipping order ${soNum} - manually corrected via validation (preserving correction)`);
-            stats.ordersUnchanged++;
-            processedOrders.add(soNum);
-            continue; // Don't overwrite manual corrections
+            // Preserve only the customer linkage, but update everything else
+            preservedCustomerId = existingData.customerId;
+            preservedAccountType = existingData.accountType;
+            isManuallyLinked = true;
+            console.log(`🔒 Order ${soNum} - preserving manual customer linkage (${preservedCustomerId}), updating all other data`);
           }
         }
         
@@ -245,8 +367,6 @@ export async function POST(req: NextRequest) {
         const postingDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
         const commissionDate = issuedDate ? Timestamp.fromDate(issuedDate) : null;
         
-        const salesPersonValue = String(row['Sales Rep'] || '').trim();
-        
         // Debug first order to verify salesPerson is being read
         if (stats.ordersCreated === 0) {
           console.log('\n🔍 DEBUG: First order salesPerson:');
@@ -258,15 +378,16 @@ export async function POST(req: NextRequest) {
         const orderData = {
           soNumber: soNum,
           salesOrderId: String(salesOrderId),
-          customerId: customerId,
+          customerId: preservedCustomerId, // Use preserved customer linkage if manually corrected
           customerName: customerName,
-          accountType: accountType, // ✅ NOW INCLUDES ACCOUNT TYPE FROM COPPER
+          accountType: preservedAccountType, // Use preserved account type if manually corrected
           salesPerson: salesPersonValue,
-          salesRep: String(row['Sales Rep'] || '').trim(),
+          salesRep: String(row['Sales Rep Initials'] || row['Sales man initials'] || '').trim(),
           postingDate: postingDate,
           commissionMonth: commissionMonth,
           commissionYear: commissionYear,
           commissionDate: commissionDate,
+          manuallyLinked: isManuallyLinked, // Preserve the flag if it was set
           updatedAt: Timestamp.now()
         };
         
@@ -341,21 +462,44 @@ export async function POST(req: NextRequest) {
       
       const itemCommissionDate = itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null;
       
+      // CRITICAL: Default quantity to 1 if missing (v2 CSV has no qty column)
+      // Commission calculation skips ALL orders with qty=0, so we must default
+      let quantity = safeParseNumber(row['Qty fulfilled']);
+      if (quantity === 0 && !row['Qty fulfilled']) {
+        // Only default if field is truly missing (not explicitly 0)
+        quantity = 1;
+      }
+      
       const unitPrice = safeParseNumber(row['Unit price']);
-      const totalPrice = safeParseNumber(row['Total price']);
+      let totalPrice = safeParseNumber(row['Total Price']);
+      const totalCost = safeParseNumber(row['Total cost']);
+      
+      // CRITICAL: Always calculate totalPrice if it's 0 or missing
+      // This ensures revenue calculations work even if CSV column names change
+      if (totalPrice === 0 && unitPrice > 0 && quantity > 0) {
+        totalPrice = unitPrice * quantity;
+        if (stats.itemsCreated < 3) {
+          console.log(`🔧 Calculated totalPrice: ${quantity} × $${unitPrice} = $${totalPrice}`);
+        }
+      }
       
       // Debug first 3 items to verify parsing
       if (stats.itemsCreated < 3) {
         console.log(`📊 Line Item ${stats.itemsCreated + 1}:`, {
           soNumber: soNum,
           product: String(row['SO Item Product Number'] || '').trim(),
-          quantity: safeParseNumber(row['Fulfilled Quantity']),
+          quantity: quantity,
           unitPriceRaw: row['Unit price'],
           unitPriceParsed: unitPrice,
-          totalPriceRaw: row['Total price'],
-          totalPriceParsed: totalPrice
+          totalPriceRaw: row['Total Price'],
+          totalPriceParsed: totalPrice,
+          calculated: totalPrice === unitPrice * quantity
         });
       }
+      
+      // Line items should inherit salesPerson from their parent order
+      // CSV rows often have empty Sales Rep on line items, but the order has it
+      const lineItemSalesPerson = String(row['Sales Rep'] || row['Default Sales Rep'] || '').trim() || salesPersonValue;
       
       batch.set(itemRef, {
         soNumber: soNum,
@@ -368,14 +512,15 @@ export async function POST(req: NextRequest) {
         partNumber: String(row['SO Item Product Number'] || row['Sku'] || row['Product ID'] || '').trim(),
         productName: String(row['Product Description'] || row['SO Item Description'] || row['Description'] || '').trim(),
         description: String(row['Product Description'] || row['SO Item Description'] || row['Description'] || '').trim(),
-        quantity: safeParseNumber(row['Fulfilled Quantity']),
+        quantity: quantity,
         unitPrice: unitPrice,
         totalPrice: totalPrice,
+        totalCost: totalCost,
         postingDate: itemIssuedDate ? Timestamp.fromDate(itemIssuedDate) : null,
         commissionMonth: itemCommissionMonth,
         commissionYear: itemCommissionYear,
         commissionDate: itemCommissionDate,
-        salesPerson: String(row['Sales Rep'] || row['Default Sales Rep'] || '').trim(),
+        salesPerson: lineItemSalesPerson, // Inherit from order if CSV row is empty
         updatedAt: Timestamp.now()
       }, { merge: true });
       batchCount++;
@@ -395,10 +540,34 @@ export async function POST(req: NextRequest) {
     
     console.log('✅ Import-unified complete:', stats);
     
-    return NextResponse.json({
-      success: true,
-      stats
-    });
+    // 🔄 AUTOMATIC SYNC: Sync customers to Supabase CRM
+    console.log('🔄 Starting automatic Firebase → Supabase sync...');
+    try {
+      const syncResult = await syncCustomersToSupabase('kanva-botanicals');
+      console.log(`✅ Sync complete: ${syncResult.summary}`);
+      
+      return NextResponse.json({
+        success: true,
+        stats,
+        sync: {
+          synced: syncResult.synced,
+          failed: syncResult.failed,
+          summary: syncResult.summary
+        }
+      });
+    } catch (syncError: any) {
+      console.error('⚠️ Sync failed but import succeeded:', syncError);
+      
+      // Import succeeded, but sync failed - still return success
+      return NextResponse.json({
+        success: true,
+        stats,
+        sync: {
+          error: syncError.message,
+          warning: 'Import succeeded but sync to Supabase failed. Run manual sync.'
+        }
+      });
+    }
     
   } catch (error: any) {
     console.error('❌ Import-unified error:', error);

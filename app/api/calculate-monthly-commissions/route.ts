@@ -420,15 +420,31 @@ async function calculateCommissionsWithProgress(
       
       let hasFulfilledItems = false;
       let totalFulfilledQty = 0;
+      const seenFulfilledSoItemIds = new Set<string>();
       
       if (!lineItemsSnapshot.empty) {
         for (const lineItemDoc of lineItemsSnapshot.docs) {
           const lineItem = lineItemDoc.data();
+          const soItemId = String(lineItem.soItemId ?? lineItem.soItemID ?? lineItem.lineItemId ?? lineItem.id ?? '');
+          if (soItemId && seenFulfilledSoItemIds.has(soItemId)) {
+            continue;
+          }
+          if (soItemId) {
+            seenFulfilledSoItemIds.add(soItemId);
+          }
           const qty = lineItem.quantity || 0;
           totalFulfilledQty += qty;
           if (qty > 0) {
             hasFulfilledItems = true;
           }
+        }
+
+        const duplicatesSkipped = lineItemsSnapshot.size - seenFulfilledSoItemIds.size;
+        if (duplicatesSkipped > 0) {
+          console.warn(
+            `⚠️ DUPLICATE LINE ITEMS DETECTED: Order ${order.soNumber || order.num} (salesOrderId=${order.salesOrderId}) - ` +
+            `skipping ${duplicatesSkipped} duplicate line items during qty check`
+          );
         }
       }
       
@@ -440,7 +456,8 @@ async function calculateCommissionsWithProgress(
       
       // DEBUG: Log order processing for Ben Wallner
       if (order.salesPerson === 'Ben Wallner' || order.salesPerson === 'BWallner' || order.salesPerson === 'BenW' || order.salesPerson === 'Ben') {
-        console.log(`🔍 PROCESSING ORDER: ${order.soNumber || order.num} - ${order.customerName} - $${order.revenue} - Rep: "${order.salesPerson}"`);
+        const revenuePreview = (order.orderValue ?? order.revenue ?? 0);
+        console.log(`🔍 PROCESSING ORDER: ${order.soNumber || order.num} - ${order.customerName} - $${revenuePreview} - Rep: "${order.salesPerson}"`);
       }
 
       // Update progress every 5 orders using safe helper
@@ -499,7 +516,8 @@ async function calculateCommissionsWithProgress(
       }
 
       // Customer already loaded above for admin order handling
-      let accountType = customer?.accountType || 'Retail';
+      // Default to Wholesale for commission calculations (most customers are wholesale)
+      let accountType = customer?.accountType || 'Wholesale';
       
       // Normalize accountType to handle Copper array format
       if (Array.isArray(accountType) && accountType.length > 0) {
@@ -509,28 +527,20 @@ async function calculateCommissionsWithProgress(
         else if (typeId === 2066840 || typeId === '2066840') accountType = 'Retail';
         else accountType = 'Retail';
       } else if (typeof accountType !== 'string') {
-        accountType = 'Retail';
+        accountType = 'Wholesale';
       }
       
       const manualTransferStatus = customer?.transferStatus; // Manual override from UI
       
-      // CRITICAL: Log ALL orders where customer is NOT found (defaults to Retail)
+      // Log if customer not found but continue processing
       if (!customer) {
-        console.log(`\n⚠️ CUSTOMER NOT FOUND - Defaulting to Retail:`);
+        console.log(`\n⚠️ CUSTOMER NOT FOUND - Defaulting to Wholesale:`);
         console.log(`   Order #${order.num} | Customer: "${order.customerName}"`);
-        console.log(`   Tried to find by:`);
         console.log(`      customerId: "${order.customerId}"`);
-        console.log(`      customerNum: "${order.customerNum}"`);
-        console.log(`      accountNumber: "${order.accountNumber}"`);
-        console.log(`      customerName: "${order.customerName}"`);
-        console.log(`   → Will be SKIPPED (Retail)`);
+        console.log(`   → Will process with Wholesale rate`);
       }
       
-      // Skip Retail accounts (no commission)
-      if (accountType === 'Retail') {
-        skippedCounts.retail++;
-        continue;
-      }
+      // REMOVED: Retail skip logic - process all orders with clean CSV data
 
       // Use accountType from Fishbowl customer data (NOT Copper segment)
       // accountType is already normalized above
@@ -597,12 +607,25 @@ async function calculateCommissionsWithProgress(
         // Calculate revenue from line items
         if (commissionRules?.excludeShipping || commissionRules?.excludeCCProcessing || orderAmount === 0) {
           let commissionableAmount = 0;
+          const seenRevenueSoItemIds = new Set<string>();
           
           for (const lineItemDoc of revenueLineItemsSnapshot.docs) {
             const lineItem = lineItemDoc.data();
+            const soItemId = String(lineItem.soItemId ?? lineItem.soItemID ?? lineItem.lineItemId ?? lineItem.id ?? '');
+            if (soItemId && seenRevenueSoItemIds.has(soItemId)) {
+              continue;
+            }
+            if (soItemId) {
+              seenRevenueSoItemIds.add(soItemId);
+            }
             const productName = (lineItem.productName || '').toLowerCase();
             const productNum = (lineItem.productNum || '').toLowerCase();
-            const itemPrice = lineItem.totalPrice || 0;
+            
+            // Calculate revenue: use totalPrice if available, otherwise unitPrice * quantity
+            let itemPrice = lineItem.totalPrice || 0;
+            if (itemPrice === 0 && lineItem.unitPrice && lineItem.quantity) {
+              itemPrice = (lineItem.unitPrice || 0) * (lineItem.quantity || 0);
+            }
             
             // Check if this is negative Paid Shipping (special case - deducts from commission, not revenue)
             const isNegativePaidShipping = itemPrice < 0 && (
@@ -647,6 +670,14 @@ async function calculateCommissionsWithProgress(
             else {
               commissionableAmount += itemPrice;
             }
+          }
+
+          const duplicatesSkipped = revenueLineItemsSnapshot.size - seenRevenueSoItemIds.size;
+          if (duplicatesSkipped > 0) {
+            console.warn(
+              `⚠️ DUPLICATE LINE ITEMS DETECTED: Order ${order.soNumber || order.num} (salesOrderId=${order.salesOrderId}) - ` +
+              `skipping ${duplicatesSkipped} duplicate line items during revenue calc`
+            );
           }
           
           // Use the calculated amount (even if 0, because order.revenue doesn't exist in new imports)
@@ -870,9 +901,18 @@ async function calculateCommissionsWithProgress(
         const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
           .where('salesOrderId', '==', order.salesOrderId)
           .get();
+
+        const seenSpiffSoItemIds = new Set<string>();
         
         for (const lineItemDoc of lineItemsSnapshot.docs) {
           const lineItem = lineItemDoc.data();
+          const soItemId = String(lineItem.soItemId ?? lineItem.soItemID ?? lineItem.lineItemId ?? '');
+          if (soItemId && seenSpiffSoItemIds.has(soItemId)) {
+            continue;
+          }
+          if (soItemId) {
+            seenSpiffSoItemIds.add(soItemId);
+          }
           // Use partNumber instead of productNum (Fishbowl field name)
           const productNumber = lineItem.partNumber || lineItem.productNum || lineItem.product;
           const spiff = activeSpiffs.get(productNumber);
@@ -928,7 +968,7 @@ async function calculateCommissionsWithProgress(
               });
               
               // Save spiff earning record
-              const spiffEarningId = `${order.salesPerson}_${commissionMonth}_spiff_${lineItemDoc.id}`;
+              const spiffEarningId = `${order.salesPerson}_${commissionMonth}_spiff_${soItemId || lineItemDoc.id}`;
               await adminDb.collection('spiff_earnings').doc(spiffEarningId).set({
                 id: spiffEarningId,
                 repId: rep.id,
@@ -1093,6 +1133,8 @@ async function calculateCommissionsWithProgress(
       stats: {
         commissionsCalculated,
         totalCommission,
+        activeReps: Object.keys(repBreakdown).length,
+        repBreakdown,
         adminSkipped: skippedCounts.admin,
         shopifySkipped: skippedCounts.shopify,
         retailSkipped: skippedCounts.retail,

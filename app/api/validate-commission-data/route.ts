@@ -112,6 +112,11 @@ export async function POST(req: NextRequest) {
     let totalOrders = 0;
     let matchedOrders = 0;
     let totalRevenue = 0;
+
+    // HARD FAIL DATA QUALITY: Detect schema drift symptoms
+    // If totalPrice is 0 but unitPrice × quantity > 0, it means the import/mapping is broken.
+    let suspiciousLineItems = 0;
+    const suspiciousSamples: string[] = [];
     
     // Detect field variations in orders
     const fieldVariations = {
@@ -133,15 +138,104 @@ export async function POST(req: NextRequest) {
       if (order.num !== undefined) fieldVariations.orderNumber.add('num');
       if (order.customerId !== undefined) fieldVariations.customerId.add('customerId');
       if (order.customerNum !== undefined) fieldVariations.customerId.add('customerNum');
+
+      // Calculate revenue from line items for EVERY order (including admin).
+      // This keeps the validation UI aligned with the imported collections and avoids
+      // misleading totals when only a subset of orders match reps.
+      const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
+        .where('salesOrderId', '==', order.salesOrderId)
+        .get();
+
+      let orderRevenue = 0;
+      const seenSoItemIds = new Set<string>();
+
+      // DEBUG: Log first 3 orders (regardless of rep matching) to diagnose revenue calculation
+      if (totalOrders <= 3) {
+        console.log(`\n🔍 DEBUG Order #${totalOrders}:`);
+        console.log(`   SO Number: ${order.soNumber || order.num || orderDoc.id}`);
+        console.log(`   Sales Order ID: ${order.salesOrderId}`);
+        console.log(`   Customer ID: ${order.customerId}`);
+        console.log(`   Sales Person: ${order.salesPerson}`);
+        console.log(`   Line items found: ${lineItemsSnapshot.size}`);
+      }
+
+      lineItemsSnapshot.forEach(itemDoc => {
+        const item = itemDoc.data();
+        
+        // De-duplicate line items (same logic as commission calculation)
+        const soItemId = String(item.soItemId ?? item.soItemID ?? item.lineItemId ?? item.id ?? '');
+        if (soItemId && seenSoItemIds.has(soItemId)) {
+          if (totalOrders <= 3) {
+            console.log(`   - SKIPPING DUPLICATE: ${soItemId}`);
+          }
+          return; // Skip duplicate
+        }
+        if (soItemId) {
+          seenSoItemIds.add(soItemId);
+        }
+
+        let itemPrice = item.totalPrice || 0;
+        const calculatedPrice = (item.unitPrice || 0) * (item.quantity || 0);
+
+        // HARD FAIL: detect schema drift (totalPrice missing but should be > 0)
+        if ((item.totalPrice || 0) === 0 && calculatedPrice > 0) {
+          suspiciousLineItems++;
+          if (suspiciousSamples.length < 10) {
+            suspiciousSamples.push(
+              `Order ${order.soNumber || order.num || orderDoc.id} | Item ${item.soItemId || itemDoc.id} | ${item.productNum || item.partNumber || ''} | qty=${item.quantity || 0} unit=$${item.unitPrice || 0} totalPrice=$${item.totalPrice || 0}`
+            );
+          }
+        }
+
+        if (itemPrice === 0 && calculatedPrice > 0) {
+          itemPrice = calculatedPrice;
+        }
+
+        orderRevenue += itemPrice;
+
+        if (totalOrders <= 3) {
+          console.log(`   - Item ${item.soItemId}: totalPrice=$${item.totalPrice}, calculated=$${calculatedPrice}, using=$${itemPrice}`);
+        }
+      });
       
-      // Skip admin orders entirely - they are for information only
+      // Log duplicate detection
+      const duplicatesSkipped = lineItemsSnapshot.size - seenSoItemIds.size;
+      if (duplicatesSkipped > 0 && totalOrders <= 3) {
+        console.log(`   ⚠️ Skipped ${duplicatesSkipped} duplicate line items`);
+      }
+
+      if (totalOrders <= 3) {
+        console.log(`   Order Revenue Total: $${orderRevenue}`);
+      }
+
+      // Total revenue should reflect the month's imported data, not just matched/commissionable orders.
+      totalRevenue += orderRevenue;
+      
+      // Track admin orders (non-commissionable but included in total revenue)
       if (order.salesPerson === 'admin' || order.salesPerson === 'Admin') {
         adminOrders.push(order.soNumber || order.num || orderDoc.id);
-        continue; // Skip admin orders completely
+        matchedOrders++; // Count as matched (just non-commissionable)
+        
+        // Add to admin rep breakdown for visibility
+        if (!repBreakdown.has('admin')) {
+          repBreakdown.set('admin', {
+            repName: 'Admin/House',
+            repId: 'admin',
+            orderCount: 0,
+            estimatedRevenue: 0,
+            status: 'active',
+            warnings: []
+          });
+        }
+        const adminBreakdown = repBreakdown.get('admin')!;
+        adminBreakdown.orderCount++;
+        adminBreakdown.estimatedRevenue += orderRevenue;
+        continue; // Don't validate customer/rep for admin orders
       }
       
       // Skip orders that were manually corrected in previous uploads
-      // The DB data is correct, so no validation needed
+      // The DB data is correct, so no validation needed.
+      // NOTE: Revenue was already included above.
       if (order.manuallyLinked === true) {
         matchedOrders++; // Count as matched since it was manually fixed
         continue;
@@ -154,26 +248,12 @@ export async function POST(req: NextRequest) {
       // Check if rep exists and is active
       const rep = repsMap.get(effectiveSalesPerson) || repsByName.get(effectiveSalesPerson);
       
-      if (!rep) {
+      const isUnmatchedOrInactive = !rep || !rep.isActive;
+      if (isUnmatchedOrInactive) {
         unmatchedReps.add(effectiveSalesPerson);
-        continue;
       }
       
-      if (!rep.isActive) {
-        unmatchedReps.add(effectiveSalesPerson);
-        continue;
-      }
-      
-      // Calculate revenue from line items FIRST (Conversite data is line-item based)
-      const lineItemsSnapshot = await adminDb.collection('fishbowl_soitems')
-        .where('salesOrderId', '==', order.salesOrderId)
-        .get();
-      
-      let orderRevenue = 0;
-      lineItemsSnapshot.forEach(itemDoc => {
-        const item = itemDoc.data();
-        orderRevenue += item.totalPrice || 0;
-      });
+      // Revenue was calculated above for every non-admin order.
       
       // Check if customer exists and track account type issues
       const customer = customersMap.get(order.customerId) || 
@@ -183,7 +263,7 @@ export async function POST(req: NextRequest) {
       if (!customer) {
         missingCustomers.push(order.soNumber || order.num || orderDoc.id);
         
-        // Track as orphaned - customer not found, will default to Retail and be skipped
+        // Track as orphaned - customer not found (will default to Wholesale and be processed)
         customerNotFoundOrders.push({
           orderNum: order.soNumber || order.num || orderDoc.id,
           customerName: order.customerName || 'Unknown',
@@ -191,56 +271,22 @@ export async function POST(req: NextRequest) {
           revenue: orderRevenue,
           salesPerson: effectiveSalesPerson
         });
-        
-        // Track by sales person
-        if (!orphanedOrdersBySalesPerson.has(effectiveSalesPerson)) {
-          orphanedOrdersBySalesPerson.set(effectiveSalesPerson, {orders: 0, revenue: 0});
-        }
-        const orphanStats = orphanedOrdersBySalesPerson.get(effectiveSalesPerson)!;
-        orphanStats.orders++;
-        orphanStats.revenue += orderRevenue;
-      } else if (customer.accountType === 'Retail') {
-        // Track retail exclusions (but skip house accounts and $0 orders to reduce noise)
-        const customerNameLower = (order.customerName || customer.name || '').toLowerCase();
-        const isHouseAccount = customerNameLower.includes('house') || 
-                               customerNameLower.includes('sample') ||
-                               customerNameLower.includes('admin');
-        const hasRevenue = orderRevenue > 0;
-        
-        // Only track meaningful retail exclusions
-        if (!isHouseAccount && hasRevenue) {
-          retailExcludedOrders.push({
-            orderNum: order.soNumber || order.num || orderDoc.id,
-            customerName: order.customerName || customer.name || 'Unknown',
-            customerId: order.customerId,
-            accountType: customer.accountType,
-            revenue: orderRevenue,
-            salesPerson: effectiveSalesPerson
-          });
-          
-          // Track by sales person
-          if (!orphanedOrdersBySalesPerson.has(effectiveSalesPerson)) {
-            orphanedOrdersBySalesPerson.set(effectiveSalesPerson, {orders: 0, revenue: 0});
-          }
-          const orphanStats = orphanedOrdersBySalesPerson.get(effectiveSalesPerson)!;
-          orphanStats.orders++;
-          orphanStats.revenue += orderRevenue;
-        }
       }
+      // REMOVED: Retail exclusion tracking - all orders now processed with clean CSV data
       
-      totalRevenue += orderRevenue;
+      // Revenue already included above.
       matchedOrders++;
       
-      // Update rep breakdown
-      const repKey = rep.salesPerson;
+      // Update rep breakdown - include ALL orders (even unmatched/inactive) so totals match
+      const repKey = rep?.salesPerson || effectiveSalesPerson || 'Unknown';
       if (!repBreakdown.has(repKey)) {
         repBreakdown.set(repKey, {
-          repName: rep.name,
+          repName: rep?.name || effectiveSalesPerson || 'Unknown',
           repId: repKey,
           orderCount: 0,
           estimatedRevenue: 0,
-          status: rep.isActive ? 'active' : 'inactive',
-          warnings: []
+          status: rep?.isActive ? 'active' : 'inactive',
+          warnings: isUnmatchedOrInactive ? ['Rep not found or inactive in system'] : []
         });
       }
       
@@ -250,6 +296,16 @@ export async function POST(req: NextRequest) {
     }
     
     // Generate warnings
+    if (suspiciousLineItems > 0) {
+      warnings.push({
+        type: 'dataQuality',
+        severity: 'error',
+        count: suspiciousLineItems,
+        message: 'Data quality failure: detected line items where Total Price is $0 but Unit Price × Qty fulfilled > $0. This indicates the Fishbowl import column mapping/header normalization is broken. Re-import with correct headers before proceeding.',
+        details: suspiciousSamples
+      });
+    }
+
     if (adminOrders.length > 0) {
       warnings.push({
         type: 'unmatchedRep',
@@ -370,20 +426,24 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({
       valid: warnings.filter(w => w.severity === 'error').length === 0,
-      excludedOrders: {
+      commissionMonth,
+      totalEstimatedRevenue: totalRevenue, // Fixed: return number, not string
+      excludedOrders: retailExcludedOrders, // For backward compatibility
+      orphanedOrders: {
         retail: retailExcludedOrders,
-        customerNotFound: customerNotFoundOrders
+        customerNotFound: customerNotFoundOrders,
+        all: [...customerNotFoundOrders, ...retailExcludedOrders]
       },
       statistics: {
         totalOrders,
         matchedOrders,
         unmatchedOrders: totalOrders - matchedOrders,
         activeReps: repBreakdown.size,
-        totalRevenue: totalRevenue.toFixed(2)
+        totalRevenue
       },
       fieldMapping,
       warnings,
-      repBreakdown: Array.from(repBreakdown.values()).sort((a, b) => b.orderCount - a.orderCount)
+      repBreakdown: Array.from(repBreakdown.values()).sort((a, b) => b.estimatedRevenue - a.estimatedRevenue)
     });
     
   } catch (error: any) {

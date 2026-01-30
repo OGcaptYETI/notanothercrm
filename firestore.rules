@@ -352,24 +352,16 @@ service cloud.firestore {
     
     // ========== NOTIFICATIONS ==========
     
-    // Notifications - users can read their own, system can write
+    // Notifications - internal app - permissive (users authenticated via Supabase)
     match /notifications/{notificationId} {
-      allow read: if request.auth != null && 
-                     (resource.data.userEmail == request.auth.token.email || 
-                      resource.data.userId == request.auth.uid);
-      allow write: if true; // Allow server-side writes
-      allow update: if request.auth != null && 
-                       (resource.data.userEmail == request.auth.token.email || 
-                        resource.data.userId == request.auth.uid);
+      allow read: if true;
+      allow write: if true;
     }
     
-    // Notification preferences
+    // Notification preferences - internal app - permissive
     match /notification_preferences/{userId} {
-      allow read: if request.auth != null && 
-                     (request.auth.uid == userId || 
-                      request.auth.token.email == resource.data.userEmail);
-      allow write: if request.auth != null && 
-                      (request.auth.uid == userId);
+      allow read: if true;
+      allow write: if true;
     }
     
     // ========== QUOTES ==========
@@ -503,10 +495,10 @@ service cloud.firestore {
     
     // ========== SPECIAL SETTINGS ==========
     
-    // Organization settings - restricted access
+    // Organization settings - internal app - permissive
     match /settings/organization/defaults {
-      allow read: if false;
-      allow write: if false;
+      allow read: if true;
+      allow write: if true;
     }
   }
 }

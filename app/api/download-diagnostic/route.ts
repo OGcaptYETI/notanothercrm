@@ -16,6 +16,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Security: allow only diagnostic CSV files with safe filenames
+    // - no path separators
+    // - must match our generated naming convention
+    if (
+      fileName.includes('/') ||
+      fileName.includes('\\') ||
+      !/^diagnostic-[\w-]+\.csv$/i.test(fileName)
+    ) {
+      return NextResponse.json(
+        { error: 'Invalid diagnostic file name' },
+        { status: 400 }
+      );
+    }
+
     // Security: Only allow files from public directory
     const filePath = path.join(process.cwd(), 'public', fileName);
     

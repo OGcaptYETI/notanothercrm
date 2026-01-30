@@ -54,6 +54,29 @@ interface ErrorDetail {
 }
 
 /**
+ * Sanitize Account Order ID from Copper CRM
+ * CRITICAL: Remove commas and validate before using as Firestore document ID
+ * - Removes commas (thousands separators): "1,160" → "1160"
+ * - Validates non-empty
+ * - Returns null if invalid
+ */
+function sanitizeAccountOrderId(rawId: any): string | null {
+  if (!rawId) return null;
+  
+  // Convert to string and remove commas
+  const sanitized = String(rawId)
+    .replace(/,/g, '')  // Remove all commas
+    .trim();
+  
+  // Validate non-empty
+  if (!sanitized || sanitized === '') {
+    return null;
+  }
+  
+  return sanitized;
+}
+
+/**
  * Normalize account type from Copper to Commission Calculator format
  * Handles multiple Copper field formats:
  * - String: "Wholesale", "Distributor", "Retail"
@@ -152,7 +175,8 @@ function extractAddress(copperData: any) {
   return {
     street: copperData['Street'] || copperData['street'] || '',
     city: copperData['city'] || copperData['City'] || '',
-    state: copperData['State'] || copperData['state'] || '',
+    // Prioritize lowercase 'state' (2-char abbreviations like "CA") over capital 'State' (full names like "California")
+    state: copperData['state'] || copperData['State'] || '',
     zip: copperData['Postal Code'] || copperData['postal_code'] || copperData['zip'] || '',
     country: copperData['country'] || copperData['Country'] || '',
   };
@@ -276,7 +300,8 @@ export async function POST(request: NextRequest) {
     
     activeCopperCompanies.forEach(company => {
       const copperId = String(company.id);
-      const accountOrderId = company['Account Order ID cf_698467'];
+      const rawAccountOrderId = company['Account Order ID cf_698467'];
+      const accountOrderId = sanitizeAccountOrderId(rawAccountOrderId);
       
       // Always set by Copper ID (unique)
       copperByCopperId.set(copperId, company);
@@ -338,7 +363,8 @@ export async function POST(request: NextRequest) {
     for (const copperCompany of Array.from(copperByAccountOrderId.values())) {
       try {
         const copperName = copperCompany.name || '';
-        const copperAccountOrderId = copperCompany['Account Order ID cf_698467'] || '';
+        const rawAccountOrderId = copperCompany['Account Order ID cf_698467'];
+        const copperAccountOrderId = sanitizeAccountOrderId(rawAccountOrderId);
         const copperAccountType = copperCompany['Account Type cf_675914'] || '';
         const copperAccountId = copperCompany['Account ID cf_713477'] || '';
         const copperRegion = copperCompany['Region cf_680701'] || '';
@@ -348,6 +374,7 @@ export async function POST(request: NextRequest) {
         const enableDebug = processedCount < 20;
         if (enableDebug) {
           console.log(`\n🔍 DEBUG #${processedCount + 1}: ${copperName}`);
+          console.log(`   Raw Account Order ID: "${rawAccountOrderId}" → Sanitized: "${copperAccountOrderId}"`);
           console.log(`   Raw Account Type field:`, copperAccountType);
           console.log(`   Type: ${typeof copperAccountType}`);
           if (Array.isArray(copperAccountType)) {
@@ -367,12 +394,12 @@ export async function POST(request: NextRequest) {
         }
 
         // Find matching fishbowl_customer
-        // Match: fishbowl_customers.id = Copper Account Order ID
+        // Match: fishbowl_customers.id = Copper Account Order ID (sanitized)
         let existingCustomer = null;
         let matchMethod = '';
         
-        if (copperAccountOrderId && fishbowlById.has(String(copperAccountOrderId).trim())) {
-          existingCustomer = fishbowlById.get(String(copperAccountOrderId).trim());
+        if (copperAccountOrderId && fishbowlById.has(copperAccountOrderId)) {
+          existingCustomer = fishbowlById.get(copperAccountOrderId);
           matchMethod = 'accountOrderId';
         }
 
@@ -454,8 +481,9 @@ export async function POST(request: NextRequest) {
             });
             
             if (!dryRun) {
-              // Use Account Order ID as the Firestore document ID
-              const customerRef = adminDb.collection('fishbowl_customers').doc(String(copperAccountOrderId));
+              // Use sanitized Account Order ID as the Firestore document ID
+              // CRITICAL: copperAccountOrderId is already sanitized (commas removed)
+              const customerRef = adminDb.collection('fishbowl_customers').doc(copperAccountOrderId);
               batch.set(customerRef, newCustomerRecord);
               batchCount++;
             }

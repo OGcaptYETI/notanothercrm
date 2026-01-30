@@ -82,27 +82,13 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'issue date',
       'issuedate',
       'date issued',
-      'order date',
-      'orderdate',
+      'dateissued',
       'posting date',
-      'postingdate'
+      'postingdate',
+      'order date',
+      'orderdate'
     ],
-    description: 'Order issue/posting date'
-  },
-  {
-    standardName: 'Sales person',
-    aliases: [
-      'sales person',
-      'salesperson',
-      'sales rep',
-      'salesrep',
-      'rep',
-      'sales representative',
-      'salesrepresentative',
-      'assigned rep',
-      'assigned to'
-    ],
-    description: 'Sales representative assigned to order'
+    description: 'Date the order/line item was issued'
   },
   {
     standardName: 'Sales Rep',
@@ -111,7 +97,11 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'salesrep',
       'rep',
       'sales person',
-      'salesperson'
+      'salesperson',
+      'sales representative',
+      'salesrepresentative',
+      'assigned rep',
+      'assigned to'
     ],
     description: 'Sales rep (alternative field)'
   },
@@ -137,6 +127,8 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     aliases: [
       'qty fulfilled',
       'qtyfulfilled',
+      'fulfilled quantity',
+      'fulfilledquantity',
       'quantity fulfilled',
       'qty',
       'quantity',
@@ -152,8 +144,7 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'unitprice',
       'price',
       'unit cost',
-      'unitcost',
-      'cost'
+      'unitcost'
     ],
     description: 'Unit price per item'
   },
@@ -163,8 +154,6 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'total price',
       'totalprice',
       'total',
-      'total cost',
-      'totalcost',
       'line total',
       'linetotal',
       'extended price',
@@ -172,6 +161,15 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
     ],
     description: 'Total line item price'
   },
+  {
+    standardName: 'Total cost',
+    aliases: [
+      'total cost',
+      'totalcost'
+    ],
+    description: 'Total line item cost'
+  },
+
   {
     standardName: 'Bill to name',
     aliases: [
@@ -363,17 +361,6 @@ export const HEADER_MAPPINGS: HeaderMapping[] = [
       'initials'
     ],
     description: 'Sales rep initials'
-  },
-  {
-    standardName: 'Fulfilled Quantity',
-    aliases: [
-      'fulfilled quantity',
-      'fulfilledquantity',
-      'qty fulfilled',
-      'qtyfulfilled',
-      'quantity fulfilled'
-    ],
-    description: 'Quantity fulfilled'
   },
   {
     standardName: 'Last Unit Price',
@@ -590,7 +577,11 @@ export function validateRequiredHeaders(headerMap: Map<string, string>): { valid
     'Account ID',
     'Customer Name',
     'Issued date',
-    'Sales person'
+    'Sales Rep',
+    'Qty fulfilled',
+    'Unit price',
+    'Total Price',
+    'Total cost'
   ];
   
   const standardHeaders = new Set(headerMap.values());

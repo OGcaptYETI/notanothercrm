@@ -124,10 +124,14 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
       );
       const usersSnapshot = await getDocs(usersQuery);
       const repsMap = new Map();
+      const repsByName = new Map<string, string>();
       usersSnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.salesPerson) {
           repsMap.set(data.salesPerson, data.name);
+          if (data.name) {
+            repsByName.set(String(data.name), String(data.salesPerson));
+          }
         }
       });
       console.log(`Loaded ${repsMap.size} reps for mapping`);
@@ -146,31 +150,46 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
       });
       console.log(`Loaded ${summaryMap.size} customer sales summaries`);
 
-      // Load sales orders to calculate lifetime value and get sales rep
-      const ordersSnapshot = await getDocs(collection(db, 'fishbowl_sales_orders'));
-      const customerOrdersMap = new Map<string, { count: number; totalRevenue: number }>();
+      // Load line items to calculate lifetime value (revenue is in line items, not order docs)
+      const lineItemsSnapshot = await getDocs(collection(db, 'fishbowl_soitems'));
+      const customerOrdersMap = new Map<string, { count: number; totalRevenue: number; orders: Set<string> }>();
       const customerSalesRepMap = new Map();
       
-      ordersSnapshot.forEach((doc) => {
-        const order = doc.data();
-        const customerId = order.customerId || order.customerName;
+      console.log(`Loading ${lineItemsSnapshot.size} line items to calculate customer lifetime values...`);
+      
+      lineItemsSnapshot.forEach((doc) => {
+        const item = doc.data();
+        const customerId = item.customerId;
+        const salesOrderId = item.salesOrderId;
         
-        if (customerId) {
-          // Calculate lifetime value
-          const existing = customerOrdersMap.get(customerId) || { count: 0, totalRevenue: 0 };
-          customerOrdersMap.set(customerId, {
-            count: existing.count + 1,
-            totalRevenue: existing.totalRevenue + (Number(order.revenue) || 0)
-          });
+        if (customerId && salesOrderId) {
+          const existing = customerOrdersMap.get(customerId) || { 
+            count: 0, 
+            totalRevenue: 0, 
+            orders: new Set<string>() 
+          };
           
-          // Get sales rep
-          if (order.salesPerson) {
-            customerSalesRepMap.set(customerId, order.salesPerson);
+          // Track unique orders for count
+          if (!existing.orders.has(salesOrderId)) {
+            existing.orders.add(salesOrderId);
+            existing.count++;
           }
+          
+          // Calculate revenue from line item
+          const itemRevenue = Number(item.totalPrice || 0);
+          existing.totalRevenue += itemRevenue;
+          
+          customerOrdersMap.set(customerId, existing);
+        }
+        
+        // Get sales rep from line items
+        if (item.customerId && item.salesPerson) {
+          customerSalesRepMap.set(item.customerId, item.salesPerson);
         }
       });
-      console.log(`Calculated lifetime value for ${customerOrdersMap.size} customers from orders`);
-      console.log(`Mapped ${customerSalesRepMap.size} customers to sales reps from orders`);
+      
+      console.log(`Calculated lifetime value for ${customerOrdersMap.size} customers from ${lineItemsSnapshot.size} line items`);
+      console.log(`Mapped ${customerSalesRepMap.size} customers to sales reps`);
 
       // Get customers
       const snapshot = await getDocs(collection(db, 'fishbowl_customers'));
@@ -193,13 +212,19 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           regionColor: summaryData?.regionColor || '#808080'
         };
 
-        // FIXED: Get CURRENT account owner (not originator)
-        // Priority: manual override > currentOwner > salesRep (account owner) > fallback
-        // NOTE: salesPerson is the ORIGINATOR (for commissions), not current owner
-        const currentOwner = data.fishbowlUsername ||        // Manual admin assignment
-                            data.currentOwner ||             // New field for current owner
-                            data.salesRep ||                 // Fishbowl "Sales Rep" (account owner)
-                            '';
+        // Get CURRENT account owner for display/Copper sync
+        // Priority: manual override > currentOwner > salesRep > salesPerson (from Fishbowl import)
+        // NOTE: This is for account ownership management, NOT commission originator (which comes from orders)
+        const currentOwnerRaw = data.fishbowlUsername ||        // Manual admin assignment
+                                data.currentOwner ||           // New field for current owner
+                                data.salesRep ||               // Fishbowl "Sales Rep" (account owner)
+                                data.salesPerson ||            // From Fishbowl import (account owner name)
+                                '';
+        // Normalize owner value so dropdowns (which key by salesPerson code) render correctly.
+        // Some older docs store a rep display name (e.g. "Ben Wallner") instead of a code (e.g. "BenW").
+        const currentOwner = repsMap.has(currentOwnerRaw)
+          ? String(currentOwnerRaw)
+          : (repsByName.get(String(currentOwnerRaw)) || String(currentOwnerRaw || ''));
         const currentOwnerName = repsMap.get(currentOwner) || currentOwner || 'Unassigned';
 
         // Get the original owner from Fishbowl orders (for reference only)
@@ -378,7 +403,8 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
     setSavingCustomer(customerId);
     try {
       const customerRef = doc(db, 'fishbowl_customers', customerId);
-      const repName = reps.find(r => r.salesPerson === newFishbowlUsername)?.name || newFishbowlUsername || 'Unassigned';
+      const normalizedUsername = newFishbowlUsername === 'UNASSIGNED' ? '' : (newFishbowlUsername || '');
+      const repName = reps.find(r => r.salesPerson === normalizedUsername)?.name || normalizedUsername || 'Unassigned';
 
       // Get customer data to find Copper ID
       const customerSnapshot = await getDoc(customerRef);
@@ -388,48 +414,47 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
 
       // Update both fishbowlUsername (manual assignment) and salesPerson (display name)
       await updateDoc(customerRef, {
-        fishbowlUsername: newFishbowlUsername,  // This is the manual override
-        salesPerson: repName  // Display name for UI
+        fishbowlUsername: normalizedUsername,  // manual override
+        salesPerson: repName
       });
 
       // Update local state
       setCustomers(prev => prev.map(c =>
-        c.id === customerId ? { ...c, salesPerson: repName, fishbowlUsername: newFishbowlUsername } : c
+        c.id === customerId ? { ...c, salesPerson: repName, fishbowlUsername: normalizedUsername } : c
       ));
       setFilteredCustomers(prev => prev.map(c =>
-        c.id === customerId ? { ...c, salesPerson: repName, fishbowlUsername: newFishbowlUsername } : c
+        c.id === customerId ? { ...c, salesPerson: repName, fishbowlUsername: normalizedUsername } : c
       ));
 
-      // Sync to Copper if we have a Copper ID
-      if (copperId && newFishbowlUsername && newFishbowlUsername !== '') {
+      // Sync to Copper only when assigning to a real rep (non-empty)
+      if (copperId && normalizedUsername) {
         console.log(`🔄 Syncing sales rep change to Copper for ${customerName}...`);
-
         try {
           const copperResponse = await fetch('/api/copper/update-owner', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               copperId,
-              newSalesPerson: newFishbowlUsername,
+              newSalesPerson: normalizedUsername,
               customerName
             })
           });
 
           const copperResult = await copperResponse.json();
-
           if (copperResult.success) {
             console.log(`✅ Copper updated successfully for ${customerName}`);
             toast.success('Sales rep updated in Fishbowl and Copper!');
           } else if (copperResult.warning) {
             console.warn(`⚠️ ${copperResult.warning}`);
             toast.success('Sales rep updated in Fishbowl (Copper sync skipped)');
+          } else {
+            toast.success('Sales rep updated in Fishbowl');
           }
         } catch (copperError) {
           console.error('Error syncing to Copper:', copperError);
           toast.success('Sales rep updated in Fishbowl (Copper sync failed)');
         }
       } else {
-        // No Copper ID, just update Fishbowl
         toast.success('Sales rep updated!');
       }
 
@@ -538,6 +563,11 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           // Update Sales Rep
           if (batchSalesRep) {
             console.log(`   → Looking for rep with salesPerson: ${batchSalesRep}`);
+            if (batchSalesRep === 'UNASSIGNED') {
+              updates.salesPerson = 'Unassigned';
+              updates.fishbowlUsername = '';
+              console.log(`   → Clearing sales rep assignment (Unassigned)`);
+            } else {
             const selectedRep = reps.find(r => r.salesPerson === batchSalesRep);
             console.log(`   → Found rep:`, selectedRep);
             if (selectedRep) {
@@ -569,6 +599,7 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
               }
             } else {
               console.error(`   ❌ Rep not found with ID: ${batchSalesRep}`);
+            }
             }
           }
 
@@ -1239,7 +1270,8 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
           const wholesale = regionCustomers.filter(c => c.accountType === 'Wholesale').length;
           const distributor = regionCustomers.filter(c => c.accountType === 'Distributor').length;
           const retail = regionCustomers.filter(c => c.accountType === 'Retail').length;
-          const unassigned = regionCustomers.filter(c => !c.fishbowlUsername || c.fishbowlUsername === '' || c.originalOwner === 'Unassigned').length;
+          // Count unassigned based on actual displayed salesPerson, not just manual override field
+          const unassigned = regionCustomers.filter(c => !c.salesPerson || c.salesPerson === 'Unassigned' || c.salesPerson === '').length;
           
           return (
             <div key={region} className="card hover:shadow-lg transition-shadow cursor-pointer" 
@@ -1387,14 +1419,16 @@ export default function CustomersTab({ isAdmin, reps, adminListOnly = false }: C
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  State
+                </label>
                 <select
                   value={selectedState}
                   onChange={(e) => setSelectedState(e.target.value)}
                   className="input w-full"
                 >
                   <option value="all">All States</option>
-                  {Array.from(new Set(customers.map(c => c.shippingState).filter(Boolean))).sort().map(state => (
+                  {['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'DC'].map(state => (
                     <option key={state} value={state}>{state}</option>
                   ))}
                 </select>

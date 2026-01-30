@@ -11,6 +11,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import ImportPreviewModal from './components/ImportPreviewModal';
 
 interface DataSyncTabProps {
   isAdmin: boolean;
@@ -24,6 +25,11 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
   const [fishbowlResult, setFishbowlResult] = useState<any>(null);
   const [importProgress, setImportProgress] = useState<any>(null);
   const [importId, setImportId] = useState<string | null>(null);
+  
+  // Preview state
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewData, setPreviewData] = useState<any>(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
   
   // Copper Sync state
   const [copperSyncLoading, setCopperSyncLoading] = useState(false);
@@ -61,6 +67,54 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
   const [buildRepRallyLoading, setBuildRepRallyLoading] = useState(false);
   const [buildRepRallyResult, setBuildRepRallyResult] = useState<any>(null);
 
+  // Step 1: Preview the import before committing
+  const handlePreviewImport = async () => {
+    if (!fishbowlFile) {
+      toast.error('Please select a file to import');
+      return;
+    }
+
+    setPreviewLoading(true);
+    const loadingToast = toast.loading('Analyzing CSV data...');
+
+    try {
+      const formData = new FormData();
+      formData.append('file', fishbowlFile);
+
+      const response = await fetch('/api/fishbowl/preview-import', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Preview failed');
+      }
+
+      setPreviewData(data.preview);
+      setShowPreview(true);
+      toast.success('Preview ready - review data quality', { id: loadingToast });
+    } catch (error: any) {
+      console.error('Preview error:', error);
+      toast.error(error.message || 'Failed to preview import', { id: loadingToast });
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  // Modal handlers
+  const handleConfirmImport = () => {
+    setShowPreview(false);
+    handleFishbowlImport();
+  };
+
+  const handleCancelPreview = () => {
+    setShowPreview(false);
+    setPreviewData(null);
+  };
+
+  // Step 2: Actual import after user confirms preview
   const handleFishbowlImport = async () => {
     if (!fishbowlFile) {
       toast.error('Please select a file to import');
@@ -770,11 +824,11 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
           </div>
 
           <button
-            onClick={handleFishbowlImport}
-            disabled={fishbowlLoading || !fishbowlFile}
+            onClick={handlePreviewImport}
+            disabled={previewLoading || fishbowlLoading || !fishbowlFile}
             className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-4 rounded-lg hover:from-purple-700 hover:to-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-bold text-lg shadow-lg"
           >
-            {fishbowlLoading ? '⏳ Importing...' : '📦 Import Fishbowl Data'}
+            {previewLoading ? '🔍 Analyzing...' : fishbowlLoading ? '⏳ Importing...' : '� Preview & Import Data'}
           </button>
 
           {importProgress && (
@@ -991,6 +1045,15 @@ export default function DataSyncTab({ isAdmin, onCustomersUpdated }: DataSyncTab
           )}
         </div>
       </div>
+
+      {/* Import Preview Modal */}
+      {showPreview && previewData && (
+        <ImportPreviewModal
+          preview={previewData}
+          onConfirm={handleConfirmImport}
+          onCancel={handleCancelPreview}
+        />
+      )}
     </div>
   );
 }

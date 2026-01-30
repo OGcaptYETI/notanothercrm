@@ -1,0 +1,1159 @@
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $0.00 × 6% = $0.00
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $1440.00 × 8% = $115.20
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $0.00 × 8% = $0.00
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $0.00 × 3% = $0.00
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $0.00 × 4% = $0.00
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $0.00 × 2% = $0.00
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33688.80 × 2% = $673.78
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33926.40 × 2% = $678.53
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $34272.00 × 4% = $1370.88
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2736.00 × 3% = $82.08
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34272.00 × 2% = $685.44
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $32256.00 × 2% = $645.12
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10200.00 × 4% = $408.00
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1602.00 × 4% = $64.08
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1576.80 × 4% = $63.07
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2160.00 × 4% = $86.40
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $648.00 × 3% = $19.44
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1224.00 × 4% = $48.96
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34797.60 × 2% = $695.95
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2736.00 × 4% = $109.44
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $66931.20 × 8% = $5354.50
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $720.00 × 3% = $21.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5184.00 × 4% = $207.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2160.00 × 3% = $64.80
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $17539.20 × 2% = $350.78
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35323.20 × 2% = $706.46
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33688.80 × 2% = $673.78
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33926.40 × 2% = $678.53
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $34272.00 × 4% = $1370.88
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2736.00 × 3% = $82.08
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34272.00 × 2% = $685.44
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $32256.00 × 2% = $645.12
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10200.00 × 4% = $408.00
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1602.00 × 4% = $64.08
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1576.80 × 4% = $63.07
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2160.00 × 4% = $86.40
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $648.00 × 3% = $19.44
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1224.00 × 4% = $48.96
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33688.80 × 2% = $673.78
+  ✅ CALCULATED: $34797.60 × 2% = $695.95
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $33926.40 × 2% = $678.53
+  ✅ CALCULATED: $2736.00 × 4% = $109.44
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $34272.00 × 4% = $1370.88
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2736.00 × 3% = $82.08
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+  ✅ CALCULATED: $66931.20 × 8% = $5354.50
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $720.00 × 3% = $21.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $5184.00 × 4% = $207.36
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2160.00 × 3% = $64.80
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $17539.20 × 2% = $350.78
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $34272.00 × 2% = $685.44
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35323.20 × 2% = $706.46
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $32256.00 × 2% = $645.12
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10200.00 × 4% = $408.00
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1602.00 × 4% = $64.08
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1576.80 × 4% = $63.07
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2160.00 × 4% = $86.40
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $648.00 × 3% = $19.44
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1224.00 × 4% = $48.96
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34797.60 × 2% = $695.95
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2736.00 × 4% = $109.44
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $66931.20 × 8% = $5354.50
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $720.00 × 3% = $21.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5184.00 × 4% = $207.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2160.00 × 3% = $64.80
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $17539.20 × 2% = $350.78
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35323.20 × 2% = $706.46
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67377.60 × 2% = $1347.55
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67852.80 × 2% = $1357.06
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $69744.00 × 4% = $2789.76
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68544.00 × 2% = $1370.88
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $12528.00 × 2% = $250.56
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $22400.00 × 4% = $896.00
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5760.00 × 3% = $172.80
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3204.00 × 4% = $128.16
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3153.60 × 4% = $126.14
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $4320.00 × 4% = $172.80
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1296.00 × 3% = $38.88
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2448.00 × 4% = $97.92
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $69595.20 × 2% = $1391.90
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5472.00 × 4% = $218.88
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $133862.40 × 8% = $10708.99
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10584.00 × 4% = $423.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $4320.00 × 3% = $129.60
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35078.40 × 2% = $701.57
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $70646.40 × 2% = $1412.93
+Order 10019 | Customer 1961 (Kettle Falls EXXON) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2160.00 × 8% = $172.80
+Order 10024 | Customer 1801 (Nevada Cash & Carry) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $17136.00 × 8% = $1370.88
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67377.60 × 2% = $1347.55
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67852.80 × 2% = $1357.06
+Order 10060 | Customer 1254 (Hotbox Smoke Shop | Bellevue) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1435.00 × 4% = $57.40
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $69744.00 × 4% = $2789.76
+Order 10076 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10079 | Customer 1676 (Pluto's Smoke Shop | ND) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $300.00 × 6% = $18.00
+Order 10080 | Customer 1675 (Pluto's Smoke Shop | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1056.00 × 6% = $63.36
+Order 10081 | Customer 1022 (iCloud Vape and Smoke | Casper) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10088 | Customer 2045 (Nabors Wholesale | MT) | Rep: Brandon Good | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $15624.00 × 6% = $937.44
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10090 | Customer 2046 (Unio Enterprises LLC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10092 | Customer 1966 (White Cloud- Post Falls) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $36720.00 × 8% = $2937.60
+Order 10111 | Customer 1830 (Eros Wholesalers) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $17539.20 × 4% = $701.57
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10120 | Customer 1235 (pittsburgh wholesale) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $299.00 × 2% = $5.98
+Order 10125 | Customer 1428 (iCloud Vape and Smoke | Sheridan) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10126 | Customer 1023 (iCloud Vape and Smoke 2 | Gilette) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2052.00 × 3% = $61.56
+Order 10128 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $348.00 × 6% = $20.88
+Order 10129 | Customer 1783 (Noreservations) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10130 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68544.00 × 2% = $1370.88
+Order 10132 | Customer 1429 (iCloud Vape and Smoke | Laramie) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $12528.00 × 2% = $250.56
+Order 10134 | Customer 1807 (Majestic Distribtion LLC) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $24906.00 × 8% = $1992.48
+Order 10135 | Customer 1697 (E-Smoke & Convenience) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10136 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10141 | Customer 1639 (The Hemp Social) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10142 | Customer 1042 (Etown Marketing & Distributing) | Rep: Zalak Zaveri | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $64512.00 × 4% = $2580.48
+Order 10144 | Customer 1686 (Space Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10145 | Customer 1131 (Amia Trading - AWS) | Rep: Jared Leuzinger | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $645120.00 × 2% = $12902.40
+Order 10146 | Customer 1175 (CA Wholesale) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10149 | Customer 1542 (Corning Smoke Shop) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2880.00 × 4% = $115.20
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $22400.00 × 4% = $896.00
+Order 10154 | Customer 1040 (Blueberry Trading) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68373.00 × 2% = $1367.46
+Order 10155 | Customer 1074 (Rochester Smoke Shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10156 | Customer 1669 (Lucky Stop) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $840.00 × 8% = $67.20
+Order 10157 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $-1164.00 × 6% = $-69.84
+Order 10158 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1248.00 × 6% = $74.88
+Order 10159 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3758.40 × 8% = $300.67
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5760.00 × 3% = $172.80
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3204.00 × 4% = $128.16
+Order 10168 | Customer 1398 (Everest Distribution) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10170 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $276.00 × 6% = $16.56
+Order 10172 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $180.00 × 8% = $14.40
+Order 10174 | Customer 1559 (Ace Wholesale Inc. | WA) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34812.00 × 2% = $696.24
+Order 10177 | Customer 1206 (Nikk Drips) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3153.60 × 4% = $126.14
+Order 10180 | Customer 1352 (Vape Colorado) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $60.00 × 3% = $1.80
+Order 10182 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10184 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10185 | Customer 1552 (Puff N Stuff) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10186 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $288.00 × 6% = $17.28
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $4320.00 × 4% = $172.80
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1296.00 × 3% = $38.88
+Order 10196 | Customer 1955 (No Gravity) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10197 | Customer 2484 (DORE'S STORES, INC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $0.00 × 8% = $0.00
+Order 10198 | Customer 2485 (Tobacco Town 2) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2016.00 × 8% = $161.28
+Order 10201 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10203 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $162.00 × 6% = $9.72
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2448.00 × 4% = $97.92
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $69595.20 × 2% = $1391.90
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5472.00 × 4% = $218.88
+Order 10214 | Customer 1649 (SNJ GIFTS | AK) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $924.00 × 6% = $55.44
+Order 10219 | Customer 2026 (Numia Healing) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $180.00 × 6% = $10.80
+Order 10220 | Customer 1884 (Oregon Distro) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $68373.00 × 8% = $5469.84
+Order 10221 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10226 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $2505.60 × 8% = $200.45
+Order 10228 | Customer 1132 (Portland Smoke & Vape) | Rep: Derek Whitworth | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2088.00 × 3% = $62.64
+Order 10230 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1764.00 × 6% = $105.84
+Order 10233 | Customer 1851 (Edison Grab N Go | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10241 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $747.00 × 6% = $44.82
+Order 10242 | Customer 1459 (Mountain High Wellness | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $4347.00 × 6% = $260.82
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $133862.40 × 8% = $10708.99
+Order 10252 | Customer 1425 (Mike's Smoke cigar and gifts) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10269 | Customer 1787 (Douglas Vapor LLC | WY) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10270 | Customer 1923 (Lakeshore Market | ID) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1467.00 × 6% = $88.02
+Order 10276 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10584.00 × 4% = $423.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $4320.00 × 3% = $129.60
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35078.40 × 2% = $701.57
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10288 | Customer 3117 (D2D Distribution) | Rep: Derek Whitworth | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $54504.00 × 6% = $3270.24
+Order 10289 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10292 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $456.00 × 6% = $27.36
+Order 10294 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10298 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $1252.80 × 8% = $100.22
+Order 10301 | Customer 2569 (Quik Mart | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10303 | Customer 2570 (Tesoro Corporation) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10310 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $120.00 × 6% = $7.20
+Order 10311 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $70646.40 × 2% = $1412.93
+Order 9928 | Customer 1782 (A Vape Escape) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $432.00 × 8% = $34.56
+Order 10019 | Customer 1961 (Kettle Falls EXXON) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2160.00 × 8% = $172.80
+Order 10024 | Customer 1801 (Nevada Cash & Carry) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $17136.00 × 8% = $1370.88
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67377.60 × 2% = $1347.55
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67852.80 × 2% = $1357.06
+Order 10060 | Customer 1254 (Hotbox Smoke Shop | Bellevue) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1435.00 × 4% = $57.40
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $69744.00 × 4% = $2789.76
+Order 10076 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10079 | Customer 1676 (Pluto's Smoke Shop | ND) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $300.00 × 6% = $18.00
+Order 10080 | Customer 1675 (Pluto's Smoke Shop | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1056.00 × 6% = $63.36
+Order 10081 | Customer 1022 (iCloud Vape and Smoke | Casper) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10088 | Customer 2045 (Nabors Wholesale | MT) | Rep: Brandon Good | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $15624.00 × 6% = $937.44
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10090 | Customer 2046 (Unio Enterprises LLC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10092 | Customer 1966 (White Cloud- Post Falls) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $36720.00 × 8% = $2937.60
+Order 10111 | Customer 1830 (Eros Wholesalers) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $17539.20 × 4% = $701.57
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10120 | Customer 1235 (pittsburgh wholesale) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $299.00 × 2% = $5.98
+Order 10125 | Customer 1428 (iCloud Vape and Smoke | Sheridan) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10126 | Customer 1023 (iCloud Vape and Smoke 2 | Gilette) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2052.00 × 3% = $61.56
+Order 10128 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $348.00 × 6% = $20.88
+Order 10129 | Customer 1783 (Noreservations) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10130 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68544.00 × 2% = $1370.88
+Order 10132 | Customer 1429 (iCloud Vape and Smoke | Laramie) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $12528.00 × 2% = $250.56
+Order 10134 | Customer 1807 (Majestic Distribtion LLC) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $24906.00 × 8% = $1992.48
+Order 10135 | Customer 1697 (E-Smoke & Convenience) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10136 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10141 | Customer 1639 (The Hemp Social) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10142 | Customer 1042 (Etown Marketing & Distributing) | Rep: Zalak Zaveri | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $64512.00 × 4% = $2580.48
+Order 10144 | Customer 1686 (Space Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10145 | Customer 1131 (Amia Trading - AWS) | Rep: Jared Leuzinger | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $645120.00 × 2% = $12902.40
+Order 10146 | Customer 1175 (CA Wholesale) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10149 | Customer 1542 (Corning Smoke Shop) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2880.00 × 4% = $115.20
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $22400.00 × 4% = $896.00
+Order 10154 | Customer 1040 (Blueberry Trading) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68373.00 × 2% = $1367.46
+Order 10155 | Customer 1074 (Rochester Smoke Shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10156 | Customer 1669 (Lucky Stop) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $840.00 × 8% = $67.20
+Order 10157 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $-1164.00 × 6% = $-69.84
+Order 10158 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1248.00 × 6% = $74.88
+Order 10159 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3758.40 × 8% = $300.67
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5760.00 × 3% = $172.80
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3204.00 × 4% = $128.16
+Order 10168 | Customer 1398 (Everest Distribution) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10170 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $276.00 × 6% = $16.56
+Order 10172 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $180.00 × 8% = $14.40
+Order 10174 | Customer 1559 (Ace Wholesale Inc. | WA) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34812.00 × 2% = $696.24
+Order 10177 | Customer 1206 (Nikk Drips) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3153.60 × 4% = $126.14
+Order 10180 | Customer 1352 (Vape Colorado) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $60.00 × 3% = $1.80
+Order 10182 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10184 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10185 | Customer 1552 (Puff N Stuff) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10186 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $288.00 × 6% = $17.28
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $4320.00 × 4% = $172.80
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1296.00 × 3% = $38.88
+Order 10196 | Customer 1955 (No Gravity) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10197 | Customer 2484 (DORE'S STORES, INC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $0.00 × 8% = $0.00
+Order 10198 | Customer 2485 (Tobacco Town 2) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2016.00 × 8% = $161.28
+Order 10201 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10203 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $162.00 × 6% = $9.72
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2448.00 × 4% = $97.92
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $69595.20 × 2% = $1391.90
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5472.00 × 4% = $218.88
+Order 10214 | Customer 1649 (SNJ GIFTS | AK) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $924.00 × 6% = $55.44
+Order 10219 | Customer 2026 (Numia Healing) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $180.00 × 6% = $10.80
+Order 10220 | Customer 1884 (Oregon Distro) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $68373.00 × 2% = $1367.46
+Order 10221 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10226 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $2505.60 × 8% = $200.45
+Order 10228 | Customer 1132 (Portland Smoke & Vape) | Rep: Derek Whitworth | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2088.00 × 3% = $62.64
+Order 10230 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1764.00 × 6% = $105.84
+Order 10233 | Customer 1851 (Edison Grab N Go | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10241 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $747.00 × 6% = $44.82
+Order 10242 | Customer 1459 (Mountain High Wellness | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $4347.00 × 6% = $260.82
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $133862.40 × 8% = $10708.99
+Order 10252 | Customer 1425 (Mike's Smoke cigar and gifts) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10269 | Customer 1787 (Douglas Vapor LLC | WY) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10270 | Customer 1923 (Lakeshore Market | ID) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1467.00 × 6% = $88.02
+Order 10276 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10584.00 × 4% = $423.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $4320.00 × 3% = $129.60
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35078.40 × 2% = $701.57
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10288 | Customer 3117 (D2D Distribution) | Rep: Derek Whitworth | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $54504.00 × 6% = $3270.24
+Order 10289 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10292 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $456.00 × 6% = $27.36
+Order 10294 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10298 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $1252.80 × 8% = $100.22
+Order 10301 | Customer 2569 (Quik Mart | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10303 | Customer 2570 (Tesoro Corporation) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10310 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $120.00 × 6% = $7.20
+Order 10311 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $70646.40 × 2% = $1412.93
+Order 9928 | Customer 1782 (A Vape Escape) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $432.00 × 8% = $34.56
+Order 10019 | Customer 1961 (Kettle Falls EXXON) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2160.00 × 8% = $172.80
+Order 10024 | Customer 1801 (Nevada Cash & Carry) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $17136.00 × 8% = $1370.88
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67377.60 × 2% = $1347.55
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $67852.80 × 2% = $1357.06
+Order 10060 | Customer 1254 (Hotbox Smoke Shop | Bellevue) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1435.00 × 4% = $57.40
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $69744.00 × 4% = $2789.76
+Order 10076 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10079 | Customer 1676 (Pluto's Smoke Shop | ND) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $300.00 × 6% = $18.00
+Order 10080 | Customer 1675 (Pluto's Smoke Shop | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1056.00 × 6% = $63.36
+Order 10081 | Customer 1022 (iCloud Vape and Smoke | Casper) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10088 | Customer 2045 (Nabors Wholesale | MT) | Rep: Brandon Good | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $15624.00 × 6% = $937.44
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10090 | Customer 2046 (Unio Enterprises LLC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10092 | Customer 1966 (White Cloud- Post Falls) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $36720.00 × 8% = $2937.60
+Order 10111 | Customer 1830 (Eros Wholesalers) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $17539.20 × 4% = $701.57
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2880.00 × 8% = $230.40
+Order 10120 | Customer 1235 (pittsburgh wholesale) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $299.00 × 2% = $5.98
+Order 10125 | Customer 1428 (iCloud Vape and Smoke | Sheridan) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10126 | Customer 1023 (iCloud Vape and Smoke 2 | Gilette) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2052.00 × 3% = $61.56
+Order 10128 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $348.00 × 6% = $20.88
+Order 10129 | Customer 1783 (Noreservations) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10130 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68544.00 × 2% = $1370.88
+Order 10132 | Customer 1429 (iCloud Vape and Smoke | Laramie) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $12528.00 × 2% = $250.56
+Order 10134 | Customer 1807 (Majestic Distribtion LLC) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $24906.00 × 8% = $1992.48
+Order 10135 | Customer 1697 (E-Smoke & Convenience) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10136 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10141 | Customer 1639 (The Hemp Social) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10142 | Customer 1042 (Etown Marketing & Distributing) | Rep: Zalak Zaveri | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $64512.00 × 4% = $2580.48
+Order 10144 | Customer 1686 (Space Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10145 | Customer 1131 (Amia Trading - AWS) | Rep: Jared Leuzinger | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $645120.00 × 2% = $12902.40
+Order 10146 | Customer 1175 (CA Wholesale) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10149 | Customer 1542 (Corning Smoke Shop) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2880.00 × 4% = $115.20
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $22400.00 × 4% = $896.00
+Order 10154 | Customer 1040 (Blueberry Trading) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $68373.00 × 2% = $1367.46
+Order 10155 | Customer 1074 (Rochester Smoke Shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10156 | Customer 1669 (Lucky Stop) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $840.00 × 8% = $67.20
+Order 10157 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $-1164.00 × 6% = $-69.84
+Order 10158 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1248.00 × 6% = $74.88
+Order 10159 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3758.40 × 8% = $300.67
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5760.00 × 3% = $172.80
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3204.00 × 4% = $128.16
+Order 10168 | Customer 1398 (Everest Distribution) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10170 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $276.00 × 6% = $16.56
+Order 10172 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $180.00 × 8% = $14.40
+Order 10174 | Customer 1559 (Ace Wholesale Inc. | WA) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34812.00 × 2% = $696.24
+Order 10177 | Customer 1206 (Nikk Drips) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $3153.60 × 4% = $126.14
+Order 10180 | Customer 1352 (Vape Colorado) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $60.00 × 3% = $1.80
+Order 10182 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10184 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10185 | Customer 1552 (Puff N Stuff) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10186 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $288.00 × 6% = $17.28
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $4320.00 × 4% = $172.80
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $516096.00 × 2% = $10321.92
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1296.00 × 3% = $38.88
+Order 10196 | Customer 1955 (No Gravity) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10197 | Customer 2484 (DORE'S STORES, INC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $0.00 × 8% = $0.00
+Order 10198 | Customer 2485 (Tobacco Town 2) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2016.00 × 8% = $161.28
+Order 10201 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10203 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $162.00 × 6% = $9.72
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2448.00 × 4% = $97.92
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $69595.20 × 2% = $1391.90
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5472.00 × 4% = $218.88
+Order 10214 | Customer 1649 (SNJ GIFTS | AK) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $924.00 × 6% = $55.44
+Order 10219 | Customer 2026 (Numia Healing) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $180.00 × 6% = $10.80
+Order 10220 | Customer 1884 (Oregon Distro) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $68373.00 × 8% = $5469.84
+Order 10221 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10226 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $2505.60 × 8% = $200.45
+Order 10228 | Customer 1132 (Portland Smoke & Vape) | Rep: Derek Whitworth | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2088.00 × 3% = $62.64
+Order 10230 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1764.00 × 6% = $105.84
+Order 10233 | Customer 1851 (Edison Grab N Go | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10241 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $747.00 × 6% = $44.82
+Order 10242 | Customer 1459 (Mountain High Wellness | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $4347.00 × 6% = $260.82
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $133862.40 × 8% = $10708.99
+Order 10252 | Customer 1425 (Mike's Smoke cigar and gifts) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10269 | Customer 1787 (Douglas Vapor LLC | WY) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10270 | Customer 1923 (Lakeshore Market | ID) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1467.00 × 6% = $88.02
+Order 10276 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10584.00 × 4% = $423.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $4320.00 × 3% = $129.60
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35078.40 × 2% = $701.57
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1440.00 × 4% = $57.60
+Order 10288 | Customer 3117 (D2D Distribution) | Rep: Derek Whitworth | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $54504.00 × 6% = $3270.24
+Order 10289 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10292 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $456.00 × 6% = $27.36
+Order 10294 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10298 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $1252.80 × 8% = $100.22
+Order 10301 | Customer 2569 (Quik Mart | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10303 | Customer 2570 (Tesoro Corporation) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $108.00 × 6% = $6.48
+Order 10310 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $120.00 × 6% = $7.20
+Order 10311 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $70646.40 × 2% = $1412.93
+Order 9928 | Customer 1782 (A Vape Escape) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $432.00 × 8% = $34.56
+Order 10019 | Customer 1961 (Kettle Falls EXXON) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $2160.00 × 8% = $172.80
+Order 10024 | Customer 1801 (Nevada Cash & Carry) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $17136.00 × 8% = $1370.88
+Order 10026 | Customer 121 (Savage Wholesale) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33688.80 × 2% = $673.78
+Order 10031 | Customer 504 (Raw Distribution) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $33926.40 × 2% = $678.53
+Order 10060 | Customer 1254 (Hotbox Smoke Shop | Bellevue) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1435.00 × 4% = $57.40
+Order 10063 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $34272.00 × 4% = $1370.88
+Order 10076 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10077 | Customer 427 (420 Friendlys CBD and Kratom shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2736.00 × 3% = $82.08
+Order 10079 | Customer 1676 (Pluto's Smoke Shop | ND) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $300.00 × 6% = $18.00
+Order 10080 | Customer 1675 (Pluto's Smoke Shop | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $768.00 × 6% = $46.08
+Order 10081 | Customer 1022 (iCloud Vape and Smoke | Casper) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10082 | Customer 730 (Mile High Botanicals) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10088 | Customer 2045 (Nabors Wholesale | MT) | Rep: Brandon Good | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $7812.00 × 6% = $468.72
+Order 10089 | Customer 450 (Canal Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10090 | Customer 2046 (Unio Enterprises LLC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10092 | Customer 1966 (White Cloud- Post Falls) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $18360.00 × 8% = $1468.80
+Order 10106 | Customer 1575 (Cigarville Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $-720.00 × 6% = $-43.20
+Order 10111 | Customer 1830 (Eros Wholesalers) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $17539.20 × 4% = $701.57
+Order 10117 | Customer 2047 (2 CHICKS AND A HEADSHOP) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $1440.00 × 8% = $115.20
+Order 10118 | Customer 1155 (Tacony) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10120 | Customer 1235 (pittsburgh wholesale) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $299.00 × 2% = $5.98
+Order 10125 | Customer 1428 (iCloud Vape and Smoke | Sheridan) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10126 | Customer 1023 (iCloud Vape and Smoke 2 | Gilette) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2052.00 × 3% = $61.56
+Order 10128 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $264.00 × 6% = $15.84
+Order 10129 | Customer 1783 (Noreservations) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10130 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $216.00 × 6% = $12.96
+Order 10131 | Customer 115 (Honest Inc) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34272.00 × 2% = $685.44
+Order 10132 | Customer 1429 (iCloud Vape and Smoke | Laramie) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2052.00 × 6% = $123.12
+Order 10133 | Customer 158 (Olympia Wholesale) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10134 | Customer 1807 (Majestic Distribtion LLC) | Rep: Jared Leuzinger | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $12378.00 × 8% = $990.24
+Order 10135 | Customer 1697 (E-Smoke & Convenience) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10136 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10138 | Customer 881 (Paradox Wilsonville) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 10140 | Customer 961 (Wholesale Express- ED) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10141 | Customer 1639 (The Hemp Social) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10142 | Customer 1042 (Etown Marketing & Distributing) | Rep: Zalak Zaveri | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $64512.00 × 4% = $2580.48
+Order 10143 | Customer 1307 (Lazy Daze Inc) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $684.00 × 3% = $20.52
+Order 10144 | Customer 1686 (Space Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10145 | Customer 1131 (Amia Trading - AWS) | Rep: Jared Leuzinger | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $322560.00 × 2% = $6451.20
+Order 10146 | Customer 1175 (CA Wholesale) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10149 | Customer 1542 (Corning Smoke Shop) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2880.00 × 4% = $115.20
+Order 10150 | Customer 405 (Giant Distribution) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $32256.00 × 2% = $645.12
+Order 10153 | Customer 576 (LV Cash n Carry Attn Parth) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $10200.00 × 4% = $408.00
+Order 10154 | Customer 1040 (Blueberry Trading) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34101.00 × 2% = $682.02
+Order 10155 | Customer 1074 (Rochester Smoke Shop) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $5472.00 × 3% = $164.16
+Order 10156 | Customer 1669 (Lucky Stop) | Rep: Jared Leuzinger | Status: 6month | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $780.00 × 8% = $62.40
+Order 10157 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $-1164.00 × 6% = $-69.84
+Order 10158 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1164.00 × 6% = $69.84
+Order 10159 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3758.40 × 8% = $300.67
+Order 10164 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10165 | Customer 562 (The Mighty Quinn Smoke) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1602.00 × 4% = $64.08
+Order 10168 | Customer 1398 (Everest Distribution) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $6264.00 × 2% = $125.28
+Order 10170 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $192.00 × 6% = $11.52
+Order 10172 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $180.00 × 8% = $14.40
+Order 10174 | Customer 1559 (Ace Wholesale Inc. | WA) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34236.00 × 2% = $684.72
+Order 10176 | Customer 1575 (Cigarville Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10177 | Customer 1206 (Nikk Drips) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10178 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1576.80 × 4% = $63.07
+Order 10180 | Customer 1352 (Vape Colorado) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $60.00 × 3% = $1.80
+Order 10181 | Customer 1307 (Lazy Daze Inc) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10182 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10184 | Customer 1493 (Mahant 342 Inc) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10185 | Customer 1552 (Puff N Stuff) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10186 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $204.00 × 6% = $12.24
+Order 10187 | Customer 2483 (Lamar Grocery) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $299.00 × 8% = $23.92
+Order 10188 | Customer 392 (Destin Smoke Shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2160.00 × 4% = $86.40
+Order 10189 | Customer 883 (KMT Distribution) | Rep: Zalak Zaveri | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $258048.00 × 2% = $5160.96
+Order 10190 | Customer 551 (One Love) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $648.00 × 3% = $19.44
+Order 10192 | Customer 1155 (Tacony) | Rep: Derek Whitworth | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10193 | Customer 1136 (Montana Moon Reflexology LLC) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $54.00 × 3% = $1.62
+Order 10196 | Customer 1955 (No Gravity) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $0.00 × 6% = $0.00
+Order 10197 | Customer 2484 (DORE'S STORES, INC) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $0.00 × 8% = $0.00
+Order 10198 | Customer 2485 (Tobacco Town 2) | Rep: Ben Wallner | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $1008.00 × 8% = $80.64
+Order 10201 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10203 | Customer 1791 (Common Sense) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $162.00 × 6% = $9.72
+Order 10205 | Customer 785 (The Kind Connection Smoke Shop) | Rep: Jared Leuzinger | Status: 12month | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $1224.00 × 4% = $48.96
+Order 10207 | Customer 1194 (Supreme Glass Wholesale Inc) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $32256.00 × 2% = $645.12
+Order 10208 | Customer 308 (Down South Distro) | Rep: Zalak Zaveri | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $34797.60 × 2% = $695.95
+Order 10210 | Customer 2566 (Smokeland) | Rep: Jared Leuzinger | Status: new | Segment: Retail | Rate: 0% | Found: true
+Order 10211 | Customer 2565 (Puff & Snack) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $299.00 × 8% = $23.92
+Order 10212 | Customer 511 (Drip Botanical Tea Bar) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $2736.00 × 4% = $109.44
+Order 10214 | Customer 1649 (SNJ GIFTS | AK) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $642.00 × 6% = $38.52
+Order 10219 | Customer 2026 (Numia Healing) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $180.00 × 6% = $10.80
+Order 10220 | Customer 1884 (Oregon Distro) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $34101.00 × 8% = $2728.08
+Order 10221 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $324.00 × 6% = $19.44
+Order 10226 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $2505.60 × 8% = $200.45
+Order 10228 | Customer 1132 (Portland Smoke & Vape) | Rep: Derek Whitworth | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1368.00 × 3% = $41.04
+Order 10230 | Customer 1579 (Good Earth Markets) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $990.00 × 6% = $59.40
+Order 10233 | Customer 1851 (Edison Grab N Go | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1440.00 × 6% = $86.40
+Order 10241 | Customer 1644 (New Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10242 | Customer 1459 (Mountain High Wellness | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $2160.00 × 6% = $129.60
+Order 10246 | Customer 942 (Port City Distro) | Rep: Zalak Zaveri | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $66931.20 × 8% = $5354.50
+Order 10252 | Customer 1425 (Mike's Smoke cigar and gifts) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2880.00 × 3% = $86.40
+Order 10264 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $-720.00 × 3% = $-21.60
+Order 10265 | Customer 843 (Hemp Plus) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $720.00 × 3% = $21.60
+Order 10269 | Customer 1787 (Douglas Vapor LLC | WY) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $648.00 × 6% = $38.88
+Order 10270 | Customer 1923 (Lakeshore Market | ID) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $720.00 × 6% = $43.20
+Order 10275 | Customer 1662 (Smoke Stop (Spencer)) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $1494.00 × 8% = $119.52
+Order 10276 | Customer 1533 (C's Liquor) | Rep: Jared Leuzinger | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $720.00 × 8% = $57.60
+Order 10282 | Customer 323 (Illusions/Moe) | Rep: Ben Wallner | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $5184.00 × 4% = $207.36
+Order 10283 | Customer 183 (The Vape Way) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $2160.00 × 3% = $64.80
+Order 10286 | Customer 1276 (Erie Distributors) | Rep: Derek Whitworth | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $17539.20 × 2% = $350.78
+Order 10287 | Customer 1432 (noura smoke & vape shop) | Rep: Zalak Zaveri | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $720.00 × 4% = $28.80
+Order 10288 | Customer 3117 (D2D Distribution) | Rep: Derek Whitworth | Status: new | Segment: Distributor | Rate: 6% | Found: true
+  ✅ CALCULATED: $26414.00 × 6% = $1584.84
+Order 10289 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $3132.00 × 8% = $250.56
+Order 10292 | Customer 1463 (Capitol Botanicals | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $318.00 × 6% = $19.08
+Order 10294 | Customer 1076 (woodland distributors) | Rep: Ben Wallner | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $9180.00 × 2% = $183.60
+Order 10298 | Customer 2106 (NASEEB TRADING LLC) | Rep: Ben Wallner | Status: new | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $1252.80 × 8% = $100.22
+Order 10301 | Customer 3197 (Quik Mart | UT) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $0.00 × 6% = $0.00
+Order 10303 | Customer 3198 (Tesoro Corporation) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $0.00 × 6% = $0.00
+Order 10305 | Customer 437 (Uno Wireless distribution llc) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $18360.00 × 2% = $367.20
+Order 10307 | Customer 570 (Paykoc Imports) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $34272.00 × 3% = $1028.16
+Order 10310 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $120.00 × 6% = $7.20
+Order 10311 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $360.00 × 6% = $21.60
+Order 10312 | Customer 255 (Colorado Herbal Imports | Eroy) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $17539.20 × 3% = $526.18
+Order 10314 | Customer 2026 (Numia Healing) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $240.00 × 6% = $14.40
+Order 10315 | Customer 1916 (iCloud Vape and Smoke 5 | Cheyenne) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $1368.00 × 6% = $82.08
+Order 10316 | Customer 919 (Smoke Solutions Super Store | SD) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10317 | Customer 284 (ISmoke Cigars and Vape LLC) | Rep: Jared Leuzinger | Status: transferred | Segment: Wholesale | Rate: 4% | Found: true
+  ✅ CALCULATED: $32256.00 × 4% = $1290.24
+Order 10321 | Customer 1473 (Maine Smoke Shop) | Rep: Derek Whitworth | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $192.00 × 6% = $11.52
+Order 10322 | Customer 1129 (The Karma Korner | Helena) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $6768.00 × 3% = $203.04
+Order 10323 | Customer 1720 (World of Smoke & Vape North MIami Beach) | Rep: Zalak Zaveri | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $1440.00 × 8% = $115.20
+Order 10324 | Customer 1494 (Nepa 2 Wholesale LLC) | Rep: Zalak Zaveri | Status: 6month | Segment: Distributor | Rate: 8% | Found: true
+  ✅ CALCULATED: $133862.41 × 8% = $10708.99
+Order 10333 | Customer 1675 (Pluto's Smoke Shop | WY) | Rep: Brandon Good | Status: 6month | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $444.00 × 6% = $26.64
+Order 10337 | Customer 1971 (Z&A Wholesale) | Rep: Derek Whitworth | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $612.00 × 6% = $36.72
+Order 10338 | Customer 1352 (Vape Colorado) | Rep: Brandon Good | Status: transferred | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $60.00 × 3% = $1.80
+Order 10339 | Customer 1959 (Aloha Vibrations) | Rep: Brandon Good | Status: new | Segment: Wholesale | Rate: 6% | Found: true
+  ✅ CALCULATED: $234.00 × 6% = $14.04
+Order 10341 | Customer 1162 (The Hideout Vape & Glass | CO) | Rep: Brandon Good | Status: 12month | Segment: Wholesale | Rate: 3% | Found: true
+  ✅ CALCULATED: $1440.00 × 3% = $43.20
+Order 10342 | Customer 1175 (CA Wholesale) | Rep: Brandon Good | Status: transferred | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $64512.00 × 2% = $1290.24
+Order 10343 | Customer 1673 (Mad Hatters Tea & Gifts Siloam Springs) | Rep: Zalak Zaveri | Status: 6month | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $300.00 × 8% = $24.00
+Order 9894 | Customer 287 (Number One Distro) | Rep: Jared Leuzinger | Status: 12month | Segment: Distributor | Rate: 2% | Found: true
+  ✅ CALCULATED: $35323.20 × 2% = $706.46
+Order 9928 | Customer 1782 (A Vape Escape) | Rep: Jared Leuzinger | Status: new | Segment: Wholesale | Rate: 8% | Found: true
+  ✅ CALCULATED: $276.00 × 8% = $22.08

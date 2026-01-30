@@ -16,6 +16,7 @@ interface CommissionSummary {
   commissionsCalculated: number;
   totalCommission: number;
   ordersProcessed: number;
+  activeReps?: number;
   repBreakdown: Record<string, any>;
 }
 
@@ -124,6 +125,7 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
               commissionsCalculated: progress.stats?.commissionsCalculated || 0,
               totalCommission: progress.stats?.totalCommission || 0,
               ordersProcessed: totalOrders || 0,
+              activeReps: progress.stats?.activeReps,
               repBreakdown: progress.stats?.repBreakdown || {}
             });
             
@@ -402,7 +404,7 @@ export default function CalculateTab({ onCalculationComplete }: CalculateTabProp
                 <div>
                   <div className="text-sm font-medium text-orange-900">Active Reps</div>
                   <div className="text-2xl font-bold text-orange-600 mt-1">
-                    {Object.keys(commissionSummary.repBreakdown).length}
+                    {commissionSummary.activeReps ?? Object.keys(commissionSummary.repBreakdown).length}
                   </div>
                 </div>
                 <Users className="w-8 h-8 text-orange-400" />

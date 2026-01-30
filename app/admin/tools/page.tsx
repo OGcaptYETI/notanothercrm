@@ -38,6 +38,13 @@ const tools = [
     color: 'bg-green-100 text-green-600'
   },
   {
+    name: 'Firebase → Supabase Sync',
+    description: 'Monitor and sync Fishbowl customers from Firebase to Supabase CRM',
+    href: '/admin/tools/sync-firebase-supabase',
+    icon: RefreshCw,
+    color: 'bg-purple-100 text-purple-600'
+  },
+  {
     name: 'Archived Accounts',
     description: 'View and restore archived or merged customer accounts',
     href: '/admin/archived-accounts',

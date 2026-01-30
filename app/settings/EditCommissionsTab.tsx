@@ -337,7 +337,7 @@ export default function EditCommissionsTab({ isAdmin }: EditCommissionsTabProps)
     .reduce((sum, o) => sum + (o.totalPrice || 0), 0);
   const includedTotal = filteredOrders
     .filter(o => !o.excludeFromCommission)
-    .reduce((sum, o) => sum + (o.totalPrice || 0), 0);
+    .reduce((sum, o) => sum + (o.commissionAmount || 0), 0);
 
   return (
     <div className="space-y-6">

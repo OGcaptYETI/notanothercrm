@@ -1,0 +1,9 @@
+
+🔍 Order 10220 (Oregon Distro):
+   Document ID: BenW_2026-01_order_25652
+   Exists: true
+   rateModified: true
+   commissionRate: 2%
+   hasManualRateEdit: true
+   Calculated rate from rules: 8%
+   ✏️ PRESERVING RATE EDIT

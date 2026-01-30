@@ -376,11 +376,13 @@ function SettingsPageContent() {
       });
       setReps(repsData);
 
-      // Load commission rates for selected title
+      // Load commission rates for selected title via API (bypasses RLS)
       const titleKey = selectedTitle.replace(/\s+/g, '_');
-      const ratesDoc = await getDoc(doc(db, 'settings', `commission_rates_${titleKey}`));
-      if (ratesDoc.exists()) {
-        const ratesData = ratesDoc.data();
+      const ratesResponse = await fetch(`/api/settings?type=rates&title=${titleKey}`);
+      const ratesResult = await ratesResponse.json();
+      
+      if (ratesResult.success && ratesResult.data) {
+        const ratesData = ratesResult.data;
         
         // Ensure all rate combinations exist for the selected title
         const allStatuses = ['new_business', '6_month_active', '12_month_active', 'transferred'];
@@ -424,15 +426,17 @@ function SettingsPageContent() {
           ...ratesData,
           rates: completeRates
         });
-        console.log(`Loaded commission rates for ${selectedTitle} from Firestore (${completeRates.length} rates total)`);
+        console.log(`Loaded commission rates for ${selectedTitle} via API (${completeRates.length} rates total)`);
       } else {
         console.log(`No commission rates found for ${selectedTitle}, using defaults`);
       }
 
-      // Load commission rules with defaults
-      const rulesDoc = await getDoc(doc(db, 'settings', 'commission_rules'));
-      if (rulesDoc.exists()) {
-        const loadedRules = rulesDoc.data();
+      // Load commission rules via API (bypasses RLS)
+      const rulesResponse = await fetch('/api/settings?type=rules');
+      const rulesResult = await rulesResponse.json();
+      
+      if (rulesResult.success && rulesResult.data) {
+        const loadedRules = rulesResult.data;
         setCommissionRules({
           excludeShipping: loadedRules?.excludeShipping ?? true,
           excludeCCProcessing: loadedRules?.excludeCCProcessing ?? true,
@@ -440,7 +444,7 @@ function SettingsPageContent() {
           applyReorgRule: loadedRules?.applyReorgRule ?? true,
           reorgDate: loadedRules?.reorgDate ?? '2025-07-01',
         });
-        console.log('Loaded commission rules from Firestore');
+        console.log('Loaded commission rules via API');
       }
     } catch (error) {
       console.error('Error loading settings:', error);
